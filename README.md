@@ -4,6 +4,25 @@ We are a development team with great enthusiasm for the sector. We define passio
 
 Today we are in the stage of development exclusively of the Wiki and compilation of all the necessary documentation to start developing an emulation of Samurai Shodown.
 
+# How to Play
+
+#### Concept
+This game consists on 2D arcade fighting one-on-one battles in short time spans. So you got a short period to show that you are better than your opponent.
+
+#### Inputs
+Left and Right Arrows - Movement
+Up Arrow - Jump
+Down Arrow - Crouch
+
+A - Weak Attack
+S - Medium Attack
+A + S - Strong Attack
+
+D - Weak Kick
+F - Medium Kick
+D + F - Strong Kick
+
+
 # Team Members
 ### Aaron Guerrero
 * General Analysis and Design sections
@@ -17,4 +36,22 @@ Today we are in the stage of development exclusively of the Wiki and compilation
 ### Óscar Perez
 * UI and Art sections
 
+<br><br>
 
+_________________________________________________________________________________________________________________________________
+
+## Changelog
+
+### Update 0.1 - Patch # 1
+#### Version: v0.10
+#### Game size: ~ MB
+#### Client patch size: ~ MB
+
+#### General Updates
+- Implemented one character with movement, jumping and basic attacks animations.
+- Implemented a background animated.
+- Implemented a looped background music.
+
+#### Bug Fixes
+
+. . .
