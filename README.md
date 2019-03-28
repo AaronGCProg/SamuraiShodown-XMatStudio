@@ -10,17 +10,17 @@ Today we are in the stage of development exclusively of the Wiki and compilation
 This game consists on 2D arcade fighting one-on-one battles in short time spans. So you got a short period to show that you are better than your opponent.
 
 #### Inputs
-Left and Right Arrows - Movement
-Up Arrow - Jump
-Down Arrow - Crouch
+Left and Right Arrows - Movement <br>
+Up Arrow - Jump <br>
+Down Arrow - Crouch <br> <br>
 
-A - Weak Attack
-S - Medium Attack
-A + S - Strong Attack
+A - Weak Attack <br>
+S - Medium Attack <br>
+A + S - Strong Attack <br>
 
-D - Weak Kick
-F - Medium Kick
-D + F - Strong Kick
+D - Weak Kick <br>
+F - Medium Kick <br>
+D + F - Strong Kick <br>
 
 
 # Team Members
