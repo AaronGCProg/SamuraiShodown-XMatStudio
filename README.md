@@ -44,8 +44,8 @@ ________________________________________________________________________________
 
 ### Update 0.1 - Patch # 1
 #### Version: v0.10
-#### Game size: ~ MB
-#### Client patch size: ~ MB
+#### Game size: ~6.15 MB
+#### Client patch size: ~6.15 MB
 
 #### General Updates
 - Implemented one character with movement, jumping and basic attacks animations.
@@ -53,5 +53,47 @@ ________________________________________________________________________________
 - Implemented a looped background music.
 
 #### Bug Fixes
+
+. . .
+
+### Update 0.2 - Patch # 1
+#### Version: v0.20
+#### Game size: ~9.49 MB
+#### Client patch size: ~3.34 MB
+
+#### General Updates
+- Implemented more scenarios and navigation between scenes.
+- Implemented more music and fadeout during the change.
+
+#### Bug Fixes
+
+. . .
+
+### Update 0.2 - Patch # 2
+#### Version: v0.25
+#### Game size: ~9.50 MB
+#### Client patch size: ~0.01 MB
+
+#### General Updates
+- Added a second player to the scene.
+
+#### Bug Fixes
+- Fixed the graphic fadeout between scenes.
+- Fixed cleaning of audio in memory.
+
+. . .
+
+### Update 0.3 - Patch # 1
+#### Version: v0.3
+#### Game size: ~10.80 MB
+#### Client patch size: ~1.30 MB
+
+#### General Updates
+- Implemented a particle system.
+- Improved animation system.
+- Implemented sound effects.
+
+#### Bug Fixes
+- Fixed some animation errors.
 
 . . .
