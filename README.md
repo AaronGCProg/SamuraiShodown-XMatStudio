@@ -84,7 +84,7 @@ ________________________________________________________________________________
 . . .
 
 ### Update 0.3 - Patch # 4
-#### Version: v0.3
+#### Version: v0.30
 #### Game size: ~10.80 MB
 #### Client patch size: ~1.30 MB
 
@@ -97,3 +97,19 @@ ________________________________________________________________________________
 - Fixed some animation errors.
 
 . . .
+
+### Update 0.4 - Patch # 5
+#### Version: v0.40
+#### Game size: ~10.90 MB
+#### Client patch size: ~0.10 MB
+
+#### General Updates
+- Implemented the collision system.
+- Improved animation system.
+- Implemented more sound effects.
+- Added functionality to the second player
+
+#### Bug Fixes
+
+. . .
+
