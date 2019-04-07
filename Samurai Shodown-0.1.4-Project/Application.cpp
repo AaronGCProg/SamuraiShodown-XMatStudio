@@ -12,6 +12,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
+
 
 Application::Application()
 {
@@ -27,7 +29,8 @@ Application::Application()
 	modules[9] = scene_congrats = new ModuleSceneCongrats();
 	modules[10] = audio = new ModuleAudio();
 	modules[11] = particles = new ModuleParticles();
-	modules[12] = fade = new ModuleFadeToBlack();
+	modules[12] = collision = new ModuleCollision();
+	modules[13] = fade = new ModuleFadeToBlack();
 
 }	
 
@@ -44,6 +47,7 @@ bool Application::Init()
 	// Player will be enabled on the first update of a new scene
 	player->Disable();
 	player2->Disable();
+	collision->Disable();
 	// Disable the map that you do not start with
 	scene_hao->Disable();
 	scene_uky->Disable();

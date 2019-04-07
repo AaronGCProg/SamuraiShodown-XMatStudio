@@ -10,6 +10,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleSceneCongrats.h"
+#include "ModuleCollision.h"
+#include "ModuleParticles.h"
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
@@ -47,9 +49,16 @@ bool ModuleSceneHao::Start()
 
 	
 
-	// TODO 1: Enable (and properly disable) the player module
+	// Enable (and properly disable) the player module
 	App->player->Enable();
 	App->player2->Enable();
+	App->collision->Enable();
+
+
+	// Colliders ---
+	//App->collision->AddCollider({ 0, 224, 3930, 16 }, COLLIDER_WALL);
+
+	// TODO 1: Add colliders for the first columns of the level
 
 	return ret;
 }
@@ -63,6 +72,8 @@ bool ModuleSceneHao::CleanUp()
 	App->textures->Unload(graphics);
 	App->player->Disable();
 	App->player2->Disable();
+	App->collision->Disable();
+
 
 	App->audio->CleanUp();
 

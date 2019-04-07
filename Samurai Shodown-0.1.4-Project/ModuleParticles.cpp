@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleParticles.h"
+#include "ModuleCollision.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -22,25 +23,11 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png");
 
-	/* Explosion particle
-	explosion.anim.PushBack({ 274, 296, 33, 30 });
-	explosion.anim.PushBack({ 313, 296, 33, 30 });
-	explosion.anim.PushBack({ 346, 296, 33, 30 });
-	explosion.anim.PushBack({ 382, 296, 33, 30 });
-	explosion.anim.PushBack({ 419, 296, 33, 30 });
-	explosion.anim.PushBack({ 457, 296, 33, 30 });
-	explosion.anim.loop = false;
-	explosion.anim.speed = 0.3f */
-
-	/* TODO 2: Create the template for a new particle "laser"
-	laser.anim.PushBack({ 200, 121, 32, 10 });
-	laser.anim.PushBack({ 233, 120, 32, 12 });
-	laser.anim.loop = true;
-	laser.anim.speed = 0.3f;
-	laser.speed.x = 3;
-	laser.life = 5000;*/
-
 	// Tornado
+	tornadoHao.anim.PushBack({ 919, 171, 48, 77 });
+	tornadoHao.anim.PushBack({ 919, 171, 48, 77 });
+	tornadoHao.anim.PushBack({ 968, 171, 49, 77 });
+	tornadoHao.anim.PushBack({ 968, 171, 49, 77 });
 	tornadoHao.anim.PushBack({ 1015, 174, 83, 77 });
 	tornadoHao.anim.PushBack({ 1099, 174, 95, 77 });
 	tornadoHao.anim.PushBack({ 1192, 179, 94, 71 });
@@ -56,9 +43,24 @@ bool ModuleParticles::Start()
 	tornadoHao.anim.PushBack({ 1958, 172, 71, 77 });
 	tornadoHao.anim.PushBack({ 956, 263, 83, 77 });
 	tornadoHao.anim.loop = true;
-	tornadoHao.anim.speed = 0.3f;
+	tornadoHao.anim.speed = 0.2f;
 	tornadoHao.speed.x = 3;
 	tornadoHao.life = 6000;
+	tornadoHao.anim.firstLoopFrame = 2.0f;
+
+
+	//Tornado Impact
+	tornadoHaoImpact.anim.PushBack({ 1038, 264, 52, 178 });
+	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 });
+	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 });
+	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }); //Flip
+	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }); //Flip
+
+	tornadoHaoImpact.anim.loop = true;
+	tornadoHaoImpact.anim.speed = 0.3f;
+	tornadoHaoImpact.life = 2000;
+	tornadoHaoImpact.anim.firstLoopFrame = 1.0f;
+
 
 
 	return true;
@@ -102,8 +104,8 @@ update_status ModuleParticles::Update()
 			App->render->Blit(graphics, p->position.x, p->position.y, false, &(p->anim.GetCurrentFrame()));
 			if (p->fx_played == false)
 			{
-				p->fx_played = true;
 				// Play particle fx here
+				p->fx_played = true;
 			}
 		}
 	}
@@ -111,14 +113,38 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
-	Particle* p = new Particle(particle);
-	p->born = SDL_GetTicks() + delay;
-	p->position.x = x;
-	p->position.y = y;
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		if (active[i] == nullptr)
+		{
+			Particle* p = new Particle(particle);
+			p->born = SDL_GetTicks() + delay;
+			p->position.x = x;
+			p->position.y = y;
+			if (collider_type != COLLIDER_NONE)
+				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+			active[i] = p;
+			break;
+		}
+	}
+}
 
-	active[last_particle++] = p;
+void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		// Always destroy particles that collide
+		if (active[i] != nullptr && active[i]->collider == c1)
+		{
+			AddParticle(tornadoHaoImpact, active[i]->position.x, active[i]->position.y-101, COLLIDER_NONE);
+			delete active[i];
+			active[i] = nullptr;
+			break;
+
+		}
+	}
 }
 
 // -------------------------------------------------------------
@@ -135,6 +161,13 @@ Particle::Particle(const Particle& p) :
 	fx(p.fx), born(p.born), life(p.life)
 {}
 
+Particle::~Particle()
+{
+	if (collider != nullptr)
+		collider->to_delete = true;
+}
+
+
 bool Particle::Update()
 {
 	bool ret = true;
@@ -150,6 +183,9 @@ bool Particle::Update()
 
 	position.x += speed.x;
 	position.y += speed.y;
+
+	if (collider != nullptr)
+		collider->SetPos(position.x, position.y);
 
 	return ret;
 }

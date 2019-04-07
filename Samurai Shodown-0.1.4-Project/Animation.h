@@ -10,6 +10,7 @@ public:
 	bool loop = true;
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
+	float firstLoopFrame = 0.0f;
 
 private:
 	float current_frame;
@@ -28,7 +29,7 @@ public:
 	{
 		current_frame += speed;
 		if (current_frame >= last_frame) {
-			current_frame = (loop) ? 0.0f : last_frame - 1;
+			current_frame = (loop) ? firstLoopFrame : last_frame - 1;
 			animEnded = true;
 			loops++;
 		}

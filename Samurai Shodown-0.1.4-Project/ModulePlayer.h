@@ -1,5 +1,5 @@
-#ifndef __ModulePlayer2_H__
-#define __ModulePlayer2_H__
+#ifndef __ModulePlayer_H__
+#define __ModulePlayer_H__
 
 #define JUMPINGFRAMES 24
 #define JUMP_INIT_VY 19.09 //initial velocity on the Y coord. //16.2
@@ -11,37 +11,47 @@
 #include "p2Point.h"
 
 struct SDL_Texture;
+struct collider;
 
-class ModulePlayer2 : public Module
+class ModulePlayer : public Module
 {
 public:
-	ModulePlayer2();
-	~ModulePlayer2();
+	ModulePlayer();
+	~ModulePlayer();
 
 	bool Start();
 	update_status Update();
 	bool CleanUp();
 
-public:
+	void OnCollision(Collider* c1, Collider* c2);
 
-	SDL_Texture * graphics = nullptr;
+public:
+	Collider* body = nullptr;
+	SDL_Texture* graphics = nullptr;
 	Animation idle;
 	Animation forward;
 	Animation backward;
 	Animation jump;
 	Animation kick;
 	Animation punch;
+	Animation tornado;
+	Animation hurtLow;
 	iPoint position;
 	bool jumping = false;
 	bool doingAction = false;
 	bool punching = false;
 	bool kicking = false;
+	bool tornading = false;
 	int jumpingframe = 0;
 	int groundlevelaux = 0;
+	bool getsHit = false;
 	bool hasjumped = false;
 	char sAction;
+	bool godMode = false;
+
 
 	bool playerFlip = false;
+
 };
 
 #endif

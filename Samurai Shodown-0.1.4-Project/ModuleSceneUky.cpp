@@ -9,6 +9,8 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
+#include "ModuleCollision.h"
+#include "ModuleParticles.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -58,6 +60,11 @@ bool ModuleSceneUky::Start()
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 	App->player2->Enable();
+	App->collision->Enable();
+	// Colliders ---
+	// TODO 1: Add colliders for the first columns of the level
+	App->collision->AddCollider({ -5, 0, 10, 416 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 635, 0, 10, 416 }, COLLIDER_WALL);
 
 	return true;
 }
@@ -69,6 +76,7 @@ bool ModuleSceneUky::CleanUp()
 	App->textures->Unload(graphics);
 	App->player->Disable();
 	App->player2->Disable();
+	App->collision->Disable();
 
 	App->audio->CleanUp();
 

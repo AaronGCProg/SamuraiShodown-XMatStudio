@@ -2,17 +2,19 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
+#include "ModuleParticles.h"
 #include "ModuleRender.h"
-#include "ModulePlayer2.h"
+#include "ModulePlayer.h"
+#include "ModuleAudio.h"
+#include "ModuleCollision.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-ModulePlayer2::ModulePlayer2()
+ModulePlayer::ModulePlayer()
 {
-	position.x = 200;
+	position.x = 100;
 	position.y = 200; //369 about the same position on the ground as its on the real game.
 
-					  // idle animation (arcade sprite sheet)
+	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 1, 8, 73, 113 });
 	idle.PushBack({ 75, 10, 72, 111 });
 	idle.PushBack({ 148, 12, 71, 109 });
@@ -63,67 +65,123 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 620,38,76,83 });
 	jump.PushBack({ 697,11,68,110 });
 	jump.speed = 0.05f;
+
+	// hurt animation
+	hurtLow.PushBack({ 1421,24,79,97 });
+	hurtLow.speed = 0.05f;
+
+	// Tornado animation
+	tornado.PushBack({ 1, 271, 100, 102 });
+	tornado.PushBack({ 102,271,81,103 });
+	tornado.PushBack({ 185,277,82, 95 });
+	tornado.PushBack({ 268,268,67,107 });
+	tornado.PushBack({ 443,262,72,174 });
+	tornado.PushBack({ 516,261,112,113 });
+	tornado.PushBack({ 628,263,113,105 });
+	tornado.PushBack({ 741,263,119,105 });
+	tornado.PushBack({ 860,263,98,105 });
+	tornado.speed = 0.2f;
+
 }
 
-ModulePlayer2::~ModulePlayer2()
+ModulePlayer::~ModulePlayer()
 {}
 
 // Load assets
-bool ModulePlayer2::Start()
+bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	playerFlip = true;
+	playerFlip = false;
 
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
 	groundlevelaux = position.y;
+
+	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
+	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
+	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/haohmaru_getshitted1.wav");
+
+
+	body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_PLAYER, this);
+
+
 	return ret;
 }
 
 // Unload assets
-bool ModulePlayer2::CleanUp()
+bool ModulePlayer::CleanUp()
 {
 	// TODO 5: Remove all memory leaks
 	LOG("Unloading Character");
 	App->textures->Unload(graphics);
 
+	App->audio->CleanUp();
 
 	return true;
 }
 
 // Update: draw background
-update_status ModulePlayer2::Update()
+update_status ModulePlayer::Update()
 {
 	Animation* current_animation = &idle;
 
 	int speed = 1;
+	
+	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	{
+		if (godMode)
+			godMode = false;
+		else
+			godMode = true;
+
+	}
+	else if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_UP) {
+		if (godMode) {
+			body->to_delete = true;
+		}
+
+		if (!godMode) {
+			body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_PLAYER, this);
+		}
+	}
 
 	//move
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == 1 && !doingAction)
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && !doingAction)
 	{
 		current_animation = &forward;
 		position.x += speed;
 	}
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == 1 && !doingAction)
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && !doingAction)
 	{
 		current_animation = &backward;
 		position.x -= speed;
 	}
 	//Jump
-	if (App->input->keyboard[SDL_SCANCODE_UP] == 1 && !doingAction)
+	if (App->input->keys[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT && !doingAction)
 	{
 		jumping = true; doingAction = true;
 	}
 	//Punch
-	if (App->input->keyboard[SDL_SCANCODE_KP_1] == 1 && !doingAction)
+	if (App->input->keys[SDL_SCANCODE_X] == KEY_STATE::KEY_REPEAT && !doingAction)
 	{
 		punching = true; doingAction = true;
 	}
 	//Kick
-	if (App->input->keyboard[SDL_SCANCODE_KP_2] == 1 && !doingAction)
+	if (App->input->keys[SDL_SCANCODE_C] == KEY_STATE::KEY_REPEAT && !doingAction)
 	{
 		kicking = true; doingAction = true;
 	}
+	// Tornado
+	if (App->input->keys[SDL_SCANCODE_V] == KEY_STATE::KEY_REPEAT && !doingAction)
+	{		
+		tornading = true; doingAction = true;
+		Mix_PlayChannel(-1, App->audio->effects[0], 0);
+		Mix_PlayChannel(-1, App->audio->effects[1], 0);	
+		App->particles->tornadoHao.speed.x = +3;
+		App->particles->AddParticle(App->particles->tornadoHao, position.x + 20, position.y - 70, COLLIDER_PLAYER_SHOT);
+
+	}
+
 
 	if (doingAction)
 	{
@@ -141,6 +199,22 @@ update_status ModulePlayer2::Update()
 			if (punch.GetAnimEnd() == true) { punching = false; doingAction = false; punch.SetAnimEnd(false); }
 		}
 
+		if (tornading) {
+			//set punch anim
+			current_animation = &tornado;
+
+
+			//stop punch anim
+			if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+		}
+
+		if (getsHit) {
+			//set punch anim
+			current_animation = &hurtLow;
+			//stop punch anim
+			if (hurtLow.GetAnimEnd() == true) { getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false); }
+		}
+
 		if (jumping)
 		{
 			//set jump anim
@@ -155,19 +229,39 @@ update_status ModulePlayer2::Update()
 				jumping = false;
 				position.y = groundlevelaux;
 				doingAction = false;
+				
 			}
 			jumpingframe++;
 		}
+
 	}
 
 	//Jump Logic------------------------------------------
 
+	// TODO 3: Update collider position to player position
+	body->SetPos(position.x, position.y - 113);
+	
+
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-
 	App->render->Blit(graphics, position.x, position.y - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	
-
 	return UPDATE_CONTINUE;
+}
+
+// TODO 4: Detect collision with a wall. If so, do something.
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
+		if(this->body == c1){
+			if(c1->rect.x < c2->rect.x)
+			position.x = c2->rect.x - c1->rect.w;
+			if(c1->rect.x > c2->rect.x)
+				position.x = c2->rect.x + c2->rect.w;
+			
+		}
+
+		if (c2->type == COLLIDER_ENEMY_SHOT) {
+			Mix_PlayChannel(-1, App->audio->effects[2], 0);
+			getsHit = true; doingAction = true;
+		}
 }
