@@ -20,6 +20,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* ui = nullptr;
 	SDL_Rect ground;
 	SDL_Rect foreground;
 	SDL_Rect background;
@@ -31,6 +32,7 @@ public:
 	char time_text[10];
 	int startingtime = 0;
 	int actualtime = 0;
+	bool roundfinish = false;
 };
 
 #endif // __MODULESCENEHAO_H__

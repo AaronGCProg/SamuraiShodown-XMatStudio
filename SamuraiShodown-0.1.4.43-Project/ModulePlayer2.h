@@ -8,7 +8,7 @@
 #define JUMP_TIME 3000
 #define PUNCH_TIME 1000
 
-#define HEALTH_VALUE 259
+#define HEALTH_VALUE 129
 
 
 

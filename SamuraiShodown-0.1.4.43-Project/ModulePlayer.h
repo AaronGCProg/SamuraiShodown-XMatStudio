@@ -10,7 +10,7 @@
 #define KICK_TIME 17
 
 
-#define HEALTH_VALUE 259
+#define HEALTH_VALUE 129
 
 
 

@@ -114,7 +114,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
-	ui = App->textures->Load("Assets/Sprites/UIspritesheet.png"); // health bar 
+	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	groundlevelaux = position.y;
 
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
@@ -312,16 +312,16 @@ update_status ModulePlayer::Update()
 
 
 
-	SDL_Rect healthBar = { 0, 905, 269, 32 };
-	App->render->Blit(ui, 0, 32, false, &healthBar, NULL, true);
+	SDL_Rect healthBar = { 90, 81, 134, 15 };
+	App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
 
-	if (health > 200) {
-		SDL_Rect healthValue = { 0, 937, HEALTH_VALUE - health, 18 };
-		App->render->Blit(ui, 5, 37, false, &healthValue, NULL, true);
+	if (HEALTH_VALUE > health + 50) {
+		SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
+		App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
 	}
 	else {
-		SDL_Rect healthValue = { 0, 956, HEALTH_VALUE - health, 18 };
-		App->render->Blit(ui, 5, 37, false, &healthValue, NULL, true);
+		SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
+		App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
 	}
 	
 	
