@@ -113,3 +113,35 @@ ________________________________________________________________________________
 
 . . .
 
+### Update 0.4 - Patch # 6
+#### Version: v0.42
+#### Game size: ~10.90 MB
+#### Client patch size: ~0.01 MB
+
+#### General Updates
+- Implementing animation prototype with graph theory + bug-fixes.
+- Improved animation & input system.
+- Implemented stage limits.
+- Improved jump physics & animation.
+
+#### Bug Fixes
+- Fixed some bugs where the player would fall off the map.
+- Fixed a bug where the player would not beheave correctly after a jump.
+. . .
+
+### Update 0.4 - Patch # 7
+#### Version: v0.44
+#### Game size: ~TODO MB
+#### Client patch size: ~TODO MB
+
+#### General Updates
+- Implemented fonts & semi-functional UI.
+- Implemented hitboxes & combat functionality.
+- Fixed animation framerate.
+- Implemented basic "prototype style" camera.
+
+#### Bug Fixes
+
+. . .
+
+
