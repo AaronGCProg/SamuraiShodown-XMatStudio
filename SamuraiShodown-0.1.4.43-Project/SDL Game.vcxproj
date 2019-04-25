@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>SamuraiShodownXMat</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -81,6 +81,7 @@
     <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleInterface.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModulePlayer2.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleInterface.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />

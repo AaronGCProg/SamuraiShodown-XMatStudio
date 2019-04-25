@@ -12,6 +12,8 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
+#include "ModuleInterface.h"
+
 
 #include <stdio.h> //for the sprintf_s function
 
@@ -50,7 +52,6 @@ bool ModuleSceneUky::Start()
 	bool roundfinish = false;
 	App->audio->soundtracks[1] = Mix_LoadMUS("Assets/Music/UkyoMusic.ogg");
 
-	startingtime = SDL_GetTicks();
 
 	if (!App->audio->soundtracks[1]) {
 		LOG("Mix_LoadMUS(\"UkyoMusic.ogg\"): %s\n", Mix_GetError());
@@ -60,14 +61,14 @@ bool ModuleSceneUky::Start()
 		Mix_PlayMusic(App->audio->soundtracks[1], 2);
 	}
 
-	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
-	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); 
 	
 
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
 	App->player2->Enable();
 	App->collision->Enable();
+	App->interface->Enable();
+
 	// Colliders ---
 	// TODO 1: Add colliders for the first columns of the level
 	App->collision->AddCollider({ -5, 0, 10, 416 }, COLLIDER_WALL);
@@ -81,12 +82,11 @@ bool ModuleSceneUky::CleanUp()
 {
 	LOG("Unloading Uky scene");
 	App->textures->Unload(graphics);
-	App->textures->Unload(ui);
-	App->fonts->UnLoad(font_time);
 	App->player->Disable();
 	App->player2->Disable();
 	App->collision->Disable();
-	
+	App->interface->Disable();
+
 
 	App->audio->CleanUp();
 
@@ -103,19 +103,8 @@ update_status ModuleSceneUky::Update()
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, -168, false, &(backgroundanim.GetCurrentFrame()), 1.0f); //ukyo background animation
 
-	SDL_Rect ko = { 33, 66, 28, 22 };
-	App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI (Crear un módulo de interfaz)
-
-
-	actualtime = 90 - ((SDL_GetTicks() - startingtime) / 1000);// gets the time since the start of the module in seconds
-	if (actualtime < 0) { actualtime = 0; roundfinish = true; }//condition to end the stage 
-	//(roundfinish doesn't do anything at the moment)
-
-		//ends the round if a players healthbar goes to 0
-	if (App->player->health >= HEALTH_VALUE || App->player2->health >= HEALTH_VALUE) { roundfinish = true; }
-
 	//stage change when a round ends
-	if (roundfinish)
+	if (App->interface->roundfinish)
 	{
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_uky, App->scene_hao, 2.0f); //BUG
@@ -130,8 +119,6 @@ update_status ModuleSceneUky::Update()
 
 	}
 
-	sprintf_s(time_text, 10, "%7d", actualtime);
-	App->fonts->BlitText((SCREEN_WIDTH / 2) - 15 , 40, 0, time_text);
 
 	return UPDATE_CONTINUE;
 }

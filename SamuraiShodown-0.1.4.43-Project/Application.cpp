@@ -15,6 +15,8 @@
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
 #include "ModuleAttack.h"
+#include "ModuleInterface.h"
+
 
 
 
@@ -35,8 +37,10 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
-	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = attack = new ModuleAttack();
+	modules[i++] = interface = new ModuleInterface();
+	modules[i++] = fade = new ModuleFadeToBlack();
+
 
 
 }	
@@ -59,6 +63,8 @@ bool Application::Init()
 	scene_hao->Disable();
 	scene_uky->Disable();
 	scene_congrats->Disable();
+	interface->Disable();
+
 
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

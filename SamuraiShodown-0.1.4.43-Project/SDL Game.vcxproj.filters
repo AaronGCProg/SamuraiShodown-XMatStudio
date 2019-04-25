@@ -83,6 +83,9 @@
     <ClInclude Include="ModuleAttack.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleInterface.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -140,6 +143,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAttack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInterface.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

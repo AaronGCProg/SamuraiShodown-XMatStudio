@@ -30,12 +30,6 @@ public:
 
 
 	//text vars
-	
-	int font_time = -1;
-	char time_text[10];
-	int startingtime = 0;
-	int actualtime = 0;
-	bool roundfinish = false;
-};
+	};
 
 #endif // __MODULESCENEUKY_H__

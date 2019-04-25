@@ -124,10 +124,6 @@ bool ModulePlayer::Start()
 	
 	body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_PLAYER, this);
 
-
-	
-	
-
 	return ret;
 }
 
@@ -150,6 +146,7 @@ update_status ModulePlayer::Update()
 	Animation* current_animation = &idle;
 
 	int speed = 1;
+
 	if (external_input(inputs))
 	{
 		internal_input(inputs);
@@ -305,8 +302,6 @@ update_status ModulePlayer::Update()
 
 
 	// Draw everything --------------------------------------
-
-
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	App->render->Blit(graphics, position.x, position.y - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 
