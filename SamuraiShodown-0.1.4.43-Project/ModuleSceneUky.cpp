@@ -61,7 +61,7 @@ bool ModuleSceneUky::Start()
 	}
 
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
-
+	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); 
 	
 
 	// TODO 1: Enable (and properly disable) the player module
@@ -81,10 +81,12 @@ bool ModuleSceneUky::CleanUp()
 {
 	LOG("Unloading Uky scene");
 	App->textures->Unload(graphics);
+	App->textures->Unload(ui);
 	App->fonts->UnLoad(font_time);
 	App->player->Disable();
 	App->player2->Disable();
 	App->collision->Disable();
+	
 
 	App->audio->CleanUp();
 
@@ -100,6 +102,10 @@ update_status ModuleSceneUky::Update()
 	if (App->player2->position.x + 73 >= 635) { App->player2->position.x = 635 - 73; }
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, -168, false, &(backgroundanim.GetCurrentFrame()), 1.0f); //ukyo background animation
+
+	SDL_Rect ko = { 33, 66, 28, 22 };
+	App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI (Crear un módulo de interfaz)
+
 
 	actualtime = 90 - ((SDL_GetTicks() - startingtime) / 1000);// gets the time since the start of the module in seconds
 	if (actualtime < 0) { actualtime = 0; roundfinish = true; }//condition to end the stage 
@@ -125,7 +131,7 @@ update_status ModuleSceneUky::Update()
 	}
 
 	sprintf_s(time_text, 10, "%7d", actualtime);
-	App->fonts->BlitText((SCREEN_WIDTH / 2), 5, 0, time_text);
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 15 , 40, 0, time_text);
 
 	return UPDATE_CONTINUE;
 }

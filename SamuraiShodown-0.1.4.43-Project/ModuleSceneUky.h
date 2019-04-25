@@ -20,6 +20,7 @@ public:
 public:
 	
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* ui = nullptr;
 	SDL_Rect ground;
 	SDL_Rect foreground;
 	SDL_Rect background;
@@ -29,6 +30,7 @@ public:
 
 
 	//text vars
+	
 	int font_time = -1;
 	char time_text[10];
 	int startingtime = 0;

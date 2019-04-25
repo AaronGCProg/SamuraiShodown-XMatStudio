@@ -54,6 +54,7 @@ bool ModuleSceneHao::Start()
 
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
 
+	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png");
 	
 
 	// Enable (and properly disable) the player module
@@ -76,6 +77,7 @@ bool ModuleSceneHao::CleanUp()
 	LOG("Unloading Hao scene stage");
 
 	App->textures->Unload(graphics);
+	App->textures->Unload(ui);
 	App->fonts->UnLoad(font_time);
 	App->player->Disable();
 	App->player2->Disable();
@@ -98,9 +100,24 @@ update_status ModuleSceneHao::Update()
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, -168, false, &(backgroundanim.GetCurrentFrame()), 1.0f);//hahomarubackground animation
 
+	SDL_Rect ko = { 33, 66, 28, 22 };
+	App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI (Crear un módulo de interfaz)
+
+
 	actualtime = 90 - ((SDL_GetTicks() - startingtime) / 1000);// gets the time since the start of the module in seconds
-	if (actualtime < 0) { actualtime = 0; bool roundfinish = true; }//condition to end the stage 
+	if (actualtime < 0) { actualtime = 0; roundfinish = true; }//condition to end the stage 
 	//(roundfinish doesn't do anything at the moment)
+
+		//ends the round if a players healthbar goes to 0
+	if (App->player->health >= HEALTH_VALUE || App->player2->health >= HEALTH_VALUE) { roundfinish = true; }
+
+	//stage change when a round ends
+	if (roundfinish)
+	{
+		Mix_FadeOutMusic(2000);
+		App->fade->FadeToBlack(App->scene_hao, App->scene_congrats, 2.0f); //BUG
+	}
+
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
@@ -111,7 +128,7 @@ update_status ModuleSceneHao::Update()
 	}
 
 	sprintf_s(time_text, 10, "%7d", actualtime);
-	App->fonts->BlitText((SCREEN_WIDTH / 2), 5, 0, time_text);
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 15, 40, 0, time_text);
 
 	return UPDATE_CONTINUE;
 }
