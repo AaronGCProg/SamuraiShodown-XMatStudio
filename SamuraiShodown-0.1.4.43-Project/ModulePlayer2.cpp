@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
+#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
@@ -126,7 +127,6 @@ update_status ModulePlayer2::Update()
 {
 	Animation* current_animation = &idle;
 
-	int speed = 1;
 
 	//move
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == 1 && !doingAction)
@@ -192,8 +192,15 @@ update_status ModulePlayer2::Update()
 		if (getsHit) {
 			//set punch anim
 			current_animation = &hurtLow;
+			body->to_delete = true;
+			position.x = position.x + aux;
+			aux--;
 			//stop punch anim
-			if (hurtLow.GetAnimEnd() == true) { getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false); }
+			if (hurtLow.GetAnimEnd() == true) { getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false); 
+			body->to_delete = true;
+			body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
+			aux = 8;
+			}
 		}
 
 		if (jumping)
@@ -246,7 +253,7 @@ update_status ModulePlayer2::Update()
 }
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
-	if (this->body == c1) {
+	if (this->body == c1 && c2->type == COLLIDER_PLAYER) {
 		if (c1->rect.x < c2->rect.x)
 			position.x = c2->rect.x - c1->rect.w;
 		if (c1->rect.x > c2->rect.x)
@@ -262,7 +269,6 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		health += 20;
 		getsHit = true; doingAction = true;
 
-		position.x = c2->rect.x + c1->rect.w;
 
 	}
 }

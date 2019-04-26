@@ -51,7 +51,6 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 292,26,66,95 }, 5);
 	kick.PushBack({ 359,23,86,98 }, 6);
 	kick.PushBack({ 292,26,66,95 }, 5);
-	kick.PushBack({ 1, 8, 73, 113 }, 1);
 	//kick.speed = 0.12f;
 
 	// Punch animation 

@@ -58,6 +58,11 @@ public:
 
 	bool playerFlip = false;
 	int health = 100;
+
+	int aux = 8;
+	int speed = 1;
+
+
 };
 
 #endif
