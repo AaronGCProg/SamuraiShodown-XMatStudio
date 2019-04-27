@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
+#include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
@@ -8,86 +9,84 @@
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
 #include "ModuleAttack.h"
-#include "ModulePlayer.h"
-
-
-
-Uint32 jump_timer = 0;
-Uint32 punch_timer = 0;
-Uint32 kick_timer = 0;
-
+#include "ModuleInterface.h"
+#include "ModuleFight.h"
 
 ModulePlayer::ModulePlayer()
 {
-
+	const int idleCollider = 2;//Collider num for the idle animation
+	SDL_Rect idleHitbox[idleCollider] = { { 10, 0, 40, 75 },{ 25, 75, 20, 20 } };
+	COLLIDER_TYPE idleCollType[idleCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* idleCallBack[idleCollider] = { {this},{this} };
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 1, 8, 73, 113 }, 8);
-	idle.PushBack({ 75, 10, 72, 111 }, 7);
-	idle.PushBack({ 148, 12, 71, 109 }, 8);
-	idle.PushBack({ 220, 14, 71, 107 }, 9);
-	idle.PushBack({ 148, 12, 71, 109 }, 9);
-	idle.PushBack({ 75, 10, 72, 111 }, 9);
+	idle.PushBack({ 1, 8, 73, 113 }, 8, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 75, 10, 72, 111 }, 7, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 148, 12, 71, 109 }, 8, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 220, 14, 71, 107 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 148, 12, 71, 109 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 75, 10, 72, 111 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
 	//idle.speed = 0.125f;
 
+
 	// walk backward animation 
-	backward.PushBack({ 767, 10, 82, 111 }, 5);
-	backward.PushBack({ 849, 7, 74, 114 }, 11);
-	backward.PushBack({ 924, 3, 68, 118 }, 11);
-	backward.PushBack({ 993, 1, 65, 120 }, 9);
-	backward.PushBack({ 924, 3, 68, 118 }, 11);
-	backward.PushBack({ 849, 7, 74, 114 }, 11);
+	backward.PushBack({ 767, 10, 82, 111 }, 5, { 0,0 }, 0, {}, {}, {});
+	backward.PushBack({ 849, 7, 74, 114 }, 11, { 0,0 }, 0, {}, {}, {});
+	backward.PushBack({ 924, 3, 68, 118 }, 11, { 0,0 }, 0, {}, {}, {});
+	backward.PushBack({ 993, 1, 65, 120 }, 9, { 0,0 }, 0, {}, {}, {});
+	backward.PushBack({ 924, 3, 68, 118 }, 11, { 0,0 }, 0, {}, {}, {});
+	backward.PushBack({ 849, 7, 74, 114 }, 11, { 0,0 }, 0, {}, {}, {});
 	//backward.speed = 0.1f;
 
 	// walk forward animation 
-	forward.PushBack({ 1089,12,75,109 }, 5);
-	forward.PushBack({ 1165,9,68,112 }, 11);
-	forward.PushBack({ 1234,5,61,116 }, 9);
-	forward.PushBack({ 1296,3,56,118 }, 11);
-	forward.PushBack({ 1352,9,69,112 }, 9);
+	forward.PushBack({ 1089,12,75,109 }, 5, { 0,0 }, 0, {}, {}, {});
+	forward.PushBack({ 1165,9,68,112 }, 11, { 0,0 }, 0, {}, {}, {});
+	forward.PushBack({ 1234,5,61,116 }, 9, { 0,0 }, 0, {}, {}, {});
+	forward.PushBack({ 1296,3,56,118 }, 11, { 0,0 }, 0, {}, {}, {});
+	forward.PushBack({ 1352,9,69,112 }, 9, { 0,0 }, 0, {}, {}, {});
 	//forward.speed = 0.1f;
 
 	// Kick animation 
-	kick.PushBack({ 292,26,66,95 }, 5);
-	kick.PushBack({ 359,23,86,98 }, 6);
-	kick.PushBack({ 292,26,66,95 }, 5);
+	kick.PushBack({ 292,26,66,95 }, 5, { 0,0 }, 0, {}, {}, {});
+	kick.PushBack({ 359,23,86,98 }, 6, { 0,0 }, 0, {}, {}, {});
+	kick.PushBack({ 292,26,66,95 }, 5, { 0,0 }, 0, {}, {}, {});
 	//kick.speed = 0.12f;
 
 	// Punch animation 
-	punch.PushBack({ 1,122,68,127 }, 2);
-	punch.PushBack({ 70,153,78,96 }, 4);
-	punch.PushBack({ 149,156,130,93 }, 1);
-	punch.PushBack({ 280,156,130,93 }, 2);
-	punch.PushBack({ 411,167,129,93 }, 3);
-	punch.PushBack({ 541,167,127,93 }, 4);
-	punch.PushBack({ 669,167,119,93 }, 6);
-	punch.PushBack({ 789,164,130,85 }, 6);
+	punch.PushBack({ 1,122,68,127 }, 2, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 70,153,78,96 }, 4, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 149,156,130,93 }, 1, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 280,156,130,93 }, 2, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 411,167,129,93 }, 3, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 541,167,127,93 }, 4, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 669,167,119,93 }, 6, { 0,0 }, 0, {}, {}, {});
+	punch.PushBack({ 789,164,130,85 }, 6, { 0,0 }, 0, {}, {}, {});
 	//punch.speed = 0.2f;
 
 	//jump animation 
-	jump.PushBack({ 484,9,60,112 }, 10);
-	jump.PushBack({ 545,30,74,91 }, 5);
-	jump.PushBack({ 620,38,76,83 }, 10);
-	jump.PushBack({ 545,30,74,91 }, 5);
-	jump.PushBack({ 484,9,60,112 }, 19);
-	jump.PushBack({ 697,11,68,110 }, 11);
+	jump.PushBack({ 484,9,60,112 }, 10, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 545,30,74,91 }, 5, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 620,38,76,83 }, 10, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 545,30,74,91 }, 5, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 484,9,60,112 }, 19, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 697,11,68,110 }, 11, { 0,0 }, 0, {}, {}, {});
 
 	//jump.speed = 0.05f;
 
 	// hurt animation
-	hurtLow.PushBack({ 1421,24,79,97 }, 20);
+	hurtLow.PushBack({ 1421,24,79,97 }, 20, { 0,0 }, 0, {}, {}, {});
 	//hurtLow.speed = 0.05f;
 
 	// Tornado animation
-	tornado.PushBack({ 1, 271, 100, 102 }, 8);
-	tornado.PushBack({ 102,271,81,103 }, 2);
-	tornado.PushBack({ 185,277,82, 95 }, 2);
-	tornado.PushBack({ 268,268,67,107 }, 4);
-	tornado.PushBack({ 443,262,72,174 }, 2);
-	tornado.PushBack({ 516,261,112,113 }, 4);
-	tornado.PushBack({ 628,263,113,105 }, 10);
-	tornado.PushBack({ 741,263,119,105 }, 18);
-	tornado.PushBack({ 860,263,98,105 }, 13);
+	tornado.PushBack({ 1, 271, 100, 102 }, 8, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 102,271,81,103 }, 2, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 185,277,82, 95 }, 2, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 268,268,67,107 }, 4, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 443,262,72,174 }, 2, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 516,261,112,113 }, 4, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 628,263,113,105 }, 10, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 741,263,119,105 }, 18, { 0,0 }, 0, {}, {}, {});
+	tornado.PushBack({ 860,263,98,105 }, 13, { 0,0 }, 0, {}, {}, {});
 	//tornado.speed = 0.2f;
 
 }
@@ -99,13 +98,13 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	position.x = 100;
-	position.y = 200; //369 about the same position on the ground as its on the real game.
+	position.y = 198; // 198about the same position on the ground as its on the real game.
 
 	jump_timer = 0;
 	punch_timer = 0;
 	kick_timer = 0;
 	bool ret = true;
-	playerFlip = false;
+
 
 	health = 0;
 
@@ -119,9 +118,6 @@ bool ModulePlayer::Start()
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
 	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
 	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/haohmaru_getshitted1.wav");
-
-	
-	body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_PLAYER, this);
 
 	return ret;
 }
@@ -142,14 +138,14 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 
-	Animation* current_animation = &idle;
+	current_animation = &idle;
 
 	int speed = 1;
 
-	if (external_input(inputs))
-	{
+	
 		internal_input(inputs);
 		player_states state = process_fsm(inputs);
+		current_state = state;
 
 		if (!doingAction) {
 			switch (state)
@@ -174,6 +170,7 @@ update_status ModulePlayer::Update()
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
 				jumping = true; doingAction = true;
+
 				break;
 			case ST_JUMP_BACKWARD:
 				LOG("JUMPING BACKWARD ^^<<\n");
@@ -188,12 +185,12 @@ update_status ModulePlayer::Update()
 			case ST_PUNCH_STANDING:
 				LOG("PUNCH STANDING ++++\n");
 				punching = true; doingAction = true;
-				App->attack->addAttack({ position.x + 73, position.y - 56, 40, 40 }, COLLIDER_PLAYER_ATTACK, 20,7);
+				App->attack->addAttack({ position.x + 73, position.y - 56, 40, 40 }, COLLIDER_PLAYER_ATTACK, 20, 7);
 				break;
 			case ST_KICK_STANDING:
 				LOG("KICK STANDING ----\n");
 				kicking = true; doingAction = true;
-				App->attack->addAttack({ position.x + 73, position.y - 56/2, 40, 20 }, COLLIDER_PLAYER_ATTACK, 10, 3);
+				App->attack->addAttack({ position.x + 73, position.y - 56 / 2, 40, 20 }, COLLIDER_PLAYER_ATTACK, 10, 3);
 				break;
 			case ST_PUNCH_NEUTRAL_JUMP:
 				LOG("PUNCH JUMP NEUTRAL ^^++\n");
@@ -214,12 +211,10 @@ update_status ModulePlayer::Update()
 				break;
 
 			}
-		}
-		current_state = state;
+
+		
 	}
 	//_________________
-
-
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 	{
 		if (godMode)
@@ -228,15 +223,8 @@ update_status ModulePlayer::Update()
 			godMode = true;
 
 	}
-	else if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_UP) {
-		if (godMode) {
-			body->to_delete = true;
-		}
 
-		if (!godMode) {
-			body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_PLAYER, this);
-		}
-	}
+
 
 	if (doingAction)
 	{
@@ -286,40 +274,77 @@ update_status ModulePlayer::Update()
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
 				jump.Reset();
-				
-				
+
+
 			}
 			jumpingframe++;
 		}
 
 	}
 
-	//Jump Logic------------------------------------------
+
+	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
+	{
+		if (colisionadores[i] != nullptr)
+			colisionadores[i]->to_delete = true;
+	}
+
 
 	// TODO 3: Update collider position to player position
-	body->SetPos(position.x, position.y - 113);
 
 
 	// Draw everything --------------------------------------
-	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x, position.y - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+	playerPivotX = current_animation->pivotpos[(int)current_animation->current_frame].x;
+	playerPivotY = current_animation->pivotpos[(int)current_animation->current_frame].y;
 
+
+	SDL_Rect r;
+	int hitboxmax = current_animation->collidersmax[(int)current_animation->current_frame]; //number of collision boxes in each frame
+	for (int i = 0; i < hitboxmax; i++)
+	{
+		r = current_animation->hitbox[i];
+		if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
+			if (playerFlip)
+				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+			else
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+	}
+	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
+
+
+	//Blits player + collisions_____________
+	if (playerFlip)		//blit if player is flipped(compensates for pivot)
+		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+
+	else     //blit if player is NOT flipped
+		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
-	App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
 
-	if (HEALTH_VALUE > health + 50) {
-		SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
-		App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
+	if ((App->fight->showHealthBar) == true) {
+		App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
+		SDL_Rect healthBar = { 90, 81, 134, 15 };
+		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
+		if (HEALTH_VALUE > health + 50) {
+			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
+			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
+		}
+		else {
+			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
+			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
+		}
 	}
-	else {
-		SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
-		App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
-	}
-	
-	
 
+
+	if (godMode)//deletes all the collision boxes if in god mode
+	{
+		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
+		{
+			if (colisionadores[i] != nullptr)
+				colisionadores[i]->to_delete = true;
+		}
+	}
 
 
 	return UPDATE_CONTINUE;
@@ -327,13 +352,15 @@ update_status ModulePlayer::Update()
 
 // TODO 4: Detect collision with a wall. If so, do something.
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
-	if (this->body == c1) {
-		if (c1->rect.x < c2->rect.x)
-			position.x = c2->rect.x - c1->rect.w;
-		if (c1->rect.x > c2->rect.x)
-			position.x = c2->rect.x + c2->rect.w;
+	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
+	{
+		if (this->colisionadores[i] == c1) {
+			if (c1->rect.x < c2->rect.x)
+				position.x = c2->rect.x - c1->rect.w;
+			if (c1->rect.x > c2->rect.x)
+				position.x = c2->rect.x + c2->rect.w;
+		}
 	}
-
 	if (c2->type == COLLIDER_ENEMY_SHOT) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 30;
@@ -341,93 +368,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	}
 }
 
-bool ModulePlayer::external_input(p2Qeue<player_inputs>& inputs)
-{
-	static bool left = false;
-	static bool right = false;
-	static bool down = false;
-	static bool up = false;
-
-	SDL_Event event;
-
-	while (SDL_PollEvent(&event) != 0)
-	{
-		if (event.type == SDL_KEYUP && event.key.repeat == 0)
-		{
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				return false;
-				break;
-			case SDLK_s:
-				inputs.Push(IN_CROUCH_UP);
-				down = false;
-				break;
-			case SDLK_w:
-				up = false;
-				break;
-			case SDLK_a:
-				inputs.Push(IN_LEFT_UP);
-				left = false;
-				break;
-			case SDLK_d:
-				inputs.Push(IN_RIGHT_UP);
-				right = false;
-				break;
-			}
-		}
-		if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
-		{
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_x:
-				inputs.Push(IN_X);
-				break;
-			case SDLK_c:
-				inputs.Push(IN_KICK);
-				break;
-			case SDLK_v:
-				inputs.Push(IN_SPECIAL);
-				break;
-			case SDLK_w:
-				up = true;
-				break;
-			case SDLK_s:
-				down = true;
-				break;
-			case SDLK_a:
-				left = true;
-				break;
-			case SDLK_d:
-				right = true;
-				break;
-			}
-		}
-	}
-
-	if (left && right)
-		inputs.Push(IN_LEFT_AND_RIGHT);
-	{
-		if (left)
-			inputs.Push(IN_LEFT_DOWN);
-		if (right)
-			inputs.Push(IN_RIGHT_DOWN);
-	}
-
-	if (up && down)
-		inputs.Push(IN_JUMP_AND_CROUCH);
-	else
-	{
-		if (down)
-			inputs.Push(IN_CROUCH_DOWN);
-		else
-			inputs.Push(IN_CROUCH_UP);
-		if (up)
-			inputs.Push(IN_JUMP);
-	}
-
-	return true;
-}
 void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
 
@@ -439,11 +379,11 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			jump_timer = 0;
 		}
 	}
-	
-	
+
+
 	if (punch_timer > 0)
 	{
-		if (SDL_GetTicks()/1000/60 - punch_timer > PUNCH_TIME)
+		if (SDL_GetTicks() / 1000 / 60 - punch_timer > PUNCH_TIME)
 		{
 			inputs.Push(IN_PUNCH_FINISH);
 			punch_timer = 0;
@@ -458,7 +398,7 @@ void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 			punch_timer = 0;
 		}
 	}
-	
+
 }
 player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 {

@@ -10,6 +10,8 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleAudio.h"
+#include "ModuleFight.h"
+
 
 
 ModuleSceneCongrats::ModuleSceneCongrats()
@@ -28,6 +30,7 @@ bool ModuleSceneCongrats::Start()
 
 	LOG("Loading Congrats scene");
 
+	int startingtime = SDL_GetTicks();
 
 	App->audio->soundtracks[3] = Mix_LoadMUS("Assets/Music/BattleEnd.ogg");
 
@@ -51,6 +54,9 @@ bool ModuleSceneCongrats::CleanUp()
 	App->textures->Unload(graphics);
 
 	App->audio->CleanUp();
+	App->fight->Disable();
+	App->fight->CleanUp();
+
 
 	return true;
 }
@@ -69,6 +75,11 @@ update_status ModuleSceneCongrats::Update()
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_congrats, App->scene_welcome, 2.0f);
 
+	}
+
+	if ((SDL_GetTicks() - startingtime) > 12000) {
+		Mix_FadeOutMusic(2000);
+		App->fade->FadeToBlack(App->scene_congrats, App->scene_welcome, 2.0f); //BUG
 	}
 
 	return UPDATE_CONTINUE;

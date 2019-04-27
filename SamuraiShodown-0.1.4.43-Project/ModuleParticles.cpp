@@ -23,24 +23,24 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png");
 	// Tornado
-	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 968, 171, 49, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 968, 171, 49, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1015, 174, 83, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1099, 174, 95, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1192, 179, 94, 71 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1285, 183, 96, 67 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1379, 190, 95, 62 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1473, 191, 90, 58 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1563, 191, 89, 58 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1650, 183, 85, 65 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1733, 178, 57, 72 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1790, 174, 48, 75 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1840, 174, 48, 75 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1889, 172, 71, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 1958, 172, 71, 77 }, FRAMEDEPRUEBA);
-	tornadoHao.anim.PushBack({ 956, 263, 83, 77 }, FRAMEDEPRUEBA);
+	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 968, 171, 49, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 968, 171, 49, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1015, 174, 83, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1099, 174, 95, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1192, 179, 94, 71 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1285, 183, 96, 67 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1379, 190, 95, 62 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1473, 191, 90, 58 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1563, 191, 89, 58 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1650, 183, 85, 65 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1733, 178, 57, 72 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1790, 174, 48, 75 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1840, 174, 48, 75 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1889, 172, 71, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1958, 172, 71, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 956, 263, 83, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
 	tornadoHao.anim.loop = true;
 	tornadoHao.anim.speed = 0.2f;
 	tornadoHao.speed.x = 3;
@@ -49,11 +49,11 @@ bool ModuleParticles::Start()
 
 
 	//Tornado Impact
-	tornadoHaoImpact.anim.PushBack({ 1038, 264, 52, 178 }, FRAMEDEPRUEBA);
-	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA);
-	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA);
-	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA); //Flip
-	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA); //Flip
+	tornadoHaoImpact.anim.PushBack({ 1038, 264, 52, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}); //Flip
+	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}); //Flip
 
 	tornadoHaoImpact.anim.loop = true;
 	tornadoHaoImpact.anim.speed = 0.3f;

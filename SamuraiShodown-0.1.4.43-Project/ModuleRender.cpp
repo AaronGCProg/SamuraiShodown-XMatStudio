@@ -12,12 +12,18 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleAttack.h"
+#include "ModuleInterface.h"
+#include "ModuleFight.h"
+
+
+
 
 ModuleRender::ModuleRender() : Module()
 {
 	camera.x = camera.y = 0;
-	camera.w = SCREEN_WIDTH ;
-	camera.h = SCREEN_HEIGHT ;
+	camera.w = SCREEN_WIDTH;
+	camera.h = SCREEN_HEIGHT;
 }
 
 // Destructor
@@ -29,17 +35,17 @@ bool ModuleRender::Init()
 {
 	LOG("Creating Renderer context");
 	bool ret = true;
-	
+
 	Uint32 flags = 0;
 
-	if(REN_VSYNC == true)
+	if (REN_VSYNC == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 	}
 
 	renderer = SDL_CreateRenderer(App->window->window, -1, flags);
-	
-	if(renderer == NULL)
+
+	if (renderer == NULL)
 	{
 		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -73,28 +79,35 @@ update_status ModuleRender::Update()
 		camera.x -= speed;
 	//camera position------------------------------------------------
 
-	if (App->player->body != nullptr) 
-	{
-		dist = abs(App->player->position.x - App->player2->position.x);
-		if (App->player->position.x < App->player2->position.x)
-			camera.x = App->player->position.x + (App->player->body->rect.w / 2) + (dist / 2) - (SCREEN_WIDTH / 2) - ((App->player->position.x + (App->player->body->rect.w / 2) + (dist / 2) - (SCREEN_WIDTH / 2))*speed);
-		else
-			camera.x = App->player2->position.x + (App->player2->body->rect.w / 2) + (dist / 2) - (SCREEN_WIDTH / 2) - ((App->player2->position.x + (App->player2->body->rect.w / 2) + (dist / 2) - (SCREEN_WIDTH / 2))*speed);
-	
-	//camerax= (postition of player center)+(medium point between player 1 & 2) -...
-	}
+
+	dist = abs(App->player->position.x - App->player2->position.x);
+
+	if (App->player->position.x < App->player2->position.x)
+
+		camera.x = (-App->player->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
+	else
+		camera.x = (-App->player2->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
+			//camerax= (postition of player center)+(medium point between player 1 & 2) -...
+		
+
+	if (App->player->position.x < (-camera.x / speed)) App->player->position.x = (-camera.x / speed);//camera borders
+	if (App->player2->position.x < (-camera.x / speed)) App->player2->position.x = (-camera.x / speed);
+	if (App->player->position.x > ((-camera.x / speed) + (SCREEN_WIDTH))) App->player->position.x = (-camera.x / speed) + (SCREEN_WIDTH);//camera borders
+	if (App->player2->position.x > ((-camera.x / speed) + (SCREEN_WIDTH))) App->player2->position.x = (-camera.x / speed) + (SCREEN_WIDTH);
+
 	if (camera.x > 0)camera.x = 0;//camera goes in negative
-	if (camera.x <(SCREEN_WIDTH-640)*SCREEN_SIZE)camera.x=(SCREEN_WIDTH-640)*SCREEN_SIZE;//width of the map
-	camera.h = SCREEN_HEIGHT*3;
-	camera.w = SCREEN_WIDTH*3;
-	LOG("CamPos:%i",camera.x);
-	LOG("Player1: %i", App->player->position.x);
-	LOG("Player2: %i", App->player2->position.x);
+	if (camera.x < (SCREEN_WIDTH - 640)*SCREEN_SIZE)camera.x = (SCREEN_WIDTH - 640)*SCREEN_SIZE;//width of the map
+
+
+	camera.h = SCREEN_HEIGHT * 3;
+	camera.w = SCREEN_WIDTH * 3;
+
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleRender::PostUpdate()
 {
+	if(renderer != nullptr)
 	SDL_RenderPresent(renderer);
 	return update_status::UPDATE_CONTINUE;
 }
@@ -105,7 +118,7 @@ bool ModuleRender::CleanUp()
 	LOG("Destroying renderer");
 
 	//Destroy window
-	if(renderer != NULL)
+	if (renderer != NULL)
 	{
 		SDL_DestroyRenderer(renderer);
 	}
@@ -119,22 +132,22 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 
 
 	bool ret = true;
-	
+
 	SDL_Rect rect;
 	if (use_camera)
 	{
-	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
-		
+		rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
+		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+
 	}
 	else
 	{
 		rect.x = x * SCREEN_SIZE;
 		rect.y = y * SCREEN_SIZE;
 	}
-	
 
-	if(section != NULL)
+
+	if (section != NULL)
 	{
 		rect.w = section->w;
 		rect.h = section->h;
@@ -145,10 +158,10 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 	}
 
 	//scale renderer based on the stage of the game (Else --> main scale for battle stages, if--> screen scaled to fit the image)
-	if (App->scene_welcome->IsEnabled()==true ||App->scene_congrats->IsEnabled()==true) //on menus
+	if (App->scene_welcome->IsEnabled() == true || App->scene_congrats->IsEnabled() == true) //on menus
 	{
-		rect.w = SCREEN_WIDTH*SCREEN_SIZE;
-		rect.h =  SCREEN_HEIGHT*SCREEN_SIZE;
+		rect.w = SCREEN_WIDTH * SCREEN_SIZE;
+		rect.h = SCREEN_HEIGHT * SCREEN_SIZE;
 	}
 	else //Inside game
 	{
@@ -165,7 +178,6 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 		}
 	}
 	else {
-
 		if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
