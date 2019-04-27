@@ -16,6 +16,8 @@
 #include "ModuleFonts.h"
 #include "ModuleAttack.h"
 #include "ModuleInterface.h"
+#include "ModuleFight.h"
+
 
 
 
@@ -25,13 +27,13 @@ Application::Application()
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
 	modules[i++] = render = new ModuleRender();
-	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = fonts = new ModuleFonts();
 	modules[i++] = scene_hao = new ModuleSceneHao();
 	modules[i++] = scene_uky = new ModuleSceneUky();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
+	modules[i++] = input = new ModuleInput();
 	modules[i++] = scene_welcome = new ModuleSceneWelcome();
 	modules[i++] = scene_congrats = new ModuleSceneCongrats();
 	modules[i++] = audio = new ModuleAudio();
@@ -40,6 +42,7 @@ Application::Application()
 	modules[i++] = attack = new ModuleAttack();
 	modules[i++] = interface = new ModuleInterface();
 	modules[i++] = fade = new ModuleFadeToBlack();
+	modules[i++] = fight = new ModuleFight();
 
 
 
@@ -64,7 +67,7 @@ bool Application::Init()
 	scene_uky->Disable();
 	scene_congrats->Disable();
 	interface->Disable();
-
+	fight->Disable();
 
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

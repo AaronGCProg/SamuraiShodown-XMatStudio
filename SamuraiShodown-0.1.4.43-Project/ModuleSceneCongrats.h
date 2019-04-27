@@ -23,6 +23,9 @@ public:
 	SDL_Rect background;
 
 	Animation backgroundanim;
+
+	int startingtime = 0;
+
 };
 
 #endif // __MODULESCENECONGRATZ_H__

@@ -11,7 +11,7 @@
 
 
 #define HEALTH_VALUE 129
-
+#define MAXNUMOFCOLLIDERS 6
 
 
 
@@ -84,8 +84,7 @@ public:
 	p2Qeue<player_inputs> inputs;
 	player_states current_state = ST_UNKNOWN;
 	
-	Collider* body = nullptr;
-	Collider* attack = nullptr;
+	Collider *colisionadores[MAXNUMOFCOLLIDERS];
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* ui = nullptr;
 	Animation idle;
@@ -96,7 +95,12 @@ public:
 	Animation punch;
 	Animation tornado;
 	Animation hurtLow;
+	Animation* current_animation;
 	iPoint position;
+
+	Uint32 jump_timer = 0;
+	Uint32 punch_timer = 0;
+	Uint32 kick_timer = 0;
 
 	bool jumping = false;
 	bool doingAction = false;
@@ -110,11 +114,11 @@ public:
 	char sAction;
 	bool godMode = false;
 	bool playerFlip = false;
-	int currentAnimation = 0;
 	int health = 0;
-	int attack_life = 0;
-	int attack_born = 0;
-
+	//int attack_life = 0;
+	//int attack_born = 0;
+	int playerPivotX=0; //declare & inizialize pivot
+	int playerPivotY = 0;//declare & inizialize pivot
 };
 
 #endif

@@ -26,7 +26,7 @@ ModuleSceneHao::ModuleSceneHao()
 	{
 		for (int j = 0; j < 6; j++)
 		{
-			backgroundanim.PushBack({ (640 * j),416 * i,640,416 },9);
+			backgroundanim.PushBack({ (640 * j),416 * i,640,416 }, 9, { 0,0 }, 0, {}, {}, {});
 		}
 	}
 	backgroundanim.speed = (0.1f);
@@ -42,7 +42,7 @@ bool ModuleSceneHao::Start()
 
 	bool ret = true;
 
-	
+
 	App->audio->soundtracks[0] = Mix_LoadMUS("Assets/Music/HaohmaruMusic.ogg");
 
 	if (!App->audio->soundtracks[0]) {
@@ -53,7 +53,7 @@ bool ModuleSceneHao::Start()
 		Mix_PlayMusic(App->audio->soundtracks[0], 2);
 	}
 
-	
+
 
 	// Enable (and properly disable) the player module
 	App->player->Enable();
@@ -62,6 +62,8 @@ bool ModuleSceneHao::Start()
 	App->interface->Enable();
 
 
+	App->collision->AddCollider({ -5, 0, 10, 416 }, COLLIDER_WALL);
+	App->collision->AddCollider({ 635, 0, 10, 416 }, COLLIDER_WALL);
 
 	return ret;
 }
@@ -88,6 +90,7 @@ bool ModuleSceneHao::CleanUp()
 // Update: draw background
 update_status ModuleSceneHao::Update()
 {
+
 	if (App->player->position.x <= 5) { App->player->position.x = 5; }
 	if (App->player->position.x + 73 >= 635) { App->player->position.x = 635 - 73; }
 	if (App->player2->position.x <= 5) { App->player2->position.x = 5; }
@@ -97,16 +100,12 @@ update_status ModuleSceneHao::Update()
 
 
 	//stage change when a round ends
-	if (App->interface->roundfinish)
-	{
-		Mix_FadeOutMusic(2000);
-		App->fade->FadeToBlack(App->scene_hao, App->scene_congrats, 2.0f); //BUG
-	}
+
 
 
 	// TODO 2: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
-		
+
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_hao, App->scene_congrats, 2.0f);
 
