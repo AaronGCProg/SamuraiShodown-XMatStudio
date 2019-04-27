@@ -249,8 +249,15 @@ update_status ModulePlayer::Update()
 				tornading = true; doingAction = true;
 				Mix_PlayChannel(-1, App->audio->effects[0], 0);
 				Mix_PlayChannel(-1, App->audio->effects[1], 0);
-				App->particles->tornadoHao.speed.x = +3;
-				App->particles->AddParticle(App->particles->tornadoHao, position.x + 20, position.y - 70, COLLIDER_PLAYER_SHOT);
+				if (playerFlip) {
+					App->particles->tornadoHao.speed.x = -3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+				}
+				else {
+					App->particles->tornadoHao.speed.x = +3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+				}
+			
 				break;
 
 			}
