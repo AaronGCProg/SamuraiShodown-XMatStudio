@@ -71,6 +71,14 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 484,9,60,112 }, 19, { 0,0 }, 0, {}, {}, {});
 	jump.PushBack({ 697,11,68,110 }, 11, { 0,0 }, 0, {}, {}, {});
 
+	//jump animation 
+	jump.PushBack({ 484,9,60,112 }, 10, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 545,30,74,91 }, 5, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 620,38,76,83 }, 10, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 545,30,74,91 }, 5, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 484,9,60,112 }, 19, { 0,0 }, 0, {}, {}, {});
+	jump.PushBack({ 697,11,68,110 }, 11, { 0,0 }, 0, {}, {}, {});
+
 	//jump.speed = 0.05f;
 
 	// hurt animation
@@ -263,6 +271,30 @@ update_status ModulePlayer::Update()
 			//set jump anim
 			current_animation = &jump;
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+			position.x += 5;
+			hasjumped = true;
+			//stop jump anim
+			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
+			{
+				jumpingframe = 0;
+				hasjumped = false;
+				jumping = false;
+				position.y = groundlevelaux;
+				doingAction = false;
+				inputs.Push(IN_JUMP_FINISH);
+				jump.Reset();
+
+
+			}
+			jumpingframe++;
+		}
+
+		if (jumping)
+		{
+			//set jump anim
+			current_animation = &jump;
+			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+			position.x += 5;
 			hasjumped = true;
 			//stop jump anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump

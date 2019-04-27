@@ -76,6 +76,13 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 484,9,60,112 }, 19, { 0,0 }, 0, {}, {}, {});
 	jump.PushBack({ 697,11,68,110 }, 11, { 0,0 }, 0, {}, {}, {});
 
+
+	//jump kick animation 
+	jumpKick.PushBack({ 484,9,60,112 }, 10, { 0,0 }, 0, {}, {}, {});
+	jumpKick.PushBack({ 545,30,74,91 }, 5, { 0,0 }, 0, {}, {}, {});
+	jumpKick.PushBack({ 620,38,76,83 }, 10, { 0,0 }, 0, {}, {}, {});
+
+
 	//jump.speed = 0.05f;
 
 	// hurt animation
