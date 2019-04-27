@@ -346,6 +346,8 @@ update_status ModulePlayer2::Update()
 				jumping = false;
 				position.y = groundlevelaux;
 				doingAction = false;
+				p2inputs.Push(IN_JUMP_FINISH2);
+				jump.Reset();
 			}
 			jumpingframe++;
 		}
