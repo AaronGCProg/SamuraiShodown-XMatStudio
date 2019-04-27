@@ -187,15 +187,24 @@ update_status ModulePlayer2::Update()
 		internal_input(p2inputs);
 		player2_states state = process_fsm(p2inputs);
 
-		if (!doingAction) {
+		if (!App->player->doingAction) {
 
 			if (App->player->position.x < App->player2->position.x) {
-				playerFlip = true;
 				App->player->playerFlip = false;
 			}
 			else {
-				playerFlip = false;
 				App->player->playerFlip = true;
+			}
+		}
+
+		if (!doingAction) {
+
+			
+			if (App->player->position.x < App->player2->position.x) {
+				playerFlip = true;
+			}
+			else {
+				playerFlip = false;
 			}
 
 			switch (state)

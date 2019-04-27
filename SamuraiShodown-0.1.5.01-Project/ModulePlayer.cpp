@@ -113,81 +113,117 @@ ModulePlayer::ModulePlayer()
 	hurtLow.PushBack({ 1421,24,79,97 }, 20, { 31,2 }, hurtCollider, hurtHitbox, hurtCollType, hurtCallBack);
 	//hurtLow.speed = 0.05f;
 
+
 	//jump kick animation 
-	//FESHO AARON
+	const int jumpKickCollider = 3;//Collider num for the jump kick animation
+	SDL_Rect jumpKickHitbox[jumpKickCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 60, 10, 35, 20 } };
+	COLLIDER_TYPE jumpKickCollType[jumpKickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* jumpKickCallBack[jumpKickCollider] = { {this},{this},{this} };
 
+	jumpKick.PushBack({ 1278,564,79,91 }, 2, { 31,2 }, jumpKickCollider, jumpKickHitbox, jumpKickCollType, jumpKickCallBack);
+	jumpKick.PushBack({ 1357,574,99,81 }, 19, { 31,2 }, jumpKickCollider, jumpKickHitbox, jumpKickCollType, jumpKickCallBack);
+	jumpKick.PushBack({ 620,38,76,83 }, 10000, { 31,2 }, jumpKickCollider, jumpKickHitbox, jumpKickCollType, jumpKickCallBack);
 
-	jumpKick.PushBack({ 1278,564,79,91 }, 2, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpKick.PushBack({ 1357,574,99,81 }, 19, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpKick.PushBack({ 620,38,76,83 }, 10000, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 
 	//jump backwards animation 
-	//FESHO AARON
+	const int jumpBackCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect jumpBackHitbox[jumpBackCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 }};
+	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}};
+	Module* jumpBackCallBack[jumpBackCollider] = { {this},{this}};
 
-
-	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 619,584,46,70 }, 3, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 664,600,44,53 }, 5, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 707,612,83,42 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 790,572,63,79 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 852,591,83,63 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 935,572,63,84 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 1027,565,64,84 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 619,584,46,70 }, 3, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 664,600,44,53 }, 5, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 707,612,83,42 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 790,572,63,79 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 852,591,83,63 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 935,572,63,84 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 1027,565,64,84 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
+	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
 
 
 	//crouch punch animation 
-//FESHO AARON
+	const int crouchPunchCollider = 3;//Collider num for the jump kick animation
+	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 20, 75, 20, 20 } };
+	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* crouchPunchCallBack[crouchPunchCollider] = { {this},{this},{this} };
+
+	crouchPunch.PushBack({ 178,249,85,69 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 261,814,126,70 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 388,814,123,70 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 515,812,130,71 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 640,814,127,69 }, 6, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 767,814,87,72 }, 8, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 852,814,82,68 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 934,813,85,71 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 5,66,70,77 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+
 
 	//jump backward animation 
-//FESHO AARON
+	const int jumpBackwardCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect jumpBackwardHitbox[jumpBackwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
+	COLLIDER_TYPE jumpBackwardCollType[jumpBackwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* jumpBackwardCallBack[jumpBackwardCollider] = { {this},{this} };
 
-	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 619,584,46,70 }, 3, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 664,600,44,53 }, 5, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 707,612,83,42 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 790,572,63,79 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 852,591,83,63 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 935,572,63,84 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 1027,565,64,84 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 619,584,46,70 }, 3, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 664,600,44,53 }, 5, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 707,612,83,42 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 790,572,63,79 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 852,591,83,63 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 935,572,63,84 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 1027,565,64,84 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
+
 
 	//jump punch animation 
-//FESHO AARON
+	const int jumpPunchCollider = 3;//Collider num for the jump kick animation
+	SDL_Rect jumpPunchHitbox[jumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
+	COLLIDER_TYPE jumpPunchCollType[jumpPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* jumpPunchCallBack[jumpPunchCollider] = { {this},{this},{this} };
 
-	jumpPunch.PushBack({ 1028,566,60,87 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpPunch.PushBack({ 1089,564,90,90 }, 3, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpPunch.PushBack({ 1180,560,98,92 }, 13, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpPunch.PushBack({ 1089,564,90,90 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpPunch.PushBack({ 1028,566,60,87 }, 5, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpPunch.PushBack({ 1028,566,60,87 }, 2, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
+	jumpPunch.PushBack({ 1089,564,90,90 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
+	jumpPunch.PushBack({ 1180,560,98,92 }, 13, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
+	jumpPunch.PushBack({ 1089,564,90,90 }, 2, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
+	jumpPunch.PushBack({ 1028,566,60,87 }, 5, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
 
 
 	//jump foward animation 
-//FESHO AARON
+	const int jumpForwardCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect jumpForwardHitbox[jumpForwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
+	COLLIDER_TYPE jumpForwardCollType[jumpForwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* jumpForwardCallBack[jumpForwardCollider] = { {this},{this} };
 
-	jumpFw.PushBack({ 1,525,53,128 }, 22, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 64,595,51,58 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 116,592,82,61 }, 4, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 199,592, 82,61 }, 4, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 64,595,51,58 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 116,592,82,61 }, 4, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 199,592, 82,61 }, 4, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 282,570,76,83 }, 22, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 359,562,74,91 }, 22, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpFw.PushBack({ 1,525,53,128 }, 22, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 64,595,51,58 }, 2, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 116,592,82,61 }, 4, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 199,592, 82,61 }, 4, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 64,595,51,58 }, 2, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 116,592,82,61 }, 4, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 199,592, 82,61 }, 4, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 282,570,76,83 }, 22, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
+	jumpFw.PushBack({ 359,562,74,91 }, 22, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
 
 
 	//jump foward punch animation 
-//FESHO AARON
+	const int jumpForwardPunchCollider = 3;//Collider num for the jump kick animation
+	SDL_Rect jumpForwardPunchHitbox[jumpForwardPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
+	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* jumpForwardPunchCallBack[jumpForwardPunchCollider] = { {this},{this},{this} };
 
-	jumpFwPunch.PushBack({ 1,694,98,92 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFwPunch.PushBack({ 101,699,60,87 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFwPunch.PushBack({ 162,693,99,93 }, 1, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFwPunch.PushBack({ 262,693,99,93 }, 1, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFwPunch.PushBack({ 362,686,121,100 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFwPunch.PushBack({ 492,690,119,96 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpFwPunch.PushBack({ 1,694,98,92 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 101,699,60,87 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 162,693,99,93 }, 1, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 262,693,99,93 }, 1, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 362,686,121,100 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 492,690,119,96 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
 
-	//crouch animation animation 
-//FESHO AARON
+	//crouch animation 
+	const int crouchCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect crouchHitbox[crouchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
+	COLLIDER_TYPE crouchCollType[crouchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* crouchCallBack[crouchCollider] = { {this},{this} };
 
 	crouch.PushBack({ 1499,11,70,113 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	crouch.PushBack({ 1568,46,88,80 }, 1000, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
@@ -375,13 +411,21 @@ update_status ModulePlayer::Update()
 				break;
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
-				jumpleft = true;
+		
+				if (!playerFlip)
+					jumpleft = true;
+				else
+					jumpright = true;
 
 				doingAction = true;
 				break;
 			case ST_JUMP_BACKWARD:
 				LOG("JUMPING BACKWARD ^^<<\n");
-				jumpright = true;
+
+				if(!playerFlip)
+					jumpright = true;
+				else
+					jumpleft = true;
 
 				doingAction = true;
 				break;
@@ -498,9 +542,9 @@ update_status ModulePlayer::Update()
 		{
 			//set jump anim
 			if (!playerFlip)
-				current_animation = &jump; //Jumpforward animation
+				current_animation = &jumpFw; //Jumpforward animation
 			else
-				current_animation = &jump; //Jumpbackward animation
+				current_animation = &jumpBackward; //Jumpbackward animation
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			position.x += 3;
 			hasjumped = true;
@@ -513,7 +557,8 @@ update_status ModulePlayer::Update()
 				position.y = groundlevelaux;
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
-				jump.Reset();
+				jumpFw.Reset();
+				jumpBackward.Reset();
 
 
 			}
@@ -523,9 +568,9 @@ update_status ModulePlayer::Update()
 		{
 			//set jump anim
 			if (playerFlip)
-				current_animation = &jump; //Jumpforward animation
+				current_animation = &jumpFw; //Jumpforward animation
 			else
-				current_animation = &jump; //Jumpbackward animation
+				current_animation = &jumpBackward; //Jumpbackward animation
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			position.x -= 3;
 			hasjumped = true;
@@ -538,7 +583,8 @@ update_status ModulePlayer::Update()
 				position.y = groundlevelaux;
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
-				jump.Reset();
+				jumpFw.Reset();
+				jumpBackward.Reset();
 
 
 			}
