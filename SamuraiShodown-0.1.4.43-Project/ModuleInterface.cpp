@@ -31,6 +31,7 @@ bool ModuleInterface::Start()
 
 	startingtime = SDL_GetTicks();
 	int actualtime = 99;
+	timerStop = false;
 
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
 	font_name = App->fonts->Load("Assets/Fonts/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
@@ -93,10 +94,8 @@ update_status ModuleInterface::Update()
 
 		if (App->input->keys[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN)
 		{
-			if (timerStop)
-				timerStop = false;
-			else
-				timerStop = true;
+			actualtime = 99;
+			timerStop = true;			
 		}
 
 		if (App->input->keys[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN)
@@ -111,7 +110,7 @@ update_status ModuleInterface::Update()
 
 		if (!timerStop && App->fight->playerControl && !App->fight->timer)
 			actualtime = 99 - ((SDL_GetTicks() - (startingtime + App->fight->playerControlTime)) / 1000);// gets the time since the start of the module in seconds
-		else if(!timerStop && !App->fight->playerControl && App->fight->timer)  actualtime = 0;
+		else if (!timerStop && !App->fight->playerControl && App->fight->timer)  actualtime = 0;
 
 
 
