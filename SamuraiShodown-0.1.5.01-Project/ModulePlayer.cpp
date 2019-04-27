@@ -11,6 +11,7 @@
 #include "ModuleAttack.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModulePlayer2.h"
 
 ModulePlayer::ModulePlayer()
 {
@@ -249,6 +250,8 @@ update_status ModulePlayer::Update()
 				tornading = true; doingAction = true;
 				Mix_PlayChannel(-1, App->audio->effects[0], 0);
 				Mix_PlayChannel(-1, App->audio->effects[1], 0);
+				App->particles->tornadoHao.speed.x = +3;
+				
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
 					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
@@ -257,7 +260,7 @@ update_status ModulePlayer::Update()
 					App->particles->tornadoHao.speed.x = +3;
 					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
 				}
-			
+
 				break;
 
 			}
@@ -404,21 +407,15 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 	{
-		if (this->colisionadores[i] == c1) {
+		if (c2->type == COLLIDER_ENEMY) {
+			if (!this->playerFlip) {//normal pos (left)
+				position.x -= 1;
 
-			if (!playerFlip) {
-				if (c1->rect.x < c2->rect.x)
-					position.x = c2->rect.x - c1->rect.w;
-				if (c1->rect.x > c2->rect.x)
-					position.x = c2->rect.x + c2->rect.w;
 			}
-			else {
-				if (c1->rect.x < c2->rect.x)
-					position.x = c2->rect.x + c1->rect.w;
-				if (c1->rect.x > c2->rect.x)
-					position.x = c2->rect.x - c2->rect.w;
+			else {//flipped position (right)
+				position.x += 1;
+
 			}
-	
 		}
 	}
 	if (c2->type == COLLIDER_ENEMY_SHOT) {

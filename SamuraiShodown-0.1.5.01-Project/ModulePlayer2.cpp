@@ -13,7 +13,7 @@
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+#include<math.h>
 
 
 ModulePlayer2::ModulePlayer2()
@@ -254,6 +254,7 @@ update_status ModulePlayer2::Update()
 				tornading = true; doingAction = true;
 				Mix_PlayChannel(-1, App->audio->effects[0], 0);
 				Mix_PlayChannel(-1, App->audio->effects[1], 0);
+				App->particles->tornadoHao.speed.x = +3;
 				
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
@@ -413,19 +414,14 @@ update_status ModulePlayer2::Update()
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 	{
-		if (this->colisionadores[i] == c1) {
-
-			if (playerFlip) {
-				if (c1->rect.x < c2->rect.x)
-					position.x = c2->rect.x - c1->rect.w;
-				if (c1->rect.x > c2->rect.x)
-					position.x = c2->rect.x + c2->rect.w;
+		if (c2->type == COLLIDER_PLAYER) {
+			if (this->playerFlip) {//normal pos (right)
+				position.x +=1;
+				
 			}
-			else {
-				if (c1->rect.x < c2->rect.x)
-					position.x = c2->rect.x + c1->rect.w;
-				if (c1->rect.x > c2->rect.x)
-					position.x = c2->rect.x - c2->rect.w;
+			else {//flipped position (left)
+				position.x -=1;
+				
 			}
 		}
 	}
