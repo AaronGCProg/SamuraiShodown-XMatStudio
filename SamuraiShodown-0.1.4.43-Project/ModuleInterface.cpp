@@ -30,7 +30,6 @@ bool ModuleInterface::Start()
 	LOG("Loading interface ");
 
 	startingtime = SDL_GetTicks();
-	int actualtime = 99;
 
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
 	font_name = App->fonts->Load("Assets/Fonts/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
@@ -47,6 +46,7 @@ bool ModuleInterface::Start()
 	App->audio->effects[10] = Mix_LoadWAV("Assets/Music/kuroko_haohmaru.wav");
 	App->audio->effects[11] = Mix_LoadWAV("Assets/Music/kuroko_battleEnd.wav");
 	App->audio->effects[12] = Mix_LoadWAV("Assets/Music/kuroko_congratulations.wav");
+	App->audio->effects[13] = Mix_LoadWAV("Assets/Music/draw_audio.wav");
 
 
 	return true;
@@ -108,6 +108,7 @@ update_status ModuleInterface::Update()
 		{
 			App->player2->health = 129;
 		}
+
 
 		if (!timerStop && App->fight->playerControl && !App->fight->timer)
 			actualtime = 99 - ((SDL_GetTicks() - (startingtime + App->fight->playerControlTime)) / 1000);// gets the time since the start of the module in seconds

@@ -95,6 +95,7 @@ public:
 	Animation punch;
 	Animation tornado;
 	Animation hurtLow;
+	Animation jumpKick;
 	Animation* current_animation;
 	iPoint position;
 

@@ -78,11 +78,13 @@ update_status ModuleFight::Update()
 		showHealthBar = true;
 
 		if (SDL_GetTicks() - App->interface->startingtime < letterTime + 888) {
-			
+			App->interface->actualtime = 99;
+
 			if (!winplayer1 && !winplayer2) {
 				if (played == 1) {
 					Mix_PlayChannel(-1, App->audio->effects[5], 0);
 					played++;
+					timer = false;
 				}
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 3*16, 70, 2, "DUEL 1");
 			}
@@ -114,9 +116,19 @@ update_status ModuleFight::Update()
 				Mix_PlayChannel(-1, App->audio->effects[6], 0);
 				played++;
 				timer = false;
+
 			}
 		}
-		else playerControl = true;
+		else {
+			
+			playerControl = true;
+		
+		if (App->interface->actualtime <= 0 && App->player->health == App->player2->health) {
+
+			WinRound1(0, false, false);
+		}
+
+		}
 
 		//ends the round if a players healthbar goes to 0
 		if (App->player->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health > App->player2->health ) {
@@ -134,7 +146,7 @@ update_status ModuleFight::Update()
 		WinRound1(2, finalwin2, perfect);
 
 		}
-		if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health < App->player2->health) {
+		if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 0  && App->player->health < App->player2->health) {
 			if(!winplayer1){
 			winplayer1 = true;
 			}
@@ -150,6 +162,8 @@ update_status ModuleFight::Update()
 			WinRound1(1, finalwin1, perfect);
 
 		}
+
+	
 
 	}
 	return UPDATE_CONTINUE;
@@ -178,7 +192,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		if(played ==3){
 		Mix_PlayChannel(-1, App->audio->effects[9], 0);
 		played++;
-		timerRound = true;
 		}
 	 }
 		else if (SDL_GetTicks() - startingtime < 2000) {
@@ -187,7 +200,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			{
 			Mix_PlayChannel(-1, App->audio->effects[10], 0);
 			played++;
-			timerRound = true;
 			}
 		}
 	}
@@ -199,7 +211,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			if (played == 3) {
 				Mix_PlayChannel(-1, App->audio->effects[9], 0);
 				played++;
-				timerRound = true;
 			}
 		}
 		else if (SDL_GetTicks() - startingtime < 2000) {
@@ -207,8 +218,20 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			if (played == 4) {
 				Mix_PlayChannel(-1, App->audio->effects[10], 0);
 				played++;
-				timerRound = true;
 			}
+		}
+	}
+	else if(player == 0 && SDL_GetTicks() - startingtime > 500) {
+		if (SDL_GetTicks() - startingtime < 1200) {
+			App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "TIME UP");
+			if (played == 3) {
+				Mix_PlayChannel(-1, App->audio->effects[13], 0);
+				played++;
+			}
+		}
+		else if (SDL_GetTicks() - startingtime < 2000) {
+			App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "DRAW");
+
 		}
 	}
 
@@ -233,7 +256,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			//Player2 2nd death animation
 			else if (SDL_GetTicks() - startingtime < 2000) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 2");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 1");
 				if (played == 4) {
 					Mix_PlayChannel(-1, App->audio->effects[10], 0);
 					played++;
@@ -260,7 +283,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			//Player2 2nd victory animation
 			else if (SDL_GetTicks() - startingtime < 2000) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 2");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 1");
 				if (played == 4) {
 					Mix_PlayChannel(-1, App->audio->effects[10], 0);
 					played++;
