@@ -89,6 +89,9 @@
     <ClInclude Include="ModuleFight.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleReferee.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -152,6 +155,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFight.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleReferee.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

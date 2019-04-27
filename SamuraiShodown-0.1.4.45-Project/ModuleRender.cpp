@@ -9,12 +9,14 @@
 #include "ModuleSceneHao.h"
 #include "ModuleSceneUky.h"
 #include "ModuleSceneCongrats.h"
+#include "ModuleReferee.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
 #include "ModuleAttack.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+
 
 
 
@@ -83,7 +85,6 @@ update_status ModuleRender::Update()
 	dist = abs(App->player->position.x - App->player2->position.x);
 
 	if (App->player->position.x < App->player2->position.x)
-
 		camera.x = (-App->player->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
 	else
 		camera.x = (-App->player2->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
