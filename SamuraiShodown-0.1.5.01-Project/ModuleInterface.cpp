@@ -48,6 +48,7 @@ bool ModuleInterface::Start()
 	App->audio->effects[10] = Mix_LoadWAV("Assets/Music/kuroko_haohmaru.wav");
 	App->audio->effects[11] = Mix_LoadWAV("Assets/Music/kuroko_battleEnd.wav");
 	App->audio->effects[12] = Mix_LoadWAV("Assets/Music/kuroko_congratulations.wav");
+	App->audio->effects[13] = Mix_LoadWAV("Assets/Music/draw_audio.wav");
 
 
 	return true;

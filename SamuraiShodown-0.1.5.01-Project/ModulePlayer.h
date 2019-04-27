@@ -96,6 +96,14 @@ public:
 	Animation tornado;
 	Animation hurtLow;
 	Animation* current_animation;
+	Animation jumpKick;
+	Animation jumpPunch;
+	Animation jumpBackward;
+	Animation jumpFw;
+	Animation jumpFwPunch;
+	Animation crouch;
+	Animation crouchKick;
+	Animation crouchPunch;
 	iPoint position;
 
 	Uint32 jump_timer = 0;
@@ -103,6 +111,8 @@ public:
 	Uint32 kick_timer = 0;
 
 	bool jumping = false;
+	bool jumpingBackward = false;
+	bool jumpingForward = false;
 	bool doingAction = false;
 	bool punching = false;
 	bool kicking = false;
@@ -114,6 +124,9 @@ public:
 	char sAction;
 	bool godMode = false;
 	bool playerFlip = false;
+	bool jumpleft = false;
+	bool jumpright = false;
+
 	int health = 0;
 	//int attack_life = 0;
 	//int attack_born = 0;
