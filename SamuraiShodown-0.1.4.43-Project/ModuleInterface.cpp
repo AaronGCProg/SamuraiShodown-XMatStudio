@@ -111,31 +111,8 @@ update_status ModuleInterface::Update()
 
 		if (!timerStop && App->fight->playerControl && !App->fight->timer)
 			actualtime = 99 - ((SDL_GetTicks() - (startingtime + App->fight->playerControlTime)) / 1000);// gets the time since the start of the module in seconds
-		else if(!timerStop && !App->fight->playerControl && App->fight->timer)  actualtime = 95;
+		else if(!timerStop && !App->fight->playerControl && App->fight->timer)  actualtime = 0;
 
-		/*if (actualtime <= 95) {
-			if (App->player->health < App->player2->health) {
-				if (!App->fight->winplayer1) {
-					App->fight->winplayer1 = true;
-					App->fight->WinRound1(1, false, false);
-				}
-				else if (!App->fight->finalwin && App->fight->winplayer2 && ((App->fight->rounds == 2 && !App->fight->winplayer1) || (App->fight->rounds == 3 && App->fight->winplayer1)))
-					App->fight->WinRound1(1, true, false);
-			}
-			else {
-				if (!App->fight->winplayer2) {
-					App->fight->winplayer2 = true;
-					App->fight->WinRound1(1, false, false);
-
-				}
-				else if (!App->fight->finalwin && App->fight->winplayer1 && ((App->fight->rounds == 2 && !App->fight->winplayer2) || (App->fight->rounds == 3 && App->fight->winplayer2)))
-					App->fight->WinRound1(1, true, false);
-
-			}
-			}
-			App->scene_uky->roundFinish();*/
-			
-		//condition to end the stage 
 
 
 		sprintf_s(time_text, 10, "%7d", actualtime);

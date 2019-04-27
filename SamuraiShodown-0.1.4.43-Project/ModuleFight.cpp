@@ -119,7 +119,7 @@ update_status ModuleFight::Update()
 		else playerControl = true;
 
 		//ends the round if a players healthbar goes to 0
-		if (App->player->health >= HEALTH_VALUE || App->interface->actualtime <= 95 && App->player->health > App->player2->health ) {
+		if (App->player->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health > App->player2->health ) {
 			if(!winplayer2){
 			winplayer2 = true;
 			}
@@ -134,7 +134,7 @@ update_status ModuleFight::Update()
 		WinRound1(2, finalwin2, perfect);
 
 		}
-		if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 95 && App->player->health < App->player2->health) {
+		if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health < App->player2->health) {
 			if(!winplayer1){
 			winplayer1 = true;
 			}
