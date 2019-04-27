@@ -4,6 +4,7 @@
 #include "ModuleSceneHao.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "ModuleReferee.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
@@ -14,6 +15,7 @@
 #include "ModuleParticles.h"
 #include "ModuleFonts.h"
 #include "ModuleInterface.h"
+
 
 
 #include <stdio.h> //for the sprintf_s function
@@ -56,6 +58,7 @@ bool ModuleSceneHao::Start()
 
 
 	// Enable (and properly disable) the player module
+	App->referee->Enable();
 	App->player->Enable();
 	App->player2->Enable();
 	App->collision->Enable();
@@ -75,6 +78,7 @@ bool ModuleSceneHao::CleanUp()
 	LOG("Unloading Hao scene stage");
 
 	App->textures->Unload(graphics);
+	App->referee->Disable();
 	App->player->Disable();
 	App->player2->Disable();
 	App->collision->Disable();

@@ -15,6 +15,7 @@
 #include "ModuleFonts.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleReferee.h"
 
 
 #include <stdio.h> //for the sprintf_s function
@@ -64,6 +65,7 @@ bool ModuleSceneUky::Start()
 
 
 	// TODO 1: Enable (and properly disable) the player module
+	App->referee->Enable();
 	App->player->Enable();
 	App->player2->Enable();
 	App->collision->Enable();
@@ -85,6 +87,7 @@ bool ModuleSceneUky::CleanUp()
 {
 	LOG("Unloading Uky scene");
 	App->textures->Unload(graphics);
+	App->referee->Disable();
 	App->player->Disable();
 	App->player2->Disable();
 	App->collision->Disable();

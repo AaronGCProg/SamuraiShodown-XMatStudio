@@ -17,6 +17,7 @@
 #include "ModuleAttack.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleReferee.h"
 
 
 
@@ -31,6 +32,7 @@ Application::Application()
 	modules[i++] = fonts = new ModuleFonts();
 	modules[i++] = scene_hao = new ModuleSceneHao();
 	modules[i++] = scene_uky = new ModuleSceneUky();
+	modules[i++] = referee = new ModuleReferee();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = input = new ModuleInput();
@@ -43,6 +45,7 @@ Application::Application()
 	modules[i++] = interface = new ModuleInterface();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = fight = new ModuleFight();
+	
 
 
 
