@@ -268,7 +268,7 @@ ModulePlayer::ModulePlayer()
 	fall.PushBack({ 108,470,108,54 }, 6, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 1,455,106,69 }, 27, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 108,470,108,54 }, 5, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 217,284,116,42 }, 35, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 217,482,116,42 }, 50, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 
 	//getUp animation
 	const int getUpCollider = 2;//Collider num for the jump kick animation
@@ -753,19 +753,27 @@ update_status ModulePlayer::Update()
 		}
 		if (falling)//new
 		{
-			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-			if (playerFlip)position.x += 2 - (fall_bounces);
-			else position.x -= 2 - (fall_bounces);
-
-			hasjumped = true;
-			jumpingframe++;
-			if (position.y > groundlevelaux)
+			current_animation = &fall;
+			if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
+			else
 			{
-				jumpingframe = 0;
-				position.y = groundlevelaux;
-				fall_bounces++;
+
+
+				position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+				if (playerFlip)position.x += 2 - (fall_bounces);
+				else position.x -= 2 - (fall_bounces);
+
+				hasjumped = true;
+				jumpingframe++;
+				if (position.y > groundlevelaux)
+				{
+					jumpingframe = 0;
+					position.y = groundlevelaux;
+					fall_bounces++;
+				}
 			}
-			if (fall_bounces > FALLBOUNCES &&hasjumped == true)
+
+			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay >45)
 			{
 				hasjumped = false;
 				jumpingframe = 0;
@@ -774,7 +782,8 @@ update_status ModulePlayer::Update()
 				doingAction = false;
 				falling = false;
 				position.y = groundlevelaux;
-				//missing falling animation fallinganim.Reset()
+				fall.Reset();
+				delay = 0;
 			}
 
 		}

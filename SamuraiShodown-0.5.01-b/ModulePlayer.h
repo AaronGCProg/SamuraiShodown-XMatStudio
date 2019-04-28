@@ -8,7 +8,7 @@
 #define JUMP_TIME 3000
 #define PUNCH_TIME 28
 #define KICK_TIME 17
-#define FALLBOUNCES 1
+#define FALLBOUNCES 2
 
 #define HEALTH_VALUE 129
 #define MAXNUMOFCOLLIDERS 6
@@ -144,6 +144,7 @@ public:
 	bool audioPlayed = false;
 	bool invencibleframes = false;
 	int falling = false;
+	int delay = 0;
 
 	int invencibleaux = 0;
 	int health = 0;
