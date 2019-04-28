@@ -129,6 +129,7 @@ void ModuleSceneHao::roundFinish() {
 
 void ModuleSceneHao::BattleEnd() {
 	Mix_FadeOutMusic(2000);
+	App->fight->played = 1;
 	App->fade->FadeToBlack(App->scene_hao, App->scene_congrats, 2.0f); //BUG
 
 }

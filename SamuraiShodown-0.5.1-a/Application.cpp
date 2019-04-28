@@ -32,13 +32,13 @@ Application::Application()
 	modules[i++] = referee = new ModuleReferee();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
+	modules[i++] = interface = new ModuleInterface();
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = scene_welcome = new ModuleSceneWelcome();
 	modules[i++] = scene_congrats = new ModuleSceneCongrats();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
-	modules[i++] = interface = new ModuleInterface();
 	modules[i++] = fight = new ModuleFight();
 	modules[i++] = fade = new ModuleFadeToBlack();
 

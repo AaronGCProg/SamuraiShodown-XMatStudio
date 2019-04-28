@@ -174,7 +174,7 @@ ModulePlayer::ModulePlayer()
 
 	//jump punch animation 
 	const int jumpPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect jumpPunchHitbox[jumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
+	SDL_Rect jumpPunchHitbox[jumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 40, 10 } };
 	COLLIDER_TYPE jumpPunchCollType[jumpPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpPunchCallBack[jumpPunchCollider] = { {this},{this},{this} };
 
@@ -210,13 +210,13 @@ ModulePlayer::ModulePlayer()
 	//jump foward punch animation 
 	const int jumpForwardPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardPunchHitbox[jumpForwardPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
-	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpForwardPunchCallBack[jumpForwardPunchCollider] = { {this},{this},{this} };
 
 
 	const int jumpForwardPunchCollider2 = 2;//Collider num for the jump kick animation
-	SDL_Rect jumpForwardPunchHitbox2[jumpForwardPunchCollider2] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpForwardPunchCollType2[jumpForwardPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	SDL_Rect jumpForwardPunchHitbox2[jumpForwardPunchCollider2] = { { 0, 10, 40, 65 },{ 60, 30, 30, 20 } };
+	COLLIDER_TYPE jumpForwardPunchCollType2[jumpForwardPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpForwardPunchCallBack2[jumpForwardPunchCollider2] = { {this},{this} };
 
 	jumpFwPunch.PushBack({ 1028,566,60,87 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
@@ -943,7 +943,7 @@ update_status ModulePlayer::Update()
 					fall_bounces++;
 				}
 			}
-			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45)
+			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
 			{
 				hasjumped = false;
 				jumpingframe = 0;
@@ -1022,10 +1022,8 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
-	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
 	if ((App->fight->showHealthBar) == true) {
-		App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
 		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {

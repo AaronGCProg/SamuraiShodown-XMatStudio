@@ -179,7 +179,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 	 if (SDL_GetTicks() - startingtime < 1200) {
 
-		App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IRRON");
+		App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IPPON");
 		if(played ==3){
 		Mix_PlayChannel(-1, App->audio->effects[9], 0);
 		played++;
@@ -201,7 +201,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		App->player->inputs.Push(IN_DEATH);
 		//Player2 1st victory animation
 		if (SDL_GetTicks() - startingtime < 1200) {
-			App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IRRON");
+			App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IPPON");
 			if (played == 3) {
 				Mix_PlayChannel(-1, App->audio->effects[9], 0);
 				played++;
@@ -320,8 +320,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			played = 1;
 				App->scene_hao->roundFinish();
 		}
-
-
 	}
 }
 

@@ -34,7 +34,7 @@ bool ModuleInterface::Start()
 
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
 	font_name = App->fonts->Load("Assets/Fonts/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
-	font_menu = App->fonts->Load("Assets/Fonts/TextTile.png", "ABCDEFGHIJKLMNOQRSTUVWYZ-123 ", 1);
+	font_menu = App->fonts->Load("Assets/Fonts/TextTile.png", "ABCDEFGHIJKLMNOPQRSTUVWYZ-123! ", 1);
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png");
 
 	App->audio->effects[3] = Mix_LoadWAV("Assets/Music/Kuroko_BattleStart.wav");
