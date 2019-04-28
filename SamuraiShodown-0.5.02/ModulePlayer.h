@@ -45,8 +45,8 @@ enum player_states
 	ST_KICK_FORWARD_JUMP,
 	ST_KICK_BACKWARD_JUMP,
 	ST_SPECIAL,
-	ST_FALLING
-
+	ST_KICK_CROUCH,
+	ST_FALLING,
 };
 
 enum player_inputs
@@ -68,7 +68,8 @@ enum player_inputs
 	IN_JUMP_PUNCH_FINISH,
 	IN_PUNCH_FINISH,
 	IN_FALL_FINISH,
-	IN_FALL
+	IN_FALL,
+	IN_DEATH
 };
 
 
@@ -131,6 +132,8 @@ public:
 	bool punching = false;
 	bool kicking = false;
 	bool tornading = false;
+	bool crouchkicking = false;
+	bool crouchpunching = false;
 	int jumpingframe = 0;
 	int groundlevelaux = 0;
 	bool getsHit = false;
