@@ -2,25 +2,55 @@
 
 We are a development team with great enthusiasm for the sector. We define passion and teamwork, we do not leave anyone behind or leave the burden of their work on their peers. We intend to exceed expectations and feel fulfilled by our own work. We invite you to take a look at this project, in this case, to all the research we have done behind this fabulous game: Samurai Shodown.
 
-Today we are in the stage of development exclusively of the Wiki and compilation of all the necessary documentation to start developing an emulation of Samurai Shodown.
+All the documentation of this project is currently on the Github Wiki of our project. Today we are in the process of developing the game, where you can follow our progress daily on our Github page that you will find below.
+
+### Link to our Github Project - https://github.com/AaronGCProg/SamuraiShodown-XMatStudio
+
 
 # How to Play
 
 #### Concept
-This game consists on 2D arcade fighting one-on-one battles in short time spans. So you got a short period to show that you are better than your opponent.
+This game consists on 2D arcade fighting one-on-one battles in short time spans. So you got a short period to show that you are better than your opponent over three rounds.
 
-#### Inputs
+### Inputs
+
+##### General
+
+Space - Skip Screen
+ESC - Close the game
+
+##### Player 1
+
+A and D  - Movement <br>
+W - Jump <br>
+S - Crouch <br> <br>
+
+X - Punch <br>
+C - Kick <br>
+V - Special Attack <br>
+
+(You can punch and kick crouched and jumping, but the special attack can only be done while standing)
+
+##### Player 2
+
 Left and Right Arrows - Movement <br>
 Up Arrow - Jump <br>
 Down Arrow - Crouch <br> <br>
 
-A - Weak Attack <br>
-S - Medium Attack <br>
-A + S - Strong Attack <br>
+KP 1 - Punch <br>
+KP 2 - Kick <br>
+KP 3 - Special Attack <br>
 
-D - Weak Kick <br>
-F - Medium Kick <br>
-D + F - Strong Kick <br>
+(You can punch and kick crouched and jumping, but the special attack can only be done while standing)
+
+##### Debug Functionality
+
+F1 - Show/Hide Hitboxes
+F5 - Player 1 God mode
+F6 - Player 2 God mode
+F9 - Player 2 dies
+F10 - Player 1 dies
+F11 - Infinite time
 
 
 # Team Members
@@ -127,15 +157,16 @@ ________________________________________________________________________________
 #### Bug Fixes
 - Fixed some bugs where the player would fall off the map.
 - Fixed a bug where the player would not beheave correctly after a jump.
+
 . . .
 
 ### Update 0.4 - Patch # 7
-#### Version: v0.44
-#### Game size: ~TODO MB
-#### Client patch size: ~TODO MB
+#### Version: v0.46
+#### Game size: ~12.8 MB
+#### Client patch size: ~1.9 MB
 
 #### General Updates
-- Implemented fonts & semi-functional UI.
+- Implemented fonts & functional UI.
 - Implemented hitboxes & combat functionality.
 - Fixed animation framerate.
 - Implemented basic "prototype style" camera.
@@ -143,5 +174,30 @@ ________________________________________________________________________________
 #### Bug Fixes
 
 . . .
+
+### Update 0.5 - Patch # 8
+#### Version: v0.51
+#### Game size: ~15.3 MB
+#### Client patch size: ~2.5 MB
+
+#### General Updates
+- Cleaned and optimized code
+- Remake of the character pivot reference
+- Remake of the collisions and animation system
+- Rounds system with a single winner
+- Added anti-abuse system, with a small invulnerability when receiving damage
+- Modified the 2 player to distinguish it from player 1
+- Added a duel referee
+- Improved camera
+- Added character shadow
+- Added debug functionality (Direct Win, God Mode, Hitboxes View, Infinite Time)
+
+#### Bug Fixes
+- A lot of jumping bugs fixed
+- A lot of collisions bugs fixed
+- Removed obsolete content
+
+. . .
+
 
 
