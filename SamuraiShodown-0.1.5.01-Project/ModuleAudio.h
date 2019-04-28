@@ -9,7 +9,8 @@
 
 #define MAX_EFFECTS 30
 #define MAX_SOUNDTRACK 10
-#define MUSIC_VOLUME 65 //volume controller range between 0 and 100 (less-more)
+#define MUSIC_VOLUME 10 //volume controller range between 0 and 100 (less-more)
+#define EFFECTS_VOLUME 20 //volume controller range between 0 and 100 (less-more)
 
 class ModuleAudio : public Module
 {

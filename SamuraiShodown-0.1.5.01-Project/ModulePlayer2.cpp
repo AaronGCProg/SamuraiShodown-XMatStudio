@@ -153,8 +153,9 @@ bool ModulePlayer2::Start()
 
 	health = 0;
 
-	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
+	graphics = App->textures->Load("Assets/Sprites/haohmaru2.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
+	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
 	groundlevelaux = position.y;
 
 
@@ -418,14 +419,18 @@ update_status ModulePlayer2::Update()
 	}
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
-
-	//Blits player + collisions_____________
-	if (playerFlip)		//blit if player is flipped(compensates for pivot)
+	SDL_Rect shadowrect = { 0,0,70,14 };
+	//Blits player + collisions + shadow_____________
+	if (playerFlip)
+	{		//blit if player is flipped(compensates for pivot)
+		App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
-
-	else     //blit if player is NOT flipped
+	}
+	else 
+	{    //blit if player is NOT flipped
+		App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
-
+	}
 
 
 

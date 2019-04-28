@@ -127,9 +127,9 @@ ModulePlayer::ModulePlayer()
 
 	//jump backwards animation 
 	const int jumpBackCollider = 2;//Collider num for the jump kick animation
-	SDL_Rect jumpBackHitbox[jumpBackCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 }};
-	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}};
-	Module* jumpBackCallBack[jumpBackCollider] = { {this},{this}};
+	SDL_Rect jumpBackHitbox[jumpBackCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
+	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* jumpBackCallBack[jumpBackCollider] = { {this},{this} };
 
 	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
 	jumpBackward.PushBack({ 619,584,46,70 }, 3, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
@@ -270,6 +270,7 @@ bool ModulePlayer::Start()
 
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
+	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
 	groundlevelaux = position.y;
 
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
@@ -326,7 +327,7 @@ update_status ModulePlayer::Update()
 			case ST_WALK_FORWARD:
 				LOG("FORWARD >>>\n");
 				current_animation = &forward;
-				position.x += speed+1;
+				position.x += speed + 1;
 				break;
 			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
@@ -415,7 +416,7 @@ update_status ModulePlayer::Update()
 			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
 				current_animation = &forward;
-				position.x -= speed+1;
+				position.x -= speed + 1;
 				break;
 			case ST_JUMP_NEUTRAL:
 				LOG("JUMPING NEUTRAL ^^^^\n");
@@ -424,7 +425,7 @@ update_status ModulePlayer::Update()
 				break;
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
-		
+
 				if (!playerFlip)
 					jumpleft = true;
 				else
@@ -437,7 +438,7 @@ update_status ModulePlayer::Update()
 			case ST_JUMP_BACKWARD:
 				LOG("JUMPING BACKWARD ^^<<\n");
 
-				if(!playerFlip)
+				if (!playerFlip)
 					jumpright = true;
 				else
 					jumpleft = true;
@@ -508,10 +509,10 @@ update_status ModulePlayer::Update()
 			//set kick anim
 			current_animation = &kick;
 			//stop kick anim
-			if (kick.GetAnimEnd() == true) { 
-				kicking = false; doingAction = false; kick.SetAnimEnd(false); 
+			if (kick.GetAnimEnd() == true) {
+				kicking = false; doingAction = false; kick.SetAnimEnd(false);
 			}
-			
+
 
 
 		}
@@ -520,7 +521,7 @@ update_status ModulePlayer::Update()
 			//set kick anim
 			current_animation = &punch;
 			//stop kick anim
-			if (punch.GetAnimEnd() == true) { 
+			if (punch.GetAnimEnd() == true) {
 				punching = false; doingAction = false; punch.SetAnimEnd(false);
 
 			}
@@ -656,14 +657,18 @@ update_status ModulePlayer::Update()
 	}
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
-
+	SDL_Rect shadowrect = { 0,0,70,14 };
 	//Blits player + collisions_____________
-	if (playerFlip)		//blit if player is flipped(compensates for pivot)
+	if (playerFlip) 
+	{		//blit if player is flipped(compensates for pivot)
+		App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
-
-	else     //blit if player is NOT flipped
+	}
+	else 
+	{   //blit if player is NOT flipped
+		App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
-
+	}
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
@@ -719,7 +724,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 20;
 		getsHit = true; doingAction = true;
-		if(App->player2->kicking)
+		if (App->player2->kicking)
 			Mix_PlayChannel(-1, App->audio->effects[17], 0);
 
 		else
