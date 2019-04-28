@@ -6,11 +6,11 @@
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleFadeToBlack.h"
 
 #include <stdio.h> //for the sprintf_s function
 
@@ -49,7 +49,7 @@ bool ModuleInterface::Start()
 	App->audio->effects[12] = Mix_LoadWAV("Assets/Music/kuroko_congratulations.wav");
 	App->audio->effects[13] = Mix_LoadWAV("Assets/Music/draw_audio.wav");
 
-
+	App->fight->interfaceStart = true;
 	return true;
 }
 
@@ -58,6 +58,7 @@ bool ModuleInterface::CleanUp()
 {
 	LOG("Unloading interface ");
 	App->audio->CleanUp();
+	App->fight->interfaceStart = false;
 
 	App->textures->Unload(ui);
 	App->fonts->UnLoad(font_menu);

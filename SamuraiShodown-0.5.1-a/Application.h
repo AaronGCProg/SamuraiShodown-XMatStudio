@@ -39,7 +39,6 @@ public:
 	ModuleSceneCongrats* scene_congrats;
 	ModulePlayer2* player2;
 	ModulePlayer* player;
-	ModuleFadeToBlack* fade;
 	ModuleAudio* audio;
 	ModuleParticles* particles;
 	ModuleCollision* collision;
@@ -47,6 +46,7 @@ public:
 	ModuleInterface* interface;
 	ModuleFight* fight;
 	ModuleReferee *referee;
+	ModuleFadeToBlack* fade;
 
 
 

@@ -17,7 +17,6 @@
 
 ModulePlayer2::ModulePlayer2()
 {
-
 	const int idleCollider = 2;//Collider num for the idle animation
 	SDL_Rect idleHitbox[idleCollider] = { { 10, 0, 40, 75 },{ 25, 75, 20, 20 } };
 	COLLIDER_TYPE idleCollType[idleCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
@@ -160,7 +159,7 @@ ModulePlayer2::ModulePlayer2()
 
 	//crouch punch animation 
 	const int crouchPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 20, 75, 20, 20 } };
+	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
 	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
 	Module* crouchPunchCallBack[crouchPunchCollider] = { {this},{this},{this} };
 
@@ -169,15 +168,15 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE crouchPunchCollType2[crouchPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* crouchPunchCallBack2[crouchPunchCollider2] = { {this},{this} };
 
-	crouchPunch.PushBack({ 178,249,85,69 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 261,814,126,70 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 388,814,123,70 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 515,812,130,71 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 178,814,83,69 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
+	crouchPunch.PushBack({ 262,815,126,68 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
+	crouchPunch.PushBack({ 389,815,126,68 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
+	crouchPunch.PushBack({ 516,813,130,71 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
 	crouchPunch.PushBack({ 640,814,127,69 }, 6, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
 	crouchPunch.PushBack({ 767,814,87,72 }, 8, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
 	crouchPunch.PushBack({ 852,814,82,68 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
 	crouchPunch.PushBack({ 934,813,85,71 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 5,66,70,77 }, 3, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
+
 
 
 	//jump backward animation 
@@ -243,22 +242,26 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE jumpForwardPunchCollType2[jumpForwardPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* jumpForwardPunchCallBack2[jumpForwardPunchCollider2] = { {this},{this} };
 
-	jumpFwPunch.PushBack({ 1,694,98,92 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
+	jumpFwPunch.PushBack({ 1028,566,60,87 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
 	jumpFwPunch.PushBack({ 101,699,60,87 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
-	jumpFwPunch.PushBack({ 162,693,99,93 }, 1, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
-	jumpFwPunch.PushBack({ 262,693,99,93 }, 1, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 1,694,98,92 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
+	jumpFwPunch.PushBack({ 162,693,99,93 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 262,693,99,93 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
 	jumpFwPunch.PushBack({ 362,686,121,100 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
-	jumpFwPunch.PushBack({ 492,690,119,96 }, 2, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 492,690,119,96 }, 3, { 31, 2 }, jumpForwardPunchCollider, jumpForwardPunchHitbox, jumpForwardPunchCollType, jumpForwardPunchCallBack);
+	jumpFwPunch.PushBack({ 101,699,60,87 }, 5, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
+	jumpFwPunch.PushBack({ 1028,566,60,87 }, 15, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
 
-	//crouch animation 
 	const int crouchCollider = 2;//Collider num for the jump kick animation
-	SDL_Rect crouchHitbox[crouchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
+	SDL_Rect crouchHitbox2[crouchCollider] = { { 30, 0, 30, 55 },{40, 50, 20, 20 } };
+	SDL_Rect crouchHitbox[crouchCollider] = { { 50, 0, 30, 55 },{ 60, 50, 20, 20 } };
 	COLLIDER_TYPE crouchCollType[crouchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* crouchCallBack[crouchCollider] = { {this},{this} };
 
-	crouch.PushBack({ 1499,11,70,113 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	crouch.PushBack({ 1568,46,88,80 }, 1000, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-
+	crouch.PushBack({ 1499,11,70,113 }, 6, { 40, 6 }, crouchCollider, crouchHitbox2, crouchCollType, crouchCallBack);
+	crouch.PushBack({ 1568,46,88,80 }, 2, { 60, 8 }, crouchCollider, crouchHitbox, crouchCollType, crouchCallBack);
+	crouch.firstLoopFrame = 1;
+	crouch.loop = true;
 
 	//fall animation
 	const int fallCollider = 2;//Collider num for the jump kick animation
@@ -282,6 +285,14 @@ ModulePlayer2::ModulePlayer2()
 	getUp.PushBack({ 1306,789,75,94 }, 8, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
 	getUp.PushBack({ 1,455,106,69 }, 4, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
 	getUp.PushBack({ 334,435,98,89 }, 4, { 31,2, }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+
+
+	const int crouchKickCollider = 3;//Collider num for the jump kick animation
+	SDL_Rect crouchKickHitbox[crouchPunchCollider] = { { 5, 10, 40, 35 },{ 20, 35, 20, 20 },{ 78,0,20,20 } };
+	COLLIDER_TYPE crouchKickCollType[crouchKickCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	Module* crouchKickCallBack[crouchKickCollider] = { {this},{this},{this} };
+	crouchKick.PushBack({ 1019,803,78,80 }, 2, { 31,2 }, crouchPunchCollider, crouchKickHitbox, crouchKickCollType, crouchKickCallBack);
+	crouchKick.PushBack({ 1098,810,98,73 }, 8, { 31,2 }, crouchKickCollider, crouchKickHitbox, crouchPunchCollType, crouchKickCallBack);
 
 
 	const int tornadoCollider = 2;//Collider num for the tornado animation
@@ -318,15 +329,19 @@ bool ModulePlayer2::Start()
 	playerFlip = true;
 
 	p2jump_timer = 0;
-	groundlevelaux = position.y;
 
+	current_animation = &idle;
 
 	health = 0;
 
 	graphics = App->textures->Load("Assets/Sprites/haohmaru2.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
+	groundlevelaux = position.y;
 
+
+
+	//body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_ENEMY, this);
 
 	return ret;
 }
@@ -334,13 +349,11 @@ bool ModulePlayer2::Start()
 // Unload assets
 bool ModulePlayer2::CleanUp()
 {
-
+	// TODO 5: Remove all memory leaks
 	LOG("Unloading Character");
-
-
-	App->textures->Unload(shadow);
-	App->textures->Unload(ui);
 	App->textures->Unload(graphics);
+	App->textures->Unload(ui);
+
 
 	return true;
 }
@@ -446,10 +459,6 @@ update_status ModulePlayer2::Update()
 					LOG("CROUCHING ****\n");
 					crouching = true;
 					doingAction = true;
-
-					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
 					break;
 				case ST_PUNCH_STANDING2:
 					LOG("PUNCH STANDING ++++\n");
@@ -461,13 +470,20 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_PUNCH_NEUTRAL_JUMP2:
 					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					neutralJumpPunching = true;
 					break;
 				case ST_PUNCH_FORWARD_JUMP2:
 					LOG("PUNCH JUMP FORWARD ^>>+\n");
 					break;
 				case ST_PUNCH_BACKWARD_JUMP2:
 					LOG("PUNCH JUMP BACKWARD ^<<+\n");
+					break;
+				case ST_PUNCH_CROUCH2:
+					LOG("PUNCH CROUCHING **++\n");
+					crouchpunching = true; doingAction = true;
+					break;
+				case ST_KICK_CROUCH2:
+					LOG("KICK CROUCHING **++\n");
+					crouchkicking = true; doingAction = true;
 					break;
 				case ST_SPECIAL2:
 					LOG("SPECIAL OwwwwO\n");
@@ -483,7 +499,6 @@ update_status ModulePlayer2::Update()
 				case ST_FALLING2://new
 					falling = true; doingAction = true;
 					break;
-
 				}
 			}
 		}
@@ -524,8 +539,6 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_JUMP_FORWARD2:
 					LOG("JUMPING FORWARD ^^>>\n");
-
-
 					jumpright = true;
 
 					Mix_PlayChannel(-1, App->audio->effects[15], 0);
@@ -543,10 +556,10 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_CROUCH2:
 					LOG("CROUCHING ****\n");
+					crouching = true;
+					doingAction = true;
 					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
-					break;
+
 				case ST_PUNCH_STANDING2:
 					LOG("PUNCH STANDING ++++\n");
 					punching = true; doingAction = true;
@@ -557,13 +570,20 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_PUNCH_NEUTRAL_JUMP2:
 					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					neutralJumpPunching = true;
 					break;
 				case ST_PUNCH_FORWARD_JUMP2:
 					LOG("PUNCH JUMP FORWARD ^>>+\n");
 					break;
 				case ST_PUNCH_BACKWARD_JUMP2:
 					LOG("PUNCH JUMP BACKWARD ^<<+\n");
+					break;
+				case ST_PUNCH_CROUCH2:
+					LOG("PUNCH CROUCHING **++\n");
+					crouchpunching = true; doingAction = true;
+					break;
+				case ST_KICK_CROUCH2:
+					LOG("KICK CROUCHING **++\n");
+					crouchkicking = true; doingAction = true;
 					break;
 				case ST_SPECIAL2:
 					LOG("SPECIAL OwwwwO\n");
@@ -580,27 +600,28 @@ update_status ModulePlayer2::Update()
 					falling = true; doingAction = true;
 					break;
 
+
 				}
 			}
 		}
+		current_state = state;
 	}
 
 
-	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)
 	{
-		if (godMode)
-			godMode = false;
+		if (godMode2)
+			godMode2 = false;
 		else
-			godMode = true;
+			godMode2 = true;
 
 	}
 
-	if (App->input->keys[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN)
 	{
 		health = 0;
+		App->player->health = 0;
 	}
-
-
 
 
 	if (doingAction)
@@ -652,6 +673,24 @@ update_status ModulePlayer2::Update()
 			if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
 		}
 
+		if (crouchpunching)
+		{
+			//set crouch punch anim.
+			current_animation = &crouchPunch;
+			//stop crouch punch anim
+			if (crouchPunch.GetAnimEnd() == true) {
+				crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2);
+			}
+		}
+
+		if (crouchkicking)
+		{
+			//set crouch punch anim.
+			current_animation = &crouchKick;
+			//stop crouch punch anim
+			if (crouchKick.GetAnimEnd() == true) { crouchkicking = false; doingAction = false; crouchKick.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2); }
+		}
+
 		if (getsHit) {
 			//set punch anim
 			current_animation = &hurtLow;
@@ -689,65 +728,213 @@ update_status ModulePlayer2::Update()
 		if (jumping)
 		{
 			//set jump anim
-			if (neutralJumpPunching)
+			if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+				JumpPunching = true;
+			}
+			if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+				JumpKicking = true;
+			}
+
+			if (JumpPunching)
 				current_animation = &jumpPunch;
+			else if (JumpKicking)
+				current_animation = &jumpKick;
 			else
 				current_animation = &jump;
 
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			hasjumped = true;
-			//stop punch anim
+			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[18], 0);
+				audioPlayed = true;
+			}
+			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[19], 0);
+				audioPlayed = true;
+			}
 			jumpingframe++;
+
+			//stop punch anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
 				hasjumped = false;
 				jumping = false;
-				neutralJumpPunching = false;
+				JumpPunching = false;
+				JumpKicking = false;
+				audioPlayed = false;
 				position.y = groundlevelaux;
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				doingAction = false;
 				p2inputs.Push(IN_JUMP_FINISH2);
+				jumpKick.Reset();
 				jumpPunch.Reset();
 				jump.Reset();
 			}
 
+			if (airhit)	//end of the jump
+			{
+				jumpingframe = 0;
+				hasjumped = false;
+				jumpleft = false;
+				JumpPunching = false;
+				JumpKicking = false;
+				jumping = false;
+				doingAction = false;
+				audioPlayed = false;
+				p2inputs.Push(IN_JUMP_FINISH2);
+				jumpFw.Reset();
+				jumpKick.Reset();
+				jumpBackward.Reset();
+				jump.Reset();
+				airhit = false;
+			}
 		}
 		if (jumpright)
 		{
-			//set jump anim
-			if (!playerFlip)
-				current_animation = &jumpFw; //Jumpforward animation
-			else
-				current_animation = &jumpBackward; //Jumpbackward animation
+			if (!playerFlip) {
+				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+					JumpPunching = true;
+				}
+				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+					JumpKicking = true;
+				}
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpFw; //Jumpforward animation
+			}
+			else {
+				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+					JumpPunching = true;
+				}
+				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+					JumpKicking = true;
+				}
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpBackward; //Jumpforward animation
+
+
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpFw; //Jumpforward animation
+			}
+			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[18], 0);
+				audioPlayed = true;
+			}
+			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[19], 0);
+				audioPlayed = true;
+			}
+
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			position.x += 4;
 			hasjumped = true;
-			//stop jump anim
+
 			jumpingframe++;
+
+			//stop jump anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
 				hasjumped = false;
 				jumpright = false;
+				JumpPunching = false;
+				JumpKicking = false;
+				audioPlayed = false;
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
 				p2inputs.Push(IN_JUMP_FINISH2);
 				jumpFw.Reset();
 				jumpBackward.Reset();
-
+				jumpFw.Reset();
+				jumpKick.Reset();
+				jumpBackward.Reset();
 
 			}
 
+			if (airhit)	//end of the jump
+			{
+				jumpingframe = 0;
+				hasjumped = false;
+				jumpleft = false;
+				JumpPunching = false;
+				JumpKicking = false;
+				jumping = false;
+				doingAction = false;
+				audioPlayed = false;
+				p2inputs.Push(IN_JUMP_FINISH2);
+				jumpFw.Reset();
+				jumpKick.Reset();
+				jumpBackward.Reset();
+				jump.Reset();
+				airhit = false;
+			}
 		}
 		if (jumpleft)
 		{
 			//set jump anim
-			if (playerFlip)
-				current_animation = &jumpFw; //Jumpforward animation
-			else
-				current_animation = &jumpBackward; //Jumpbackward animation
+			if (playerFlip) {
+				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+					JumpPunching = true;
+				}
+				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+					JumpKicking = true;
+				}
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpFw; //Jumpforward animation
+			}
+			else {
+				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+					JumpPunching = true;
+				}
+				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+					JumpKicking = true;
+				}
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpBackward; //Jumpforward animation
+
+
+
+				if (JumpPunching)
+					current_animation = &jumpFwPunch;
+				else if (JumpKicking)
+					current_animation = &jumpKick;
+				else
+					current_animation = &jumpFw; //Jumpforward animation
+			}
+			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[18], 0);
+				audioPlayed = true;
+			}
+			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
+				Mix_PlayChannel(-1, App->audio->effects[19], 0);
+				audioPlayed = true;
+			}
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			position.x -= 4;
 			hasjumped = true;
@@ -758,16 +945,36 @@ update_status ModulePlayer2::Update()
 				jumpingframe = 0;
 				hasjumped = false;
 				jumpleft = false;
+				JumpPunching = false;
+				JumpKicking = false;
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
 				p2inputs.Push(IN_JUMP_FINISH2);
 				jumpFw.Reset();
+				jumpKick.Reset();
 				jumpBackward.Reset();
-
 
 			}
 
+			if (airhit)	//end of the jump
+			{
+				jumpingframe = 0;
+				hasjumped = false;
+				jumpleft = false;
+				JumpPunching = false;
+				JumpKicking = false;
+				jumping = false;
+				doingAction = false;
+				audioPlayed = false;
+				p2inputs.Push(IN_JUMP_FINISH2);
+				jumpFw.Reset();
+				jumpKick.Reset();
+				jumpBackward.Reset();
+				jump.Reset();
+				airhit = false;
+
+			}
 		}
 		if (falling)//new
 		{
@@ -775,7 +982,7 @@ update_status ModulePlayer2::Update()
 			if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
 			else
 			{
-				
+
 				position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
 				if (playerFlip)position.x += 2 - (fall_bounces);
 				else position.x -= 2 - (fall_bounces);
@@ -822,13 +1029,13 @@ update_status ModulePlayer2::Update()
 	for (int i = 0; i < hitboxmax; i++)
 	{
 		r = current_animation->hitbox[i];
-		if ((!godMode || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
+		if ((!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 			else
 				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 
-		else if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
+		else if (!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
 			else
@@ -866,46 +1073,58 @@ update_status ModulePlayer2::Update()
 			App->render->Blit(ui, 168, 17, false, &healthValue, NULL, true);
 		}
 	}
-	if (godMode)//deletes all the collision boxes if in god mode
-	{
-		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
-		{
-			if (colisionadores[i] != nullptr)
-				colisionadores[i]->to_delete = true;
-		}
-	}
+
 
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
-	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
-	{
-		if (c2->type == COLLIDER_PLAYER) {
-			if (this->playerFlip) {//normal pos (right)
-				position.x += 1;
+	if (!godMode2) {
+		bool alredycollided = false;
+		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
+		{
+			if (c2->type == COLLIDER_PLAYER && !alredycollided) {
+				alredycollided = true;
+				if (this->playerFlip) {//normal pos (right)
+					position.x += 1;
 
+				}
+				else {//flipped position (left)
+					position.x -= 1;
+
+				}
 			}
-			else {//flipped position (left)
-				position.x -= 1;
+		}
+		if (c2->type == COLLIDER_PLAYER_SHOT) {
+			Mix_PlayChannel(-1, App->audio->effects[2], 0);
+			health += 30;
+			p2inputs.Push(IN_FALL2);
+			if (App->player2->position.y < groundlevelaux) {
+				p2inputs.Push(IN_FALL2);
+				airhit = true;
 
 			}
 		}
-	}
-	if (c2->type == COLLIDER_PLAYER_SHOT) {
-		Mix_PlayChannel(-1, App->audio->effects[2], 0);
-		health += 30;
-		p2inputs.Push(IN_FALL2);
-	}
-	if (c2->type == COLLIDER_PLAYER_ATTACK) {
-		Mix_PlayChannel(-1, App->audio->effects[2], 0);
-		health += 20;
-		getsHit = true; doingAction = true;
-		if (App->player2->kicking)
-			Mix_PlayChannel(-1, App->audio->effects[17], 0);
+		if (c2->type == COLLIDER_PLAYER_ATTACK) {
+			if (App->player2->position.y < groundlevelaux){
+				p2inputs.Push(IN_FALL2);
+				airhit = true;
 
-		else
-			Mix_PlayChannel(-1, App->audio->effects[16], 0);
+			}
+			Mix_PlayChannel(-1, App->audio->effects[2], 0);
+			health += 20;
+			getsHit = true; doingAction = true;
+			if (App->player->kicking || App->player->JumpKicking)
+				Mix_PlayChannel(-1, App->audio->effects[17], 0);
+
+			else
+				Mix_PlayChannel(-1, App->audio->effects[16], 0);
+
+
+
+		}
+
+
 	}
 }
 
@@ -951,7 +1170,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				case SDLK_s:
 					inputs.Push(IN_CROUCH_UP);
-					App->player->crouch.Reset();
 					down = false;
 					break;
 				case SDLK_w:
@@ -1014,10 +1232,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				case SDLK_d:
 					right = true;
 					break;
-				/*case SDLK_p:				//only for debugging
-					inputs.Push(IN_FALL);
-					p2inputs.Push(IN_FALL2);
-					break;*/
 				}
 			}
 		}
@@ -1097,7 +1311,7 @@ void ModulePlayer2::internal_input(p2Qeue<player2_inputs>& inputs)
 
 	if (p2jump_timer > 0)
 	{
-		if (SDL_GetTicks() - p2jump_timer > JUMP_TIME)
+		if (SDL_GetTicks() / 1000 / 60 - p2jump_timer > JUMP_TIME)
 		{
 			inputs.Push(IN_JUMP_FINISH2);
 			p2jump_timer = 0;
@@ -1107,7 +1321,16 @@ void ModulePlayer2::internal_input(p2Qeue<player2_inputs>& inputs)
 
 	if (p2punch_timer > 0)
 	{
-		if (SDL_GetTicks() - p2punch_timer > PUNCH_TIME)
+		if (SDL_GetTicks() / 1000 / 60 - p2punch_timer > PUNCH_TIME)
+		{
+			inputs.Push(IN_PUNCH_FINISH2);
+			p2punch_timer = 0;
+		}
+	}
+
+	if (p2punch_timer > 0)
+	{
+		if (SDL_GetTicks() / 1000 / 60 - p2punch_timer > PUNCH_TIME)
 		{
 			inputs.Push(IN_PUNCH_FINISH2);
 			p2punch_timer = 0;
@@ -1144,7 +1367,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_SPECIAL2: state = ST_SPECIAL2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_FALL2:state = ST_FALLING2; break;//new
+			case IN_DEATH2: state = ST_FALLING2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1159,6 +1383,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1173,6 +1398,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1183,7 +1409,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
 			case IN_X2: state = ST_PUNCH_NEUTRAL_JUMP2; p2punch_timer = SDL_GetTicks(); break;
-
+			case IN_KICK2: state = ST_KICK_NEUTRAL_JUMP2; p2punch_timer = SDL_GetTicks();  break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1194,6 +1421,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
 			case IN_X2: state = ST_PUNCH_FORWARD_JUMP2; break;
+			case IN_KICK2: state = ST_KICK_FORWARD_JUMP2; p2punch_timer = SDL_GetTicks();  break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1203,7 +1432,9 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_BACKWARD_JUMP2; break;
+			case IN_X2: state = ST_PUNCH_BACKWARD_JUMP2;  p2punch_timer = SDL_GetTicks(); break;
+			case IN_KICK2: state = ST_KICK_BACKWARD_JUMP2; p2punch_timer = SDL_GetTicks();  break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1214,6 +1445,18 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
+			}
+		}
+		break;
+
+		case ST_KICK_NEUTRAL_JUMP2:
+		{
+			switch (last_input)
+			{
+			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1224,18 +1467,22 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
 
-		case ST_PUNCH_BACKWARD_JUMP2:
+		case ST_KICK_FORWARD_JUMP2:
 		{
 			switch (last_input)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
+		break;
+
 		break;
 
 		case ST_PUNCH_STANDING2:
@@ -1243,6 +1490,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
@@ -1252,23 +1500,37 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_CROUCH_UP2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_CROUCH2; p2punch_timer = SDL_GetTicks();  break;
+			case IN_X2: state = ST_PUNCH_CROUCH2; break;
+			case IN_KICK2: state = ST_KICK_CROUCH2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;
+		case ST_KICK_CROUCH2:
+			switch (last_input)
+			{
+			case IN_PUNCH_FINISH2: state = ST_CROUCH2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
+			}
+			break;
+
+
 		case ST_PUNCH_CROUCH2:
 		{
 			switch (last_input)
 			{
-			case IN_CROUCH_UP2 && IN_PUNCH_FINISH2: state = ST_IDLE2; break;
 			case IN_PUNCH_FINISH2: state = ST_CROUCH2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
+			break;
 		}
+	
 		case ST_KICK_STANDING2:
 		{
 			switch (last_input)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		case ST_SPECIAL2:
@@ -1276,8 +1538,11 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2;break;
 			}
 		}
+		break;
+
 		case ST_FALLING2:
 		{//new
 			switch (last_input)

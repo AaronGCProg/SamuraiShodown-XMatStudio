@@ -7,7 +7,6 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
@@ -15,6 +14,7 @@
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModuleReferee.h"
+#include "ModuleFadeToBlack.h"
 
 
 #include <stdio.h> //for the sprintf_s function

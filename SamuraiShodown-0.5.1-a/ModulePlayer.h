@@ -148,6 +148,11 @@ public:
 	bool invencibleframes = false;
 	int falling = false;
 	int delay = 0;
+	bool JumpKicking = false;
+	bool JumpPunching = false;
+	bool airhit = false;
+
+
 
 	int invencibleaux = 0;
 	int health = 0;

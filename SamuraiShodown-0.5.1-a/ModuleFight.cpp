@@ -6,11 +6,12 @@
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleFadeToBlack.h"
+
 
 #include <stdio.h> //for the sprintf_s function
 
@@ -55,7 +56,6 @@ bool ModuleFight::CleanUp()
 {
 	LOG("Unloading fight module");
 
-	App->audio->CleanUp();
 
 
 	return true;
@@ -64,7 +64,7 @@ bool ModuleFight::CleanUp()
 // Update: draw background
 update_status ModuleFight::Update()
 {
-
+	if(interfaceStart){
 	if (SDL_GetTicks() - startingtime < letterTime && !firstWin) {
 		App->fonts->BlitText((SCREEN_WIDTH / 2) - 115, 70, 2, "E N  G A R D E ");
 		if (played == 0) {
@@ -153,7 +153,7 @@ update_status ModuleFight::Update()
 			WinRound1(1, finalwin1, perfect);
 
 		}
-
+	}
 	}
 	return UPDATE_CONTINUE;
 }
@@ -174,7 +174,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 	if (player == 1 && SDL_GetTicks() - startingtime > 500) {
 		//Player1 1st victory animation
-		App->player->inputs.Push(IN_DEATH);
+		App->player2->p2inputs.Push(IN_DEATH2);
 		//Player2 1st death animation
 
 	 if (SDL_GetTicks() - startingtime < 1200) {
@@ -234,7 +234,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 	}
 
 
-	if(SDL_GetTicks() - startingtime > 3500){ //Substituir  por getanimationend
+	if(SDL_GetTicks() - startingtime > 2500){ //Substituir  por getanimationend
 	played = 1;
 	App->scene_hao->roundFinish();
 	}
@@ -242,7 +242,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 	else {
 		if (player == 1 && SDL_GetTicks() - startingtime > 500) {
-			App->player->inputs.Push(IN_DEATH);
+			App->player2->p2inputs.Push(IN_DEATH2);
 			if (SDL_GetTicks() - startingtime < 1430) {
 
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "VICTORY");
@@ -253,6 +253,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 				}
 			}
 			//Player1 2nd victory animation
+
 			//Player2 2nd death animation
 			else if (SDL_GetTicks() - startingtime < 2000) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
@@ -312,7 +313,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 			}
 		}
-		if (SDL_GetTicks() - startingtime > 3000 && player > 0) { //Substituir  por getanimationend
+		if (SDL_GetTicks() - startingtime > 2500 && player > 0) { //Substituir  por getanimationend
 			App->scene_hao->BattleEnd();
 		}
 		else if  (SDL_GetTicks() - startingtime > 3500) { 

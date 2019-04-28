@@ -38,6 +38,7 @@ public:
 	bool perfect = false;
 	bool timer = false;
 	bool timerRound = false;
+	bool interfaceStart = false;
 };
 
 #endif // __MODULEFIGHT_H__

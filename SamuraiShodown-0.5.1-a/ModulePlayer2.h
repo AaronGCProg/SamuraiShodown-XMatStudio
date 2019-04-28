@@ -43,8 +43,12 @@ enum player2_states
 	ST_KICK_STANDING2,
 	ST_KICK_NEUTRAL_JUMP2,
 	ST_KICK_FORWARD_JUMP2,
+	ST_KICK_BACKWARD_JUMP2,
 	ST_SPECIAL2,
-	ST_FALLING2//new
+	ST_FALLING2,
+	ST_KICK_CROUCH2
+	//new
+	//new
 };
 
 enum player2_inputs
@@ -66,7 +70,8 @@ enum player2_inputs
 	IN_JUMP_PUNCH_FINISH2,
 	IN_PUNCH_FINISH2,
 	IN_FALL_FINISH2,//new
-	IN_FALL2//new
+	IN_FALL2,
+	IN_DEATH2
 };
 
 
@@ -133,9 +138,14 @@ public:
 	bool getsHit = false;
 	bool hasjumped = false;
 	char sAction;
-	bool godMode = false;
+	bool godMode2 = false;
 	bool playerFlip = true;
 	bool invencibleframes = false;
+	bool JumpPunching = false;
+	bool JumpKicking = false;
+	bool crouchpunching = false;
+	bool crouchkicking = false;
+	bool airhit = false;
 	
 	bool jumpleft = false;
 	bool jumpright = false;

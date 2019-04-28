@@ -6,10 +6,10 @@
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleAudio.h"
 #include "ModuleFight.h"
+#include "ModuleFadeToBlack.h"
 
 
 

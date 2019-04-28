@@ -6,8 +6,8 @@
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
+#include "ModuleFadeToBlack.h"
 
 
 ModuleSceneWelcome::ModuleSceneWelcome()

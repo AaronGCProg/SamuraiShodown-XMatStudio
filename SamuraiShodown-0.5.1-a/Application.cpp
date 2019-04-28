@@ -8,7 +8,6 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleAudio.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
@@ -16,6 +15,7 @@
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModuleReferee.h"
+#include "ModuleFadeToBlack.h"
 
 
 
@@ -39,9 +39,9 @@ Application::Application()
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = interface = new ModuleInterface();
-	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = fight = new ModuleFight();
-	
+	modules[i++] = fade = new ModuleFadeToBlack();
+
 
 
 
