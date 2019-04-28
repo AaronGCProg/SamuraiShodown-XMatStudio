@@ -70,7 +70,8 @@ public:
 	ModulePlayer();
 	~ModulePlayer();
 
-	bool Start();
+	bool Start();	
+	update_status PreUpdate();
 	update_status Update();
 	bool CleanUp();
 
@@ -128,7 +129,9 @@ public:
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
+	bool invencibleframes = false;
 
+	int invencibleaux = 0;
 	int health = 0;
 	//int attack_life = 0;
 	//int attack_born = 0;

@@ -82,6 +82,22 @@ update_status ModuleCollision::PreUpdate()
 		}
 	}
 
+	
+
+	return UPDATE_CONTINUE;
+}
+
+// Called before render is available
+update_status ModuleCollision::Update()
+{
+
+	DebugDraw();
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleCollision::PostUpdate()
+{
 	// Calculate collisions
 	Collider* c1;
 	Collider* c2;
@@ -113,15 +129,6 @@ update_status ModuleCollision::PreUpdate()
 			}
 		}
 	}
-
-	return UPDATE_CONTINUE;
-}
-
-// Called before render is available
-update_status ModuleCollision::Update()
-{
-
-	DebugDraw();
 
 	return UPDATE_CONTINUE;
 }

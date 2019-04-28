@@ -55,6 +55,7 @@ public:
 
 	update_status PreUpdate() override;
 	update_status Update() override;
+	update_status PostUpdate() override;
 	bool CleanUp() override;
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);

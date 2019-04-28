@@ -177,6 +177,20 @@ bool ModulePlayer2::CleanUp()
 	return true;
 }
 
+update_status ModulePlayer2::PreUpdate()
+{
+
+	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
+	{
+		if (colisionadores[i] != nullptr) {
+			colisionadores[i]->to_delete = true;
+			colisionadores[i] = nullptr;
+		}
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 // Update: draw background
 update_status ModulePlayer2::Update()
 {

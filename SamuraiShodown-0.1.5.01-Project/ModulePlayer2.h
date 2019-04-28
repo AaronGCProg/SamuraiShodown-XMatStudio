@@ -70,6 +70,7 @@ public:
 	~ModulePlayer2();
 
 	bool Start();
+	update_status PreUpdate();
 	update_status Update();
 	bool CleanUp();
 

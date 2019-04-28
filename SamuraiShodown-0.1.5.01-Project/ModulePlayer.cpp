@@ -300,6 +300,23 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
+
+update_status ModulePlayer::PreUpdate()
+{
+
+	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
+	{
+		if (colisionadores[i] != nullptr) {
+			colisionadores[i]->to_delete = true;
+			colisionadores[i] = nullptr;
+		}
+	}
+
+	return UPDATE_CONTINUE;
+}
+
+
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
@@ -308,6 +325,11 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
+	if (invencibleframes) {
+		if (SDL_GetTicks() - (invencibleaux) >= 750) {
+			invencibleframes = false;
+		}
+	}
 
 	internal_input(inputs);
 	player_states state = process_fsm(inputs);
@@ -491,6 +513,8 @@ update_status ModulePlayer::Update()
 			}
 		}
 	}
+
+
 	//_________________
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 	{
@@ -629,14 +653,6 @@ update_status ModulePlayer::Update()
 	}
 
 
-	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
-	{
-		if (colisionadores[i] != nullptr)
-			colisionadores[i]->to_delete = true;
-	}
-
-
-	// TODO 3: Update collider position to player position
 
 
 	// Draw everything --------------------------------------
@@ -649,7 +665,13 @@ update_status ModulePlayer::Update()
 	for (int i = 0; i < hitboxmax; i++)
 	{
 		r = current_animation->hitbox[i];
-		if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
+		if ((!godMode || current_animation->tipo[i] != COLLIDER_ENEMY) && invencibleframes && current_animation->tipo[i] == COLLIDER_PLAYER)
+			if (playerFlip)
+				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
+			else
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+
+		else if (!godMode || current_animation->tipo[i] != COLLIDER_ENEMY)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
 			else
@@ -699,6 +721,9 @@ update_status ModulePlayer::Update()
 
 	return UPDATE_CONTINUE;
 }
+
+
+
 
 // TODO 4: Detect collision with a wall. If so, do something.
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
