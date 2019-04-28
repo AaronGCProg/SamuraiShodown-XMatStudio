@@ -53,12 +53,6 @@
     <ClInclude Include="ModuleAudio.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneHao.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneUky.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleSceneWelcome.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -80,9 +74,6 @@
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleAttack.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleInterface.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -90,6 +81,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleReferee.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneHao.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -124,12 +118,6 @@
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneHao.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneUky.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleSceneWelcome.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -148,9 +136,6 @@
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleAttack.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleInterface.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -158,6 +143,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleReferee.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneHao.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

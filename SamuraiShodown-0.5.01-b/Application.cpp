@@ -3,7 +3,6 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleSceneUky.h"
 #include "ModuleSceneHao.h"
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
@@ -14,7 +13,6 @@
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
-#include "ModuleAttack.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModuleReferee.h"
@@ -31,7 +29,6 @@ Application::Application()
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = fonts = new ModuleFonts();
 	modules[i++] = scene_hao = new ModuleSceneHao();
-	modules[i++] = scene_uky = new ModuleSceneUky();
 	modules[i++] = referee = new ModuleReferee();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
@@ -41,7 +38,6 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
-	modules[i++] = attack = new ModuleAttack();
 	modules[i++] = interface = new ModuleInterface();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = fight = new ModuleFight();
@@ -67,7 +63,6 @@ bool Application::Init()
 	collision->Disable();
 	// Disable the map that you do not start with
 	scene_hao->Disable();
-	scene_uky->Disable();
 	scene_congrats->Disable();
 	interface->Disable();
 	fight->Disable();

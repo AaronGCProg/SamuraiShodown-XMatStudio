@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneUky.h"
 #include "ModuleSceneHao.h"
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
@@ -58,14 +57,12 @@ bool ModuleInterface::Start()
 bool ModuleInterface::CleanUp()
 {
 	LOG("Unloading interface ");
-	App->textures->Unload(ui);
-	App->fonts->UnLoad(font_time);
-	App->fonts->UnLoad(font_name);
-	App->fonts->UnLoad(font_menu);
-
 	App->audio->CleanUp();
 
-
+	App->textures->Unload(ui);
+	App->fonts->UnLoad(font_menu);
+	App->fonts->UnLoad(font_name);
+	App->fonts->UnLoad(font_time);
 
 	return true;
 }

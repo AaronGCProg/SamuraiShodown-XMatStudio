@@ -8,7 +8,6 @@
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
-#include "ModuleAttack.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModulePlayer2.h"
@@ -314,7 +313,7 @@ bool ModulePlayer::Start()
 	punch_timer = 0;
 	kick_timer = 0;
 	bool ret = true;
-
+	groundlevelaux = position.y;
 
 	health = 0;
 
@@ -324,7 +323,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
-	groundlevelaux = position.y;
+	
 
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
 	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
@@ -344,11 +343,12 @@ bool ModulePlayer::Start()
 // Unload assets
 bool ModulePlayer::CleanUp()
 {
-	// TODO 5: Remove all memory leaks
 	LOG("Unloading Character");
-	App->textures->Unload(graphics);
-	App->textures->Unload(ui);
 	App->audio->CleanUp();
+
+	App->textures->Unload(shadow);
+	App->textures->Unload(ui);
+	App->textures->Unload(graphics);
 
 	return true;
 }

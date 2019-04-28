@@ -17,6 +17,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+
 public:
 
 	SDL_Texture* graphics = nullptr;
@@ -27,7 +28,12 @@ public:
 
 	Animation backgroundanim;
 
+	void roundFinish();
+	void BattleEnd();
 
+
+	//text vars
+	bool start = false;
 };
 
 #endif // __MODULESCENEHAO_H__

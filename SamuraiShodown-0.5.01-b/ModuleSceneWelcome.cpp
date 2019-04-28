@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneUky.h"
 #include "ModuleSceneHao.h"
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
@@ -29,13 +28,14 @@ bool ModuleSceneWelcome::Start()
 
 	LOG("Loading Welcome scene");
 
+	graphics = App->textures->Load("Assets/Sprites/welcome.png");
+
 	App->audio->soundtracks[2] = Mix_LoadMUS("Assets/Music/WelcomeMusic.ogg");
 
 	if (!App->audio->soundtracks[2]) {
 		LOG("Mix_LoadMUS(\"WelcomeMusic.ogg\"): %s\n", Mix_GetError());
 	}
-	else {
-		graphics = App->textures->Load("Assets/Sprites/welcome.png");
+	else {		
 		Mix_PlayMusic(App->audio->soundtracks[2], 2);
 	}
 
@@ -49,9 +49,9 @@ bool ModuleSceneWelcome::CleanUp()
 {
 	LOG("Unloading Welcome scene");
 
-	App->textures->Unload(graphics);
-	
 	App->audio->CleanUp();
+
+	App->textures->Unload(graphics);
 
 	return true;
 }
@@ -68,7 +68,7 @@ update_status ModuleSceneWelcome::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
 		Mix_FadeOutMusic(2000);
-		App->fade->FadeToBlack(App->scene_welcome, App->scene_uky, 2.0f);
+		App->fade->FadeToBlack(App->scene_welcome, App->scene_hao, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;

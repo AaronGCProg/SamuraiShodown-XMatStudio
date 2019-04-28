@@ -68,9 +68,8 @@ bool ModuleParticles::Start()
 // Unload assets
 bool ModuleParticles::CleanUp()
 {
-	LOG("Unloading particles");
-	App->textures->Unload(graphics);
 
+	LOG("Unloading particles");
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		if (active[i] != nullptr)
@@ -79,6 +78,8 @@ bool ModuleParticles::CleanUp()
 			active[i] = nullptr;
 		}
 	}
+
+	App->textures->Unload(graphics);
 
 	return true;
 }

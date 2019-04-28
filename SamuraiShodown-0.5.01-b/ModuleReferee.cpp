@@ -82,8 +82,10 @@ bool ModuleReferee::Start()
 // Unload assets
 bool ModuleReferee::CleanUp()
 {
-	// TODO 5: Remove all memory leaks
-	LOG("Unloading Character");
+
+
+	LOG("Unloading Referee");
+
 	App->textures->Unload(graphics);
 	
 

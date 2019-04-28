@@ -7,7 +7,6 @@
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
-#include "ModuleAttack.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInterface.h"
@@ -319,6 +318,7 @@ bool ModulePlayer2::Start()
 	playerFlip = true;
 
 	p2jump_timer = 0;
+	groundlevelaux = position.y;
 
 
 	health = 0;
@@ -326,11 +326,7 @@ bool ModulePlayer2::Start()
 	graphics = App->textures->Load("Assets/Sprites/haohmaru2.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
-	groundlevelaux = position.y;
-
-
-
-	//body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_ENEMY, this);
+	
 
 	return ret;
 }
@@ -338,11 +334,13 @@ bool ModulePlayer2::Start()
 // Unload assets
 bool ModulePlayer2::CleanUp()
 {
-	// TODO 5: Remove all memory leaks
+	
 	LOG("Unloading Character");
-	App->textures->Unload(graphics);
-	App->textures->Unload(ui);
 
+
+	App->textures->Unload(shadow);
+	App->textures->Unload(ui);
+	App->textures->Unload(graphics);
 
 	return true;
 }

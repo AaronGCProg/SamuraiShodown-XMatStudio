@@ -3,13 +3,12 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 19
+#define NUM_MODULES 17
 
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleSceneUky;
 class ModuleSceneWelcome;
 class ModuleSceneHao;
 class ModuleSceneCongrats;
@@ -20,7 +19,6 @@ class ModuleAudio;
 class ModuleParticles;
 class ModuleCollision;
 class ModuleFonts;
-class ModuleAttack;
 class ModuleInterface;
 class ModuleFight;
 class ModuleReferee;
@@ -37,7 +35,6 @@ public:
 	ModuleInput* input;
 	ModuleTextures* textures;
 	ModuleSceneWelcome* scene_welcome;
-	ModuleSceneUky* scene_uky;
 	ModuleSceneHao* scene_hao;
 	ModuleSceneCongrats* scene_congrats;
 	ModulePlayer2* player2;
@@ -47,7 +44,6 @@ public:
 	ModuleParticles* particles;
 	ModuleCollision* collision;
 	ModuleFonts* fonts;
-	ModuleAttack* attack;
 	ModuleInterface* interface;
 	ModuleFight* fight;
 	ModuleReferee *referee;

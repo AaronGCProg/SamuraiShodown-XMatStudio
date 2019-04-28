@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneUky.h"
 #include "ModuleSceneHao.h"
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
@@ -32,17 +31,17 @@ bool ModuleSceneCongrats::Start()
 
 	int startingtime = SDL_GetTicks();
 
+	graphics = App->textures->Load("Assets/Sprites/congrats.png");
+
 	App->audio->soundtracks[3] = Mix_LoadMUS("Assets/Music/BattleEnd.ogg");
 
 	if (!App->audio->soundtracks[3]) {
 		LOG("Mix_LoadMUS(\"BattleEnd.ogg\"): %s\n", Mix_GetError());
 	}
 	else {
-		graphics = App->textures->Load("Assets/Sprites/congrats.png");
+		
 		Mix_PlayMusic(App->audio->soundtracks[3], 2);
 	}
-
-
 
 	return true;
 }
@@ -51,11 +50,11 @@ bool ModuleSceneCongrats::Start()
 bool ModuleSceneCongrats::CleanUp()
 {
 	LOG("Unloading Congrats scene");
-	App->textures->Unload(graphics);
 
 	App->audio->CleanUp();
 	App->fight->Disable();
-	App->fight->CleanUp();
+
+	App->textures->Unload(graphics);
 
 
 	return true;
