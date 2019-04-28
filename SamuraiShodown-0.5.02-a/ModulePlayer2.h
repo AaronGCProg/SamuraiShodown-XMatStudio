@@ -18,7 +18,7 @@
 
 #define HEALTH_VALUE 129
 #define MAXNUMOFCOLLIDERS 6
-
+#define FALLBOUNCES 1
 
 
 struct SDL_Texture;
@@ -43,7 +43,8 @@ enum player2_states
 	ST_KICK_STANDING2,
 	ST_KICK_NEUTRAL_JUMP2,
 	ST_KICK_FORWARD_JUMP2,
-	ST_SPECIAL2
+	ST_SPECIAL2,
+	ST_FALLING2//new
 };
 
 enum player2_inputs
@@ -63,7 +64,9 @@ enum player2_inputs
 	IN_JUMP_FINISH2,
 	IN_JUMP_KICK_FINISH2,
 	IN_JUMP_PUNCH_FINISH2,
-	IN_PUNCH_FINISH2
+	IN_PUNCH_FINISH2,
+	IN_FALL_FINISH2,//new
+	IN_FALL2//new
 };
 
 
@@ -116,6 +119,7 @@ public:
 	Uint32 p2jump_timer = 0;
 	Uint32 p2punch_timer = 0;
 	Uint32 p2kick_timer = 0;
+	Uint32 fall_bounces = 0;//new
 
 	//Collider* body = nullptr;
 
@@ -132,13 +136,15 @@ public:
 	bool godMode = false;
 	bool playerFlip = true;
 	bool invencibleframes = false;
+	
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
 	bool neutralJumpPunching = false;
 	bool audioPlayed = false;
 	int health = 100;
-
+	int falling = false;//new
+	int posyaux;//new
 	int aux = 10;
 	int invencibleaux = 0;
 
