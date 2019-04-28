@@ -1059,6 +1059,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_LEFT_UP2: state = ST_IDLE2; break;
 			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; break;
+			case IN_JUMP2: state = ST_JUMP_BACKWARD2; p2jump_timer = SDL_GetTicks();  break;
 			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
