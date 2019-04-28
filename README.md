@@ -16,8 +16,8 @@ This game consists on 2D arcade fighting one-on-one battles in short time spans.
 
 ##### General
 
-Space - Skip Screen
-ESC - Close the game
+Space - Skip Screen <br>
+ESC - Close the game <br>
 
 ##### Player 1
 
@@ -27,9 +27,9 @@ S - Crouch <br> <br>
 
 X - Punch <br>
 C - Kick <br>
-V - Special Attack <br>
+V - Special Attack <br> <br>
 
-(You can punch and kick crouched and jumping, but the special attack can only be done while standing)
+(You can punch and kick crouched and jumping, but the special attack can only be done while standing) <br>
 
 ##### Player 2
 
@@ -39,20 +39,19 @@ Down Arrow - Crouch <br> <br>
 
 KP 1 - Punch <br>
 KP 2 - Kick <br>
-KP 3 - Special Attack <br>
+KP 3 - Special Attack <br> <br>
 
-(You can punch and kick crouched and jumping, but the special attack can only be done while standing)
+(You can punch and kick crouched and jumping, but the special attack can only be done while standing) <br>
 
 ##### Debug Functionality
 
-F1 - Show/Hide Hitboxes
-F3 - Reset Player 1 & Player 2 Health
-F5 - Player 1 God mode
-F6 - Player 2 God mode
-F9 - Player 2 dies
-F10 - Player 1 dies
-F11 - Infinite time
-
+F1 - Show/Hide Hitboxes <br>
+F3 - Reset Player 1 & Player 2 Health <br>
+F5 - Player 1 God mode <br>
+F6 - Player 2 God mode <br>
+F9 - Player 2 dies <br>
+F10 - Player 1 dies <br>
+F11 - Infinite time <br> <br>
 
 # Team Members
 ### Aaron Guerrero
