@@ -8,7 +8,7 @@
 #define JUMP_TIME 3000
 #define PUNCH_TIME 28
 #define KICK_TIME 17
-
+#define FALLBOUNCES 1
 
 #define HEALTH_VALUE 129
 #define MAXNUMOFCOLLIDERS 6
@@ -44,7 +44,8 @@ enum player_states
 	ST_KICK_NEUTRAL_JUMP,
 	ST_KICK_FORWARD_JUMP,
 	ST_KICK_BACKWARD_JUMP,
-	ST_SPECIAL
+	ST_SPECIAL,
+	ST_FALLING
 
 };
 
@@ -65,7 +66,9 @@ enum player_inputs
 	IN_JUMP_FINISH,
 	IN_JUMP_KICK_FINISH,
 	IN_JUMP_PUNCH_FINISH,
-	IN_PUNCH_FINISH
+	IN_PUNCH_FINISH,
+	IN_FALL_FINISH,
+	IN_FALL
 };
 
 
@@ -119,6 +122,7 @@ public:
 	Uint32 jump_timer = 0;
 	Uint32 punch_timer = 0;
 	Uint32 kick_timer = 0;
+	Uint32 fall_bounces = 0;
 
 	bool jumping = false;
 	bool jumpingBackward = false;
@@ -139,6 +143,7 @@ public:
 	bool crouching = false;
 	bool audioPlayed = false;
 	bool invencibleframes = false;
+	int falling = false;
 
 	int invencibleaux = 0;
 	int health = 0;

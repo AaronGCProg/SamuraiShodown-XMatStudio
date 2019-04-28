@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
+#include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
@@ -8,20 +9,16 @@
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
 #include "ModuleAttack.h"
-#include "ModulePlayer.h"
-#include "ModulePlayer2.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModulePlayer2.h"
 
-#include<math.h>
-
-
-ModulePlayer2::ModulePlayer2()
+ModulePlayer::ModulePlayer()
 {
 
 	const int idleCollider = 2;//Collider num for the idle animation
 	SDL_Rect idleHitbox[idleCollider] = { { 10, 0, 40, 75 },{ 25, 75, 20, 20 } };
-	COLLIDER_TYPE idleCollType[idleCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE idleCollType[idleCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* idleCallBack[idleCollider] = { {this},{this} };
 
 	// idle animation (arcade sprite sheet)
@@ -36,7 +33,7 @@ ModulePlayer2::ModulePlayer2()
 
 	const int backCollider = 2;//Collider num for the backward animation
 	SDL_Rect backHitbox[backCollider] = { { 20, 0, 40, 75 },{ 35, 75, 20, 20 } };
-	COLLIDER_TYPE backCollType[backCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE backCollType[backCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* backCallBack[backCollider] = { {this},{this} };
 
 	// walk backward animation 
@@ -51,7 +48,7 @@ ModulePlayer2::ModulePlayer2()
 
 	const int forCollider = 2;//Collider num for the forward animation
 	SDL_Rect forHitbox[forCollider] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 } };
-	COLLIDER_TYPE forCollType[forCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE forCollType[forCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* forCallBack[forCollider] = { {this},{this} };
 
 	// walk forward animation 
@@ -67,8 +64,8 @@ ModulePlayer2::ModulePlayer2()
 	const int kickCollider2 = 2;//Collider num for the kick animation
 	SDL_Rect kickHitbox[kickCollider] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 },{ 60, 10, 35, 20 } };
 	SDL_Rect kickHitbox2[kickCollider2] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 } };
-	COLLIDER_TYPE kickCollType[kickCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
-	COLLIDER_TYPE kickCollType2[kickCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE kickCollType[kickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	COLLIDER_TYPE kickCollType2[kickCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* kickCallBack[kickCollider] = { {this},{this},{this} };
 	Module* kickCallBack2[kickCollider2] = { {this},{this} };
 
@@ -83,11 +80,11 @@ ModulePlayer2::ModulePlayer2()
 	const int punchCollider = 3;//Collider num for the punch animation
 	const int punchCollider2 = 2;//Collider num for the punch animation
 	SDL_Rect punchHitbox[punchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
-	COLLIDER_TYPE punchCollType[punchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE punchCollType[punchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* punchCallBack[punchCollider] = { {this},{this},{this} };
 
 	SDL_Rect punchHitbox2[punchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
-	COLLIDER_TYPE punchCollType2[punchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY}, };
+	COLLIDER_TYPE punchCollType2[punchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
 	Module* punchCallBack2[punchCollider2] = { {this},{this} };
 
 	// Punch animation 
@@ -104,7 +101,7 @@ ModulePlayer2::ModulePlayer2()
 
 	const int jumpCollider = 2;//Collider num for the jump animation
 	SDL_Rect jumpHitbox[jumpCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpCollType[jumpCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpCollType[jumpCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpCallBack[jumpCollider] = { {this},{this} };
 
 	//jump animation 
@@ -129,12 +126,12 @@ ModulePlayer2::ModulePlayer2()
 	//jump kick animation 
 	const int jumpKickCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpKickHitbox[jumpKickCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 60, 10, 35, 20 } };
-	COLLIDER_TYPE jumpKickCollType[jumpKickCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE jumpKickCollType[jumpKickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpKickCallBack[jumpKickCollider] = { {this},{this},{this} };
 
 	const int jumpKickCollider2 = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpKickHitbox2[jumpKickCollider2] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpKickCollType2[jumpKickCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpKickCollType2[jumpKickCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpKickCallBack2[jumpKickCollider2] = { {this},{this} };
 
 	jumpKick.PushBack({ 1278,564,79,91 }, 2, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2);
@@ -145,7 +142,7 @@ ModulePlayer2::ModulePlayer2()
 	//jump backwards animation 
 	const int jumpBackCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpBackHitbox[jumpBackCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpBackCallBack[jumpBackCollider] = { {this},{this} };
 
 	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
@@ -162,12 +159,12 @@ ModulePlayer2::ModulePlayer2()
 	//crouch punch animation 
 	const int crouchPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* crouchPunchCallBack[crouchPunchCollider] = { {this},{this},{this} };
 
 	const int crouchPunchCollider2 = 2;//Collider num for the jump kick animation
 	SDL_Rect crouchPunchHitbox2[crouchPunchCollider2] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE crouchPunchCollType2[crouchPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE crouchPunchCollType2[crouchPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* crouchPunchCallBack2[crouchPunchCollider2] = { {this},{this} };
 
 	crouchPunch.PushBack({ 178,249,85,69 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
@@ -184,7 +181,7 @@ ModulePlayer2::ModulePlayer2()
 	//jump backward animation 
 	const int jumpBackwardCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpBackwardHitbox[jumpBackwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpBackwardCollType[jumpBackwardCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpBackwardCollType[jumpBackwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpBackwardCallBack[jumpBackwardCollider] = { {this},{this} };
 
 	jumpBackward.PushBack({ 558,541,64,130 }, 17, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
@@ -201,25 +198,25 @@ ModulePlayer2::ModulePlayer2()
 	//jump punch animation 
 	const int jumpPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpPunchHitbox[jumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
-	COLLIDER_TYPE jumpPunchCollType[jumpPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE jumpPunchCollType[jumpPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpPunchCallBack[jumpPunchCollider] = { {this},{this},{this} };
 
 	const int jumpPunchCollider2 = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpPunchHitbox2[jumpPunchCollider2] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpPunchCollType2[jumpPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpPunchCollType2[jumpPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpPunchCallBack2[jumpPunchCollider2] = { {this},{this} };
 
 	jumpPunch.PushBack({ 1028,566,60,87 }, 2, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
 	jumpPunch.PushBack({ 1089,564,90,90 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
 	jumpPunch.PushBack({ 1180,560,98,92 }, 13, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
 	jumpPunch.PushBack({ 1089,564,90,90 }, 2, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
-	jumpPunch.PushBack({ 1028,566,60,87 }, 500, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
+	jumpPunch.PushBack({ 1028,566,60,87 }, 5, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
 
 
 	//jump foward animation 
 	const int jumpForwardCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardHitbox[jumpForwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpForwardCollType[jumpForwardCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpForwardCollType[jumpForwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpForwardCallBack[jumpForwardCollider] = { {this},{this} };
 
 	jumpFw.PushBack({ 1,525,53,128 }, 22, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
@@ -236,12 +233,12 @@ ModulePlayer2::ModulePlayer2()
 	//jump foward punch animation 
 	const int jumpForwardPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardPunchHitbox[jumpForwardPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
-	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
+	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpForwardPunchCallBack[jumpForwardPunchCollider] = { {this},{this},{this} };
 
 	const int jumpForwardPunchCollider2 = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardPunchHitbox2[jumpForwardPunchCollider2] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE jumpForwardPunchCollType2[jumpForwardPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE jumpForwardPunchCollType2[jumpForwardPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpForwardPunchCallBack2[jumpForwardPunchCollider2] = { {this},{this} };
 
 	jumpFwPunch.PushBack({ 1,694,98,92 }, 2, { 31, 2 }, jumpForwardPunchCollider2, jumpForwardPunchHitbox2, jumpForwardPunchCollType2, jumpForwardPunchCallBack2);
@@ -254,12 +251,11 @@ ModulePlayer2::ModulePlayer2()
 	//crouch animation 
 	const int crouchCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect crouchHitbox[crouchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
-	COLLIDER_TYPE crouchCollType[crouchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE crouchCollType[crouchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* crouchCallBack[crouchCollider] = { {this},{this} };
 
 	crouch.PushBack({ 1499,11,70,113 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	crouch.PushBack({ 1568,46,88,80 }, 1000, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-
 
 	//fall animation
 	const int fallCollider = 2;//Collider num for the jump kick animation
@@ -287,7 +283,7 @@ ModulePlayer2::ModulePlayer2()
 
 	const int tornadoCollider = 2;//Collider num for the tornado animation
 	SDL_Rect tornadoHitbox[tornadoCollider] = { { 40, 10, 40, 65 },{ 55, 75, 20, 20 } };
-	COLLIDER_TYPE tornadoCollType[tornadoCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE tornadoCollType[tornadoCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* tornadoCallBack[tornadoCollider] = { {this},{this} };
 
 	// Tornado animation
@@ -305,49 +301,60 @@ ModulePlayer2::ModulePlayer2()
 
 }
 
-ModulePlayer2::~ModulePlayer2()
+ModulePlayer::~ModulePlayer()
 {}
 
 // Load assets
-bool ModulePlayer2::Start()
+bool ModulePlayer::Start()
 {
-	position.x = 200;
-	position.y = 198; //200 about the same position on the ground as its on the real game.
+	position.x = 100;
+	position.y = 198; // 198about the same position on the ground as its on the real game.
 
-	LOG("Loading player textures");
+	jump_timer = 0;
+	punch_timer = 0;
+	kick_timer = 0;
 	bool ret = true;
-	playerFlip = true;
-
-	p2jump_timer = 0;
 
 
 	health = 0;
 
-	graphics = App->textures->Load("Assets/Sprites/haohmaru2.png"); // arcade version
+	LOG("Listening for Arrow keys + SPACE:\n");
+	LOG("Loading player textures");
+
+	graphics = App->textures->Load("Assets/Sprites/haohmaru.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
 	groundlevelaux = position.y;
 
+	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
+	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
+	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/haohmaru_getshitted1.wav");
+	App->audio->effects[14] = Mix_LoadWAV("Assets/Music/CharacterLandingGround.wav");
+	App->audio->effects[15] = Mix_LoadWAV("Assets/Music/LightJumpAir.wav");
+	App->audio->effects[16] = Mix_LoadWAV("Assets/Music/Slash1.wav");
+	App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
+	App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
+	App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
 
 
-	//body = App->collision->AddCollider({ position.x, position.y - 113, 73, 113 }, COLLIDER_ENEMY, this);
 
 	return ret;
 }
 
 // Unload assets
-bool ModulePlayer2::CleanUp()
+bool ModulePlayer::CleanUp()
 {
 	// TODO 5: Remove all memory leaks
 	LOG("Unloading Character");
 	App->textures->Unload(graphics);
 	App->textures->Unload(ui);
-
+	App->audio->CleanUp();
 
 	return true;
 }
 
-update_status ModulePlayer2::PreUpdate()
+
+update_status ModulePlayer::PreUpdate()
 {
 
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
@@ -361,226 +368,211 @@ update_status ModulePlayer2::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
+
+
 // Update: draw background
-update_status ModulePlayer2::Update()
+update_status ModulePlayer::Update()
 {
+
 	current_animation = &idle;
+
 	int speed = 2;
 
 	if (invencibleframes) {
-		if (SDL_GetTicks() - (invencibleaux) >= 350) {
+		if (SDL_GetTicks() - (invencibleaux) >= 750) {
 			invencibleframes = false;
 		}
 	}
 
-	if (external_input(p2inputs, App->player->inputs))
-	{
-		internal_input(p2inputs);
-		player2_states state = process_fsm(p2inputs);
+	internal_input(inputs);
+	player_states state = process_fsm(inputs);
+	current_state = state;
 
-		if (!App->player->doingAction) {
-
-			if (App->player->position.x < App->player2->position.x) {
-				App->player->playerFlip = false;
-			}
-			else {
-				App->player->playerFlip = true;
-			}
-		}
-		if (!App->player->doingAction) {
-
-			if (App->player->position.x < App->player2->position.x) {
-				App->player->playerFlip = false;
-			}
-			else {
-				App->player->playerFlip = true;
-			}
-		}
+	if (!playerFlip) {
 
 
-		if (!playerFlip) {
 
+		if (!doingAction) {
+			switch (state)
+			{
+			case ST_IDLE:
+				LOG("IDLE\n");
+				current_animation = &idle;
+				break;
+			case ST_WALK_FORWARD:
+				LOG("FORWARD >>>\n");
+				current_animation = &forward;
+				position.x += speed + 1;
+				break;
+			case ST_WALK_BACKWARD:
+				LOG("BACKWARD <<<\n");
+				current_animation = &backward;
+				position.x -= speed;
+				break;
+			case ST_JUMP_NEUTRAL:
+				LOG("JUMPING NEUTRAL ^^^^\n");
+				jumping = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				break;
+			case ST_JUMP_FORWARD:
+				LOG("JUMPING FORWARD ^^>>\n");
+				jumpright = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				doingAction = true;
+				break;
+			case ST_JUMP_BACKWARD:
+				LOG("JUMPING BACKWARD ^^<<\n");
+				jumpleft = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				doingAction = true;
+				break;
+			case ST_CROUCH:
+				LOG("CROUCHING ****\n");
+				crouching = true;
+				doingAction = true;
 
-			if (!doingAction) {
-				audioPlayed = false;
+				break;
+			case ST_PUNCH_CROUCH:
+				LOG("PUNCH CROUCHING **++\n");
+				break;
+			case ST_PUNCH_STANDING:
+				LOG("PUNCH STANDING ++++\n");
+				punching = true; doingAction = true;
+				break;
+			case ST_KICK_STANDING:
+				LOG("KICK STANDING ----\n");
+				kicking = true; doingAction = true;
+				break;
+			case ST_PUNCH_NEUTRAL_JUMP:
+				LOG("PUNCH JUMP NEUTRAL ^^++\n");
+				break;
+			case ST_PUNCH_FORWARD_JUMP:
+				LOG("PUNCH JUMP FORWARD ^>>+\n");
+				break;
+			case ST_PUNCH_BACKWARD_JUMP:
+				LOG("PUNCH JUMP BACKWARD ^<<+\n");
+				break;
+			case ST_SPECIAL:
+				LOG("SPECIAL OwwwwO\n");
+				tornading = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[0], 0);
+				Mix_PlayChannel(-1, App->audio->effects[1], 0);
+				App->particles->tornadoHao.speed.x = +3;
 
-
-				if (App->player->position.x < App->player2->position.x) {
-					playerFlip = true;
-				}
-				else {
-					playerFlip = false;
-				}
-				switch (state)
-				{
-				case ST_IDLE2:
-					LOG("IDLE\n");
-					current_animation = &idle;
-					break;
-				case ST_WALK_FORWARD2:
-					LOG("FORWARD >>>\n");
-					current_animation = &forward;
-					position.x += speed + 1;
-					break;
-				case ST_WALK_BACKWARD2:
-					LOG("BACKWARD <<<\n");
-					current_animation = &backward;
-					position.x -= speed;
-					break;
-				case ST_JUMP_NEUTRAL2:
-					LOG("JUMPING NEUTRAL ^^^^\n");
-					jumping = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					break;
-				case ST_JUMP_FORWARD2:
-					LOG("JUMPING FORWARD ^^>>\n");
-					jumpright = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					doingAction = true;
-					break;
-				case ST_JUMP_BACKWARD2:
-					LOG("JUMPING BACKWARD ^^<<\n");
-					jumpleft = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					doingAction = true;
-					break;
-				case ST_CROUCH2:
-					LOG("CROUCHING ****\n");
-					crouching = true;
-					doingAction = true;
-
-					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
-					break;
-				case ST_PUNCH_STANDING2:
-					LOG("PUNCH STANDING ++++\n");
-					punching = true; doingAction = true;
-					break;
-				case ST_KICK_STANDING2:
-					LOG("KICK STANDING ----\n");
-					kicking = true; doingAction = true;
-					break;
-				case ST_PUNCH_NEUTRAL_JUMP2:
-					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					neutralJumpPunching = true;
-					break;
-				case ST_PUNCH_FORWARD_JUMP2:
-					LOG("PUNCH JUMP FORWARD ^>>+\n");
-					break;
-				case ST_PUNCH_BACKWARD_JUMP2:
-					LOG("PUNCH JUMP BACKWARD ^<<+\n");
-					break;
-				case ST_SPECIAL2:
-					LOG("SPECIAL OwwwwO\n");
-					tornading = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[0], 0);
-					Mix_PlayChannel(-1, App->audio->effects[1], 0);
-					App->particles->tornadoHao.speed.x = +3;
-					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_ENEMY_SHOT);
-
-
-					break;
-
-				}
-			}
-		}
-		else {
-
-
-			if (!doingAction) {
-
-				audioPlayed = false;
-
-
-				if (App->player->position.x < App->player2->position.x) {
-					playerFlip = true;
-				}
-				else {
-					playerFlip = false;
-				}
-				switch (state)
-				{
-				case ST_IDLE2:
-					LOG("IDLE\n");
-					current_animation = &idle;
-					break;
-				case ST_WALK_FORWARD2:
-					LOG("FORWARD >>>\n");
-					current_animation = &backward;
-					position.x += speed;
-					break;
-				case ST_WALK_BACKWARD2:
-					LOG("BACKWARD <<<\n");
-					current_animation = &forward;
-					position.x -= speed + 1;
-					break;
-				case ST_JUMP_NEUTRAL2:
-					LOG("JUMPING NEUTRAL ^^^^\n");
-					jumping = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					break;
-				case ST_JUMP_FORWARD2:
-					LOG("JUMPING FORWARD ^^>>\n");
-
-
-					jumpright = true;
-
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-
-					doingAction = true;
-					break;
-				case ST_JUMP_BACKWARD2:
-					LOG("JUMPING BACKWARD ^^<<\n");
-
-					jumpleft = true;
-
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-
-					doingAction = true;
-					break;
-				case ST_CROUCH2:
-					LOG("CROUCHING ****\n");
-					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
-					break;
-				case ST_PUNCH_STANDING2:
-					LOG("PUNCH STANDING ++++\n");
-					punching = true; doingAction = true;
-					break;
-				case ST_KICK_STANDING2:
-					LOG("KICK STANDING ----\n");
-					kicking = true; doingAction = true;
-					break;
-				case ST_PUNCH_NEUTRAL_JUMP2:
-					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					neutralJumpPunching = true;
-					break;
-				case ST_PUNCH_FORWARD_JUMP2:
-					LOG("PUNCH JUMP FORWARD ^>>+\n");
-					break;
-				case ST_PUNCH_BACKWARD_JUMP2:
-					LOG("PUNCH JUMP BACKWARD ^<<+\n");
-					break;
-				case ST_SPECIAL2:
-					LOG("SPECIAL OwwwwO\n");
-					tornading = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[0], 0);
-					Mix_PlayChannel(-1, App->audio->effects[1], 0);
-					App->particles->tornadoHao.speed.x = +3;
+				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_ENEMY_SHOT);
-
-					break;
-
+					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
 				}
+				else {
+					App->particles->tornadoHao.speed.x = +3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+				}
+
+				break;
+			case ST_FALLING://new
+				falling = true; doingAction = true;
+				break;
+			}
+		}
+	}
+	else {
+
+
+		if (!doingAction) {
+			switch (state)
+			{
+			case ST_IDLE:
+				LOG("IDLE\n");
+				current_animation = &idle;
+				break;
+			case ST_WALK_FORWARD:
+				LOG("FORWARD >>>\n");
+				current_animation = &backward;
+				position.x += speed;
+				break;
+			case ST_WALK_BACKWARD:
+				LOG("BACKWARD <<<\n");
+				current_animation = &forward;
+				position.x -= speed + 1;
+				break;
+			case ST_JUMP_NEUTRAL:
+				LOG("JUMPING NEUTRAL ^^^^\n");
+				jumping = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				break;
+			case ST_JUMP_FORWARD:
+				LOG("JUMPING FORWARD ^^>>\n");
+
+				if (!playerFlip)
+					jumpleft = true;
+				else
+					jumpright = true;
+
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+
+				doingAction = true;
+				break;
+			case ST_JUMP_BACKWARD:
+				LOG("JUMPING BACKWARD ^^<<\n");
+
+				if (!playerFlip)
+					jumpright = true;
+				else
+					jumpleft = true;
+
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+
+				doingAction = true;
+				break;
+			case ST_CROUCH:
+				LOG("CROUCHING ****\n");
+				break;
+			case ST_PUNCH_CROUCH:
+				LOG("PUNCH CROUCHING **++\n");
+				break;
+			case ST_PUNCH_STANDING:
+				LOG("PUNCH STANDING ++++\n");
+				punching = true; doingAction = true;
+				break;
+			case ST_KICK_STANDING:
+				LOG("KICK STANDING ----\n");
+				kicking = true; doingAction = true;
+				break;
+			case ST_PUNCH_NEUTRAL_JUMP:
+				LOG("PUNCH JUMP NEUTRAL ^^++\n");
+				break;
+			case ST_PUNCH_FORWARD_JUMP:
+				LOG("PUNCH JUMP FORWARD ^>>+\n");
+				break;
+			case ST_PUNCH_BACKWARD_JUMP:
+				LOG("PUNCH JUMP BACKWARD ^<<+\n");
+				break;
+			case ST_SPECIAL:
+				LOG("SPECIAL OwwwwO\n");
+				tornading = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[0], 0);
+				Mix_PlayChannel(-1, App->audio->effects[1], 0);
+				App->particles->tornadoHao.speed.x = +3;
+
+				if (playerFlip) {
+					App->particles->tornadoHao.speed.x = -3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+				}
+				else {
+					App->particles->tornadoHao.speed.x = +3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+				}
+
+				break;
+			case ST_FALLING://new
+				falling = true; doingAction = true;
+				break;
 			}
 		}
 	}
 
 
+	//_________________
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 	{
 		if (godMode)
@@ -591,37 +583,26 @@ update_status ModulePlayer2::Update()
 	}
 
 
-	if (App->input->keys[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN)
-	{
-		health = 0;
-	}
-
-
-
 
 	if (doingAction)
 	{
 		if (kicking) {
 			//set kick anim
 			current_animation = &kick;
-			//stop kick anim
 
 			if (current_animation->current_frame > 2 && !App->player2->getsHit && !audioPlayed) {
 				Mix_PlayChannel(-1, App->audio->effects[19], 0);
 				audioPlayed = true;
 			}
+
+			//stop kick anim
 			if (kick.GetAnimEnd() == true) {
 				kicking = false; doingAction = false; kick.SetAnimEnd(false);
 				audioPlayed = false;
 			}
-		}
 
-		if (tornading) {
-			//set punch anim
-			current_animation = &tornado;
 
-			//stop punch anim
-			if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+
 		}
 
 		if (punching) {
@@ -646,6 +627,15 @@ update_status ModulePlayer2::Update()
 			current_animation = &crouch;
 			//stop punch anim
 			if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
+		}
+
+		if (tornading) {
+			//set punch anim
+			current_animation = &tornado;
+
+
+			//stop punch anim
+			if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
 		}
 
 		if (getsHit) {
@@ -685,28 +675,25 @@ update_status ModulePlayer2::Update()
 		if (jumping)
 		{
 			//set jump anim
-			if (neutralJumpPunching)
-				current_animation = &jumpPunch;
-			else
-				current_animation = &jump;
-
+			current_animation = &jump;
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			hasjumped = true;
-			//stop punch anim
+			//stop jump anim
+			jumpingframe++;
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
 				hasjumped = false;
 				jumping = false;
-				neutralJumpPunching = false;
-				position.y = groundlevelaux;
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
+				position.y = groundlevelaux;
 				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpPunch.Reset();
+				inputs.Push(IN_JUMP_FINISH);
 				jump.Reset();
+
+
 			}
-			jumpingframe++;
+			
 		}
 		if (jumpright)
 		{
@@ -719,6 +706,7 @@ update_status ModulePlayer2::Update()
 			position.x += 4;
 			hasjumped = true;
 			//stop jump anim
+			jumpingframe++;
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
@@ -727,13 +715,13 @@ update_status ModulePlayer2::Update()
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
+				inputs.Push(IN_JUMP_FINISH);
 				jumpFw.Reset();
 				jumpBackward.Reset();
 
 
 			}
-			jumpingframe++;
+			
 		}
 		if (jumpleft)
 		{
@@ -746,6 +734,7 @@ update_status ModulePlayer2::Update()
 			position.x -= 4;
 			hasjumped = true;
 			//stop jump anim
+			jumpingframe++;
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
@@ -754,41 +743,63 @@ update_status ModulePlayer2::Update()
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
+				inputs.Push(IN_JUMP_FINISH);
 				jumpFw.Reset();
 				jumpBackward.Reset();
 
 
 			}
-			jumpingframe++;
+			
 		}
+		if (falling)//new
+		{
+			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+			if (playerFlip)position.x += 2 - (fall_bounces);
+			else position.x -= 2 - (fall_bounces);
 
-	}
-	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
-	{
-		if (colisionadores[i] != nullptr)
-			colisionadores[i]->to_delete = true;
-	}
-	//Jump Logic------------------------------------------
+			hasjumped = true;
+			jumpingframe++;
+			if (position.y > groundlevelaux)
+			{
+				jumpingframe = 0;
+				position.y = groundlevelaux;
+				fall_bounces++;
+			}
+			if (fall_bounces > FALLBOUNCES &&hasjumped == true)
+			{
+				hasjumped = false;
+				jumpingframe = 0;
+				inputs.Push(IN_FALL_FINISH);
+				fall_bounces = 0;
+				doingAction = false;
+				falling = false;
+				position.y = groundlevelaux;
+				//missing falling animation fallinganim.Reset()
+			}
 
-	//body->SetPos(position.x, position.y - 113);
+		}
+	}
+
+
+
 
 	// Draw everything --------------------------------------
 	playerPivotX = current_animation->pivotpos[(int)current_animation->current_frame].x;
 	playerPivotY = current_animation->pivotpos[(int)current_animation->current_frame].y;
+
 
 	SDL_Rect r;
 	int hitboxmax = current_animation->collidersmax[(int)current_animation->current_frame]; //number of collision boxes in each frame
 	for (int i = 0; i < hitboxmax; i++)
 	{
 		r = current_animation->hitbox[i];
-		if ((!godMode || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
+		if ((!godMode || current_animation->tipo[i] != COLLIDER_ENEMY) && invencibleframes && current_animation->tipo[i] == COLLIDER_PLAYER)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 			else
 				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 
-		else if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
+		else if (!godMode || current_animation->tipo[i] != COLLIDER_ENEMY)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
 			else
@@ -797,33 +808,41 @@ update_status ModulePlayer2::Update()
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
 	SDL_Rect shadowrect = { 0,0,70,14 };
-	//Blits player + collisions + shadow_____________
-	if (playerFlip)
+	//Blits player + collisions_____________
+	if (playerFlip) 
 	{		//blit if player is flipped(compensates for pivot)
 		App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
-	else
-	{    //blit if player is NOT flipped
+	else 
+	{   //blit if player is NOT flipped
 		App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect);
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
-
-
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
 	if ((App->fight->showHealthBar) == true) {
-		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
+		App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
 		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
 			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
-			App->render->Blit(ui, 168, 17, false, &healthValue, NULL, true);
+			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
 		}
 		else {
 			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
-			App->render->Blit(ui, 168, 17, false, &healthValue, NULL, true);
+			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
+		}
+	}
+
+
+	if (godMode)//deletes all the collision boxes if in god mode
+	{
+		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
+		{
+			if (colisionadores[i] != nullptr)
+				colisionadores[i]->to_delete = true;
 		}
 	}
 
@@ -831,26 +850,30 @@ update_status ModulePlayer2::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
+
+
+
+// TODO 4: Detect collision with a wall. If so, do something.
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 	{
-		if (c2->type == COLLIDER_PLAYER) {
-			if (this->playerFlip) {//normal pos (right)
-				position.x += 1;
+		if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_NONE) {
+			if (!this->playerFlip) {//normal pos (left)
+				position.x -= 1;
 
 			}
-			else {//flipped position (left)
-				position.x -= 1;
+			else {//flipped position (right)
+				position.x += 1;
 
 			}
 		}
 	}
-	if (c2->type == COLLIDER_PLAYER_SHOT) {
+	if (c2->type == COLLIDER_ENEMY_SHOT) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 30;
 		getsHit = true; doingAction = true;
 	}
-	if (c2->type == COLLIDER_PLAYER_ATTACK) {
+	if (c2->type == COLLIDER_ENEMY_ATTACK) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 20;
 		getsHit = true; doingAction = true;
@@ -859,372 +882,203 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 		else
 			Mix_PlayChannel(-1, App->audio->effects[16], 0);
+
+
 	}
 }
 
-bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<player_inputs>& inputs)
-{
-	static bool left2 = false;
-	static bool right2 = false;
-	static bool down2 = false;
-	static bool up2 = false;
-
-	static bool left = false;
-	static bool right = false;
-	static bool down = false;
-	static bool up = false;
-
-	SDL_Event event2;
-	if (App->fight->playerControl) {
-
-		while (SDL_PollEvent(&event2) != 0)
-		{
-			if (event2.type == SDL_KEYUP && event2.key.repeat == 0)
-			{
-				switch (event2.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-					return false;
-					break;
-				case SDLK_DOWN:
-					p2inputs.Push(IN_CROUCH_UP2);
-					down2 = false;
-					break;
-				case SDLK_UP:
-					up2 = false;
-					break;
-				case SDLK_LEFT:
-					p2inputs.Push(IN_LEFT_UP2);
-					left2 = false;
-					break;
-				case SDLK_RIGHT:
-					p2inputs.Push(IN_RIGHT_UP2);
-					right2 = false;
-					break;
-
-				case SDLK_s:
-					inputs.Push(IN_CROUCH_UP);
-					down = false;
-					break;
-				case SDLK_w:
-					up = false;
-					break;
-				case SDLK_a:
-					inputs.Push(IN_LEFT_UP);
-					left = false;
-					break;
-				case SDLK_d:
-					inputs.Push(IN_RIGHT_UP);
-					right = false;
-					break;
-				}
-			}
-			if (event2.type == SDL_KEYDOWN && event2.key.repeat == 0)
-			{
-				switch (event2.key.keysym.sym)
-				{
-				case SDLK_KP_1:
-					p2inputs.Push(IN_X2);
-					break;
-				case SDLK_KP_2:
-					p2inputs.Push(IN_KICK2);
-					break;
-				case SDLK_KP_3:
-					p2inputs.Push(IN_SPECIAL2);
-					break;
-				case SDLK_UP:
-					up2 = true;
-					break;
-				case SDLK_DOWN:
-					down2 = true;
-					break;
-				case SDLK_LEFT:
-					left2 = true;
-					break;
-				case SDLK_RIGHT:
-					right2 = true;
-					break;
-
-				case SDLK_x:
-					inputs.Push(IN_X);
-					break;
-				case SDLK_c:
-					inputs.Push(IN_KICK);
-					break;
-				case SDLK_v:
-					inputs.Push(IN_SPECIAL);
-					break;
-				case SDLK_w:
-					up = true;
-					break;
-				case SDLK_s:
-					down = true;
-					break;
-				case SDLK_a:
-					left = true;
-					break;
-				case SDLK_d:
-					right = true;
-					break;
-				}
-			}
-		}
-
-
-		if (left && right)
-			inputs.Push(IN_LEFT_AND_RIGHT);
-		{
-			if (left)
-				inputs.Push(IN_LEFT_DOWN);
-			if (right)
-				inputs.Push(IN_RIGHT_DOWN);
-		}
-
-		if (up && down)
-			inputs.Push(IN_JUMP_AND_CROUCH);
-		else
-		{
-			if (down)
-				inputs.Push(IN_CROUCH_DOWN);
-			else
-				inputs.Push(IN_CROUCH_UP);
-			if (up)
-				inputs.Push(IN_JUMP);
-		}
-
-
-		if (left2 && right2)
-			p2inputs.Push(IN_LEFT_AND_RIGHT2);
-		{
-			if (left2)
-				p2inputs.Push(IN_LEFT_DOWN2);
-			if (right2)
-				p2inputs.Push(IN_RIGHT_DOWN2);
-		}
-
-		if (up2 && down2)
-			p2inputs.Push(IN_JUMP_AND_CROUCH2);
-		else
-		{
-			if (down2)
-				p2inputs.Push(IN_CROUCH_DOWN2);
-			else
-				p2inputs.Push(IN_CROUCH_UP2);
-			if (up2)
-				p2inputs.Push(IN_JUMP2);
-		}
-	}
-	else if (!App->fight->playerControl && App->interface->actualtime == 0) {
-			p2inputs.Push(IN_CROUCH_UP2);
-			down2 = false;
-		
-			up2 = false;
-
-			p2inputs.Push(IN_LEFT_UP2);
-			left2 = false;
-		
-			p2inputs.Push(IN_RIGHT_UP2);
-			right2 = false;
-			inputs.Push(IN_CROUCH_UP);
-			down = false;
-		
-			up = false;
-			
-			inputs.Push(IN_LEFT_UP);
-			left = false;
-		
-			inputs.Push(IN_RIGHT_UP);
-
-
-}
-
-	return true;
-}
-void ModulePlayer2::internal_input(p2Qeue<player2_inputs>& inputs)
+void ModulePlayer::internal_input(p2Qeue<player_inputs>& inputs)
 {
 
-	if (p2jump_timer > 0)
+	if (jump_timer > 0)
 	{
-		if (SDL_GetTicks() - p2jump_timer > JUMP_TIME)
+		if (SDL_GetTicks() - jump_timer > JUMP_TIME)
 		{
-			inputs.Push(IN_JUMP_FINISH2);
-			p2jump_timer = 0;
+			inputs.Push(IN_JUMP_FINISH);
+			jump_timer = 0;
 		}
 	}
 
 
-	if (p2punch_timer > 0)
+	if (punch_timer > 0)
 	{
-		if (SDL_GetTicks() - p2punch_timer > PUNCH_TIME)
+		if (SDL_GetTicks() / 1000 / 60 - punch_timer > PUNCH_TIME)
 		{
-			inputs.Push(IN_PUNCH_FINISH2);
-			p2punch_timer = 0;
+			inputs.Push(IN_PUNCH_FINISH);
+			punch_timer = 0;
 		}
 	}
 
-	if (p2kick_timer > 0)
+	if (kick_timer > 0)
 	{
-		if (SDL_GetTicks() / 1000 / 60 - p2kick_timer > PUNCH_TIME)
+		if (SDL_GetTicks() / 1000 / 60 - kick_timer > PUNCH_TIME)
 		{
-			inputs.Push(IN_PUNCH_FINISH2);
-			p2punch_timer = 0;
+			inputs.Push(IN_PUNCH_FINISH);
+			punch_timer = 0;
 		}
 	}
 
 }
-player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
+player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 {
-	static player2_states state = ST_IDLE2;
-	player2_inputs last_input;
+	static player_states state = ST_IDLE;
+	player_inputs last_input;
 
 	while (inputs.Pop(last_input))
 	{
 		switch (state)
 		{
-		case ST_IDLE2:
+		case ST_IDLE:
 		{
 			switch (last_input)
 			{
-			case IN_RIGHT_DOWN2: state = ST_WALK_FORWARD2; break;
-			case IN_LEFT_DOWN2: state = ST_WALK_BACKWARD2; break;
-			case IN_JUMP2: state = ST_JUMP_NEUTRAL2;  break;
-			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
-			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_SPECIAL2: state = ST_SPECIAL2; p2punch_timer = SDL_GetTicks();  break;
-
+			case IN_RIGHT_DOWN: state = ST_WALK_FORWARD; break;
+			case IN_LEFT_DOWN: state = ST_WALK_BACKWARD; break;
+			case IN_JUMP: state = ST_JUMP_NEUTRAL;  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+			case IN_FALL:state = ST_FALLING; break;//new
 			}
 		}
 		break;
 
-		case ST_WALK_FORWARD2:
+		case ST_WALK_FORWARD:
 		{
 			switch (last_input)
 			{
-			case IN_RIGHT_UP2: state = ST_IDLE2; break;
-			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; break;
-			case IN_JUMP2: state = ST_JUMP_FORWARD2; p2jump_timer = SDL_GetTicks();  break;
-			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
+			case IN_RIGHT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_JUMP: state = ST_JUMP_FORWARD; jump_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			}
 		}
 		break;
 
-		case ST_WALK_BACKWARD2:
+		case ST_WALK_BACKWARD:
 		{
 			switch (last_input)
 			{
-			case IN_LEFT_UP2: state = ST_IDLE2; break;
-			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; break;
-			case IN_JUMP2: state = ST_JUMP_BACKWARD2; p2jump_timer = SDL_GetTicks();  break;
-			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
+			case IN_LEFT_UP: state = ST_IDLE; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_JUMP: state = ST_JUMP_BACKWARD; jump_timer = SDL_GetTicks(); break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			}
 		}
 		break;
 
-		case ST_JUMP_NEUTRAL2:
+		case ST_JUMP_NEUTRAL:
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_NEUTRAL_JUMP2; p2punch_timer = SDL_GetTicks(); break;
-
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_NEUTRAL_JUMP; punch_timer = SDL_GetTicks(); break;
 			}
 		}
 		break;
 
-		case ST_JUMP_FORWARD2:
+		case ST_JUMP_FORWARD:
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_FORWARD_JUMP2; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_FORWARD_JUMP; break;
 			}
 		}
 		break;
 
-		case ST_JUMP_BACKWARD2:
+		case ST_JUMP_BACKWARD:
 		{
 			switch (last_input)
 			{
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_BACKWARD_JUMP2; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_BACKWARD_JUMP; break;
 			}
 		}
 		break;
 
-		case ST_PUNCH_NEUTRAL_JUMP2:
+		case ST_PUNCH_NEUTRAL_JUMP:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
 			}
 		}
 		break;
 
-		case ST_PUNCH_FORWARD_JUMP2:
+		case ST_PUNCH_FORWARD_JUMP:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
 			}
 		}
 		break;
 
-		case ST_PUNCH_BACKWARD_JUMP2:
+		case ST_PUNCH_BACKWARD_JUMP:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
-			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_JUMP_FINISH: state = ST_IDLE; break;
 			}
 		}
 		break;
 
-		case ST_PUNCH_STANDING2:
+		case ST_PUNCH_STANDING:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
 			}
 		}
 		break;
 
-		case ST_CROUCH2:
+		case ST_CROUCH:
 		{
 			switch (last_input)
 			{
-			case IN_CROUCH_UP2: state = ST_IDLE2; break;
-			case IN_X2: state = ST_PUNCH_CROUCH2; p2punch_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_UP: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_CROUCH; punch_timer = SDL_GetTicks();  break;
 			}
 		}
 		break;
-		case ST_PUNCH_CROUCH2:
+		case ST_PUNCH_CROUCH:
 		{
 			switch (last_input)
 			{
-			case IN_CROUCH_UP2 && IN_PUNCH_FINISH2: state = ST_IDLE2; break;
-			case IN_PUNCH_FINISH2: state = ST_CROUCH2; break;
+			case IN_CROUCH_UP && IN_PUNCH_FINISH: state = ST_IDLE; break;
+			case IN_PUNCH_FINISH: state = ST_CROUCH; break;
 			}
 		}
-		case ST_KICK_STANDING2:
+		case ST_KICK_STANDING:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
 			}
 		}
-		case ST_SPECIAL2:
+		case ST_SPECIAL:
 		{
 			switch (last_input)
 			{
-			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_PUNCH_FINISH: state = ST_IDLE; break;
 			}
+		}
+		case ST_FALLING:
+		{//new
+			switch (last_input)
+			{
+			case IN_FALL_FINISH: state = ST_IDLE; break;
+			}
+
 		}
 		break;
 		}
