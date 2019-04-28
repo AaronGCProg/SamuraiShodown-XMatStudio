@@ -46,6 +46,7 @@ KP 3 - Special Attack <br>
 ##### Debug Functionality
 
 F1 - Show/Hide Hitboxes
+F3 - Reset Player 1 & Player 2 Health
 F5 - Player 1 God mode
 F6 - Player 2 God mode
 F9 - Player 2 dies
