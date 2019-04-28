@@ -149,9 +149,7 @@ update_status ModuleFight::Update()
 				finalwin1 = true;
 
 			}
-
-			
-
+			WinRound1(1, finalwin1, perfect);
 
 		}
 
@@ -217,7 +215,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 
 	}
-
 	else if (player == 0 && SDL_GetTicks() - startingtime > 500) {
 		if (SDL_GetTicks() - startingtime < 1200) {
 			App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "TIME UP");
@@ -231,6 +228,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 		}
 	}
+
 
 	if(SDL_GetTicks() - startingtime > 3500){ //Substituir  por getanimationend
 	played = 1;
@@ -295,8 +293,25 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 				}
 			}
 		}
-		if (SDL_GetTicks() - startingtime > 3000) { //Substituir  por getanimationend
+		else if (player == 0 && SDL_GetTicks() - startingtime > 500) {
+			if (SDL_GetTicks() - startingtime < 1200) {
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "TIME UP");
+				if (played == 3) {
+					Mix_PlayChannel(-1, App->audio->effects[13], 0);
+					played++;
+				}
+			}
+			else if (SDL_GetTicks() - startingtime < 2000) {
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "DRAW");
+
+			}
+		}
+		if (SDL_GetTicks() - startingtime > 3000 && player > 0) { //Substituir  por getanimationend
 			App->scene_uky->BattleEnd();
+		}
+		else if  (SDL_GetTicks() - startingtime > 3500) { 
+			played = 1;
+				App->scene_uky->roundFinish();
 		}
 
 

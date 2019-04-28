@@ -7,9 +7,9 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-#define MAX_EFFECTS 20
+#define MAX_EFFECTS 30
 #define MAX_SOUNDTRACK 10
-#define MUSIC_VOLUME 0 //volume controller range between 0 and 100 (less-more)
+#define MUSIC_VOLUME 65 //volume controller range between 0 and 100 (less-more)
 
 class ModuleAudio : public Module
 {

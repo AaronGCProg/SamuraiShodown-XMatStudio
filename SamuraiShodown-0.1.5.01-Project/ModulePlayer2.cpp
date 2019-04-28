@@ -182,6 +182,12 @@ update_status ModulePlayer2::Update()
 	current_animation = &idle;
 	int speed = 1;
 
+	if (invencibleframes) {
+		if (SDL_GetTicks() - (invencibleaux) >= 750){
+			invencibleframes = false;
+		}
+	}
+
 	if (external_input(p2inputs, App->player->inputs))
 	{
 		internal_input(p2inputs);
@@ -328,16 +334,33 @@ update_status ModulePlayer2::Update()
 			//set punch anim
 			current_animation = &hurtLow;
 			//body->to_delete = true;
-			//position.x = position.x + aux;
-			//aux--;
-			if (hurtLow.GetAnimEnd() == true) { getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false); }
+
+			if (playerFlip) {
+				if (aux > 0 && aux < 11) {
+					position.x += aux;
+					aux--;
+				}
+			}
+			else if (!playerFlip) {
+				if (aux > 0 && aux < 11)
+					position.x -= aux;
+				aux--;
+
+			}
+
+			if (hurtLow.GetAnimEnd() == true) { 
+				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+				aux = 10;
+				invencibleframes = true;
+				invencibleaux = SDL_GetTicks();
+
+			}
 			//stop punch anim
 
 			/*if (hurtLow.GetAnimEnd() == true) {
 				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
 				body->to_delete = true;
 				body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
-				aux = 8;
 			}*/
 		}
 
@@ -381,7 +404,13 @@ update_status ModulePlayer2::Update()
 	for (int i = 0; i < hitboxmax; i++)
 	{
 		r = current_animation->hitbox[i];
-		if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
+		if ((!godMode || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
+			if (playerFlip)
+				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
+			else
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+
+		else if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
 			else
@@ -473,7 +502,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 			case SDLK_DOWN:
 				p2inputs.Push(IN_CROUCH_UP2);
 				down2 = false;
-				playerFlip = false;
 				break;
 			case SDLK_UP:
 				up2 = false;
@@ -490,7 +518,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 			case SDLK_s:
 				inputs.Push(IN_CROUCH_UP);
 				down = false;
-				App->player->playerFlip = false;
 				break;
 			case SDLK_w:
 				up = false;
@@ -523,7 +550,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				break;
 			case SDLK_DOWN:
 				down2 = true;
-				playerFlip = true;
 				break;
 			case SDLK_LEFT:
 				left2 = true;
@@ -546,7 +572,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				break;
 			case SDLK_s:
 				down = true;
-				App->player->playerFlip = true;
 				break;
 			case SDLK_a:
 				left = true;

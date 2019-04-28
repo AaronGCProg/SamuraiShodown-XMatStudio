@@ -64,7 +64,12 @@ bool ModuleAudio::Init()
 
 
 	Mix_VolumeMusic(MUSIC_VOLUME);
-	
+	Mix_Volume(0, MIX_MAX_VOLUME / 2);
+	Mix_Volume(1, MIX_MAX_VOLUME / 2);
+	Mix_Volume(2, MIX_MAX_VOLUME / 2);
+	Mix_Volume(3, MIX_MAX_VOLUME / 2);
+	Mix_Volume(4, MIX_MAX_VOLUME / 2);
+
 
 	return true;
 }

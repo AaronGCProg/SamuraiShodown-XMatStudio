@@ -275,6 +275,14 @@ bool ModulePlayer::Start()
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
 	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
 	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/haohmaru_getshitted1.wav");
+	App->audio->effects[14] = Mix_LoadWAV("Assets/Music/CharacterLandingGround.wav");
+	App->audio->effects[15] = Mix_LoadWAV("Assets/Music/LightJumpAir.wav");
+	App->audio->effects[16] = Mix_LoadWAV("Assets/Music/Slash1.wav");
+	App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
+	App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
+	App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
+
+
 
 	return ret;
 }
@@ -297,7 +305,7 @@ update_status ModulePlayer::Update()
 
 	current_animation = &idle;
 
-	int speed = 1;
+	int speed = 2;
 
 
 	internal_input(inputs);
@@ -313,13 +321,12 @@ update_status ModulePlayer::Update()
 			{
 			case ST_IDLE:
 				LOG("IDLE\n");
-
-
+				current_animation = &idle;
 				break;
 			case ST_WALK_FORWARD:
 				LOG("FORWARD >>>\n");
 				current_animation = &forward;
-				position.x += speed;
+				position.x += speed+1;
 				break;
 			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
@@ -329,21 +336,25 @@ update_status ModulePlayer::Update()
 			case ST_JUMP_NEUTRAL:
 				LOG("JUMPING NEUTRAL ^^^^\n");
 				jumping = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				break;
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
 				jumpright = true;
-
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				doingAction = true;
 				break;
 			case ST_JUMP_BACKWARD:
 				LOG("JUMPING BACKWARD ^^<<\n");
 				jumpleft = true;
-
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				doingAction = true;
 				break;
 			case ST_CROUCH:
 				LOG("CROUCHING ****\n");
+				crouching = true;
+				doingAction = true;
+
 				break;
 			case ST_PUNCH_CROUCH:
 				LOG("PUNCH CROUCHING **++\n");
@@ -394,6 +405,7 @@ update_status ModulePlayer::Update()
 			{
 			case ST_IDLE:
 				LOG("IDLE\n");
+				current_animation = &idle;
 				break;
 			case ST_WALK_FORWARD:
 				LOG("FORWARD >>>\n");
@@ -403,11 +415,12 @@ update_status ModulePlayer::Update()
 			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
 				current_animation = &forward;
-				position.x -= speed;
+				position.x -= speed+1;
 				break;
 			case ST_JUMP_NEUTRAL:
 				LOG("JUMPING NEUTRAL ^^^^\n");
 				jumping = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				break;
 			case ST_JUMP_FORWARD:
 				LOG("JUMPING FORWARD ^^>>\n");
@@ -416,6 +429,8 @@ update_status ModulePlayer::Update()
 					jumpleft = true;
 				else
 					jumpright = true;
+
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 
 				doingAction = true;
 				break;
@@ -426,6 +441,8 @@ update_status ModulePlayer::Update()
 					jumpright = true;
 				else
 					jumpleft = true;
+
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 
 				doingAction = true;
 				break;
@@ -491,14 +508,29 @@ update_status ModulePlayer::Update()
 			//set kick anim
 			current_animation = &kick;
 			//stop kick anim
-			if (kick.GetAnimEnd() == true) { kicking = false; doingAction = false; kick.SetAnimEnd(false); }
+			if (kick.GetAnimEnd() == true) { 
+				kicking = false; doingAction = false; kick.SetAnimEnd(false); 
+			}
+			
+
+
 		}
 
 		if (punching) {
-			//set punch anim
+			//set kick anim
 			current_animation = &punch;
+			//stop kick anim
+			if (punch.GetAnimEnd() == true) { 
+				punching = false; doingAction = false; punch.SetAnimEnd(false);
+
+			}
+		}
+
+		if (crouching) {
+			//set punch anim
+			current_animation = &crouch;
 			//stop punch anim
-			if (punch.GetAnimEnd() == true) { punching = false; doingAction = false; punch.SetAnimEnd(false); }
+			if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
 		}
 
 		if (tornading) {
@@ -529,6 +561,7 @@ update_status ModulePlayer::Update()
 				jumpingframe = 0;
 				hasjumped = false;
 				jumping = false;
+				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
@@ -546,7 +579,7 @@ update_status ModulePlayer::Update()
 			else
 				current_animation = &jumpBackward; //Jumpbackward animation
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			position.x += 3;
+			position.x += 4;
 			hasjumped = true;
 			//stop jump anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
@@ -554,6 +587,7 @@ update_status ModulePlayer::Update()
 				jumpingframe = 0;
 				hasjumped = false;
 				jumpright = false;
+				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
@@ -572,7 +606,7 @@ update_status ModulePlayer::Update()
 			else
 				current_animation = &jumpBackward; //Jumpbackward animation
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			position.x -= 3;
+			position.x -= 4;
 			hasjumped = true;
 			//stop jump anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
@@ -580,6 +614,7 @@ update_status ModulePlayer::Update()
 				jumpingframe = 0;
 				hasjumped = false;
 				jumpleft = false;
+				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				position.y = groundlevelaux;
 				doingAction = false;
 				inputs.Push(IN_JUMP_FINISH);
@@ -684,6 +719,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 20;
 		getsHit = true; doingAction = true;
+		if(App->player2->kicking)
+			Mix_PlayChannel(-1, App->audio->effects[17], 0);
+
+		else
+			Mix_PlayChannel(-1, App->audio->effects[16], 0);
+
+
 	}
 }
 
@@ -750,6 +792,8 @@ player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 			case IN_RIGHT_UP: state = ST_IDLE; break;
 			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
 			case IN_JUMP: state = ST_JUMP_FORWARD; jump_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			}
@@ -762,6 +806,8 @@ player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 			{
 			case IN_LEFT_UP: state = ST_IDLE; break;
 			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
 			case IN_JUMP: state = ST_JUMP_BACKWARD; jump_timer = SDL_GetTicks(); break;
 			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
 			}

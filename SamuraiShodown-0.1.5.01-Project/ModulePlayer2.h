@@ -115,9 +115,11 @@ public:
 	char sAction;
 	bool godMode = false;
 	bool playerFlip = true;
+	bool invencibleframes = false;
 	int health = 100;
 
-	int aux = 8;
+	int aux = 10;
+	int invencibleaux = 0;
 
 	int playerPivotX = 0; //declare & inizialize pivot
 	int playerPivotY = 0;//declare & inizialize pivot

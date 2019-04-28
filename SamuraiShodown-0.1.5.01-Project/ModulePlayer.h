@@ -126,6 +126,7 @@ public:
 	bool playerFlip = false;
 	bool jumpleft = false;
 	bool jumpright = false;
+	bool crouching = false;
 
 	int health = 0;
 	//int attack_life = 0;
