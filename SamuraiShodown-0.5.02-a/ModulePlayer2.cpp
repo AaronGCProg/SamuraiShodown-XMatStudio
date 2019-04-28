@@ -271,7 +271,7 @@ ModulePlayer2::ModulePlayer2()
 	fall.PushBack({ 108,470,108,54 }, 6, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 1,455,106,69 }, 27, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 108,470,108,54 }, 5, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 217,284,116,42 }, 35, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 217,482,116,42 }, 50, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 
 	//getUp animation
 	const int getUpCollider = 2;//Collider num for the jump kick animation
@@ -326,7 +326,7 @@ bool ModulePlayer2::Start()
 	graphics = App->textures->Load("Assets/Sprites/haohmaru2.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
-	
+
 
 	return ret;
 }
@@ -334,7 +334,7 @@ bool ModulePlayer2::Start()
 // Unload assets
 bool ModulePlayer2::CleanUp()
 {
-	
+
 	LOG("Unloading Character");
 
 
@@ -711,7 +711,7 @@ update_status ModulePlayer2::Update()
 				jumpPunch.Reset();
 				jump.Reset();
 			}
-			
+
 		}
 		if (jumpright)
 		{
@@ -739,7 +739,7 @@ update_status ModulePlayer2::Update()
 
 
 			}
-			
+
 		}
 		if (jumpleft)
 		{
@@ -767,24 +767,29 @@ update_status ModulePlayer2::Update()
 
 
 			}
-			
+
 		}
 		if (falling)//new
 		{
 			current_animation = &fall;
-			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-			if (playerFlip)position.x += 2 - (fall_bounces);
-			else position.x -= 2 - (fall_bounces);
-
-			hasjumped = true;
-			jumpingframe++;
-			if (position.y > groundlevelaux)
+			if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
+			else
 			{
-				jumpingframe = 0;
-				position.y = groundlevelaux;
-				fall_bounces++;
+				
+				position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+				if (playerFlip)position.x += 2 - (fall_bounces);
+				else position.x -= 2 - (fall_bounces);
+
+				hasjumped = true;
+				jumpingframe++;
+				if (position.y > groundlevelaux)
+				{
+					jumpingframe = 0;
+					position.y = groundlevelaux;
+					fall_bounces++;
+				}
 			}
-			if (fall_bounces > FALLBOUNCES &&hasjumped == true)
+			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45)
 			{
 				hasjumped = false;
 				jumpingframe = 0;
@@ -794,6 +799,7 @@ update_status ModulePlayer2::Update()
 				falling = false;
 				position.y = groundlevelaux;
 				fall.Reset();
+				delay = 0;
 			}
 
 		}
@@ -1008,10 +1014,10 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				case SDLK_d:
 					right = true;
 					break;
-				case SDLK_p:
+				/*case SDLK_p:				//only for debugging
 					inputs.Push(IN_FALL);
 					p2inputs.Push(IN_FALL2);
-					break;
+					break;*/
 				}
 			}
 		}
@@ -1061,28 +1067,28 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 		}
 	}
 	else if (!App->fight->playerControl && App->interface->actualtime == 0) {
-			p2inputs.Push(IN_CROUCH_UP2);
-			down2 = false;
-		
-			up2 = false;
+		p2inputs.Push(IN_CROUCH_UP2);
+		down2 = false;
 
-			p2inputs.Push(IN_LEFT_UP2);
-			left2 = false;
-		
-			p2inputs.Push(IN_RIGHT_UP2);
-			right2 = false;
-			inputs.Push(IN_CROUCH_UP);
-			down = false;
-		
-			up = false;
-			
-			inputs.Push(IN_LEFT_UP);
-			left = false;
-		
-			inputs.Push(IN_RIGHT_UP);
+		up2 = false;
+
+		p2inputs.Push(IN_LEFT_UP2);
+		left2 = false;
+
+		p2inputs.Push(IN_RIGHT_UP2);
+		right2 = false;
+		inputs.Push(IN_CROUCH_UP);
+		down = false;
+
+		up = false;
+
+		inputs.Push(IN_LEFT_UP);
+		left = false;
+
+		inputs.Push(IN_RIGHT_UP);
 
 
-}
+	}
 
 	return true;
 }

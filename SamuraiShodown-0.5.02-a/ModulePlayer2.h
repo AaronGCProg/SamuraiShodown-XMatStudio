@@ -147,6 +147,7 @@ public:
 	int posyaux;//new
 	int aux = 10;
 	int invencibleaux = 0;
+	int delay = 0;
 
 	int playerPivotX = 0; //declare & inizialize pivot
 	int playerPivotY = 0;//declare & inizialize pivot
