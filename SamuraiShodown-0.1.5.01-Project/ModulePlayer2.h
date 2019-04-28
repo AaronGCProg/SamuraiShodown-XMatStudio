@@ -97,6 +97,14 @@ public:
 	Animation tornado;
 	Animation hurtLow;
 	Animation* current_animation;
+	Animation jumpKick;
+	Animation jumpPunch;
+	Animation jumpBackward;
+	Animation jumpFw;
+	Animation jumpFwPunch;
+	Animation crouch;
+	Animation crouchKick;
+	Animation crouchPunch;
 	iPoint position;
 
 	Uint32 p2jump_timer = 0;
@@ -118,6 +126,10 @@ public:
 	bool godMode = false;
 	bool playerFlip = true;
 	bool invencibleframes = false;
+	bool jumpleft = false;
+	bool jumpright = false;
+	bool crouching = false;
+	bool audioPlayed = false;
 	int health = 100;
 
 	int aux = 10;

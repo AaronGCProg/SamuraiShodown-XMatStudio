@@ -84,7 +84,7 @@ public:
 public:
 	p2Qeue<player_inputs> inputs;
 	player_states current_state = ST_UNKNOWN;
-	
+
 	Collider *colisionadores[MAXNUMOFCOLLIDERS];
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* ui = nullptr;
@@ -129,14 +129,16 @@ public:
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
+	bool audioPlayed = false;
 	bool invencibleframes = false;
 
 	int invencibleaux = 0;
 	int health = 0;
 	//int attack_life = 0;
 	//int attack_born = 0;
-	int playerPivotX=0; //declare & inizialize pivot
+	int playerPivotX = 0; //declare & inizialize pivot
 	int playerPivotY = 0;//declare & inizialize pivot
 };
+
 
 #endif
