@@ -368,7 +368,7 @@ update_status ModulePlayer2::Update()
 	int speed = 2;
 
 	if (invencibleframes) {
-		if (SDL_GetTicks() - (invencibleaux) >= 750) {
+		if (SDL_GetTicks() - (invencibleaux) >= 350) {
 			invencibleframes = false;
 		}
 	}
@@ -786,7 +786,7 @@ update_status ModulePlayer2::Update()
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 
 		else if (!godMode || current_animation->tipo[i] != COLLIDER_PLAYER)
 			if (playerFlip)
@@ -845,12 +845,12 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			}
 		}
 	}
-	if (c2->type == COLLIDER_ENEMY_SHOT) {
+	if (c2->type == COLLIDER_PLAYER_SHOT) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 30;
 		getsHit = true; doingAction = true;
 	}
-	if (c2->type == COLLIDER_ENEMY_ATTACK) {
+	if (c2->type == COLLIDER_PLAYER_ATTACK) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 20;
 		getsHit = true; doingAction = true;
@@ -877,7 +877,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 	SDL_Event event2;
 	if (App->fight->playerControl) {
 
-		while (SDL_PollEvent(&event2) != 0) //EL PROBLEMA ES QUE AQUEST SEÑOR ES MENJA TOTS ELS EVENTS Y NO PASA AL ALTRE
+		while (SDL_PollEvent(&event2) != 0)
 		{
 			if (event2.type == SDL_KEYUP && event2.key.repeat == 0)
 			{
@@ -1014,6 +1014,29 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				p2inputs.Push(IN_JUMP2);
 		}
 	}
+	else if (!App->fight->playerControl && App->interface->actualtime == 0) {
+			p2inputs.Push(IN_CROUCH_UP2);
+			down2 = false;
+		
+			up2 = false;
+
+			p2inputs.Push(IN_LEFT_UP2);
+			left2 = false;
+		
+			p2inputs.Push(IN_RIGHT_UP2);
+			right2 = false;
+			inputs.Push(IN_CROUCH_UP);
+			down = false;
+		
+			up = false;
+			
+			inputs.Push(IN_LEFT_UP);
+			left = false;
+		
+			inputs.Push(IN_RIGHT_UP);
+
+
+}
 
 	return true;
 }
@@ -1032,7 +1055,7 @@ void ModulePlayer2::internal_input(p2Qeue<player2_inputs>& inputs)
 
 	if (p2punch_timer > 0)
 	{
-		if (SDL_GetTicks() / 1000 / 60 - p2punch_timer > PUNCH_TIME)
+		if (SDL_GetTicks() - p2punch_timer > PUNCH_TIME)
 		{
 			inputs.Push(IN_PUNCH_FINISH2);
 			p2punch_timer = 0;

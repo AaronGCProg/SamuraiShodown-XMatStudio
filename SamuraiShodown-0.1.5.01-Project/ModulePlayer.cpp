@@ -379,7 +379,7 @@ update_status ModulePlayer::Update()
 	int speed = 2;
 
 	if (invencibleframes) {
-		if (SDL_GetTicks() - (invencibleaux) >= 500) {
+		if (SDL_GetTicks() - (invencibleaux) >= 750) {
 			invencibleframes = false;
 		}
 	}
@@ -763,7 +763,7 @@ update_status ModulePlayer::Update()
 			if (playerFlip)
 				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
 
 		else if (!godMode || current_animation->tipo[i] != COLLIDER_ENEMY)
 			if (playerFlip)
@@ -823,7 +823,7 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 	{
-		if (c2->type == COLLIDER_ENEMY) {
+		if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_NONE) {
 			if (!this->playerFlip) {//normal pos (left)
 				position.x -= 1;
 
