@@ -41,7 +41,11 @@ enum player_states
 	ST_PUNCH_BACKWARD_JUMP,
 	ST_PUNCH_CROUCH,
 	ST_KICK_STANDING,
+	ST_KICK_NEUTRAL_JUMP,
+	ST_KICK_FORWARD_JUMP,
+	ST_KICK_BACKWARD_JUMP,
 	ST_SPECIAL
+
 };
 
 enum player_inputs
@@ -59,6 +63,8 @@ enum player_inputs
 	IN_KICK,
 	IN_SPECIAL,
 	IN_JUMP_FINISH,
+	IN_JUMP_KICK_FINISH,
+	IN_JUMP_PUNCH_FINISH,
 	IN_PUNCH_FINISH
 };
 
@@ -106,6 +112,8 @@ public:
 	Animation crouch;
 	Animation crouchKick;
 	Animation crouchPunch;
+	Animation getUp;
+	Animation fall;
 	iPoint position;
 
 	Uint32 jump_timer = 0;
@@ -134,6 +142,7 @@ public:
 
 	int invencibleaux = 0;
 	int health = 0;
+	int aux = 10;
 	//int attack_life = 0;
 	//int attack_born = 0;
 	int playerPivotX = 0; //declare & inizialize pivot

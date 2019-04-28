@@ -213,7 +213,7 @@ ModulePlayer2::ModulePlayer2()
 	jumpPunch.PushBack({ 1089,564,90,90 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
 	jumpPunch.PushBack({ 1180,560,98,92 }, 13, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
 	jumpPunch.PushBack({ 1089,564,90,90 }, 2, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
-	jumpPunch.PushBack({ 1028,566,60,87 }, 5, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
+	jumpPunch.PushBack({ 1028,566,60,87 }, 500, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
 
 
 	//jump foward animation 
@@ -259,6 +259,30 @@ ModulePlayer2::ModulePlayer2()
 
 	crouch.PushBack({ 1499,11,70,113 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	crouch.PushBack({ 1568,46,88,80 }, 1000, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+
+
+	//fall animation
+	const int fallCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect fallHitbox[fallCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE fallCollType[fallCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
+	Module* fallCallBack[fallCollider] = { {this},{this} };
+
+	fall.PushBack({ 334,435,98,89 }, 23, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1,455,106,69 }, 45, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 108,470,108,54 }, 6, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1,455,106,69 }, 27, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 108,470,108,54 }, 5, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 217,284,116,42 }, 35, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+
+	//getUp animation
+	const int getUpCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect getUpHitbox[getUpCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE getUpCollType[getUpCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
+	Module* getUpCallBack[getUpCollider] = { {this},{this} };
+	getUp.PushBack({ 108,470,108,54 }, 5, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 1306,789,75,94 }, 8, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 1,455,106,69 }, 4, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 334,435,98,89 }, 4, { 31,2, }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
 
 
 	const int tornadoCollider = 2;//Collider num for the tornado animation
@@ -439,6 +463,7 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_PUNCH_NEUTRAL_JUMP2:
 					LOG("PUNCH JUMP NEUTRAL ^^++\n");
+					neutralJumpPunching = true;
 					break;
 				case ST_PUNCH_FORWARD_JUMP2:
 					LOG("PUNCH JUMP FORWARD ^>>+\n");
@@ -500,7 +525,7 @@ update_status ModulePlayer2::Update()
 					LOG("JUMPING FORWARD ^^>>\n");
 
 
-						jumpright = true;
+					jumpright = true;
 
 					Mix_PlayChannel(-1, App->audio->effects[15], 0);
 
@@ -509,7 +534,7 @@ update_status ModulePlayer2::Update()
 				case ST_JUMP_BACKWARD2:
 					LOG("JUMPING BACKWARD ^^<<\n");
 
-						jumpleft = true;
+					jumpleft = true;
 
 					Mix_PlayChannel(-1, App->audio->effects[15], 0);
 
@@ -531,6 +556,7 @@ update_status ModulePlayer2::Update()
 					break;
 				case ST_PUNCH_NEUTRAL_JUMP2:
 					LOG("PUNCH JUMP NEUTRAL ^^++\n");
+					neutralJumpPunching = true;
 					break;
 				case ST_PUNCH_FORWARD_JUMP2:
 					LOG("PUNCH JUMP FORWARD ^>>+\n");
@@ -552,7 +578,6 @@ update_status ModulePlayer2::Update()
 				}
 			}
 		}
-		current_state = state;
 	}
 
 
@@ -660,8 +685,11 @@ update_status ModulePlayer2::Update()
 		if (jumping)
 		{
 			//set jump anim
+			if (neutralJumpPunching)
+				current_animation = &jumpPunch;
+			else
+				current_animation = &jump;
 
-			current_animation = &jump;
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
 			hasjumped = true;
 			//stop punch anim
@@ -670,10 +698,12 @@ update_status ModulePlayer2::Update()
 				jumpingframe = 0;
 				hasjumped = false;
 				jumping = false;
+				neutralJumpPunching = false;
 				position.y = groundlevelaux;
 				Mix_PlayChannel(-1, App->audio->effects[14], 0);
 				doingAction = false;
 				p2inputs.Push(IN_JUMP_FINISH2);
+				jumpPunch.Reset();
 				jump.Reset();
 			}
 			jumpingframe++;
@@ -815,15 +845,20 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			}
 		}
 	}
-	if (c2->type == COLLIDER_PLAYER_SHOT) {
+	if (c2->type == COLLIDER_ENEMY_SHOT) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 30;
 		getsHit = true; doingAction = true;
 	}
-	if (c2->type == COLLIDER_PLAYER_ATTACK) {
+	if (c2->type == COLLIDER_ENEMY_ATTACK) {
 		Mix_PlayChannel(-1, App->audio->effects[2], 0);
 		health += 20;
 		getsHit = true; doingAction = true;
+		if (App->player2->kicking)
+			Mix_PlayChannel(-1, App->audio->effects[17], 0);
+
+		else
+			Mix_PlayChannel(-1, App->audio->effects[16], 0);
 	}
 }
 
@@ -1073,6 +1108,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			{
 			case IN_JUMP_FINISH2: state = ST_IDLE2; break;
 			case IN_X2: state = ST_PUNCH_NEUTRAL_JUMP2; p2punch_timer = SDL_GetTicks(); break;
+
 			}
 		}
 		break;

@@ -257,6 +257,29 @@ ModulePlayer::ModulePlayer()
 	crouch.PushBack({ 1499,11,70,113 }, 2, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	crouch.PushBack({ 1568,46,88,80 }, 1000, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 
+	//fall animation
+	const int fallCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect fallHitbox[fallCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE fallCollType[fallCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
+	Module* fallCallBack[fallCollider] = { {this},{this} };
+
+	fall.PushBack({ 334,435,98,89 }, 23, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1,455,106,69 }, 45, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 108,470,108,54 }, 6, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1,455,106,69 }, 27, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 108,470,108,54 }, 5, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 217,284,116,42 }, 35, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+
+	//getUp animation
+	const int getUpCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect getUpHitbox[getUpCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE getUpCollType[getUpCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
+	Module* getUpCallBack[getUpCollider] = { {this},{this} };
+	getUp.PushBack({ 108,470,108,54 }, 5, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 1306,789,75,94 }, 8, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 1,455,106,69 }, 4, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 334,435,98,89 }, 4, { 31,2, }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+
 
 	const int tornadoCollider = 2;//Collider num for the tornado animation
 	SDL_Rect tornadoHitbox[tornadoCollider] = { { 40, 10, 40, 65 },{ 55, 75, 20, 20 } };
@@ -614,8 +637,35 @@ update_status ModulePlayer::Update()
 		if (getsHit) {
 			//set punch anim
 			current_animation = &hurtLow;
+			//body->to_delete = true;
+
+			if (playerFlip) {
+				if (aux > 0 && aux < 11) {
+					position.x += aux;
+					aux--;
+				}
+			}
+			else if (!playerFlip) {
+				if (aux > 0 && aux < 11)
+					position.x -= aux;
+				aux--;
+
+			}
+
+			if (hurtLow.GetAnimEnd() == true) {
+				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+				aux = 10;
+				invencibleframes = true;
+				invencibleaux = SDL_GetTicks();
+
+			}
 			//stop punch anim
-			if (hurtLow.GetAnimEnd() == true) { getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false); }
+
+			/*if (hurtLow.GetAnimEnd() == true) {
+				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+				body->to_delete = true;
+				body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
+			}*/
 		}
 
 		if (jumping)

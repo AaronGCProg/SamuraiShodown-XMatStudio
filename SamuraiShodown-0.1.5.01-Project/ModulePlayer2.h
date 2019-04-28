@@ -41,6 +41,8 @@ enum player2_states
 	ST_PUNCH_BACKWARD_JUMP2,
 	ST_PUNCH_CROUCH2,
 	ST_KICK_STANDING2,
+	ST_KICK_NEUTRAL_JUMP2,
+	ST_KICK_FORWARD_JUMP2,
 	ST_SPECIAL2
 };
 
@@ -59,6 +61,8 @@ enum player2_inputs
 	IN_KICK2,
 	IN_SPECIAL2,
 	IN_JUMP_FINISH2,
+	IN_JUMP_KICK_FINISH2,
+	IN_JUMP_PUNCH_FINISH2,
 	IN_PUNCH_FINISH2
 };
 
@@ -105,6 +109,8 @@ public:
 	Animation crouch;
 	Animation crouchKick;
 	Animation crouchPunch;
+	Animation getUp;
+	Animation fall;
 	iPoint position;
 
 	Uint32 p2jump_timer = 0;
@@ -129,6 +135,7 @@ public:
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
+	bool neutralJumpPunching = false;
 	bool audioPlayed = false;
 	int health = 100;
 
