@@ -1023,7 +1023,10 @@ update_status ModulePlayer::Update()
 	}
 
 
+	SDL_Rect healthBar = { 90, 81, 134, 15 };
+
 	if ((App->fight->showHealthBar) == true) {
+		App->render->Blit(ui, 5, 15, false, &healthBar, NULL, true);
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
 		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
@@ -1035,7 +1038,6 @@ update_status ModulePlayer::Update()
 			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
 		}
 	}
-
 
 	
 

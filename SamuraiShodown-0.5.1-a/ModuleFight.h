@@ -29,6 +29,7 @@ public:
 	bool roundfinish = false;
 	int startingtime = 0;
 	
+
 	bool winplayer1 = false;
 	bool winplayer2 = false;
 	bool firstWin = false;

@@ -29,6 +29,8 @@ bool ModuleFight::Start()
 {
 	LOG("Loading fight module ");
 
+
+
 	startingtime = SDL_GetTicks();
 	letterTime = 1775;
 	playerControlTime = 3363;
@@ -56,104 +58,103 @@ bool ModuleFight::CleanUp()
 {
 	LOG("Unloading fight module");
 
-
-
 	return true;
 }
 
 // Update: draw background
 update_status ModuleFight::Update()
 {
-	if(interfaceStart){
-	if (SDL_GetTicks() - startingtime < letterTime && !firstWin) {
-		App->fonts->BlitText((SCREEN_WIDTH / 2) - 115, 70, 2, "E N  G A R D E ");
-		if (played == 0) {
-			Mix_PlayChannel(-1, App->audio->effects[4], 0);
-			played++;
-			App->interface->actualtime = 99;
-		}
-	}
-	else {
-		showHealthBar = true;
+	if (interfaceStart) {
 
-		if (SDL_GetTicks() - App->interface->startingtime < letterTime + 888) {
-			App->interface->actualtime = 99;
-
-			if (!winplayer1 && !winplayer2) {
-				if (played == 1) {
-					Mix_PlayChannel(-1, App->audio->effects[5], 0);
-					played++;
-					timer = false;
-				}
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 3*16, 70, 2, "DUEL 1");
-			}
-			if ((winplayer1 || winplayer2) && (!winplayer1 || !winplayer2)) {
-				if (played == 1) {
-					Mix_PlayChannel(-1, App->audio->effects[7], 0);
-					played++;
-					letterTime -= 888;
-					playerControlTime -= 300;
-					rounds++;
-					timer = false;
-
-				}
-				App->fonts->BlitText((SCREEN_WIDTH / 2)  -3 * 16, 70, 2, "DUEL 2");
-			}
-			if (winplayer1 && winplayer2) {
-				if (played == 1) {
-					Mix_PlayChannel(-1, App->audio->effects[8], 0);
-					played++;
-					rounds++;
-					timer = false;
-				}
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 3 * 16, 70, 2, "DUEL 3");
-			}
-		}
-		else if (SDL_GetTicks() - App->interface->startingtime < playerControlTime) {
-			App->fonts->BlitText((SCREEN_WIDTH / 2) -2*16, 70, 2, "BEGIN");
-			if (played == 2) {
-				Mix_PlayChannel(-1, App->audio->effects[6], 0);
+		if (SDL_GetTicks() - startingtime < letterTime && !firstWin) {
+			App->fonts->BlitText((SCREEN_WIDTH / 2) - 115, 70, 2, "E N  G A R D E ");
+			if (played == 0) {
+				Mix_PlayChannel(-1, App->audio->effects[4], 0);
 				played++;
-				timer = false;
+				App->interface->actualtime = 99;
 			}
 		}
-		else playerControl = true;
+		else {
+			showHealthBar = true;
 
-		if (App->interface->actualtime <= 0 && App->player->health == App->player2->health) {
+			if (SDL_GetTicks() - App->interface->startingtime < letterTime + 888) {
+				App->interface->actualtime = 99;
 
-			WinRound1(0, false, false);
-		}
+				if (!winplayer1 && !winplayer2) {
+					if (played == 1) {
+						Mix_PlayChannel(-1, App->audio->effects[5], 0);
+						played++;
+						timer = false;
+					}
+					App->fonts->BlitText((SCREEN_WIDTH / 2) - 3 * 16, 70, 2, "DUEL 1");
+				}
+				if ((winplayer1 || winplayer2) && (!winplayer1 || !winplayer2)) {
+					if (played == 1) {
+						Mix_PlayChannel(-1, App->audio->effects[7], 0);
+						played++;
+						letterTime -= 888;
+						playerControlTime -= 300;
+						rounds++;
+						timer = false;
 
-		//ends the round if a players healthbar goes to 0
-		if (App->player->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health > App->player2->health ) {
-			if(!winplayer2){
-			
-			winplayer2 = true;			
+					}
+					App->fonts->BlitText((SCREEN_WIDTH / 2) - 3 * 16, 70, 2, "DUEL 2");
+				}
+				if (winplayer1 && winplayer2) {
+					if (played == 1) {
+						Mix_PlayChannel(-1, App->audio->effects[8], 0);
+						played++;
+						rounds++;
+						timer = false;
+					}
+					App->fonts->BlitText((SCREEN_WIDTH / 2) - 3 * 16, 70, 2, "DUEL 3");
+				}
 			}
-			else if (!finalwin2 && winplayer2 && ((rounds == 2 && !winplayer1) || (rounds == 3 && winplayer1))) {
-			
-				finalwin2 = true;
+			else if (SDL_GetTicks() - App->interface->startingtime < playerControlTime) {
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 2 * 16, 70, 2, "BEGIN");
+				if (played == 2) {
+					Mix_PlayChannel(-1, App->audio->effects[6], 0);
+					played++;
+					timer = false;
+				}
+			}
+			else playerControl = true;
 
+			if (App->interface->actualtime <= 0 && App->player->health == App->player2->health) {
+
+				WinRound1(0, false, false);
 			}
 
-		if (App->player->health == HEALTH_VALUE){
-			perfect = true;
-		}
-		WinRound1(2, finalwin2, perfect);
+			//ends the round if a players healthbar goes to 0
+			if (App->player->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health > App->player2->health) {
+				if (!winplayer2) {
 
-		}
-		if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health < App->player2->health) {
-			if(!winplayer1){
-			winplayer1 = true;
+					winplayer2 = true;
+				}
+				else if (!finalwin2 && winplayer2 && ((rounds == 2 && !winplayer1) || (rounds == 3 && winplayer1))) {
+
+					finalwin2 = true;
+
+				}
+
+				if (App->player->health == HEALTH_VALUE) {
+					perfect = true;
+				}
+				WinRound1(2, finalwin2, perfect);
+
 			}
-			else if (!finalwin1 && winplayer1 && ((rounds == 2 && !winplayer2) || (rounds == 3 && winplayer2))) {
-				finalwin1 = true;
+			if (App->player2->health >= HEALTH_VALUE || App->interface->actualtime <= 0 && App->player->health < App->player2->health) {
+				if (!winplayer1) {
+					winplayer1 = true;
+				}
+				else if (!finalwin1 && winplayer1 && ((rounds == 2 && !winplayer2) || (rounds == 3 && winplayer2))) {
+					finalwin1 = true;
+
+				}
+				WinRound1(1, finalwin1, perfect);
 
 			}
-			WinRound1(1, finalwin1, perfect);
-
 		}
-	}
 	}
 	return UPDATE_CONTINUE;
 }
