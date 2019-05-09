@@ -1146,7 +1146,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 	static bool down = false;
 	static bool up = false;
 
-	SDL_Event event2;
 	if (App->fight->playerControl) {
 
 		while (SDL_PollEvent(&event2) != 0)
@@ -1286,7 +1285,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				p2inputs.Push(IN_JUMP2);
 		}
 	}
-	else if (!App->fight->playerControl && App->interface->actualtime == 0) {
+	else if (!App->fight->playerControl) {
 		p2inputs.Push(IN_CROUCH_UP2);
 		down2 = false;
 
@@ -1297,6 +1296,30 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 		p2inputs.Push(IN_RIGHT_UP2);
 		right2 = false;
+		p2inputs.Push(IN_CROUCH_UP2);
+		down2 = false;
+
+		up = false;
+
+		p2inputs.Push(IN_LEFT_UP2);
+		left2 = false;
+
+		p2inputs.Push(IN_RIGHT_UP2);
+
+
+
+
+
+		inputs.Push(IN_CROUCH_UP);
+		down = false;
+
+		up = false;
+
+		inputs.Push(IN_LEFT_UP);
+		left = false;
+
+		inputs.Push(IN_RIGHT_UP);
+		right = false;
 		inputs.Push(IN_CROUCH_UP);
 		down = false;
 
@@ -1307,6 +1330,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 		inputs.Push(IN_RIGHT_UP);
 
+		while (SDL_PollEvent(&event2) != 0){}
 
 	}
 

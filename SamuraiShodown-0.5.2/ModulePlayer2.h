@@ -126,6 +126,9 @@ public:
 	Uint32 p2kick_timer = 0;
 	Uint32 fall_bounces = 0;//new
 
+	SDL_Event event2;
+
+
 	//Collider* body = nullptr;
 
 	bool jumping = false;

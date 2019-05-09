@@ -175,7 +175,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 	if (player == 1 && SDL_GetTicks() - startingtime > 500) {
 		//Player1 1st victory animation
-		App->player2->p2inputs.Push(IN_DEATH2);
 		//Player2 1st death animation
 
 	 if (SDL_GetTicks() - startingtime < 1200) {
@@ -185,6 +184,8 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		Mix_PlayChannel(-1, App->audio->effects[9], 0);
 		played++;
 		timerRound = true;
+		App->player2->p2inputs.Push(IN_DEATH2);
+
 		}
 	 }
 		else if (SDL_GetTicks() - startingtime < 2000) {
@@ -199,7 +200,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 	}
 	if (player == 2 && SDL_GetTicks() - startingtime > 500) {
 		//Player1 1st death animation
-		App->player->inputs.Push(IN_DEATH);
 		//Player2 1st victory animation
 		if (SDL_GetTicks() - startingtime < 1200) {
 			App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IPPON");
@@ -207,6 +207,8 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 				Mix_PlayChannel(-1, App->audio->effects[9], 0);
 				played++;
 				timerRound = true;
+				App->player->inputs.Push(IN_DEATH);
+
 			}
 		}
 		else if (SDL_GetTicks() - startingtime < 2000) {
@@ -243,7 +245,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 	else {
 		if (player == 1 && SDL_GetTicks() - startingtime > 500) {
-			App->player2->p2inputs.Push(IN_DEATH2);
 			if (SDL_GetTicks() - startingtime < 1430) {
 
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "VICTORY");
@@ -251,6 +252,8 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 					Mix_PlayChannel(-1, App->audio->effects[11], 0);
 					played++;
 					timerRound = true;
+					App->player2->p2inputs.Push(IN_DEATH2);
+
 				}
 			}
 			//Player1 2nd victory animation
@@ -274,12 +277,13 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 		}
 		if (player == 2 && SDL_GetTicks() - startingtime > 500) {
-			App->player->inputs.Push(IN_DEATH);
 			if (SDL_GetTicks() - startingtime < 1200) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "VICTORY");
 				if (played == 3) {
 					Mix_PlayChannel(-1, App->audio->effects[11], 0);
 					played++;
+					App->player->inputs.Push(IN_DEATH);
+
 				}
 			}
 			//Player1 2nd death animation
