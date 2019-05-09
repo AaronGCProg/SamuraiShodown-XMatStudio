@@ -7,11 +7,11 @@
 
 struct SDL_Texture;
 
-class ModuleSceneHao : public Module
+class ModuleSceneHanzo : public Module
 {
 public:
-	ModuleSceneHao();
-	~ModuleSceneHao();
+	ModuleSceneHanzo();
+	~ModuleSceneHanzo();
 
 	bool Start();
 	update_status Update();
@@ -26,7 +26,14 @@ public:
 	SDL_Rect foreground;
 	SDL_Rect background;
 
-	Animation backgroundanim;
+	Animation HighSky;
+	Animation LowSky;
+	Animation Bird;
+	Animation BirdShadow;
+	Animation Grass;
+	Animation Flowers;
+
+	//Animation backgroundanim;
 
 	void roundFinish();
 	void BattleEnd();

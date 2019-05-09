@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneHao.h"
+#include "ModuleSceneHanzo.h"
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"

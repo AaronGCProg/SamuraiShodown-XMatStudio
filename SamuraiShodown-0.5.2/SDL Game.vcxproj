@@ -88,7 +88,7 @@
     <ClInclude Include="ModuleReferee.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleSceneCongrats.h" />
-    <ClInclude Include="ModuleSceneHao.h" />
+    <ClInclude Include="ModuleSceneHanzo.h" />
     <ClInclude Include="ModuleSceneWelcome.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -112,7 +112,7 @@
     <ClCompile Include="ModuleReferee.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleSceneCongrats.cpp" />
-    <ClCompile Include="ModuleSceneHao.cpp" />
+    <ClCompile Include="ModuleSceneHanzo.cpp" />
     <ClCompile Include="ModuleSceneWelcome.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />

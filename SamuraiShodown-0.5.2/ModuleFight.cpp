@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneHao.h"
+#include "ModuleSceneHanzo.h"
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
@@ -237,7 +237,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 	if(SDL_GetTicks() - startingtime > 2500){ //Substituir  por getanimationend
 	played = 1;
-	App->scene_hao->roundFinish();
+	App->scene_hanzo->roundFinish();
 	}
 	}
 
@@ -315,11 +315,11 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 		}
 		if (SDL_GetTicks() - startingtime > 2500 && player > 0) { //Substituir  por getanimationend
-			App->scene_hao->BattleEnd();
+			App->scene_hanzo->BattleEnd();
 		}
 		else if  (SDL_GetTicks() - startingtime > 3500) { 
 			played = 1;
-				App->scene_hao->roundFinish();
+				App->scene_hanzo->roundFinish();
 		}
 	}
 }

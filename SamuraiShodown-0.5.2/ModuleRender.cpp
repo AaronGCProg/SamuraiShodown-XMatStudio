@@ -6,7 +6,7 @@
 #include "SDL/include/SDL.h"
 //Include scenes___________________________ Trying to resize the camera
 #include"ModuleSceneWelcome.h"
-#include "ModuleSceneHao.h"
+#include "ModuleSceneHanzo.h"
 #include "ModuleSceneCongrats.h"
 #include "ModuleReferee.h"
 #include "ModulePlayer.h"

@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneHao.h"
+#include "ModuleSceneHanzo.h"
 #include "ModuleSceneWelcome.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
@@ -68,7 +68,7 @@ update_status ModuleSceneWelcome::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
 		Mix_FadeOutMusic(2000);
-		App->fade->FadeToBlack(App->scene_welcome, App->scene_hao, 2.0f);
+		App->fade->FadeToBlack(App->scene_welcome, App->scene_hanzo, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;

@@ -83,7 +83,7 @@
     <ClInclude Include="ModuleReferee.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneHao.h">
+    <ClInclude Include="ModuleSceneHanzo.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,7 +145,7 @@
     <ClCompile Include="ModuleReferee.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneHao.cpp">
+    <ClCompile Include="ModuleSceneHanzo.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

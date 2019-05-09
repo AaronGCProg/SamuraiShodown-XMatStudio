@@ -10,7 +10,7 @@ class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
 class ModuleSceneWelcome;
-class ModuleSceneHao;
+class ModuleSceneHanzo;
 class ModuleSceneCongrats;
 class ModulePlayer;
 class ModulePlayer2;
@@ -35,7 +35,7 @@ public:
 	ModuleInput* input;
 	ModuleTextures* textures;
 	ModuleSceneWelcome* scene_welcome;
-	ModuleSceneHao* scene_hao;
+	ModuleSceneHanzo* scene_hanzo;
 	ModuleSceneCongrats* scene_congrats;
 	ModulePlayer2* player2;
 	ModulePlayer* player;
