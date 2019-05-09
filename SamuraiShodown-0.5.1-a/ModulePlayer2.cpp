@@ -355,6 +355,14 @@ bool ModulePlayer2::CleanUp()
 	App->textures->Unload(ui);
 
 
+	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
+	{
+		if (colisionadores[i] != nullptr) {
+			colisionadores[i]->to_delete = true;
+			colisionadores[i] = nullptr;
+		}
+	}
+
 	return true;
 }
 
