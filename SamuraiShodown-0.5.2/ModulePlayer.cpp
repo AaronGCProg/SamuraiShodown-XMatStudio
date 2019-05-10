@@ -23,16 +23,16 @@ ModulePlayer::ModulePlayer()
 	Module* idleCallBack[idleCollider] = { {this},{this} };
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 1, 10, 96, 107 }, 8, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 98,10,87,107 }, 7, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 186,11,88,106 }, 8, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 275,12,89,105 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 365,13,92,103 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 458,13,97,104 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 556,13,104,104 }, 8, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 661,12,102,104 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 764,11,96,106 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 861,10,87,107 }, 9, { 31,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 1, 10, 96, 107 }, 8, { 52,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 98,10,87,107 }, 7, { 48,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 186,11,88,106 }, 8, { 48,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 275,12,89,105 }, 9, { 48,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 365,13,92,103 }, 9, { 50,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 458,13,97,104 }, 9, { 52,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 556,13,104,104 }, 8, { 56,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 661,12,102,104 }, 9, { 55,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 764,11,96,106 }, 9, { 52,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 861,10,87,107 }, 9, { 48,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
 	//idle.speed = 0.125f;
 
 
@@ -1325,6 +1325,7 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
+	
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
