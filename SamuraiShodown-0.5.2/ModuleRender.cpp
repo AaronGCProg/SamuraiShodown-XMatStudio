@@ -64,8 +64,12 @@ update_status ModuleRender::PreUpdate()
 
 update_status ModuleRender::Update()
 {
+	
+	SDL_RenderSetLogicalSize(renderer, 304, 224);
+
 	int speed = 3;
 
+	/* INPUT CAMERA
 	if (App->input->keys[SDL_SCANCODE_I] == KEY_STATE::KEY_REPEAT)
 		camera.y += speed;
 
@@ -77,6 +81,8 @@ update_status ModuleRender::Update()
 
 	if (App->input->keys[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT)
 		camera.x -= speed;
+		*/
+
 	//camera position------------------------------------------------
 
 

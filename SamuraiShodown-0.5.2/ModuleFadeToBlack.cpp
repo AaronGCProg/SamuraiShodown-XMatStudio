@@ -39,9 +39,6 @@ update_status ModuleFadeToBlack::Update()
 			{
 				
 				moduleOff->Disable();
-
-				SDL_Delay(500);
-
 				moduleIn->Enable();
 
 				// ---
