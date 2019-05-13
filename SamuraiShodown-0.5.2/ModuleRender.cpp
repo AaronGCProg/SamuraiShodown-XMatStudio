@@ -67,7 +67,7 @@ update_status ModuleRender::Update()
 	
 	SDL_RenderSetLogicalSize(renderer, 304, 224);
 
-	int speed = 3;
+	int speed = 1;
 
 	/* INPUT CAMERA
 	if (App->input->keys[SDL_SCANCODE_I] == KEY_STATE::KEY_REPEAT)
@@ -101,11 +101,11 @@ update_status ModuleRender::Update()
 	if (App->player2->position.x > ((-camera.x / speed) + (SCREEN_WIDTH))) App->player2->position.x = (-camera.x / speed) + (SCREEN_WIDTH);
 
 	if (camera.x > 0)camera.x = 0;//camera goes in negative
-	if (camera.x < (SCREEN_WIDTH - 640)*SCREEN_SIZE)camera.x = (SCREEN_WIDTH - 640)*SCREEN_SIZE;//width of the map
+	if (camera.x < (SCREEN_WIDTH - 392)*SCREEN_SIZE)camera.x = (SCREEN_WIDTH - 392)*SCREEN_SIZE;//width of the map
 
 
-	camera.h = SCREEN_HEIGHT * 3;
-	camera.w = SCREEN_WIDTH * 3;
+	camera.h = SCREEN_HEIGHT ;
+	camera.w = SCREEN_WIDTH ;
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -132,7 +132,7 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera)
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable)
 {
 
 
@@ -162,8 +162,13 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	//scale renderer based on the stage of the game (Else --> main scale for battle stages, if--> screen scaled to fit the image)
-	if (App->scene_welcome->IsEnabled() == true || App->scene_congrats->IsEnabled() == true) //on menus
+	if (rescalable) {
+
+		// To develop
+		rect.w = SCREEN_WIDTH * SCREEN_SIZE;
+		rect.h = SCREEN_HEIGHT * SCREEN_SIZE;
+	}
+	else if (App->scene_welcome->IsEnabled() == true || App->scene_congrats->IsEnabled() == true) //on menus
 	{
 		rect.w = SCREEN_WIDTH * SCREEN_SIZE;
 		rect.h = SCREEN_HEIGHT * SCREEN_SIZE;

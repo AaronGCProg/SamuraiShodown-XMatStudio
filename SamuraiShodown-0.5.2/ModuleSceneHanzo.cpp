@@ -125,9 +125,9 @@ bool ModuleSceneHanzo::CleanUp()
 update_status ModuleSceneHanzo::Update()
 {
 	if (App->player->position.x <= 5) { App->player->position.x = 5; }
-    if (App->player->position.x >= 635) { App->player->position.x = 635 ; }
+    if (App->player->position.x >= 392) { App->player->position.x = 392; }
     if (App->player2->position.x <= 5) { App->player2->position.x = 5; }
-    if (App->player2->position.x >= 635) { App->player2->position.x = 635 ; }
+    if (App->player2->position.x >= 392) { App->player2->position.x = 392; }
 	// Draw everything --------------------------------------	
 	//App->render->Blit(graphics, 0, -168, false, &(backgroundanim.GetCurrentFrame()), 1.0f); //ukyo background animation
 	
