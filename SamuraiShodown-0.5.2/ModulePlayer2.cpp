@@ -11,6 +11,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleGameControllers.h"
 
 #include<math.h>
 
@@ -1239,8 +1240,54 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 					break;
 				}
 			}
-		}
 
+				if (App->controllers->Controller_player1_LAxisX > 6400) {
+
+					right = true;
+					left = false;
+					p2inputs.Push(IN_RIGHT_UP2);
+
+				}
+				else if (App->controllers->Controller_player1_LAxisX > 6400 < -DEATHZONE) {
+
+					left = true;
+					right = false;
+					p2inputs.Push(IN_LEFT_UP2);
+
+				}
+				else {
+					left = false;
+					p2inputs.Push(IN_RIGHT_UP2);
+						right = false;
+						p2inputs.Push(IN_LEFT_UP2);
+				}
+
+				if (App->controllers->controller_player1_B_pressed == true) {
+
+					p2inputs.Push(IN_X2);
+
+				}
+
+				else if (App->controllers->controller_player1_B_pressed == true){
+					p2inputs.Push(IN_X2);
+
+				}
+
+				if (App->controllers->controller_player1_A_pressed == true) {
+
+					p2inputs.Push(IN_KICK2);
+
+				}
+
+				else if (App->controllers->controller_player1_A_pressed == true) {
+					p2inputs.Push(IN_KICK2);
+
+				}
+
+
+			
+
+		}
 
 		if (left && right)
 			inputs.Push(IN_LEFT_AND_RIGHT);
