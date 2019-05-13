@@ -814,9 +814,16 @@ update_status ModulePlayer::Update()
 				break;
 			case ST_CROUCH:
 				LOG("CROUCHING ****\n");
+				crouching = true;
+				doingAction = true;
 				break;
 			case ST_PUNCH_CROUCH:
 				LOG("PUNCH CROUCHING **++\n");
+				crouchpunching = true; doingAction = true;
+				break;
+			case ST_KICK_CROUCH:
+				LOG("KICK CROUCHING **++\n");
+				crouchkicking = true; doingAction = true;
 				break;
 			case ST_PUNCH_STANDING:
 				LOG("PUNCH STANDING ++++\n");
