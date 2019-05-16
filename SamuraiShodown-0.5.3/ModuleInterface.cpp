@@ -35,6 +35,7 @@ bool ModuleInterface::Start()
 	font_time = App->fonts->Load("Assets/Fonts/TimeTile.png", "0123456789", 1);
 	font_name = App->fonts->Load("Assets/Fonts/NameTile.png", "ABCDEFGHIJKLMNOPQRSTUWYZ0123456789-= ", 1);
 	font_menu = App->fonts->Load("Assets/Fonts/TextTile.png", "ABCDEFGHIJKLMNOPQRSTUVWYZ-123! ", 1);
+	font_debug = font_name;
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png");
 
 	App->audio->effects[3] = Mix_LoadWAV("Assets/Music/Kuroko_BattleStart.wav");
@@ -112,7 +113,6 @@ update_status ModuleInterface::Update()
 		else if (!timerStop && !App->fight->playerControl && App->fight->timer)  actualtime = 0;
 
 
-
 		sprintf_s(time_text, 10, "%7d", actualtime);
 		App->fonts->BlitText((SCREEN_WIDTH / 2) - 15, 40, 0, time_text);
 
@@ -129,6 +129,18 @@ update_status ModuleInterface::Update()
 		App->fonts->BlitText(210, 212, 1, "CREDITS 03");
 		App->render->Blit(ui, 210, 202, false, &powbar, NULL, true);
 		App->render->Blit(ui, 275, 200, false, &pow, NULL, true);
+
+
+		if (App->player2->debugmode)//debug information
+		{
+			App->fonts->BlitText(0, 0, 1, "DEBUG");//title
+
+			sprintf_s(debug_buttons_text, 50, "P1 BUTTONS PRESSED  A %d  B %d",App->input->controller_player1_A_pressed, App->input->controller_player1_B_pressed);
+			App->fonts->BlitText(0, 10, 1,debug_buttons_text);
+			sprintf_s(debug_joystick_text, 50, "P1 JOYSTICK H %d  V %d", App->input->Controller_player1_LAxisX, App->input->Controller_player1_LAxisY);
+			App->fonts->BlitText(0, 20, 1, debug_joystick_text);
+
+		}
 
 	}
 	return UPDATE_CONTINUE;

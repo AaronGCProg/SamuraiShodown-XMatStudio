@@ -143,6 +143,7 @@ public:
 	bool hasjumped = false;
 	char sAction;
 	bool godMode2 = false;
+	bool debugmode = false;
 	bool playerFlip = true;
 	bool invencibleframes = false;
 	bool JumpPunching = false;

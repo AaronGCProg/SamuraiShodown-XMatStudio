@@ -31,7 +31,10 @@ public:
 	int font_time = -1;
 	int font_name = -1;
 	int font_menu = -1;
+	int font_debug = -1;
 	char time_text[10];
+	char debug_buttons_text[50];
+	char debug_joystick_text[50];
 	int startingtime = 0;
 	int actualtime = 99;
 	bool timerStop = false;

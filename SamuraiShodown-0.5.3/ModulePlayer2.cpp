@@ -632,6 +632,14 @@ update_status ModulePlayer2::Update()
 		App->player->health = 0;
 	}
 
+	if (App->input->keys[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN)
+	{
+		if (debugmode)
+			debugmode = false;
+		else
+			debugmode = true;
+
+	}
 
 	if (doingAction)
 	{
