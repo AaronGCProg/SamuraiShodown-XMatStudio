@@ -70,7 +70,73 @@ update_status ModuleInput::PreUpdate()
 	if(keys[SDL_SCANCODE_ESCAPE])
 		return update_status::UPDATE_STOP;
 
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 
+		if (SDL_IsGameController(i)) {
+			if (i == 0) {
+
+				Controller_player1 = SDL_GameControllerOpen(i);
+
+				if (SDL_GameControllerGetAttached(Controller_player1)) {
+
+
+					Controller_player1_LAxisX = SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX);
+					Controller_player1_LAxisY = SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY);
+
+
+					controller_player1_A_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A);
+					controller_player1_Start_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_START);
+					controller_player1_B_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B); ;
+					controller_player1_RightShoulder_pressed = SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+
+					Controller_player1_Connected = true;
+				}
+
+				else {
+
+					SDL_GameControllerClose(Controller_player1);
+					Controller_player1 = nullptr;
+					Controller_player1_Connected = false;
+
+				}
+			}
+
+			else if (i < 1) {
+
+				Controller_player2_Connected = false;
+				SDL_GameControllerClose(Controller_player2);
+				Controller_player2 = nullptr;
+
+			}
+
+			else if (i == 1 || i == 0 && Controller_player1_Connected == false) {
+
+				Controller_player2 = SDL_GameControllerOpen(i);
+				if (SDL_GameControllerGetAttached(Controller_player2)) {
+
+					Controller_player2_LAxisX = SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX);
+					Controller_player2_LAxisY = SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY);
+
+
+					controller_player2_A_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_A);
+
+					controller_player2_Start_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_START);
+					controller_player2_B_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_B);
+					controller_player2_RightShoulder_pressed = SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+					Controller_player2_Connected = true;
+
+
+				}
+				else {
+
+					SDL_GameControllerClose(Controller_player2);
+					Controller_player2 = nullptr;
+					Controller_player2_Connected = false;
+
+				}
+			}
+		}
+	}
 
 	
 
@@ -83,5 +149,12 @@ bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
+
+	SDL_GameControllerClose(Controller_player1);
+	SDL_GameControllerClose(Controller_player2);
+
+	Controller_player1 = nullptr;
+	Controller_player2 = nullptr;
 	return true;
 }

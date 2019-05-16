@@ -10,7 +10,6 @@
 #include "ModuleAudio.h"
 #include "ModuleFight.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleGameControllers.h"
 
 
 
@@ -70,7 +69,7 @@ update_status ModuleSceneCongrats::Update()
 
 
 	// TODO 2: make so pressing SPACE the HONDA stage is loaded
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->controllers->controller_player1_Start_pressed == true) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
 
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_congrats, App->scene_welcome, 2.0f);

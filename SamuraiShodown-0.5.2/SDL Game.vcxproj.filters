@@ -86,9 +86,6 @@
     <ClInclude Include="ModuleSceneHanzo.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleGameControllers.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -149,9 +146,6 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneHanzo.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleGameControllers.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

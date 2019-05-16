@@ -8,7 +8,7 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleGameControllers.h"
+
 
 
 ModuleSceneWelcome::ModuleSceneWelcome()
@@ -65,7 +65,7 @@ update_status ModuleSceneWelcome::Update()
 	App->render->Blit(graphics, 0, 0, false, &background, NULL, true); //Welcome Image
 	
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->controllers->controller_player1_Start_pressed == true) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
 
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_welcome, App->scene_hanzo, 2.0f);
