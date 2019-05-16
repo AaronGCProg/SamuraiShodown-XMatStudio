@@ -16,7 +16,7 @@
 #include "ModuleFight.h"
 #include "ModuleReferee.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleGameControllers.h"
+
 
 
 
@@ -30,8 +30,7 @@ Application::Application()
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = fonts = new ModuleFonts();
 	modules[i++] = scene_hanzo = new ModuleSceneHanzo();
-	modules[i++] = referee = new ModuleReferee();
-	modules[i++] = controllers = new ModuleGameControllers();
+	modules[i++] = referee = new ModuleReferee();	
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = interface = new ModuleInterface();

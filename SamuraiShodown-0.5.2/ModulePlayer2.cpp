@@ -11,7 +11,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
-#include "ModuleGameControllers.h"
+
 
 #include<math.h>
 
@@ -1240,8 +1240,8 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 					break;
 				}
 			}
-			if(App->controllers->Controller_player1_Connected){
-				if (App->controllers->Controller_player1_LAxisX > DEATHZONE) {
+			if(App->input->Controller_player1_Connected){
+				if (App->input->Controller_player1_LAxisX > DEATHZONE) {
 
 					right = true;
 					if(left){
@@ -1249,7 +1249,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 					inputs.Push(IN_RIGHT_UP);
 					}
 				}
-				else if (App->controllers->Controller_player1_LAxisX < -DEATHZONE) {
+				else if (App->input->Controller_player1_LAxisX < -DEATHZONE) {
 
 					left = true;
 					if (right) {
@@ -1257,21 +1257,21 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 						inputs.Push(IN_LEFT_UP);
 					}
 				}
-				else if (App->controllers->Controller_player1_LAxisY > -DEATHZONE && App->controllers->Controller_player1_LAxisX < DEATHZONE) {
+				else if (App->input->Controller_player1_LAxisY > -DEATHZONE && App->input->Controller_player1_LAxisX < DEATHZONE) {
 					left = false;
 					inputs.Push(IN_RIGHT_UP);
 					right = false;
 					inputs.Push(IN_LEFT_UP);
 				}
 
-				if (App->controllers->Controller_player1_LAxisY > DEATHZONE) {
+				if (App->input->Controller_player1_LAxisY > DEATHZONE) {
 
 					down = true;
 					if (down) {
 						up = false;
 					}
 				}
-				else if (App->controllers->Controller_player1_LAxisY < -DEATHZONE) {
+				else if (App->input->Controller_player1_LAxisY < -DEATHZONE) {
 
 					up = true;
 					if (down) {
@@ -1280,26 +1280,26 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 					}
 				}
-				else if (App->controllers->Controller_player1_LAxisY > -DEATHZONE && App->controllers->Controller_player1_LAxisY < DEATHZONE) {
+				else if (App->input->Controller_player1_LAxisY > -DEATHZONE && App->input->Controller_player1_LAxisY < DEATHZONE) {
 					up = false;
 					down = false;
 					inputs.Push(IN_CROUCH_UP);
 				}
 
-				if (App->controllers->controller_player1_B_pressed == true) {
+				if (App->input->controller_player1_B_pressed == true) {
 
 					inputs.Push(IN_X);
 
 				}
 
 
-				if (App->controllers->controller_player1_A_pressed == true) {
+				if (App->input->controller_player1_A_pressed == true) {
 
 					inputs.Push(IN_KICK);
 
 				}
 
-				if (App->controllers->controller_player1_RightShoulder_pressed  > DEATHZONE) {
+				if (App->input->controller_player1_RightShoulder_pressed  > DEATHZONE) {
 
 					inputs.Push(IN_SPECIAL);
 
@@ -1308,8 +1308,8 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 			}
 
-			if (App->controllers->Controller_player2_Connected) {
-				if (App->controllers->Controller_player2_LAxisX > DEATHZONE) {
+			if (App->input->Controller_player2_Connected) {
+				if (App->input->Controller_player2_LAxisX > DEATHZONE) {
 
 					right2 = true;
 					if (left2) {
@@ -1317,7 +1317,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 						p2inputs.Push(IN_RIGHT_UP2);
 					}
 				}
-				else if (App->controllers->Controller_player2_LAxisX < -DEATHZONE) {
+				else if (App->input->Controller_player2_LAxisX < -DEATHZONE) {
 
 					left2 = true;
 					if (right2) {
@@ -1325,21 +1325,21 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 						p2inputs.Push(IN_LEFT_UP2);
 					}
 				}
-				else if (App->controllers->Controller_player2_LAxisY > -DEATHZONE && App->controllers->Controller_player2_LAxisX < DEATHZONE) {
+				else if (App->input->Controller_player2_LAxisY > -DEATHZONE && App->input->Controller_player2_LAxisX < DEATHZONE) {
 					left2 = false;
 					p2inputs.Push(IN_RIGHT_UP2);
 					right2 = false;
 					p2inputs.Push(IN_LEFT_UP2);
 				}
 
-				if (App->controllers->Controller_player2_LAxisY > DEATHZONE) {
+				if (App->input->Controller_player2_LAxisY > DEATHZONE) {
 
 					down2 = true;
 					if (down2) {
 						up2 = false;
 					}
 				}
-				else if (App->controllers->Controller_player2_LAxisY < -DEATHZONE) {
+				else if (App->input->Controller_player2_LAxisY < -DEATHZONE) {
 
 					up2 = true;
 					if (down2) {
@@ -1348,26 +1348,26 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 					}
 				}
-				else if (App->controllers->Controller_player2_LAxisY > -DEATHZONE && App->controllers->Controller_player2_LAxisY < DEATHZONE) {
+				else if (App->input->Controller_player2_LAxisY > -DEATHZONE && App->input->Controller_player2_LAxisY < DEATHZONE) {
 					up2 = false;
 					down2 = false;
 					p2inputs.Push(IN_CROUCH_UP2);
 				}
 
-				if (App->controllers->controller_player2_B_pressed == true) {
+				if (App->input->controller_player2_B_pressed == true) {
 
 					p2inputs.Push(IN_X2);
 
 				}
 
 
-				if (App->controllers->controller_player2_A_pressed == true) {
+				if (App->input->controller_player2_A_pressed == true) {
 
 					p2inputs.Push(IN_KICK2);
 
 				}
 
-				if (App->controllers->controller_player2_RightShoulder_pressed > DEATHZONE) {
+				if (App->input->controller_player2_RightShoulder_pressed > DEATHZONE) {
 
 					p2inputs.Push(IN_SPECIAL2);
 
