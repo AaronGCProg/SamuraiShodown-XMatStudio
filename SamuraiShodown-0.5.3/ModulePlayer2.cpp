@@ -273,9 +273,9 @@ ModulePlayer2::ModulePlayer2()
 	fall.PushBack({ 334,435,98,89 }, 23, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 1,455,106,69 }, 45, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 	fall.PushBack({ 108,470,108,54 }, 6, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 1,455,106,69 }, 27, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 108,470,108,54 }, 5, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 217,482,116,42 }, 50, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1,455,106,69 }, 15, { 31,23 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 108,470,108,54 }, 5, { 31,6 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 217,482,116,42 }, 25, { 31,10 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
 
 	//getUp animation
 	const int getUpCollider = 2;//Collider num for the jump kick animation
@@ -992,7 +992,8 @@ update_status ModulePlayer2::Update()
 			else
 			{
 
-				position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+				if (fall_bounces == 0) position.y = posyaux - (10 * jumpingframe) + (0.5*(JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+				else position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
 				if (playerFlip)position.x += 2 - (fall_bounces);
 				else position.x -= 2 - (fall_bounces);
 
@@ -1109,18 +1110,23 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			if (App->player2->position.y < groundlevelaux) {
 				p2inputs.Push(IN_FALL2);
 				airhit = true;
-
+				posyaux = position.y;
 			}
+			invencibleframes = true;
+			invencibleaux = SDL_GetTicks();
 		}
 		if (c2->type == COLLIDER_PLAYER_ATTACK) {
 			if (App->player2->position.y < groundlevelaux){
 				p2inputs.Push(IN_FALL2);
 				airhit = true;
-
+				posyaux = position.y;
 			}
+			else { getsHit = true; doingAction = true; }
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
+			invencibleframes = true;
+			invencibleaux = SDL_GetTicks();
 			health += 20;
-			getsHit = true; doingAction = true;
+			
 			if (App->player->kicking || App->player->JumpKicking)
 				Mix_PlayChannel(-1, App->audio->effects[17], 0);
 

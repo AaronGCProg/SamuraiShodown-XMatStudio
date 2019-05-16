@@ -137,6 +137,7 @@ public:
 	bool kicking = false;
 	int jumpingframe = 0;
 	int groundlevelaux = 0;
+	int posyaux = 0;//new
 	bool tornading = false;
 	bool getsHit = false;
 	bool hasjumped = false;
@@ -157,7 +158,6 @@ public:
 	bool audioPlayed = false;
 	int health = 100;
 	int falling = false;//new
-	int posyaux;//new
 	int aux = 10;
 	int invencibleaux = 0;
 	int delay = 0;
