@@ -134,7 +134,7 @@ bool ModuleRender::CleanUp()
 // Blit to screen
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable)
 {
-
+	
 
 	bool ret = true;
 
@@ -164,9 +164,22 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 
 	if (rescalable) {
 
+		difX = section->w - rect.w;
+		difY = section->y - rect.y;
+
 		// To develop
-		rect.w = SCREEN_WIDTH * SCREEN_SIZE;
-		rect.h = SCREEN_HEIGHT * SCREEN_SIZE;
+		rect.x = section->x - difX;
+		rect.y = section->y - difY;
+
+
+
+		if (dist != 0) {
+			rect.w = (SCREEN_WIDTH * SCREEN_SIZE / dist) * section->w * 0.5;
+			rect.h = (SCREEN_HEIGHT * SCREEN_SIZE / dist) * section->h * 0.5;
+		}
+		
+		
+
 	}
 	else if (App->scene_welcome->IsEnabled() == true || App->scene_congrats->IsEnabled() == true) //on menus
 	{
