@@ -113,6 +113,7 @@ update_status ModuleRender::Update()
 update_status ModuleRender::PostUpdate()
 {
 	if(renderer != nullptr)
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);//turns the border rectangles to black
 	SDL_RenderPresent(renderer);
 	return update_status::UPDATE_CONTINUE;
 }

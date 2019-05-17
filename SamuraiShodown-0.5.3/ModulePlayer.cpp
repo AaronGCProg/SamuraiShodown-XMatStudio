@@ -1287,12 +1287,14 @@ update_status ModulePlayer::Update()
 	//Blits player + collisions_____________
 	if (playerFlip) 
 	{		//blit if player is flipped(compensates for pivot)
-		App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect);
+		if (showingshadow) { App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+		else showingshadow = true;
 		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 	else 
 	{   //blit if player is NOT flipped
-		App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect);
+		if (showingshadow) { App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+		else showingshadow = true;
 		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 

@@ -131,6 +131,7 @@ public:
 
 	//Collider* body = nullptr;
 
+	bool showingshadow = false;//shadow semitransparent
 	bool jumping = false;
 	bool doingAction = false;
 	bool punching = false;

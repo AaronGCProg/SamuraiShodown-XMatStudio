@@ -125,6 +125,7 @@ public:
 	Uint32 kick_timer = 0;
 	Uint32 fall_bounces = 0;
 
+	bool showingshadow = false;//shadow semitransparent
 	bool jumping = false;
 	bool jumpingBackward = false;
 	bool jumpingForward = false;
