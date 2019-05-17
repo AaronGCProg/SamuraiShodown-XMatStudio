@@ -28,6 +28,8 @@ public:
 	int dist;
 	float difX, difY;
 	float escala=1.0f;
+	bool zoomed = false;
+
 };
 
 #endif //__ModuleRenderer_H__

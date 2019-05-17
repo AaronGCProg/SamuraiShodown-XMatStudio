@@ -135,8 +135,8 @@ update_status ModuleSceneHanzo::Update()
 	App->render->Blit(graphics, 0, 75, false, &backgroundstatic);//static part of the Hanzo stage
 	App->render->Blit(graphics, 292, 98, false, &(Bird.GetCurrentFrame()));//Bird of the Hanzo stage
 	App->render->Blit(graphics, 340, 157, false, &(BirdShadow.GetCurrentFrame()));//Birdshadow part of the Hanzo stage
-	App->render->Blit(graphics, 0, 97, false, &(LowSky.GetCurrentFrame()));//LowSky part of the Hanzo stage
-	App->render->Blit(graphics, 0, 0, false, &(HighSky.GetCurrentFrame()));//HighSky part of the Hanzo stage
+	App->render->Blit(graphics, 0, 97, false, &(LowSky.GetCurrentFrame()), 1.0f);//LowSky part of the Hanzo stage
+	App->render->Blit(graphics, 0, 0, false, &(HighSky.GetCurrentFrame()), 1.0f);//HighSky part of the Hanzo stage
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
 		BattleEnd();
 	}

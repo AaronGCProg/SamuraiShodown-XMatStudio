@@ -165,27 +165,23 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 
 	if (rescalable) {
 		//Escale Logic------------------- (1 zoom out/1.5 zoom in)
-		if (dist > 200)//zoom out
+
+		if (dist > 200 && zoomed)
 		{
-			if (escala > 1.0)escala -= 0.05f;
+			if (escala > 1.0)escala -= 0.005f;
+			if (escala <= 1.0) { escala = 1.0; zoomed = false; }
 		}
-		else //zoom in
+		if (dist < 100 && !zoomed)
 		{
-			if (escala < 1.5)escala += 0.05f;
+			if (escala < 1.5)escala += 0.005f;
+			if (escala >= 1.5) { escala = 1.5; zoomed = true; }
 		}
 
-		//difX = section->w - rect.w;
-		//difY = section->y - rect.y;
+		rect.w = (rect.w*SCREEN_SIZE)*escala;
+		rect.h = (rect.h*SCREEN_SIZE)*escala;
 
-		// To develop
-		//rect.x = section->x - difX;
-		//rect.y = section->y - difY;
-
-		if (dist != 0) {
-			rect.w = (rect.w*SCREEN_SIZE);
-			rect.h = (rect.h*SCREEN_SIZE);
-		}
-
+		rect.x = (int)((camera.x * speed) + x * SCREEN_SIZE)*escala;//escales in the x direction
+		rect.y = (int)((camera.y * speed) + y * SCREEN_SIZE)*escala - ((escala - 1) * 200);//escales in the y direction and moves it down to match the floor
 
 
 	}
