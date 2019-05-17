@@ -27,6 +27,7 @@ public:
 	SDL_Rect camera;
 	int dist;
 	float difX, difY;
+	float escala=1.0f;
 };
 
 #endif //__ModuleRenderer_H__

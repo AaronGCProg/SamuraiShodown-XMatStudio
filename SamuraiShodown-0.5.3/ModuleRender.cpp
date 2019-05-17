@@ -64,7 +64,7 @@ update_status ModuleRender::PreUpdate()
 
 update_status ModuleRender::Update()
 {
-	
+
 	SDL_RenderSetLogicalSize(renderer, 304, 224);
 
 	int speed = 1;
@@ -83,7 +83,7 @@ update_status ModuleRender::Update()
 		camera.x -= speed;
 		*/
 
-	//camera position------------------------------------------------
+		//camera position------------------------------------------------
 
 
 	dist = abs(App->player->position.x - App->player2->position.x);
@@ -92,8 +92,8 @@ update_status ModuleRender::Update()
 		camera.x = (-App->player->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
 	else
 		camera.x = (-App->player2->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
-			//camerax= (postition of player center)+(medium point between player 1 & 2) -...
-		
+	//camerax= (postition of player center)+(medium point between player 1 & 2) -...
+
 
 	if (App->player->position.x < (-camera.x / speed)) App->player->position.x = (-camera.x / speed);//camera borders
 	if (App->player2->position.x < (-camera.x / speed)) App->player2->position.x = (-camera.x / speed);
@@ -104,16 +104,16 @@ update_status ModuleRender::Update()
 	if (camera.x < (SCREEN_WIDTH - 392)*SCREEN_SIZE)camera.x = (SCREEN_WIDTH - 392)*SCREEN_SIZE;//width of the map
 
 
-	camera.h = SCREEN_HEIGHT ;
-	camera.w = SCREEN_WIDTH ;
+	camera.h = SCREEN_HEIGHT;
+	camera.w = SCREEN_WIDTH;
 
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleRender::PostUpdate()
 {
-	if(renderer != nullptr)
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);//turns the border rectangles to black
+	if (renderer != nullptr)
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);//turns the border rectangles to black
 	SDL_RenderPresent(renderer);
 	return update_status::UPDATE_CONTINUE;
 }
@@ -135,7 +135,7 @@ bool ModuleRender::CleanUp()
 // Blit to screen
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable)
 {
-	
+
 
 	bool ret = true;
 
@@ -164,22 +164,29 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 	}
 
 	if (rescalable) {
+		//Escale Logic------------------- (1 zoom out/1.5 zoom in)
+		if (dist > 200)//zoom out
+		{
+			if (escala > 1.0)escala -= 0.05f;
+		}
+		else //zoom in
+		{
+			if (escala < 1.5)escala += 0.05f;
+		}
 
-		difX = section->w - rect.w;
-		difY = section->y - rect.y;
+		//difX = section->w - rect.w;
+		//difY = section->y - rect.y;
 
 		// To develop
-		rect.x = section->x - difX;
-		rect.y = section->y - difY;
-
-
+		//rect.x = section->x - difX;
+		//rect.y = section->y - difY;
 
 		if (dist != 0) {
-			rect.w = (SCREEN_WIDTH * SCREEN_SIZE / dist) * section->w * 0.5;
-			rect.h = (SCREEN_HEIGHT * SCREEN_SIZE / dist) * section->h * 0.5;
+			rect.w = (rect.w*SCREEN_SIZE);
+			rect.h = (rect.h*SCREEN_SIZE);
 		}
-		
-		
+
+
 
 	}
 	else if (App->scene_welcome->IsEnabled() == true || App->scene_congrats->IsEnabled() == true) //on menus
