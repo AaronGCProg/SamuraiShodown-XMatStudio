@@ -4,6 +4,9 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
+#include <cstdlib>
+#include <time.h>
+
 //Include scenes___________________________ Trying to resize the camera
 #include"ModuleSceneWelcome.h"
 #include "ModuleSceneHanzo.h"
@@ -16,14 +19,15 @@
 #include "ModuleFight.h"
 
 
-
-
-
 ModuleRender::ModuleRender() : Module()
 {
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
+
+	camera_offset.x = camera_offset.y = 0;
+
+	srand(time(NULL));
 }
 
 // Destructor
@@ -85,6 +89,8 @@ update_status ModuleRender::Update()
 
 		//camera position------------------------------------------------
 
+	if (shaking)
+		UpdateCameraShake();
 
 	dist = abs(App->player->position.x - App->player2->position.x);
 
@@ -136,14 +142,13 @@ bool ModuleRender::CleanUp()
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable)
 {
 
-
 	bool ret = true;
 
 	SDL_Rect rect;
 	if (use_camera)
 	{
-		rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		rect.x = (int)((camera.x + camera_offset.x) * speed) + x * SCREEN_SIZE;
+		rect.y = (int)((camera.y + camera_offset.y) * speed) + y * SCREEN_SIZE;
 
 	}
 	else
@@ -225,8 +230,8 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	SDL_Rect rec(rect);
 	if (use_camera)
 	{
-		rec.x = (int)(camera.x + rect.x * SCREEN_SIZE);
-		rec.y = (int)(camera.y + rect.y * SCREEN_SIZE);
+		rec.x = (int)((camera.x + camera_offset.x) + rect.x * SCREEN_SIZE);
+		rec.y = (int)((camera.y + camera_offset.y) + rect.y * SCREEN_SIZE);
 		rec.w *= SCREEN_SIZE;
 		rec.h *= SCREEN_SIZE;
 	}
@@ -240,3 +245,27 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	return ret;
 }
 
+void ModuleRender::StartCameraShake(int duration, float magnitude)
+{
+	shake_duration = duration;
+	shake_magnitude = magnitude;
+	shaking = true;
+}
+
+void ModuleRender::UpdateCameraShake()
+{
+
+	camera_offset.x = (rand() % ((int)shake_magnitude * 2) - shake_magnitude);
+	camera_offset.y = (rand() % ((int)shake_magnitude * 2) - shake_magnitude);
+
+	shake_timer++;
+
+	if (shake_timer >= shake_duration)
+	{
+		shaking = false;
+		camera_offset.x = 0;
+		camera_offset.y = 0;
+		shake_timer = 0;
+	}
+
+}

@@ -16,6 +16,7 @@
 #include "ModuleFight.h"
 #include "ModuleReferee.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleSlowdown.h"
 
 
 
@@ -42,8 +43,7 @@ Application::Application()
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fight = new ModuleFight();
 	modules[i++] = fade = new ModuleFadeToBlack();
-
-
+	modules[i++] = slowdown = new ModuleSlowdown();
 
 
 }	

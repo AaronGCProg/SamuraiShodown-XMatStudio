@@ -11,6 +11,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
+#include "ModuleSlowdown.h"
 
 
 #include<math.h>
@@ -711,6 +712,9 @@ update_status ModulePlayer2::Update()
 		if (getsHit) {
 			//set punch anim
 			current_animation = &hurtLow;
+
+			//App->slowdown->StartSlowdown(100, 6);
+			App->render->StartCameraShake(30, 1);
 			//body->to_delete = true;
 
 			if (playerFlip) {
@@ -1009,6 +1013,9 @@ update_status ModulePlayer2::Update()
 				jumpingframe++;
 				if (position.y > groundlevelaux)
 				{
+					App->render->StartCameraShake(30, 1);
+					App->slowdown->StartSlowdown(40, 1);
+
 					jumpingframe = 0;
 					position.y = groundlevelaux;
 					fall_bounces++;

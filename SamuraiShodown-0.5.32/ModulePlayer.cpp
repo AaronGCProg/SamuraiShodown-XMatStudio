@@ -1212,6 +1212,7 @@ update_status ModulePlayer::Update()
 				jumpingframe++;
 				if (position.y > groundlevelaux)
 				{
+					App->render->StartCameraShake(60, 1);
 					jumpingframe = 0;
 					position.y = groundlevelaux;
 					fall_bounces++;

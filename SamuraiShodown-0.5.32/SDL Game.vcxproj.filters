@@ -86,6 +86,9 @@
     <ClInclude Include="ModuleSceneHanzo.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSlowdown.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -146,6 +149,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSceneHanzo.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSlowdown.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
