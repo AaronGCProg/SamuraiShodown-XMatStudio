@@ -1313,14 +1313,26 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player1_B_pressed == true) {
 
-					inputs.Push(IN_X);
+					if (App->input->CheckTornado(60) == true)
+						inputs.Push(IN_SPECIAL);
+
+
+
+					else if (App->input->CheckPunch(1) == true)
+						inputs.Push(IN_X);;
 
 				}
 
 
 				if (App->input->controller_player1_A_pressed == true) {
 
-					inputs.Push(IN_KICK);
+					if (App->input->CheckTornado(60) == true)
+						inputs.Push(IN_SPECIAL);
+
+
+
+					else if (App->input->CheckPunch(1) == true)
+						inputs.Push(IN_KICK);
 
 				}
 

@@ -17,13 +17,7 @@
 #define MAX_GAME_CONTROLLERS 2
 
 #define MAX_HISTORY 180
-
-/*struct History
-{
-	uint frame = 0u;
-	KEY_STATE keyboard[MAX_KEYS];
-	GamePad pads[MAX_PADS];
-};*/
+#define MAX_COMMAND_FRAMES 180
 
 enum KEY_STATE
 {
@@ -33,12 +27,77 @@ enum KEY_STATE
 	KEY_UP
 };
 
+struct GamePad
+{
+	bool up = false;
+	bool down = false;
+	bool left = false;
+	bool right = false;
+	bool duright = false;
+	bool duleft = false;
+	bool ddright = false;
+	bool ddleft = false;
+	bool a = false;
+	bool b = false;
+
+};
+
+struct History
+{
+	uint frame = 0u;
+	KEY_STATE keyboard[MAX_KEYS];
+	GamePad pads[MAX_GAME_CONTROLLERS];
+};
+
+
+enum  InputCommandTypes
+{
+	suigetsu,
+	nikkaku,
+	hasso,
+	punch,
+	max
+};
+
+struct InputCommand
+{
+	InputCommandTypes type = InputCommandTypes::max;
+
+	InputCommand(InputCommandTypes type) : type(type) {}
+	virtual bool Check(uint past_frames) const = 0;
+};
+
+struct CommandPunch : public InputCommand
+{
+	CommandPunch() :InputCommand(InputCommandTypes::punch) {}
+	bool Check(uint past_frames) const override;
+};
+
+struct CommandSuigetsu : public InputCommand
+{
+	CommandSuigetsu() :InputCommand(InputCommandTypes::suigetsu) {}
+	bool Check(uint frames_past) const override;
+};
+
+struct CommandNikkaku : public InputCommand
+{
+	CommandNikkaku() :InputCommand(InputCommandTypes::nikkaku) {}
+	bool Check(uint frames_past) const override;
+};
+
+struct CommandHasso : public InputCommand
+{
+	CommandHasso() :InputCommand(InputCommandTypes::hasso) {}
+	bool Check(uint frames_past) const override;
+};
+
+
 
 
 class ModuleInput : public Module
 {
 public:
-	
+
 	ModuleInput();
 	~ModuleInput();
 
@@ -48,15 +107,26 @@ public:
 
 public:
 	const Uint8 *keyboard = nullptr;
+	bool gamepad = NULL;
+	GamePad pads[MAX_GAME_CONTROLLERS];
 	KEY_STATE keys[MAX_KEYS];
+	History history[MAX_HISTORY];
+
+
+	const History* GetPrevious(int pointer);
+
+	bool CheckPunch(int frames_past);
+	bool CheckTornado(int frames_past);
+
+
+	GamePad pad;
 
 
 
 	SDL_Event event_;
 
-	//gameCOntroller1
 
-	//Definition of the controller for the player one
+
 
 	SDL_GameController*Controller_player1 = nullptr;
 
@@ -90,7 +160,7 @@ public:
 	int Controller_player2_LAxisY = 0;
 	int controller_player2_RightShoulder_pressed = 0;
 
-
+	int history_cursor = 0;
 
 };
 

@@ -7,6 +7,7 @@ ModuleInput::ModuleInput() : Module()
 {
 	for (uint i = 0; i < MAX_KEYS; ++i)
 		keys[i] = KEY_IDLE;
+
 }
 
 // Destructor
@@ -22,7 +23,7 @@ bool ModuleInput::Init()
 
 
 
-	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -49,6 +50,7 @@ update_status ModuleInput::PreUpdate()
 
 	keyboard = SDL_GetKeyboardState(NULL);
 
+
 	for (int i = 0; i < MAX_KEYS; ++i)
 	{
 		if (keyboard[i] == 1)
@@ -67,8 +69,66 @@ update_status ModuleInput::PreUpdate()
 		}
 	}
 
-	if(keys[SDL_SCANCODE_ESCAPE])
+	if (keys[SDL_SCANCODE_ESCAPE])
 		return update_status::UPDATE_STOP;
+
+
+
+	if ((SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) < -DEATHZONE)
+	{
+		pads[0].up = true;
+	}
+	else if ((SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) > DEATHZONE)
+	{
+		pads[0].down = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) > DEATHZONE && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) > -DEATHZONE && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) < DEATHZONE))
+	{
+		pads[0].right = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) < -DEATHZONE && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) > -DEATHZONE && SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) < DEATHZONE))
+	{
+		pads[0].left = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) > 10922 && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) < -10922))
+	{
+		pads[0].duright = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) < -10922 && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) < -10922))
+	{
+		pads[0].duleft = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) > 10922 && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) > 10922))
+	{
+		pads[0].ddright = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTX) < -10922 && (SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_LEFTY) > 10922))
+	{
+		pads[0].ddleft = true;
+	}
+	else {
+		pads[0].ddleft = false;
+		pads[0].ddright = false;
+		pads[0].duleft = false;
+		pads[0].duright = false;
+		pads[0].left = false;
+		pads[0].right = false;
+		pads[0].down = false;
+		pads[0].up = false;
+
+	}
+	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A))
+		pads[0].a = true;
+
+	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B))
+		pads[0].b = true;
+
+	if (history_cursor >= MAX_HISTORY) history_cursor = 0;
+
+	memcpy(history[history_cursor].keyboard, keyboard, sizeof(KEY_STATE)*MAX_KEYS);
+	memcpy(history[history_cursor].pads, pads, sizeof(GamePad)*MAX_GAME_CONTROLLERS);
+	history_cursor++;
+
 
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 
@@ -138,10 +198,222 @@ update_status ModuleInput::PreUpdate()
 		}
 	}
 
-	
-
-
 	return update_status::UPDATE_CONTINUE;
+}
+
+bool CommandSuigetsu::Check(uint frames_past) const
+{
+	//press A
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		/*const History* history = GetPrevious(i);
+		if (!history)
+			break;*/
+
+
+		switch (count)
+		{
+		case 0:
+			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
+			break;
+
+
+		case 1:
+			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
+			break;
+
+		case 2:
+			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
+			break;
+
+		case 3:
+			if (App->input->controller_player1_A_pressed || App->input->controller_player1_B_pressed) { return true; } break;
+
+		}
+	}
+}
+
+bool CommandNikkaku::Check(uint frames_past) const
+{
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		/*const History* history = GetPrevious(i);
+		if (!history)
+			break;*/
+
+
+		switch (count)
+		{
+		case 0:
+			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && ((App->input->Controller_player1_LAxisY < DEATHZONE && App->input->Controller_player1_LAxisY < -DEATHZONE))) { count++; frame = i; }
+			break;
+
+
+		case 1:
+			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
+			break;
+
+		case 2:
+			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
+			break;
+
+		case 3:
+			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; } break;
+
+		case 4:
+			if (App->input->controller_player1_A_pressed || App->input->controller_player1_B_pressed) { return true; } break;
+
+
+		}
+	}
+}
+
+bool CommandHasso::Check(uint frames_past) const
+{
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		/*const History* history = GetPrevious(i);
+		if (!history)
+			break;*/
+
+
+		switch (count)
+		{
+		case 0:
+			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && ((App->input->Controller_player1_LAxisY < DEATHZONE && App->input->Controller_player1_LAxisY < -DEATHZONE))) { count++; frame = i; }
+			break;
+
+
+		case 1:
+			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
+			break;
+
+		case 2:
+			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
+			break;
+
+		case 3:
+			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { return true; } break;
+
+		}
+	}
+}
+
+bool CommandPunch::Check(uint frames_past) const
+{
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[0];
+
+
+		switch (count)
+		{
+		case 0:
+			if (pad->a) { count++; frame = i; }
+			break;
+
+		case 1:
+			if (pad->a) { return true; }
+			break;
+
+		}
+	}
+}
+
+bool ModuleInput::CheckPunch(int frames_past) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[0];
+
+
+		switch (count)
+		{
+
+		case 0:
+			if (pad->a) { return true; } break;
+
+		}
+	}
+}
+
+bool ModuleInput::CheckTornado(int frames_past) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[0];
+
+
+		switch (count)
+		{
+		case 0:
+			if (pad->down) { count++; frame = i; }
+			break;
+
+
+		case 1:
+			if (pad->ddright) { count++; frame = i; }
+			break;
+
+		case 2:
+			if (pad->right) { count++; frame = i; }
+			break;
+
+		case 3:
+			if (pad->a || pad->b) { return true; } break;
+
+		}
+	}
 }
 
 // Called before quitting
@@ -157,4 +429,10 @@ bool ModuleInput::CleanUp()
 	Controller_player1 = nullptr;
 	Controller_player2 = nullptr;
 	return true;
+}
+
+
+const History* ModuleInput::GetPrevious(int pointer) {
+
+	return (&history[pointer]);
 }
