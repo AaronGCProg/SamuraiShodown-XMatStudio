@@ -262,15 +262,17 @@ ModulePlayer::ModulePlayer()
 	Module* tornadoCallBack[tornadoCollider] = { {this},{this} };
 
 	// Tornado animation
-	tornado.PushBack({ 1, 271, 100, 102 }, 8, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 102,271,81,103 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 185,277,82, 95 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 268,268,67,107 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 443,262,72,174 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 516,261,112,113 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 628,263,113,105 }, 22, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 741,263,119,105 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 860,263,98,105 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 80, 1670, 105, 116 }, 8, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 184,1669,118,103 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 276,1692,71, 94 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 346,1715,100,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 445,1717,112,70 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 556,1694,111,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 666,1701,103,87 }, 22, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 769,1691,73,96 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 842,1715,102,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 942,1693,71,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+
 
 	/*HAOMARU
 	const int idleCollider = 2;//Collider num for the idle animation
@@ -594,7 +596,7 @@ bool ModulePlayer::Start()
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
 	
-
+	/* Haoh Sounds
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
 	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
 	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/haohmaru_getshitted1.wav");
@@ -604,6 +606,18 @@ bool ModulePlayer::Start()
 	App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
 	App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
 	App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
+	*/
+
+
+App->audio->effects[0] = Mix_LoadWAV("Assets/Music/jubei_shigetsutoh.wav");
+App->audio->effects[1] = Mix_LoadWAV("Assets/Music/jubei_wavesound.wav");
+App->audio->effects[2] = Mix_LoadWAV("Assets/Music/jubei_getshitted1.wav");
+App->audio->effects[14] = Mix_LoadWAV("Assets/Music/CharacterLandingGround.wav");
+App->audio->effects[15] = Mix_LoadWAV("Assets/Music/LightJumpAir.wav");
+App->audio->effects[16] = Mix_LoadWAV("Assets/Music/Slash1.wav");
+App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
+App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
+App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
 
 
 
@@ -749,11 +763,11 @@ update_status ModulePlayer::Update()
 
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y-45, COLLIDER_PLAYER_SHOT);
 				}
 				else {
 					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y-45, COLLIDER_PLAYER_SHOT);
 				}
 
 				break;
@@ -851,11 +865,11 @@ update_status ModulePlayer::Update()
 
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, position.x - 18, position.y, COLLIDER_PLAYER_SHOT);
 				}
 				else {
 					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 70, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y, COLLIDER_PLAYER_SHOT);
 				}
 
 				break;

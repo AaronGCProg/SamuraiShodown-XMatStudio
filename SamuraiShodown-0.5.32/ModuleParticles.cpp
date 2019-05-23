@@ -21,8 +21,10 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("Assets/Sprites/haohmaru.png");
+	graphics = App->textures->Load("Assets/Sprites/jubei.png");
+
 	// Tornado
+	/*
 	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
 	tornadoHao.anim.PushBack({ 919, 171, 48, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
 	tornadoHao.anim.PushBack({ 968, 171, 49, 77 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
@@ -46,14 +48,20 @@ bool ModuleParticles::Start()
 	tornadoHao.speed.x = 3;
 	tornadoHao.life = 6000;
 	tornadoHao.anim.firstLoopFrame = 2.0f;
+	*/
 
+	tornadoHao.anim.PushBack({ 1012, 1740, 82, 47 }, 4, { 31,2 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1094, 1740, 82, 47 }, 2, { 31,2 }, 0, {}, {}, {});
+
+	tornadoHao.anim.loop = true;
+	tornadoHao.anim.speed = 0.2f;
+	tornadoHao.speed.x = 3;
+	tornadoHao.life = 6000;
 
 	//Tornado Impact
-	tornadoHaoImpact.anim.PushBack({ 1038, 264, 52, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
-	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
-	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
-	tornadoHaoImpact.anim.PushBack({ 1089, 264, 60, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}); //Flip
-	tornadoHaoImpact.anim.PushBack({ 1154, 264, 49, 178 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}); //Flip
+	tornadoHaoImpact.anim.PushBack({ 1283, 1769, 34, 18 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1251, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1316, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
 
 	tornadoHaoImpact.anim.loop = true;
 	tornadoHaoImpact.anim.speed = 0.3f;
@@ -138,7 +146,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
-			AddParticle(tornadoHaoImpact, active[i]->position.x, active[i]->position.y-101, COLLIDER_NONE);
+			AddParticle(tornadoHaoImpact, active[i]->position.x+30, active[i]->position.y+30, COLLIDER_NONE);
 			delete active[i];
 			active[i] = nullptr;
 			break;

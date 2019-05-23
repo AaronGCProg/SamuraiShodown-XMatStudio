@@ -189,7 +189,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 	 }
 		else if (SDL_GetTicks() - startingtime < 2000) {
-			App->fonts->BlitText((SCREEN_WIDTH / 2)-4*16, 70, 2, "HAOHMARU 1");
+			App->fonts->BlitText((SCREEN_WIDTH / 2)-4*16, 70, 2, "JUBEI 1");
 			if(played ==4)
 			{
 			Mix_PlayChannel(-1, App->audio->effects[10], 0);
@@ -212,7 +212,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 		}
 		else if (SDL_GetTicks() - startingtime < 2000) {
-			App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "HAOHMARU 2");
+			App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "JUBEI 2");
 			if (played == 4) {
 				Mix_PlayChannel(-1, App->audio->effects[10], 0);
 				played++;
@@ -261,7 +261,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			//Player2 2nd death animation
 			else if (SDL_GetTicks() - startingtime < 2000) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 1");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "JUBEI 1");
 				if (played == 4) {
 					Mix_PlayChannel(-1, App->audio->effects[10], 0);
 					played++;
@@ -269,7 +269,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 			else if (SDL_GetTicks() - startingtime < 2800) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 1");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "JUBEI 1");
 				if (played == 5 && SDL_GetTicks() - startingtime < 2100) {
 					Mix_PlayChannel(-1, App->audio->effects[12], 0);
 					played++;
@@ -290,7 +290,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			//Player2 2nd victory animation
 			else if (SDL_GetTicks() - startingtime < 2000) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 2");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "JUBEI 2");
 				if (played == 4) {
 					Mix_PlayChannel(-1, App->audio->effects[10], 0);
 					played++;
@@ -298,7 +298,7 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 			else if (SDL_GetTicks() - startingtime < 2800) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 70, 2, "WELL DONE");
-				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "HAOHMARU 2");
+				App->fonts->BlitText((SCREEN_WIDTH / 2) - 4 * 16, 102, 2, "JUBEI 2");
 				if (played == 5 && SDL_GetTicks() - startingtime < 2100) {
 					Mix_PlayChannel(-1, App->audio->effects[12], 0);
 					played++;
