@@ -82,7 +82,7 @@ bool ModuleSceneHanzo::Start()
 	App->interface->Enable();
 	App->fight->Enable();
 
-	App->audio->soundtracks[0] = Mix_LoadMUS("Assets/Music/HaohmaruMusic.ogg");
+	App->audio->soundtracks[0] = Mix_LoadMUS("Assets/Music/hanzomusic.ogg");
 
 	if (!App->audio->soundtracks[0]) {
 		LOG("Mix_LoadMUS(\"HaohmaruMusic.ogg\"): %s\n", Mix_GetError());

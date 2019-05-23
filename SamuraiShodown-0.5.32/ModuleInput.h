@@ -115,8 +115,8 @@ public:
 
 	const History* GetPrevious(int pointer);
 
-	bool CheckPunch(int frames_past);
-	bool CheckTornado(int frames_past);
+	bool CheckPunch(int frames_past, int player, bool playerflip);
+	bool CheckTornado(int frames_past, int player, bool playerflip);
 
 
 	GamePad pad;

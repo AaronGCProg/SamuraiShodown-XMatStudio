@@ -123,6 +123,57 @@ update_status ModuleInput::PreUpdate()
 	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B))
 		pads[0].b = true;
 
+
+
+	if ((SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) < -DEATHZONE)
+	{
+		pads[1].up = true;
+	}
+	else if ((SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > DEATHZONE)
+	{
+		pads[1].down = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > DEATHZONE && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > -DEATHZONE && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) < DEATHZONE))
+	{
+		pads[1].right = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < -DEATHZONE && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > -DEATHZONE && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) < DEATHZONE))
+	{
+		pads[1].left = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > 10922 && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) < -10922))
+	{
+		pads[1].duright = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < -10922 && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) < -10922))
+	{
+		pads[1].duleft = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > 10922 && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > 10922))
+	{
+		pads[1].ddright = true;
+	}
+	else if (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < -10922 && (SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > 10922))
+	{
+		pads[1].ddleft = true;
+	}
+	else {
+		pads[1].ddleft = false;
+		pads[1].ddright = false;
+		pads[1].duleft = false;
+		pads[1].duright = false;
+		pads[1].left = false;
+		pads[1].right = false;
+		pads[1].down = false;
+		pads[1].up = false;
+
+	}
+	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A))
+		pads[1].a = true;
+
+	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B))
+		pads[1].b = true;
+
 	if (history_cursor >= MAX_HISTORY) history_cursor = 0;
 
 	memcpy(history[history_cursor].keyboard, keyboard, sizeof(KEY_STATE)*MAX_KEYS);
@@ -350,7 +401,7 @@ bool CommandPunch::Check(uint frames_past) const
 	}
 }
 
-bool ModuleInput::CheckPunch(int frames_past) {
+bool ModuleInput::CheckPunch(int frames_past, int player, bool playerflip) {
 
 	int count = 0;
 	uint frame = 0;
@@ -363,8 +414,9 @@ bool ModuleInput::CheckPunch(int frames_past) {
 		const History* story = App->input->GetPrevious(i);
 		if (!story)
 			break;
+		
+		const GamePad * pad = &story->pads[player];
 
-		const GamePad * pad = &story->pads[0];
 
 
 		switch (count)
@@ -377,7 +429,7 @@ bool ModuleInput::CheckPunch(int frames_past) {
 	}
 }
 
-bool ModuleInput::CheckTornado(int frames_past) {
+bool ModuleInput::CheckTornado(int frames_past, int player, bool playerflip) {
 
 	int count = 0;
 	uint frame = 0;
@@ -391,7 +443,8 @@ bool ModuleInput::CheckTornado(int frames_past) {
 		if (!story)
 			break;
 
-		const GamePad * pad = &story->pads[0];
+		const GamePad * pad = &story->pads[player];
+
 
 
 		switch (count)
@@ -402,11 +455,21 @@ bool ModuleInput::CheckTornado(int frames_past) {
 
 
 		case 1:
+			if(!playerflip){
 			if (pad->ddright) { count++; frame = i; }
+			}
+			else {
+				if (pad->ddleft) { count++; frame = i; }
+			}
 			break;
 
 		case 2:
-			if (pad->right) { count++; frame = i; }
+			if (!playerflip) {
+				if (pad->right) { count++; frame = i; }
+			}
+			else {
+				if (pad->left) { count++; frame = i; }
+			}
 			break;
 
 		case 3:
