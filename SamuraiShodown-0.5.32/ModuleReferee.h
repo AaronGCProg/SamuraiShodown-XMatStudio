@@ -34,6 +34,7 @@ public:
 	Animation* current_animation;
 
 	bool playerFlip = false;
+	int posX;
 	
 }; 
 
