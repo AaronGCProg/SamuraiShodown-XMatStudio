@@ -146,6 +146,7 @@ public:
 	bool jumpright = false;
 	bool crouching = false;
 	bool audioPlayed = false;
+	bool blocking = false;
 	bool invencibleframes = false;
 	int falling = false;
 	int delay = 0;

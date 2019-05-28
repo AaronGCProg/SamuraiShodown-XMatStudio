@@ -703,6 +703,7 @@ update_status ModulePlayer::Update()
 			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
 				current_animation = &backward;
+				blocking = true;
 				position.x -= speed;
 				break;
 			case ST_JUMP_NEUTRAL:
@@ -783,6 +784,7 @@ update_status ModulePlayer::Update()
 			case ST_WALK_FORWARD:
 				LOG("FORWARD >>>\n");
 				current_animation = &backward;
+				blocking = true;
 				position.x += speed;
 				break;
 			case ST_WALK_BACKWARD:
@@ -1331,7 +1333,7 @@ update_status ModulePlayer::Update()
 
 // TODO 4: Detect collision with a wall. If so, do something.
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
-	if (!godMode) {
+	if (!godMode && !blocking) {
 		bool alredycollided = false;
 		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 		{
@@ -1451,13 +1453,13 @@ player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_RIGHT_UP: state = ST_IDLE; break;
-			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_JUMP: state = ST_JUMP_FORWARD; jump_timer = SDL_GetTicks();  break;
-			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
-			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-			case IN_FALL:state = ST_FALLING; break;
+			case IN_RIGHT_UP: state = ST_IDLE; blocking = false; break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; blocking = false; break;
+			case IN_JUMP: state = ST_JUMP_FORWARD; jump_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; blocking = false; break;
+			case IN_FALL:state = ST_FALLING;  blocking = false;  break;
 			}
 		}
 		break;
@@ -1466,13 +1468,13 @@ player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_LEFT_UP: state = ST_IDLE; break;
-			case IN_LEFT_AND_RIGHT: state = ST_IDLE; break;
-			case IN_JUMP: state = ST_JUMP_BACKWARD; jump_timer = SDL_GetTicks();  break;
-			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks();  break;
-			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN: state = ST_CROUCH; break;
-			case IN_FALL:state = ST_FALLING; break;
+			case IN_LEFT_UP: state = ST_IDLE; blocking = false;  break;
+			case IN_LEFT_AND_RIGHT: state = ST_IDLE; blocking = false;  break;
+			case IN_JUMP: state = ST_JUMP_BACKWARD; jump_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_X: state = ST_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_CROUCH_DOWN: state = ST_CROUCH; blocking = false; break;
+			case IN_FALL:state = ST_FALLING; blocking = false;  break;
 
 			}
 		}

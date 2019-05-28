@@ -406,6 +406,7 @@ update_status ModulePlayer2::Update()
 				case ST_WALK_BACKWARD2:
 					LOG("BACKWARD <<<\n");
 					current_animation = &backward;
+					blocking = true;
 					position.x -= speed;
 					break;
 				case ST_JUMP_NEUTRAL2:
@@ -496,11 +497,12 @@ update_status ModulePlayer2::Update()
 				case ST_WALK_FORWARD2:
 					LOG("FORWARD >>>\n");
 					current_animation = &backward;
+					blocking = true;
 					position.x += speed;
 					break;
 				case ST_WALK_BACKWARD2:
 					LOG("BACKWARD <<<\n");
-					current_animation = &forward;
+					current_animation = &forward;					
 					position.x -= speed + 1;
 					break;
 				case ST_JUMP_NEUTRAL2:
@@ -1068,7 +1070,7 @@ update_status ModulePlayer2::Update()
 }
 
 void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
-	if (!godMode2) {
+	if (!godMode2 && !blocking) {
 		bool alredycollided = false;
 		for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)
 		{
@@ -1102,7 +1104,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 				airhit = true;
 				posyaux = position.y;
 			}
-			else { getsHit = true; doingAction = true; }
+			else{ getsHit = true; doingAction = true; }
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
 			invencibleframes = true;
 			invencibleaux = SDL_GetTicks();
@@ -1554,13 +1556,13 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_RIGHT_UP2: state = ST_IDLE2; break;
-			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; break;
-			case IN_JUMP2: state = ST_JUMP_FORWARD2; p2jump_timer = SDL_GetTicks();  break;
-			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
-			case IN_FALL2:state = ST_FALLING2; break;
+			case IN_RIGHT_UP2: state = ST_IDLE2; blocking = false; break;
+			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; blocking = false; break;
+			case IN_JUMP2: state = ST_JUMP_FORWARD2; p2jump_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks(); blocking = false; break;
+			case IN_CROUCH_DOWN2: state = ST_CROUCH2; blocking = false; break;
+			case IN_FALL2:state = ST_FALLING2; blocking = false; break;
 			}
 		}
 		break;
@@ -1569,13 +1571,13 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 		{
 			switch (last_input)
 			{
-			case IN_LEFT_UP2: state = ST_IDLE2; break;
-			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; break;
-			case IN_JUMP2: state = ST_JUMP_BACKWARD2; p2jump_timer = SDL_GetTicks();  break;
-			case IN_X2: state = ST_PUNCH_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks();  break;
-			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
-			case IN_FALL2:state = ST_FALLING2; break;
+			case IN_LEFT_UP2: state = ST_IDLE2; blocking = false; break;
+			case IN_LEFT_AND_RIGHT2: state = ST_IDLE2; blocking = false; break;
+			case IN_JUMP2: state = ST_JUMP_BACKWARD2; blocking = false; p2jump_timer = SDL_GetTicks(); break;
+			case IN_X2: state = ST_PUNCH_STANDING2;  blocking = false;  p2punch_timer = SDL_GetTicks();  break;
+			case IN_KICK2: state = ST_KICK_STANDING2; blocking = false;  p2punch_timer = SDL_GetTicks();  break;
+			case IN_CROUCH_DOWN2: state = ST_CROUCH2; blocking = false; break;
+			case IN_FALL2:state = ST_FALLING2; blocking = false; break;
 			}
 		}
 		break;

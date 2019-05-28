@@ -146,6 +146,7 @@ public:
 	bool godMode2 = false;
 	bool debugmode = false;
 	bool playerFlip = true;
+	bool blocking = false;
 	bool invencibleframes = false;
 	bool JumpPunching = false;
 	bool JumpKicking = false;
