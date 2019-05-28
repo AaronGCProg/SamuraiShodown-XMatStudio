@@ -50,8 +50,8 @@ bool ModuleParticles::Start()
 	tornadoHao.anim.firstLoopFrame = 2.0f;
 	*/
 
-	tornadoHao.anim.PushBack({ 1012, 1740, 82, 47 }, 4, { 31,2 }, 0, {}, {}, {});
-	tornadoHao.anim.PushBack({ 1094, 1740, 82, 47 }, 2, { 31,2 }, 0, {}, {}, {});
+	tornadoHao.anim.PushBack({ 1012, 1740, 82, 47 }, 4, { 31,2 }, 0, {}, {}, {},0,0,0,0);
+	tornadoHao.anim.PushBack({ 1094, 1740, 82, 47 }, 2, { 31,2 }, 0, {}, {}, {}, 0, 0, 0, 0);
 
 	tornadoHao.anim.loop = true;
 	tornadoHao.anim.speed = 0.2f;
@@ -59,9 +59,9 @@ bool ModuleParticles::Start()
 	tornadoHao.life = 6000;
 
 	//Tornado Impact
-	tornadoHaoImpact.anim.PushBack({ 1283, 1769, 34, 18 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
-	tornadoHaoImpact.anim.PushBack({ 1251, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
-	tornadoHaoImpact.anim.PushBack({ 1316, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {});
+	tornadoHaoImpact.anim.PushBack({ 1283, 1769, 34, 18 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	tornadoHaoImpact.anim.PushBack({ 1251, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	tornadoHaoImpact.anim.PushBack({ 1316, 1769, 33, 17 }, FRAMEDEPRUEBA, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
 
 	tornadoHaoImpact.anim.loop = true;
 	tornadoHaoImpact.anim.speed = 0.3f;
@@ -134,7 +134,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, bool f
 			p->position.y = y;
 			p->fliped = fliped;
 			if (collider_type != COLLIDER_NONE)
-				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type,20,10,10,5, this);
 			active[i] = p;
 			break;
 		}

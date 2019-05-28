@@ -13,41 +13,41 @@ ModuleReferee::ModuleReferee()
 
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 1, 1, 58, 70 }, 4, { NULL,NULL }, NULL, NULL, NULL, NULL);
+	idle.PushBack({ 1, 1, 58, 70 }, 4, { NULL,NULL }, NULL, NULL, NULL, NULL,0,0,0,0);
 	
 	
 	// walk backward animation 
-	backward.PushBack({ 60, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	backward.PushBack({ 372,1,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	backward.PushBack({ 431, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	backward.PushBack({ 490, 5,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	backward.PushBack({ 557, 4, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
+	backward.PushBack({ 60, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	backward.PushBack({ 372,1,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	backward.PushBack({ 431, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	backward.PushBack({ 490, 5,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	backward.PushBack({ 557, 4, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
 	
 	
 	// walk forward animation 
-	forward.PushBack({ 60, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	forward.PushBack({ 119, 1,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	forward.PushBack({ 178, 2,58,69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	forward.PushBack({ 237, 5,66,66 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	forward.PushBack({ 311, 4,60,67 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL);
+	forward.PushBack({ 60, 2, 58 , 69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	forward.PushBack({ 119, 1,58,70 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	forward.PushBack({ 178, 2,58,69 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	forward.PushBack({ 237, 5,66,66 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	forward.PushBack({ 311, 4,60,67 }, 5, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
 
 
 	//red flag
-	redFlag.PushBack({ 1,94,51,70 },   8, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	redFlag.PushBack({ 53,94,51,70 },  8, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	redFlag.PushBack({ 105,72,81,92 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	redFlag.PushBack({ 187,73,77,91 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	redFlag.PushBack({ 265,73,73,91 }, 10, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	redFlag.PushBack({ 349,85,69,79 }, 8, { NULL,NULL }, NULL, NULL, NULL, NULL);
+	redFlag.PushBack({ 1,94,51,70 },   8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	redFlag.PushBack({ 53,94,51,70 },  8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	redFlag.PushBack({ 105,72,81,92 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	redFlag.PushBack({ 187,73,77,91 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	redFlag.PushBack({ 265,73,73,91 }, 10, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	redFlag.PushBack({ 349,85,69,79 }, 8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
 
 
 	//white flag
-	whiteFlag.PushBack({ 1,187,51,70 },   8, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	whiteFlag.PushBack({ 53,187,51,70 },  8, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	whiteFlag.PushBack({ 105,165,81,92 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	whiteFlag.PushBack({ 187,166,77,91 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	whiteFlag.PushBack({ 265,166,73,91 }, 10, { NULL,NULL }, NULL, NULL, NULL, NULL);
-	whiteFlag.PushBack({ 349,178,69,79 }, 8, { NULL,NULL }, NULL, NULL, NULL, NULL);
+	whiteFlag.PushBack({ 1,187,51,70 },   8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	whiteFlag.PushBack({ 53,187,51,70 },  8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	whiteFlag.PushBack({ 105,165,81,92 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	whiteFlag.PushBack({ 187,166,77,91 }, 12, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	whiteFlag.PushBack({ 265,166,73,91 }, 10, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+	whiteFlag.PushBack({ 349,178,69,79 }, 8, { NULL,NULL }, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
 
 
 

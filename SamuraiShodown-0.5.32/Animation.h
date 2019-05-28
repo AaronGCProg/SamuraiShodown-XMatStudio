@@ -22,22 +22,31 @@ public:
 	COLLIDER_TYPE tipo[MAX_FRAMES]; //enum describing the type of each collider
 	Module *callback[MAX_FRAMES]; //array of pointers to module
 	int collidersmax[MAX_FRAMES]; //number of collision boxes in every animation frame
-	
+	int damage = 0;
+	int playerDelay = 0;
+	int enemyDelay = 0;
+	int attackType = 0;
 
 public:
 	float current_frame;
 	int last_frame = 0;
 	bool animEnded = false;
 	int loops = 0;
+
 	
 
 public:
-	
-	void PushBack(const SDL_Rect& rect,int frXfr,p2Point <int> PivPos,int nColliders, SDL_Rect rhitbox[],COLLIDER_TYPE ctipo[],Module *pcallback[])
+
+	void PushBack(const SDL_Rect& rect,int frXfr,p2Point <int> PivPos,int nColliders, SDL_Rect rhitbox[],COLLIDER_TYPE ctipo[], Module *pcallback[], int cdamage, int cplayerDelay, int cenemyDelay, int cattackType)
 	{
 		framesXframe[last_frame] = frXfr; //saves frame lenght of the frame animation
 		pivotpos[last_frame] = PivPos;
 		frames[last_frame] = rect;
+
+		damage = cdamage;
+		playerDelay = cplayerDelay;
+		enemyDelay = cenemyDelay;
+		attackType = cattackType;
 		
 		collidersmax[last_frame] = nColliders;
 		for (int i = 0; i < nColliders; i++)
@@ -45,6 +54,7 @@ public:
 			
 			hitbox[i] = rhitbox[i];
 			tipo[i] = ctipo[i];
+
 			callback[i]=pcallback[i];
 		}
 		last_frame++;

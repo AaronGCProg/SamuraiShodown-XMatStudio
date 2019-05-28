@@ -19,6 +19,10 @@
 
 ModulePlayer2::ModulePlayer2()
 {
+
+	//Attack types: 1->low punch/kick, 2->heavy punch/kick, 3->low sword, 4->mid sword, 5->punch that knocks down, 6-> sword that knocks down, 7->special (both specials knock down).
+	//The four numers at the end of the attacks are: damage, playerDelay (both knockdown & delay frames), enemyDelay & attackType.
+
 	// JUBEI ANIM
 	const int idleCollider = 2;//Collider num for the idle animation
 	SDL_Rect idleHitbox[idleCollider] = { { 25, 0, 40, 75 },{ 40, 75, 20, 20 } };
@@ -26,15 +30,15 @@ ModulePlayer2::ModulePlayer2()
 	Module* idleCallBack[idleCollider] = { {this},{this} };
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 1, 11, 96, 106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 98,10,87,107 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 186,11,88,106 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 275,12,89,105 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 365,13,92,104 }, 8, { 47,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 458,13,97,104 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 556,13,104,104 }, 8, { 53,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 661,12,102,105 }, 8, { 52,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack({ 764,11,96,106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idle.PushBack({ 1, 11, 96, 106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 98,10,87,107 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 186,11,88,106 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 275,12,89,105 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 365,13,92,104 }, 8, { 47,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 458,13,97,104 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 556,13,104,104 }, 8, { 53,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 661,12,102,105 }, 8, { 52,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
+	idle.PushBack({ 764,11,96,106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
 	//idle.speed = 0.125f;
 
 
@@ -44,10 +48,10 @@ ModulePlayer2::ModulePlayer2()
 	Module* backCallBack[backCollider] = { {this},{this} };
 
 	// walk backward animation 
-	backward.PushBack({ 458,127,98,109 }, 9, { 23,1 }, backCollider, backHitbox, backCollType, backCallBack);
-	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack);
-	backward.PushBack({ 368,140,91,96 }, 9, { 29,1 }, backCollider, backHitbox, backCollType, backCallBack);
-	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack);
+	backward.PushBack({ 458,127,98,109 }, 9, { 23,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
+	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
+	backward.PushBack({ 368,140,91,96 }, 9, { 29,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
+	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
 
 
 	//backward.speed = 0.1f;
@@ -59,10 +63,10 @@ ModulePlayer2::ModulePlayer2()
 	Module* forCallBack[forCollider] = { {this},{this} };
 
 	// walk forward animation 
-	forward.PushBack({ 0,133,98,103 }, 8, { 29,1 }, forCollider, forHitbox, forCollType, forCallBack);
-	forward.PushBack({ 184,128,91,108 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack);
-	forward.PushBack({ 98,127,88,109 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack);
-	forward.PushBack({ 184,128,91,108 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack);
+	forward.PushBack({ 0,133,98,103 }, 8, { 29,1 }, forCollider, forHitbox, forCollType, forCallBack, 0, 0, 0, 0);
+	forward.PushBack({ 184,128,91,108 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack, 0, 0, 0, 0);
+	forward.PushBack({ 98,127,88,109 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack, 0, 0, 0, 0);
+	forward.PushBack({ 184,128,91,108 }, 8, { 21,1 }, forCollider, forHitbox, forCollType, forCallBack, 0, 0, 0, 0);
 
 	//forward.speed = 0.1f;
 
@@ -78,10 +82,10 @@ ModulePlayer2::ModulePlayer2()
 
 
 	// Kick animation 
-	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2);
-	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack);
-	kick.PushBack({ 1155,478,82,116 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2);
-	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack);
+	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 15, 6, 20, 1);
+	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 15, 6, 20, 1);
+	kick.PushBack({ 1155,478,82,116 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 15, 6, 20, 1);
+	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 15, 6, 20, 1);
 	//kick.speed = 0.12f;
 
 
@@ -96,11 +100,11 @@ ModulePlayer2::ModulePlayer2()
 	Module* punchCallBack2[punchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack);
-	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack);
-	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack);
-	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack);
-	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack);
+	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
+	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
+	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
+	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
+	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
 	//punch.speed = 0.2f;
 
 
@@ -110,12 +114,12 @@ ModulePlayer2::ModulePlayer2()
 	Module* jumpCallBack[jumpCollider] = { {this},{this} };
 
 	//jump animation 
-	jump.PushBack({ 557,124,75,119 }, 5, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jump.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jump.PushBack({ 705,135,73,108 }, 13, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jump.PushBack({ 778,169,73,73 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jump.PushBack({ 852,152,73,90 }, 17, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jump.PushBack({ 949,31,77,86 }, 11, { 40, 6 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jump.PushBack({ 557,124,75,119 }, 5, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jump.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jump.PushBack({ 705,135,73,108 }, 13, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jump.PushBack({ 778,169,73,73 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jump.PushBack({ 852,152,73,90 }, 17, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jump.PushBack({ 949,31,77,86 }, 11, { 40, 6 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
 
 	//jump.speed = 0.05f;
 
@@ -124,13 +128,13 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE hurtCollType[hurtCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
 	Module* hurtCallBack[hurtCollider] = { {this},{this} };
 	// hurt animation
-	hurtLow.PushBack({ 1838,736,98,90 }, 20, { 31,2 }, hurtCollider, hurtHitbox, hurtCollType, hurtCallBack);
+	hurtLow.PushBack({ 1838,736,98,90 }, 20, { 31,2 }, hurtCollider, hurtHitbox, hurtCollType, hurtCallBack, 0, 0, 0, 0);
 	//hurtLow.speed = 0.05f;
 
 
 	//jump kick animation 
 	const int jumpKickCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect jumpKickHitbox[jumpKickCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 60, 10, 35, 20 } };
+	SDL_Rect jumpKickHitbox[jumpKickCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 90, 10, 25, 20 } };
 	COLLIDER_TYPE jumpKickCollType[jumpKickCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
 	Module* jumpKickCallBack[jumpKickCollider] = { {this},{this},{this} };
 
@@ -139,19 +143,19 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE jumpKickCollType2[jumpKickCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* jumpKickCallBack2[jumpKickCollider2] = { {this},{this} };
 
-	jumpKick.PushBack({ 1102,21,71,80 }, 6, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2);
-	jumpKick.PushBack({ 1160,146,122,96 }, 32, { 31,2 }, jumpKickCollider, jumpKickHitbox, jumpKickCollType, jumpKickCallBack);
-	jumpKick.PushBack({ 1102,21,71,80 }, 6, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2);
+	jumpKick.PushBack({ 1102,21,71,80 }, 6, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2, 15, 6, 20, 1);
+	jumpKick.PushBack({ 1160,146,122,96 }, 32, { 31,2 }, jumpKickCollider, jumpKickHitbox, jumpKickCollType, jumpKickCallBack, 15, 6, 20, 1);
+	jumpKick.PushBack({ 1102,21,71,80 }, 6, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2, 15, 6, 20, 1);
 
 
 	//jump backwards animation 
 
-	jumpBackward.PushBack({ 557,124,75,119 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 705,135,73,108 }, 15, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 778,169,73,73 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 852,152,73,90 }, 32, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpBackward.PushBack({ 949,31,77,86 }, 6, { 40, 6 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpBackward.PushBack({ 557,124,75,119 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 705,135,73,108 }, 15, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 778,169,73,73 }, 4, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 852,152,73,90 }, 32, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 949,31,77,86 }, 6, { 40, 6 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
 
 
 	//jump punch animation 
@@ -165,22 +169,23 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE jumpPunchCollType2[jumpPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* jumpPunchCallBack2[jumpPunchCollider2] = { {this},{this} };
 
-	jumpPunch.PushBack({ 1,819,83,87 }, 4, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
-	jumpPunch.PushBack({ 85,824,79,82 }, 4, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
-	jumpPunch.PushBack({ 165,835,73,71 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
-	jumpPunch.PushBack({ 239,836,156,70 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack);
-	jumpPunch.PushBack({ 396,837,157,69 }, 3, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
-	jumpPunch.PushBack({ 554,842,147,64 }, 20, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
+	jumpPunch.PushBack({ 1,819,83,87 }, 4, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2, 15, 6, 20, 1);
+	jumpPunch.PushBack({ 85,824,79,82 }, 4, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack, 15, 6, 20, 1);
+	jumpPunch.PushBack({ 165,835,73,71 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack, 15, 6, 20, 1);
+	jumpPunch.PushBack({ 239,836,156,70 }, 3, { 31, 2 }, jumpPunchCollider, jumpPunchHitbox, jumpPunchCollType, jumpPunchCallBack, 15, 6, 20, 1);
+	jumpPunch.PushBack({ 396,837,157,69 }, 3, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2, 15, 6, 20, 1);
+	jumpPunch.PushBack({ 554,842,147,64 }, 20, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2, 15, 6, 20, 1);
 
 
 	//jump foward animation 
 
-	jumpFw.PushBack({ 557,124,75,119 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 705,135,73,108 }, 20, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 778,169,73,73 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 852,152,73,90 }, 19, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
-	jumpFw.PushBack({ 554,842,147,64 }, 20, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
+	jumpFw.PushBack({ 557,124,75,119 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpFw.PushBack({ 631,124,75,119 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpFw.PushBack({ 705,135,73,108 }, 20, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpFw.PushBack({ 778,169,73,73 }, 8, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpFw.PushBack({ 852,152,73,90 }, 19, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpFw.PushBack({ 554,842,147,64 }, 20, { 31, 2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
+	jumpBackward.PushBack({ 949,31,77,86 }, 6, { 40, 6 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack, 0, 0, 0, 0);
 
 
 	//jump foward punch animation 
@@ -198,9 +203,9 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE crouchCollType[crouchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* crouchCallBack[crouchCollider] = { {this},{this} };
 
-	crouch.PushBack({ 949,31,77,86 }, 6, { 40, 6 }, crouchCollider, crouchHitbox2, crouchCollType, crouchCallBack);
-	crouch.PushBack({ 1102,37,70,80 }, 2, { 60, 8 }, crouchCollider, crouchHitbox, crouchCollType, crouchCallBack);
-	crouch.PushBack({ 1027,40,73,77 }, 2, { 60, 8 }, crouchCollider, crouchHitbox, crouchCollType, crouchCallBack);
+	crouch.PushBack({ 949,31,77,86 }, 6, { 40, 6 }, crouchCollider, crouchHitbox2, crouchCollType, crouchCallBack, 0, 0, 0, 0);
+	crouch.PushBack({ 1102,37,70,80 }, 2, { 60, 8 }, crouchCollider, crouchHitbox, crouchCollType, crouchCallBack, 0, 0, 0, 0);
+	crouch.PushBack({ 1027,40,73,77 }, 2, { 60, 8 }, crouchCollider, crouchHitbox, crouchCollType, crouchCallBack, 0, 0, 0, 0);
 	crouch.firstLoopFrame = 2;
 	crouch.loop = true;
 
@@ -216,23 +221,23 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE crouchPunchCollType2[crouchPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	Module* crouchPunchCallBack2[crouchPunchCollider2] = { {this},{this} };
 
-	crouchPunch.PushBack({ 703,730,74,94 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 778,722,76,102 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 855,731,69,93 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2);
-	crouchPunch.PushBack({ 925,754,100,70 }, 1, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 1026,754,110,70 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 1137,730,111,94 }, 1, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 1249,730,70,94 }, 7, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 1321,754,100,70 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
-	crouchPunch.PushBack({ 1422,731,69,93 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack);
+	crouchPunch.PushBack({ 703,730,74,94 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 778,722,76,102 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 855,731,69,93 }, 2, { 31, 2 }, crouchPunchCollider2, crouchPunchHitbox2, crouchPunchCollType2, crouchPunchCallBack2, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 925,754,100,70 }, 1, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 1026,754,110,70 }, 2, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 1137,730,111,94 }, 1, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 1249,730,70,94 }, 7, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 1321,754,100,70 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
+	crouchPunch.PushBack({ 1422,731,69,93 }, 3, { 31, 2 }, crouchPunchCollider, crouchPunchHitbox, crouchPunchCollType, crouchPunchCallBack, 20, 9, 25, 3);
 
 
 	const int crouchKickCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect crouchKickHitbox[crouchPunchCollider] = { { 5, 10, 40, 35 },{ 20, 35, 20, 20 },{ 78,0,20,20 } };
 	COLLIDER_TYPE crouchKickCollType[crouchKickCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
 	Module* crouchKickCallBack[crouchKickCollider] = { {this},{this},{this} };
-	crouchKick.PushBack({ 1102,21,71,80 }, 4, { 31,2 }, crouchPunchCollider, crouchKickHitbox, crouchKickCollType, crouchKickCallBack);
-	crouchKick.PushBack({ 1262,31,122,86 }, 8, { 31,2 }, crouchKickCollider, crouchKickHitbox, crouchPunchCollType, crouchKickCallBack);
+	crouchKick.PushBack({ 1102,21,71,80 }, 4, { 31,2 }, crouchPunchCollider, crouchKickHitbox, crouchKickCollType, crouchKickCallBack, 15, 6, 20, 1);
+	crouchKick.PushBack({ 1262,31,122,86 }, 8, { 31,2 }, crouchKickCollider, crouchKickHitbox, crouchPunchCollType, crouchKickCallBack, 15, 6, 20, 1);
 
 	//fall animation
 	const int fallCollider = 2;//Collider num for the jump kick animation
@@ -240,21 +245,21 @@ ModulePlayer2::ModulePlayer2()
 	COLLIDER_TYPE fallCollType[fallCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
 	Module* fallCallBack[fallCollider] = { {this},{this} };
 
-	fall.PushBack({ 1530,742,71,83 }, 23, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 1604,741,105,81 }, 52, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 1530,742,71,83 }, 13, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 1604,741,105,81 }, 13, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
-	fall.PushBack({ 1712,783,123,42 }, 75, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack);
+	fall.PushBack({ 1530,742,71,83 }, 23, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack, 0, 0, 0, 0);
+	fall.PushBack({ 1604,741,105,81 }, 52, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack, 0, 0, 0, 0);
+	fall.PushBack({ 1530,742,71,83 }, 13, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack, 0, 0, 0, 0);
+	fall.PushBack({ 1604,741,105,81 }, 13, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack, 0, 0, 0, 0);
+	fall.PushBack({ 1712,783,123,42 }, 75, { 31,2 }, fallCollider, fallHitbox, fallCollType, fallCallBack, 0, 0, 0, 0);
 
 	//getUp animation
 	const int getUpCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect getUpHitbox[getUpCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
 	COLLIDER_TYPE getUpCollType[getUpCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
 	Module* getUpCallBack[getUpCollider] = { {this},{this} };
-	getUp.PushBack({ 108,470,108,54 }, 5, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
-	getUp.PushBack({ 1306,789,75,94 }, 8, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
-	getUp.PushBack({ 1,455,106,69 }, 4, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
-	getUp.PushBack({ 334,435,98,89 }, 4, { 31,2, }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack);
+	getUp.PushBack({ 108,470,108,54 }, 5, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack, 0, 0, 0, 0);
+	getUp.PushBack({ 1306,789,75,94 }, 8, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack, 0, 0, 0, 0);
+	getUp.PushBack({ 1,455,106,69 }, 4, { 31,2 }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack, 0, 0, 0, 0);
+	getUp.PushBack({ 334,435,98,89 }, 4, { 31,2, }, getUpCollider, getUpHitbox, getUpCollType, getUpCallBack, 0, 0, 0, 0);
 
 
 	const int tornadoCollider = 2;//Collider num for the tornado animation
@@ -263,16 +268,18 @@ ModulePlayer2::ModulePlayer2()
 	Module* tornadoCallBack[tornadoCollider] = { {this},{this} };
 
 	// Tornado animation
-	tornado.PushBack({ 80, 1670, 105, 116 }, 8, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 184,1669,118,103 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 276,1692,71, 94 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 346,1715,100,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 445,1717,112,70 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 556,1694,111,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 666,1701,103,87 }, 22, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 769,1691,73,96 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 842,1715,102,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
-	tornado.PushBack({ 942,1693,71,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack);
+	tornado.PushBack({ 80, 1670, 105, 116 }, 8, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 184,1669,118,103 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 276,1692,71, 94 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 346,1715,100,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 445,1717,112,70 }, 2, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 556,1694,111,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 666,1701,103,87 }, 22, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 769,1691,73,96 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 842,1715,102,71 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+	tornado.PushBack({ 942,1693,71,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
+
+
 
 
 }
@@ -379,207 +386,97 @@ update_status ModulePlayer2::Update()
 		}
 
 
-		if (!playerFlip) {
-
-
-			if (!doingAction) {
-				audioPlayed = false;
-
-
-				if (App->player->position.x < App->player2->position.x) {
-					playerFlip = true;
-				}
-				else {
-					playerFlip = false;
-				}
-				switch (state)
-				{
-				case ST_IDLE2:
-					LOG("IDLE\n");
-					current_animation = &idle;
-					break;
-				case ST_WALK_FORWARD2:
-					LOG("FORWARD >>>\n");
+		if (!doingAction) {
+			switch (state)
+			{
+			case ST_IDLE:
+				LOG("IDLE\n");
+				current_animation = &idle;
+				break;
+			case ST_WALK_FORWARD:
+				LOG("FORWARD >>>\n");
+				if (!playerFlip) {
 					current_animation = &forward;
 					position.x += speed + 1;
-					break;
-				case ST_WALK_BACKWARD2:
-					LOG("BACKWARD <<<\n");
-					current_animation = &backward;
-					blocking = true;
-					position.x -= speed;
-					break;
-				case ST_JUMP_NEUTRAL2:
-					LOG("JUMPING NEUTRAL ^^^^\n");
-					jumping = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					break;
-				case ST_JUMP_FORWARD2:
-					LOG("JUMPING FORWARD ^^>>\n");
-					jumpright = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					doingAction = true;
-					break;
-				case ST_JUMP_BACKWARD2:
-					LOG("JUMPING BACKWARD ^^<<\n");
-					jumpleft = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					doingAction = true;
-					break;
-				case ST_CROUCH2:
-					LOG("CROUCHING ****\n");
-					crouching = true;
-					doingAction = true;
-					break;
-				case ST_PUNCH_STANDING2:
-					LOG("PUNCH STANDING ++++\n");
-					punching = true; doingAction = true;
-					break;
-				case ST_KICK_STANDING2:
-					LOG("KICK STANDING ----\n");
-					kicking = true; doingAction = true;
-					break;
-				case ST_PUNCH_NEUTRAL_JUMP2:
-					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					break;
-				case ST_PUNCH_FORWARD_JUMP2:
-					LOG("PUNCH JUMP FORWARD ^>>+\n");
-					break;
-				case ST_PUNCH_BACKWARD_JUMP2:
-					LOG("PUNCH JUMP BACKWARD ^<<+\n");
-					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
-					crouchpunching = true; doingAction = true;
-					break;
-				case ST_KICK_CROUCH2:
-					LOG("KICK CROUCHING **++\n");
-					crouchkicking = true; doingAction = true;
-					break;
-				case ST_SPECIAL2:
-					LOG("SPECIAL OwwwwO\n");
-					tornading = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[0], 0);
-					Mix_PlayChannel(-1, App->audio->effects[1], 0);
-					App->particles->tornadoHao.speed.x = +3;
-					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
-
-
-
-					break;
-				case ST_FALLING2://new
-					falling = true; doingAction = true;
-					break;
-				}
-			}
-		}
-		else {
-
-
-			if (!doingAction) {
-
-				audioPlayed = false;
-
-
-				if (App->player->position.x < App->player2->position.x) {
-					playerFlip = true;
 				}
 				else {
-					playerFlip = false;
-				}
-				switch (state)
-				{
-				case ST_IDLE2:
-					LOG("IDLE\n");
-					current_animation = &idle;
-					break;
-				case ST_WALK_FORWARD2:
-					LOG("FORWARD >>>\n");
 					current_animation = &backward;
-					blocking = true;
 					position.x += speed;
-					break;
-				case ST_WALK_BACKWARD2:
-					LOG("BACKWARD <<<\n");
-					current_animation = &forward;					
-					position.x -= speed + 1;
-					break;
-				case ST_JUMP_NEUTRAL2:
-					LOG("JUMPING NEUTRAL ^^^^\n");
-					jumping = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-					break;
-				case ST_JUMP_FORWARD2:
-					LOG("JUMPING FORWARD ^^>>\n");
-					jumpright = true;
-
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-
-					doingAction = true;
-					break;
-				case ST_JUMP_BACKWARD2:
-					LOG("JUMPING BACKWARD ^^<<\n");
-
-					jumpleft = true;
-
-					Mix_PlayChannel(-1, App->audio->effects[15], 0);
-
-					doingAction = true;
-					break;
-				case ST_CROUCH2:
-					LOG("CROUCHING ****\n");
-					crouching = true;
-					doingAction = true;
-					break;
-
-				case ST_PUNCH_STANDING2:
-					LOG("PUNCH STANDING ++++\n");
-					punching = true; doingAction = true;
-					break;
-				case ST_KICK_STANDING2:
-					LOG("KICK STANDING ----\n");
-					kicking = true; doingAction = true;
-					break;
-				case ST_PUNCH_NEUTRAL_JUMP2:
-					LOG("PUNCH JUMP NEUTRAL ^^++\n");
-					break;
-				case ST_PUNCH_FORWARD_JUMP2:
-					LOG("PUNCH JUMP FORWARD ^>>+\n");
-					break;
-				case ST_PUNCH_BACKWARD_JUMP2:
-					LOG("PUNCH JUMP BACKWARD ^<<+\n");
-					break;
-				case ST_PUNCH_CROUCH2:
-					LOG("PUNCH CROUCHING **++\n");
-					crouchpunching = true; doingAction = true;
-					break;
-				case ST_KICK_CROUCH2:
-					LOG("KICK CROUCHING **++\n");
-					crouchkicking = true; doingAction = true;
-					break;
-				case ST_SPECIAL2:
-					LOG("SPECIAL OwwwwO\n");
-					tornading = true; doingAction = true;
-					Mix_PlayChannel(-1, App->audio->effects[0], 0);
-					Mix_PlayChannel(-1, App->audio->effects[1], 0);
-					App->particles->tornadoHao.speed.x = +3;
+				}
+				break;
+			case ST_WALK_BACKWARD:
+				LOG("BACKWARD <<<\n");
+				if (!playerFlip) {
+					current_animation = &backward;
+					position.x -= speed;
+				}
+				else {
+					current_animation = &forward;
+					position.x -= speed - 1;
+				}
+				blocking = true;
+				position.x -= speed;
+				break;
+			case ST_JUMP_NEUTRAL:
+				LOG("JUMPING NEUTRAL ^^^^\n");
+				jumping = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				break;
+			case ST_JUMP_FORWARD:
+				LOG("JUMPING FORWARD ^^>>\n");
+				jumpdiagonal = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				doingAction = true;
+				break;
+			case ST_JUMP_BACKWARD:
+				LOG("JUMPING BACKWARD ^^<<\n");
+				jumpleft = true;
+				jumpdiagonal = true;
+				Mix_PlayChannel(-1, App->audio->effects[15], 0);
+				doingAction = true;
+				break;
+			case ST_CROUCH:
+				LOG("CROUCHING ****\n");
+				crouching = true;
+				doingAction = true;
+				break;
+			case ST_PUNCH_CROUCH:
+				LOG("PUNCH CROUCHING **++\n");
+				crouchpunching = true; doingAction = true;
+				break;
+			case ST_KICK_CROUCH:
+				LOG("KICK CROUCHING **++\n");
+				crouchkicking = true; doingAction = true;
+				break;
+			case ST_PUNCH_STANDING:
+				LOG("PUNCH STANDING ++++\n");
+				punching = true; doingAction = true;
+				break;
+			case ST_KICK_STANDING:
+				LOG("KICK STANDING ----\n");
+				kicking = true; doingAction = true;
+				break;
+			case ST_SPECIAL:
+				LOG("SPECIAL OwwwwO\n");
+				tornading = true; doingAction = true;
+				Mix_PlayChannel(-1, App->audio->effects[0], 0);
+				Mix_PlayChannel(-1, App->audio->effects[1], 0);
+				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
 					App->particles->AddParticle(App->particles->tornadoHao, position.x - 140, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
 
-					break;
-
-				case ST_FALLING2://new
-					falling = true; doingAction = true;
-					break;
-
-
 				}
+				else {
+					App->particles->tornadoHao.speed.x = +3;
+					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
+				}
+				break;
+			case ST_FALLING://new
+				falling = true; doingAction = true;
+				break;
 			}
 		}
-		current_state = state;
 	}
-
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)
 	{
@@ -774,68 +671,43 @@ update_status ModulePlayer2::Update()
 				airhit = false;
 			}
 		}
-		if (jumpright)
+		if (jumpdiagonal)
 		{
-			if (!playerFlip) {
-				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-					JumpPunching = true;
-				}
-				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
-					JumpKicking = true;
-				}
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpFw; //Jumpforward animation
+			if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP) {
+				JumpPunching = true;
 			}
-			else {
-				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-					JumpPunching = true;
-				}
-				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
-					JumpKicking = true;
-				}
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpBackward; //Jumpforward animation
-
-
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpFw; //Jumpforward animation
+			if (App->player->current_state == ST_KICK_NEUTRAL_JUMP) {
+				JumpKicking = true;
 			}
-			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
+
+			if (JumpPunching)
+				current_animation = &jumpPunch;
+			else if (JumpKicking)
+				current_animation = &jumpKick;
+			else
+				current_animation = &jumpFw; //Jumpforward animation
+
+			if (JumpPunching)
+				current_animation = &jumpPunch;
+			else if (JumpKicking)
+				current_animation = &jumpKick;
+			else
+				current_animation = &jumpFw; //Jumpforward animation
+
 
 			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			position.x += 4;
+			if (jumpleft)
+				position.x -= 4;
+			else
+				position.x += 4;
 			hasjumped = true;
-
-			jumpingframe++;
-
 			//stop jump anim
 			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 			{
 				jumpingframe = 0;
 				hasjumped = false;
-				jumpright = false;
+				jumpdiagonal = false;
+				jumpleft = false;
 				JumpPunching = false;
 				JumpKicking = false;
 				audioPlayed = false;
@@ -850,97 +722,6 @@ update_status ModulePlayer2::Update()
 				jumpBackward.Reset();
 
 			}
-
-			if (airhit)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				jumping = false;
-				doingAction = false;
-				audioPlayed = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-				jump.Reset();
-				airhit = false;
-			}
-		}
-		if (jumpleft)
-		{
-			//set jump anim
-			if (playerFlip) {
-				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-					JumpPunching = true;
-				}
-				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
-					JumpKicking = true;
-				}
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpFw; //Jumpforward animation
-			}
-			else {
-				if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-					JumpPunching = true;
-				}
-				if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
-					JumpKicking = true;
-				}
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpBackward; //Jumpforward animation
-
-
-
-				if (JumpPunching)
-					current_animation = &jumpPunch;
-				else if (JumpKicking)
-					current_animation = &jumpKick;
-				else
-					current_animation = &jumpFw; //Jumpforward animation
-			}
-			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
-			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			position.x -= 4;
-			hasjumped = true;
-			//stop jump anim
-			jumpingframe++;
-			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				Mix_PlayChannel(-1, App->audio->effects[14], 0);
-				position.y = groundlevelaux;
-				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-
-			}
-
 			if (airhit)	//end of the jump
 			{
 				jumpingframe = 0;
@@ -959,6 +740,7 @@ update_status ModulePlayer2::Update()
 				airhit = false;
 
 			}
+			jumpingframe++;
 		}
 		if (falling)//new
 		{
@@ -1020,15 +802,15 @@ update_status ModulePlayer2::Update()
 		r = current_animation->hitbox[i];
 		if ((!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 
 		else if (!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 	}
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
@@ -1116,10 +898,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			else
 				Mix_PlayChannel(-1, App->audio->effects[16], 0);
 
-
-
 		}
-
 
 	}
 }
@@ -1454,10 +1233,6 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 		left2 = false;
 
 		p2inputs.Push(IN_RIGHT_UP2);
-
-
-
-
 
 		inputs.Push(IN_CROUCH_UP);
 		down = false;

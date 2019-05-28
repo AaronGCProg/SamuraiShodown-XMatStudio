@@ -26,10 +26,18 @@ struct Collider
 	bool to_delete = false;
 	COLLIDER_TYPE type;
 	Module* callback = nullptr;
+	int damage = NULL;
+	int delayPlayer = NULL; // We'll use this to set the player animation delay when he doesn't land a hit, as well for the player knockback when the attack is landed.
+	int delayEnemy = NULL;	//Same as above
+	int attackType = NULL; //We'll use this to set the attack type: punch, slash, kick... To set the sound effects & particles
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, int damage, int delayPlayer, int delayEnemy, int attackType, Module* callback = nullptr) :
 		rect(rectangle),
 		type(type),
+		damage(damage),
+		delayPlayer(delayPlayer),
+		delayEnemy(delayEnemy),
+		attackType(attackType),
 		callback(callback)
 	{}
 	void SetPos(int x, int y)
@@ -58,7 +66,7 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, int damage = 0, int delayPlayer = 0, int delayEnemy = 0, int attackType = 0, Module* callback = nullptr );
 	void DebugDraw();
 
 private:

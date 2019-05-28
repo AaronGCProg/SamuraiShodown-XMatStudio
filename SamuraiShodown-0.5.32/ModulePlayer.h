@@ -142,8 +142,8 @@ public:
 	char sAction;
 	bool godMode = false;
 	bool playerFlip = false;
+	bool jumpdiagonal = false;
 	bool jumpleft = false;
-	bool jumpright = false;
 	bool crouching = false;
 	bool audioPlayed = false;
 	bool blocking = false;

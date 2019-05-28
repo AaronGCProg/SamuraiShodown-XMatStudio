@@ -153,6 +153,8 @@ public:
 	bool crouchpunching = false;
 	bool crouchkicking = false;
 	bool airhit = false;
+	bool jumpdiagonal = false;
+
 	
 	bool jumpleft = false;
 	bool jumpright = false;
