@@ -19,7 +19,6 @@
 
 ModulePlayer2::ModulePlayer2()
 {
-
 	//Attack types: 1->low punch/kick, 2->heavy punch/kick, 3->low sword, 4->mid sword, 5->punch that knocks down, 6-> sword that knocks down, 7->special (both specials knock down).
 	//The four numers at the end of the attacks are: damage, playerDelay (both knockdown & delay frames), enemyDelay & attackType.
 
@@ -280,8 +279,6 @@ ModulePlayer2::ModulePlayer2()
 	tornado.PushBack({ 942,1693,71,94 }, 4, { 31,2 }, tornadoCollider, tornadoHitbox, tornadoCollType, tornadoCallBack, 0, 0, 0, 0);
 
 
-
-
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -389,11 +386,11 @@ update_status ModulePlayer2::Update()
 		if (!doingAction) {
 			switch (state)
 			{
-			case ST_IDLE:
+			case ST_IDLE2:
 				LOG("IDLE\n");
 				current_animation = &idle;
 				break;
-			case ST_WALK_FORWARD:
+			case ST_WALK_FORWARD2:
 				LOG("FORWARD >>>\n");
 				if (!playerFlip) {
 					current_animation = &forward;
@@ -404,7 +401,7 @@ update_status ModulePlayer2::Update()
 					position.x += speed;
 				}
 				break;
-			case ST_WALK_BACKWARD:
+			case ST_WALK_BACKWARD2:
 				LOG("BACKWARD <<<\n");
 				if (!playerFlip) {
 					current_animation = &backward;
@@ -417,46 +414,46 @@ update_status ModulePlayer2::Update()
 				blocking = true;
 				position.x -= speed;
 				break;
-			case ST_JUMP_NEUTRAL:
+			case ST_JUMP_NEUTRAL2:
 				LOG("JUMPING NEUTRAL ^^^^\n");
 				jumping = true; doingAction = true;
 				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				break;
-			case ST_JUMP_FORWARD:
+			case ST_JUMP_FORWARD2:
 				LOG("JUMPING FORWARD ^^>>\n");
 				jumpdiagonal = true;
 				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				doingAction = true;
 				break;
-			case ST_JUMP_BACKWARD:
+			case ST_JUMP_BACKWARD2:
 				LOG("JUMPING BACKWARD ^^<<\n");
 				jumpleft = true;
 				jumpdiagonal = true;
 				Mix_PlayChannel(-1, App->audio->effects[15], 0);
 				doingAction = true;
 				break;
-			case ST_CROUCH:
+			case ST_CROUCH2:
 				LOG("CROUCHING ****\n");
 				crouching = true;
 				doingAction = true;
 				break;
-			case ST_PUNCH_CROUCH:
+			case ST_PUNCH_CROUCH2:
 				LOG("PUNCH CROUCHING **++\n");
 				crouchpunching = true; doingAction = true;
 				break;
-			case ST_KICK_CROUCH:
+			case ST_KICK_CROUCH2:
 				LOG("KICK CROUCHING **++\n");
 				crouchkicking = true; doingAction = true;
 				break;
-			case ST_PUNCH_STANDING:
+			case ST_PUNCH_STANDING2:
 				LOG("PUNCH STANDING ++++\n");
 				punching = true; doingAction = true;
 				break;
-			case ST_KICK_STANDING:
+			case ST_KICK_STANDING2:
 				LOG("KICK STANDING ----\n");
 				kicking = true; doingAction = true;
 				break;
-			case ST_SPECIAL:
+			case ST_SPECIAL2:
 				LOG("SPECIAL OwwwwO\n");
 				tornading = true; doingAction = true;
 				Mix_PlayChannel(-1, App->audio->effects[0], 0);
@@ -471,11 +468,12 @@ update_status ModulePlayer2::Update()
 					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
 				}
 				break;
-			case ST_FALLING://new
+			case ST_FALLING2://new
 				falling = true; doingAction = true;
 				break;
 			}
 		}
+		current_state = state;
 	}
 
 	if (App->input->keys[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)
@@ -502,286 +500,279 @@ update_status ModulePlayer2::Update()
 
 	}
 
-	if (doingAction)
-	{
-		if (kicking) {
-			//set kick anim
-			current_animation = &kick;
-			//stop kick anim
 
-			if (current_animation->current_frame > 2 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
-			if (kick.GetAnimEnd() == true) {
-				kicking = false; doingAction = false; kick.SetAnimEnd(false);
-				audioPlayed = false;
-			}
+	if (kicking) {
+		//set kick anim
+		current_animation = &kick;
+		//stop kick anim
+
+		if (current_animation->current_frame > 2 && !App->player2->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[19], 0);
+			audioPlayed = true;
 		}
-
-		if (tornading) {
-			//set punch anim
-			current_animation = &tornado;
-
-			//stop punch anim
-			if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+		if (kick.GetAnimEnd() == true) {
+			kicking = false; doingAction = false; kick.SetAnimEnd(false);
+			audioPlayed = false;
 		}
+	}
 
-		if (punching) {
-			//set kick anim
-			current_animation = &punch;
-			//stop kick anim
+	if (tornading) {
+		//set punch anim
+		current_animation = &tornado;
 
-			if (current_animation->current_frame > 6 && current_animation->current_frame < 8 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (punch.GetAnimEnd() == true) {
-				punching = false; doingAction = false; punch.SetAnimEnd(false);
-				audioPlayed = false;
+		//stop punch anim
+		if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+	}
 
+	if (punching) {
+		//set kick anim
+		current_animation = &punch;
+		//stop kick anim
 
-			}
+		if (current_animation->current_frame > 6 && current_animation->current_frame < 8 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			audioPlayed = true;
 		}
+		if (punch.GetAnimEnd() == true) {
+			punching = false; doingAction = false; punch.SetAnimEnd(false);
+			audioPlayed = false;
 
-		if (crouching) {
-			//set punch anim
-			current_animation = &crouch;
-			//stop punch anim
-			if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
-		}
-
-		if (crouchpunching)
-		{
-			//set crouch punch anim.
-			current_animation = &crouchPunch;
-			//stop crouch punch anim
-			if (crouchPunch.GetAnimEnd() == true) {
-				crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2);
-			}
-		}
-
-		if (crouchkicking)
-		{
-			//set crouch punch anim.
-			current_animation = &crouchKick;
-			//stop crouch punch anim
-			if (crouchKick.GetAnimEnd() == true) { crouchkicking = false; doingAction = false; crouchKick.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2); }
-		}
-
-		if (getsHit) {
-			//set punch anim
-			current_animation = &hurtLow;
-
-			//App->slowdown->StartSlowdown(100, 6);
-			App->render->StartCameraShake(30, 1);
-			//body->to_delete = true;
-
-			if (playerFlip) {
-				if (aux > 0 && aux < 11) {
-					position.x += aux;
-					aux--;
-				}
-			}
-			else if (!playerFlip) {
-				if (aux > 0 && aux < 11)
-					position.x -= aux;
-				aux--;
-
-			}
-
-			if (hurtLow.GetAnimEnd() == true) {
-				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
-				aux = 10;
-				invencibleframes = true;
-				invencibleaux = SDL_GetTicks();
-
-			}
-			//stop punch anim
-
-			/*if (hurtLow.GetAnimEnd() == true) {
-				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
-				body->to_delete = true;
-				body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
-			}*/
-		}
-
-		if (jumping)
-		{
-			//set jump anim
-			if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-				JumpPunching = true;
-			}
-			if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
-				JumpKicking = true;
-			}
-
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jump;
-
-			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			hasjumped = true;
-			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (JumpKicking && current_animation->current_frame >= 2 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
-			jumpingframe++;
-
-			//stop punch anim
-			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumping = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				audioPlayed = false;
-				position.y = groundlevelaux;
-				Mix_PlayChannel(-1, App->audio->effects[14], 0);
-				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpKick.Reset();
-				jumpPunch.Reset();
-				jump.Reset();
-			}
-
-			if (airhit)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				jumping = false;
-				doingAction = false;
-				audioPlayed = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-				jump.Reset();
-				airhit = false;
-			}
-		}
-		if (jumpdiagonal)
-		{
-			if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP) {
-				JumpPunching = true;
-			}
-			if (App->player->current_state == ST_KICK_NEUTRAL_JUMP) {
-				JumpKicking = true;
-			}
-
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jumpFw; //Jumpforward animation
-
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jumpFw; //Jumpforward animation
-
-
-			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			if (jumpleft)
-				position.x -= 4;
-			else
-				position.x += 4;
-			hasjumped = true;
-			//stop jump anim
-			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpdiagonal = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				audioPlayed = false;
-				Mix_PlayChannel(-1, App->audio->effects[14], 0);
-				position.y = groundlevelaux;
-				doingAction = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpFw.Reset();
-				jumpBackward.Reset();
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-
-			}
-			if (airhit)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				jumping = false;
-				doingAction = false;
-				audioPlayed = false;
-				p2inputs.Push(IN_JUMP_FINISH2);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-				jump.Reset();
-				airhit = false;
-
-			}
-			jumpingframe++;
-		}
-		if (falling)//new
-		{
-			current_animation = &fall;
-			if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
-			else
-			{
-
-				if (fall_bounces == 0) position.y = posyaux - (10 * jumpingframe) + (0.5*(JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-				else position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-				if (playerFlip)position.x += 2 - (fall_bounces);
-				else position.x -= 2 - (fall_bounces);
-
-				hasjumped = true;
-				jumpingframe++;
-				if (position.y > groundlevelaux)
-				{
-					App->render->StartCameraShake(30, 1);
-					App->slowdown->StartSlowdown(40, 1);
-
-					jumpingframe = 0;
-					position.y = groundlevelaux;
-					fall_bounces++;
-				}
-			}
-			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
-			{
-				hasjumped = false;
-				jumpingframe = 0;
-				p2inputs.Push(IN_FALL_FINISH2);
-				fall_bounces = 0;
-				doingAction = false;
-				falling = false;
-				position.y = groundlevelaux;
-				fall.Reset();
-				delay = 0;
-				Mix_PlayChannel(-1, App->audio->effects[20], 0);
-			}
 
 		}
 	}
+
+	if (crouching) {
+		//set punch anim
+		current_animation = &crouch;
+		//stop punch anim
+		if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
+	}
+
+	if (crouchpunching)
+	{
+		//set crouch punch anim.
+		current_animation = &crouchPunch;
+		//stop crouch punch anim
+		if (crouchPunch.GetAnimEnd() == true) {
+			crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2);
+		}
+	}
+
+	if (crouchkicking)
+	{
+		//set crouch punch anim.
+		current_animation = &crouchKick;
+		//stop crouch punch anim
+		if (crouchKick.GetAnimEnd() == true) { crouchkicking = false; doingAction = false; crouchKick.SetAnimEnd(false); p2inputs.Push(IN_PUNCH_FINISH2); }
+	}
+
+	if (getsHit) {
+		//set punch anim
+		current_animation = &hurtLow;
+		//body->to_delete = true;
+
+		if (playerFlip) {
+			if (aux > 0 && aux < 11) {
+				position.x += aux;
+				aux--;
+			}
+		}
+		else if (!playerFlip) {
+			if (aux > 0 && aux < 11)
+				position.x -= aux;
+			aux--;
+
+		}
+
+		if (hurtLow.GetAnimEnd() == true) {
+			getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+			aux = 10;
+			invencibleframes = true;
+			invencibleaux = SDL_GetTicks();
+
+		}
+		//stop punch anim
+
+		/*if (hurtLow.GetAnimEnd() == true) {
+			getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+			body->to_delete = true;
+			body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
+		}*/
+	}
+
+	if (jumping)
+	{
+		//set jump anim
+		if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+			JumpPunching = true;
+		}
+		if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+			JumpKicking = true;
+		}
+
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jump;
+
+		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		hasjumped = true;
+		if (JumpPunching &&current_animation->current_frame >= 3 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			audioPlayed = true;
+		}
+		if (JumpKicking && current_animation->current_frame >= 2 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[19], 0);
+			audioPlayed = true;
+		}
+		//stop punch anim
+		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumping = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			audioPlayed = false;
+			position.y = groundlevelaux;
+			Mix_PlayChannel(-1, App->audio->effects[14], 0);
+			doingAction = false;
+			p2inputs.Push(IN_JUMP_FINISH2);
+			jumpKick.Reset();
+			jumpPunch.Reset();
+			jump.Reset();
+		}
+		jumpingframe++;
+	}
+	if (jumpdiagonal)
+	{
+		if (App->player2->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+			JumpPunching = true;
+		}
+		if (App->player2->current_state == ST_KICK_NEUTRAL_JUMP2) {
+			JumpKicking = true;
+		}
+
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jumpFw; //Jumpforward animation
+
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jumpFw; //Jumpforward animation
+
+
+		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		if (jumpleft)
+			position.x -= 4;
+		else
+			position.x += 4;
+		hasjumped = true;
+		//stop jump anim
+		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpdiagonal = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			audioPlayed = false;
+			Mix_PlayChannel(-1, App->audio->effects[14], 0);
+			position.y = groundlevelaux;
+			doingAction = false;
+			p2inputs.Push(IN_JUMP_FINISH2);
+			jumpFw.Reset();
+			jumpBackward.Reset();
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
+
+		}
+		if (airhit)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			jumping = false;
+			doingAction = false;
+			audioPlayed = false;
+			p2inputs.Push(IN_JUMP_FINISH2);
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
+			jump.Reset();
+			airhit = false;
+
+		}
+		jumpingframe++;
+	}
+
+	if (falling)//new
+	{
+		current_animation = &fall;
+		if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
+		else
+		{
+
+			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+			if (playerFlip)position.x += 2 - (fall_bounces);
+			else position.x -= 2 - (fall_bounces);
+
+			hasjumped = true;
+			jumpingframe++;
+			if (position.y > groundlevelaux)
+			{
+				App->render->StartCameraShake(60, 1);
+				jumpingframe = 0;
+				position.y = groundlevelaux;
+				fall_bounces++;
+			}
+		}
+		if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
+		{
+			hasjumped = false;
+			jumpingframe = 0;
+			p2inputs.Push(IN_FALL_FINISH2);
+			fall_bounces = 0;
+			doingAction = false;
+			falling = false;
+			position.y = groundlevelaux;
+			fall.Reset();
+			delay = 0;
+			Mix_PlayChannel(-1, App->audio->effects[20], 0);
+		}
+		if (airhit)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			jumping = false;
+			doingAction = false;
+			audioPlayed = false;
+			p2inputs.Push(IN_JUMP_FINISH2);
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
+			jump.Reset();
+			airhit = false;
+
+		}
+
+	}
+	
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
 	{
 		if (colisionadores[i] != nullptr)
@@ -870,10 +861,9 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 		}
 		if (c2->type == COLLIDER_PLAYER_SHOT) {
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
-			health += 30;
+			health += c2->damage;
 			p2inputs.Push(IN_FALL2);
 			if (App->player2->position.y < groundlevelaux) {
-				p2inputs.Push(IN_FALL2);
 				airhit = true;
 				posyaux = position.y;
 			}
