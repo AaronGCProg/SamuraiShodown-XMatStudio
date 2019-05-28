@@ -99,6 +99,10 @@ update_status ModuleReferee::Update()
 	if (App->player->position.x+35 > App->player2->position.x) { playerFlip = true; }
 	else  playerFlip = false;
 
+
+
+	
+
 	// referee flags when someone gets hit
 	if (App->player->getsHit) { current_animation = &whiteFlag; }
 	if (whiteFlag.GetAnimEnd() == true) { current_animation = &idle; whiteFlag.SetAnimEnd(false); }
@@ -123,8 +127,23 @@ update_status ModuleReferee::Update()
 	}
 	
 
+	if (position.x > posX && !App->player2->getsHit && !App->player->getsHit) {
+
+		current_animation = &forward;
+	}
+	else if (position.x < posX && !App->player2->getsHit && !App->player->getsHit) {
+
+		current_animation = &backward;
+	}
+	else if (!App->player2->getsHit && !App->player->getsHit) {
+		current_animation = &idle;
+	}
+
+
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	App->render->Blit(graphics, position.x, position.y - r.h, playerFlip, &r);
+
+	posX = position.x;
 
 	return UPDATE_CONTINUE;
 }
