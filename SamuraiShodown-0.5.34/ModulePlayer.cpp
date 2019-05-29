@@ -675,12 +675,12 @@ update_status ModulePlayer::PreUpdate()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	float player1scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
+	float player1scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1.25 when he's in zoomin and to 0.75 when zoomout
 	//the PLAYER ESCALE is to adjust the real scale of the player
 
 	current_animation = &idle;
 
-	int speed = 2;
+	int speed = 2 * player1scale;
 
 	if (invencibleframes) {
 		if (SDL_GetTicks() - (invencibleaux) >= 750) {
@@ -703,24 +703,25 @@ update_status ModulePlayer::Update()
 			LOG("FORWARD >>>\n");
 			if (!playerFlip) {
 				current_animation = &forward;
-				position.x += speed + 1;
+				position.x += (int)((speed + 1)*player1scale);
 			}
 			else {
 				current_animation = &backward;
-				position.x += speed;
+				position.x += (int)((speed)*player1scale);
+				blocking = true;
 			}
 			break;
 		case ST_WALK_BACKWARD:
 			LOG("BACKWARD <<<\n");
 			if (!playerFlip) {
 				current_animation = &backward;
-				position.x -= speed;
+				position.x -= (int)((speed)*player1scale);
+				blocking = true;
 			}
 			else {
 				current_animation = &forward;
-				position.x -= speed - 1;
+				position.x -= (int)((speed + 1)*player1scale);
 			}
-			blocking = true;
 			break;
 		case ST_JUMP_NEUTRAL:
 			LOG("JUMPING NEUTRAL ^^^^\n");
@@ -1122,10 +1123,6 @@ update_status ModulePlayer::Update()
 			App->render->Blit(ui, 7, 17, false, &healthValue, NULL, true);
 		}
 	}
-
-
-
-
 	return UPDATE_CONTINUE;
 }
 
@@ -1164,7 +1161,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			if (App->player2->position.y < groundlevelaux) {
 				inputs.Push(IN_FALL);
 				airhit = true;
-
 			}
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
 			health += c2->damage;
@@ -1174,12 +1170,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 			else
 				Mix_PlayChannel(-1, App->audio->effects[16], 0);
-
-
-
 		}
-
-
 	}
 }
 

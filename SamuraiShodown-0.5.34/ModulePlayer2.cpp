@@ -374,13 +374,13 @@ update_status ModulePlayer2::Update()
 				App->player->playerFlip = true;
 			}
 		}
-		if (!App->player->doingAction) {
+		if (!App->player2->doingAction) {
 
-			if (App->player->position.x < App->player2->position.x) {
-				App->player->playerFlip = false;
+			if (App->player2->position.x < App->player->position.x) {
+				App->player2->playerFlip = false;
 			}
 			else {
-				App->player->playerFlip = true;
+				App->player2->playerFlip = true;
 			}
 		}
 
@@ -392,28 +392,29 @@ update_status ModulePlayer2::Update()
 				LOG("IDLE\n");
 				current_animation = &idle;
 				break;
-			case ST_WALK_FORWARD2:
+			case ST_WALK_FORWARD:
 				LOG("FORWARD >>>\n");
 				if (!playerFlip) {
 					current_animation = &forward;
-					position.x += speed + 1;
+					position.x += (int)((speed + 1)*player2scale);
 				}
 				else {
 					current_animation = &backward;
-					position.x +=speed;
+					position.x += (int)((speed)*player2scale);
+					blocking = true;
 				}
 				break;
-			case ST_WALK_BACKWARD2:
+			case ST_WALK_BACKWARD:
 				LOG("BACKWARD <<<\n");
 				if (!playerFlip) {
 					current_animation = &backward;
-					position.x -= speed;
+					position.x -= (int)((speed)*player2scale);
+					blocking = true;
 				}
 				else {
 					current_animation = &forward;
-					position.x -= speed - 1;
+					position.x -= (int)((speed + 1)*player2scale);
 				}
-				blocking = true;
 				break;
 			case ST_JUMP_NEUTRAL2:
 				LOG("JUMPING NEUTRAL ^^^^\n");
