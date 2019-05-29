@@ -99,11 +99,11 @@ ModulePlayer2::ModulePlayer2()
 	Module* punchCallBack2[punchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
-	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
-	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
-	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
-	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 25, 3);
+	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
+	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
+	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
+	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
+	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
 	//punch.speed = 0.2f;
 
 
@@ -588,7 +588,6 @@ update_status ModulePlayer2::Update()
 
 		if (hurtLow.GetAnimEnd() == true) {
 			getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
-			aux = 10;
 			invencibleframes = true;
 			invencibleaux = SDL_GetTicks();
 
@@ -880,7 +879,8 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
 			invencibleframes = true;
 			invencibleaux = SDL_GetTicks();
-			health += 20;
+			aux = c2->delayEnemy;
+			health += c2->damage;
 
 			if (App->player->kicking || App->player->JumpKicking)
 				Mix_PlayChannel(-1, App->audio->effects[17], 0);
