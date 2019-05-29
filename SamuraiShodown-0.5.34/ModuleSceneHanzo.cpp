@@ -125,18 +125,18 @@ bool ModuleSceneHanzo::CleanUp()
 update_status ModuleSceneHanzo::Update()
 {
 	if (App->player->position.x <= 5) { App->player->position.x = 5; }
-    if (App->player->position.x >= 392) { App->player->position.x = 392; }
+    if (App->player->position.x >= (int)(392)) { App->player->position.x =(int)(392); }
     if (App->player2->position.x <= 5) { App->player2->position.x = 5; }
-    if (App->player2->position.x >= 392) { App->player2->position.x = 392; }
+    if (App->player2->position.x >= (int)(392)) { App->player2->position.x = (int)(392); }
 	// Draw everything --------------------------------------	
 	//App->render->Blit(graphics, 0, -168, false, &(backgroundanim.GetCurrentFrame()), 1.0f); //ukyo background animation
 	
 	SDL_Rect backgroundstatic = { 0,588,391,148 };
-	App->render->Blit(graphics, 0, 75, false, &backgroundstatic);//static part of the Hanzo stage
-	App->render->Blit(graphics, 292, 98, false, &(Bird.GetCurrentFrame()));//Bird of the Hanzo stage
-	App->render->Blit(graphics, 340, 157, false, &(BirdShadow.GetCurrentFrame()));//Birdshadow part of the Hanzo stage
-	App->render->Blit(graphics, 0, 97, false, &(LowSky.GetCurrentFrame()), 1.0f);//LowSky part of the Hanzo stage
-	App->render->Blit(graphics, 0, 0, false, &(HighSky.GetCurrentFrame()), 1.0f);//HighSky part of the Hanzo stage
+	App->render->Blit(graphics, 0, 75, false, &backgroundstatic, 1.0, true, true);//static part of the Hanzo stage
+	App->render->Blit(graphics, 292, 98, false, &(Bird.GetCurrentFrame()), 1.0, true, true);//Bird of the Hanzo stage
+	App->render->Blit(graphics, 340, 157, false, &(BirdShadow.GetCurrentFrame()), 1.0, true, true);//Birdshadow part of the Hanzo stage
+	App->render->Blit(graphics, 0, 97, false, &(LowSky.GetCurrentFrame()), 1.0, true, true);//LowSky part of the Hanzo stage
+	App->render->Blit(graphics, 0, 0, false, &(HighSky.GetCurrentFrame()), 1.0, true, true);//HighSky part of the Hanzo stage
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
 		BattleEnd();
 	}

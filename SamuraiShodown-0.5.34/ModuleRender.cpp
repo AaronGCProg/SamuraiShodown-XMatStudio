@@ -73,26 +73,50 @@ update_status ModuleRender::Update()
 
 	int speed = 1;
 
-	/* INPUT CAMERA
-	if (App->input->keys[SDL_SCANCODE_I] == KEY_STATE::KEY_REPEAT)
-		camera.y += speed;
-
-	if (App->input->keys[SDL_SCANCODE_K] == KEY_STATE::KEY_REPEAT)
-		camera.y -= speed;
-
-	if (App->input->keys[SDL_SCANCODE_J] == KEY_STATE::KEY_REPEAT)
-		camera.x += speed;
-
-	if (App->input->keys[SDL_SCANCODE_L] == KEY_STATE::KEY_REPEAT)
-		camera.x -= speed;
-		*/
-
-		//camera position------------------------------------------------
 
 	if (shaking)
 		UpdateCameraShake();
 
 	dist = abs(App->player->position.x - App->player2->position.x);
+	//Escale Logic------------------- (1 zoom out/1.5 zoom in)
+
+	switch (zoomingstates)
+	{
+	case 1://zoomout
+		if (escala > 1.0)
+		{
+			escala -= 0.015f;
+
+			if (App->player->playerFlip)App->player->position.x -= 1.5;//Player1 moves away
+			else App->player->position.x += 1.5;
+
+			if (App->player2->playerFlip)App->player2->position.x -= 1.5;//Player2 moves away
+			else App->player2->position.x += 1.5;
+		}
+
+		if (escala <= 1.0) { escala = 1.0; zoomed = false; zoomingstates = 0; }
+		break;
+
+	case 2://zoomin
+		if (escala < 1.5)
+		{
+			escala += 0.015f;
+
+			if (App->player->playerFlip)App->player->position.x += 0.5;//Player1 moves away
+			else App->player->position.x -= 0.5;
+
+			if (App->player2->playerFlip)App->player2->position.x += 0.5;//Player2 moves away
+			else App->player2->position.x -= 0.5;
+
+		}
+		if (escala >= 1.5) { escala = 1.5; zoomed = true; zoomingstates = 0; }
+		break;
+
+	case 0:
+		if (dist > 300 && zoomed) zoomingstates = 1;
+		if (dist < 100 && !zoomed)zoomingstates = 2;
+		break;
+	}
 
 	if (App->player->position.x < App->player2->position.x)
 		camera.x = (-App->player->position.x - (dist / 2) + (SCREEN_WIDTH / 2))*speed;
@@ -107,7 +131,8 @@ update_status ModuleRender::Update()
 	if (App->player2->position.x > ((-camera.x / speed) + (SCREEN_WIDTH))) App->player2->position.x = (-camera.x / speed) + (SCREEN_WIDTH);
 
 	if (camera.x > 0)camera.x = 0;//camera goes in negative
-	if (camera.x < (SCREEN_WIDTH - 392)*SCREEN_SIZE)camera.x = (SCREEN_WIDTH - 392)*SCREEN_SIZE;//width of the map
+
+	if (camera.x <= ((SCREEN_WIDTH -392)*SCREEN_SIZE*escala*0.959595f)) camera.x = ((SCREEN_WIDTH - 392)*SCREEN_SIZE*escala*0.959595f);//width of the map
 
 
 	camera.h = SCREEN_HEIGHT;
@@ -139,7 +164,7 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable)
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed, bool use_camera, bool rescalable, bool player)
 {
 
 	bool ret = true;
@@ -169,24 +194,25 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 	}
 
 	if (rescalable) {
-		//Escale Logic------------------- (1 zoom out/1.5 zoom in)
+		float playerescale = escala - (PLAYER_ESCALE*(escala - 0.5));//sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
 
-		if (dist > 200 && zoomed)
+
+		if (player)
 		{
-			if (escala > 1.0)escala -= 0.005f;
-			if (escala <= 1.0) { escala = 1.0; zoomed = false; }
+			rect.w = (rect.w)*playerescale;
+			rect.h = (rect.h)*playerescale;
+			rect.x = (x*SCREEN_SIZE) + (camera.x*speed);
+			rect.y = (y*SCREEN_SIZE);
 		}
-		if (dist < 100 && !zoomed)
+		else
 		{
-			if (escala < 1.5)escala += 0.005f;
-			if (escala >= 1.5) { escala = 1.5; zoomed = true; }
+			rect.w = (rect.w)*escala;
+			rect.h = (rect.h)*escala;
+
+			rect.x = ((camera.x *speed) + x * SCREEN_SIZE)*escala;//escales in the x direction
+			rect.y = ((camera.y * speed) + y * SCREEN_SIZE)*escala - ((escala - 1) * 200);//escales in the y direction and moves it down to match the floor
+
 		}
-
-		rect.w = (rect.w*SCREEN_SIZE)*escala;
-		rect.h = (rect.h*SCREEN_SIZE)*escala;
-
-		rect.x = (int)((camera.x * speed) + x * SCREEN_SIZE)*escala;//escales in the x direction
-		rect.y = (int)((camera.y * speed) + y * SCREEN_SIZE)*escala - ((escala - 1) * 200);//escales in the y direction and moves it down to match the floor
 
 
 	}

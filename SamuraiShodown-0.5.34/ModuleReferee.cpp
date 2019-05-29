@@ -62,7 +62,7 @@ bool ModuleReferee::Start()
 {
 
 	position.x = 121;
-	position.y = 170; //369 about the same position on the ground as its on the real game.
+	position.y = 210; //369 about the same position on the ground as its on the real game.
 
 	playerFlip = false;
 	bool ret = true;
@@ -95,6 +95,8 @@ bool ModuleReferee::CleanUp()
 // Update: draw background
 update_status ModuleReferee::Update()
 {
+	float refereescale = App->render->escala - (PLAYER_ESCALE*(App->render->escala)); //sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
+	   //the PLAYER ESCALE is to adjust the real scale of the player
 	//referee flip
 	if (App->player->position.x+35 > App->player2->position.x) { playerFlip = true; }
 	else  playerFlip = false;
@@ -119,11 +121,11 @@ update_status ModuleReferee::Update()
 	
 	if (App->player->position.x > App->player2->position.x)
 	{
-		position.x = App->player2->position.x + (dist / 2) - 28;
+		position.x = (int)(App->player2->position.x + (dist / 2) - (28*refereescale));
 	}
 	else
 	{
-		position.x = App->player->position.x + (dist / 2) - 28;
+		position.x = (int)(App->player->position.x + (dist / 2) - (28*refereescale));
 	}
 	
 
@@ -141,7 +143,7 @@ update_status ModuleReferee::Update()
 
 
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x, position.y - r.h, playerFlip, &r);
+	App->render->Blit(graphics, position.x,(int)(position.y -(r.h*(App->render->escala))), playerFlip, &r,1.0,true,true,true);
 
 	posX = position.x;
 

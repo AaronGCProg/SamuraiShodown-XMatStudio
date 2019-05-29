@@ -18,7 +18,7 @@ public:
 	update_status PreUpdate();
 	bool CleanUp();
 
-	bool Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed = 1.0f,bool use_camera = true, bool rescalable = false);
+	bool Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rect* section, float speed = 1.0f,bool use_camera = true, bool rescalable = false,bool player =false);
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera = true);
 
 	void StartCameraShake(int duration, float magnitude);
@@ -35,7 +35,7 @@ public:
 	float escala=1.0f;
 
 	bool zoomed = false;
-
+	int zoomingstates = 0;
 
 private:
 

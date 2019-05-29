@@ -110,7 +110,7 @@ update_status ModuleParticles::Update()
 		else if (SDL_GetTicks() >= p->born)
 		{	
 
-			App->render->Blit(graphics, p->position.x, p->position.y, p->fliped, &(p->anim.GetCurrentFrame()));
+			App->render->Blit(graphics, p->position.x, p->position.y, p->fliped, &(p->anim.GetCurrentFrame()),1.0,true,true,true);
 			if (p->fx_played == false)
 			{
 				// Play particle fx here

@@ -16,6 +16,7 @@
 
 
 #include "Module.h"
+#include"ModuleRender.h"
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
@@ -153,7 +154,6 @@ public:
 	bool JumpKicking = false;
 	bool JumpPunching = false;
 	bool airhit = false;
-
 
 
 	int invencibleaux = 0;

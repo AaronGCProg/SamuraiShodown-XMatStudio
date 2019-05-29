@@ -349,6 +349,8 @@ update_status ModulePlayer2::PreUpdate()
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
+	float player2scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
+	//the PLAYER ESCALE is to adjust the real scale of the player
 	current_animation = &idle;
 	int speed = 2;
 
@@ -398,7 +400,7 @@ update_status ModulePlayer2::Update()
 				}
 				else {
 					current_animation = &backward;
-					position.x += speed;
+					position.x +=speed;
 				}
 				break;
 			case ST_WALK_BACKWARD2:
@@ -412,7 +414,6 @@ update_status ModulePlayer2::Update()
 					position.x -= speed - 1;
 				}
 				blocking = true;
-				position.x -= speed;
 				break;
 			case ST_JUMP_NEUTRAL2:
 				LOG("JUMPING NEUTRAL ^^^^\n");
@@ -460,12 +461,12 @@ update_status ModulePlayer2::Update()
 				Mix_PlayChannel(-1, App->audio->effects[1], 0);
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x - 140, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x - (140*player2scale)), (int)(position.y - (44*player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
 
 				}
 				else {
 					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y - 44, playerFlip, COLLIDER_ENEMY_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao,(int)( position.x + (18*player2scale)), (int)(position.y - (44*player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
 				}
 				break;
 			case ST_FALLING2://new
@@ -772,7 +773,7 @@ update_status ModulePlayer2::Update()
 		}
 
 	}
-	
+
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
 	{
 		if (colisionadores[i] != nullptr)
@@ -793,15 +794,15 @@ update_status ModulePlayer2::Update()
 		r = current_animation->hitbox[i];
 		if ((!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER) && invencibleframes && current_animation->tipo[i] == COLLIDER_ENEMY)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (playerPivotX - r.w - r.x)*player2scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player2scale),(int)(r.w*player2scale),(int)(r.h*player2scale) }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (r.x - playerPivotX)*player2scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player2scale),(int)(r.w*player2scale),(int)(r.h*player2scale) }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 
 		else if (!godMode2 || current_animation->tipo[i] != COLLIDER_PLAYER)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (playerPivotX - r.w - r.x)*player2scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player2scale),(int)(r.w*player2scale),(int)(r.h*player2scale) }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (r.x - playerPivotX)*player2scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player2scale),(int)(r.w*player2scale),(int)(r.h*player2scale) }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 	}
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
@@ -809,17 +810,15 @@ update_status ModulePlayer2::Update()
 	//Blits player + collisions + shadow_____________
 	if (playerFlip)
 	{		//blit if player is flipped(compensates for pivot)
-		if (showingshadow) { App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+		if (showingshadow) { App->render->Blit(shadow, position.x - (39 * player2scale), 190, playerFlip, &shadowrect, 1.0, true, true, true); showingshadow = false; }//shadow semitransparent
 		else showingshadow = true;
-
-		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+		App->render->Blit(graphics, position.x - (r.w - playerPivotX)*player2scale, position.y + (playerPivotY - r.h) * player2scale, playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 	else
-	{    //blit if player is NOT flipped
-		if (showingshadow) { App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+	{   //blit if player is NOT flipped
+		if (showingshadow) { App->render->Blit(shadow, position.x - (31 * player2scale), 190, playerFlip, &shadowrect, 1.0, true, true, true); showingshadow = false; }//shadow semitransparent
 		else showingshadow = true;
-		
-		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+		App->render->Blit(graphics, position.x - (playerPivotX*player2scale), position.y + ((playerPivotY - r.h)*player2scale), playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
 
@@ -871,17 +870,17 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			invencibleaux = SDL_GetTicks();
 		}
 		if (c2->type == COLLIDER_PLAYER_ATTACK) {
-			if (App->player2->position.y < groundlevelaux){
+			if (App->player2->position.y < groundlevelaux) {
 				p2inputs.Push(IN_FALL2);
 				airhit = true;
 				posyaux = position.y;
 			}
-			else{ getsHit = true; doingAction = true; }
+			else { getsHit = true; doingAction = true; }
 			Mix_PlayChannel(-1, App->audio->effects[2], 0);
 			invencibleframes = true;
 			invencibleaux = SDL_GetTicks();
 			health += 20;
-			
+
 			if (App->player->kicking || App->player->JumpKicking)
 				Mix_PlayChannel(-1, App->audio->effects[17], 0);
 
@@ -998,13 +997,13 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 					break;
 				}
 			}
-			if(App->input->Controller_player1_Connected){
+			if (App->input->Controller_player1_Connected) {
 				if (App->input->Controller_player1_LAxisX > DEATHZONE) {
 
 					right = true;
-					if(left){
-					left = false;
-					inputs.Push(IN_RIGHT_UP);
+					if (left) {
+						left = false;
+						inputs.Push(IN_RIGHT_UP);
 					}
 				}
 				else if (App->input->Controller_player1_LAxisX < -DEATHZONE) {
@@ -1046,12 +1045,12 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player1_B_pressed == true) {
 
-					if (App->input->CheckTornado(90,0,App->player->playerFlip) == true)
+					if (App->input->CheckTornado(90, 0, App->player->playerFlip) == true)
 						inputs.Push(IN_SPECIAL);
 
 
 
-					else if (App->input->CheckPunch(1,0, App->player->playerFlip) == true)
+					else if (App->input->CheckPunch(1, 0, App->player->playerFlip) == true)
 						inputs.Push(IN_X);;
 
 				}
@@ -1059,17 +1058,17 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player1_A_pressed == true) {
 
-					if (App->input->CheckTornado(90,0, App->player->playerFlip) == true)
+					if (App->input->CheckTornado(90, 0, App->player->playerFlip) == true)
 						inputs.Push(IN_SPECIAL);
 
 
 
-					else if (App->input->CheckPunch(1,0, App->player->playerFlip) == true)
+					else if (App->input->CheckPunch(1, 0, App->player->playerFlip) == true)
 						inputs.Push(IN_KICK);
 
 				}
 
-				if (App->input->controller_player1_RightShoulder_pressed  > DEATHZONE) {
+				if (App->input->controller_player1_RightShoulder_pressed > DEATHZONE) {
 
 					inputs.Push(IN_SPECIAL);
 
@@ -1126,12 +1125,12 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player2_B_pressed == true) {
 
-					if (App->input->CheckTornado(200,1, playerFlip) == true)
+					if (App->input->CheckTornado(200, 1, playerFlip) == true)
 						p2inputs.Push(IN_SPECIAL2);
 
 
 
-					else if (App->input->CheckPunch(1,1, playerFlip) == true)
+					else if (App->input->CheckPunch(1, 1, playerFlip) == true)
 						p2inputs.Push(IN_X2);;
 
 				}
@@ -1139,12 +1138,12 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player2_A_pressed == true) {
 
-					if (App->input->CheckTornado(200,1, playerFlip) == true)
+					if (App->input->CheckTornado(200, 1, playerFlip) == true)
 						p2inputs.Push(IN_SPECIAL2);
 
 
 
-					else if (App->input->CheckPunch(1,1, playerFlip) == true)
+					else if (App->input->CheckPunch(1, 1, playerFlip) == true)
 						p2inputs.Push(IN_KICK2);
 
 				}
@@ -1244,7 +1243,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 		inputs.Push(IN_RIGHT_UP);
 
-		while (SDL_PollEvent(&event2) != 0){}
+		while (SDL_PollEvent(&event2) != 0) {}
 
 	}
 
@@ -1468,7 +1467,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			}
 			break;
 		}
-	
+
 		case ST_KICK_STANDING2:
 		{
 			switch (last_input)
@@ -1482,7 +1481,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			switch (last_input)
 			{
 			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
-			case IN_FALL2:state = ST_FALLING2;break;
+			case IN_FALL2:state = ST_FALLING2; break;
 			}
 		}
 		break;

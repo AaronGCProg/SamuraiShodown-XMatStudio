@@ -25,7 +25,7 @@ ModulePlayer::ModulePlayer()
 	Module* idleCallBack[idleCollider] = { {this},{this} };
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 1, 11, 96, 106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack,0,0,0,0);
+	idle.PushBack({ 1, 11, 96, 106 }, 8, { 49,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
 	idle.PushBack({ 98,10,87,107 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
 	idle.PushBack({ 186,11,88,106 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
 	idle.PushBack({ 275,12,89,105 }, 8, { 45,1 }, idleCollider, idleHitbox, idleCollType, idleCallBack, 0, 0, 0, 0);
@@ -43,7 +43,7 @@ ModulePlayer::ModulePlayer()
 	Module* backCallBack[backCollider] = { {this},{this} };
 
 	// walk backward animation 
-	backward.PushBack({ 458,127,98,109 },9, { 23,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
+	backward.PushBack({ 458,127,98,109 }, 9, { 23,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
 	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
 	backward.PushBack({ 368,140,91,96 }, 9, { 29,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
 	backward.PushBack({ 277,137,91,99 }, 6, { 24,1 }, backCollider, backHitbox, backCollType, backCallBack, 0, 0, 0, 0);
@@ -77,7 +77,7 @@ ModulePlayer::ModulePlayer()
 
 
 	// Kick animation 
-	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 15, 6, 20, 1); 
+	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 15, 6, 20, 1);
 	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 15, 6, 20, 1);
 	kick.PushBack({ 1155,478,82,116 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 15, 6, 20, 1);
 	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 15, 6, 20, 1);
@@ -296,7 +296,7 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE backCollType[backCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* backCallBack[backCollider] = { {this},{this} };
 
-	// walk backward animation 
+	// walk backward animation
 	backward.PushBack({ 767, 10, 82, 111 }, 5, { 31,2 }, backCollider, backHitbox, backCollType, backCallBack);
 	backward.PushBack({ 849, 7, 74, 114 }, 11, { 31,2 }, backCollider, backHitbox, backCollType, backCallBack);
 	backward.PushBack({ 924, 3, 68, 118 }, 11, { 31,2 }, backCollider, backHitbox, backCollType, backCallBack);
@@ -311,7 +311,7 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE forCollType[forCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* forCallBack[forCollider] = { {this},{this} };
 
-	// walk forward animation 
+	// walk forward animation
 	forward.PushBack({ 1089,12,75,109 }, 5, { 31,2 }, forCollider, forHitbox, forCollType, forCallBack);
 	forward.PushBack({ 1165,9,68,112 }, 11, { 31,2 }, forCollider, forHitbox, forCollType, forCallBack);
 	forward.PushBack({ 1234,5,61,116 }, 9, { 31,2 }, forCollider, forHitbox, forCollType, forCallBack);
@@ -330,7 +330,7 @@ ModulePlayer::ModulePlayer()
 	Module* kickCallBack2[kickCollider2] = { {this},{this} };
 
 
-	// Kick animation 
+	// Kick animation
 	kick.PushBack({ 292,26,66,95 }, 5, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2);
 	kick.PushBack({ 359,23,86,98 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack);
 	kick.PushBack({ 292,26,66,95 }, 5, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2);
@@ -347,7 +347,7 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE punchCollType2[punchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
 	Module* punchCallBack2[punchCollider2] = { {this},{this} };
 
-	// Punch animation 
+	// Punch animation
 	punch.PushBack({ 1,122,68,127 }, 2, { 31,2 }, 2, punchHitbox2, punchCollType2, punchCallBack2);
 	punch.PushBack({ 70,153,78,96 }, 4, { 31,2 }, 2, punchHitbox2, punchCollType2, punchCallBack2);
 	punch.PushBack({ 149,156,130,93 }, 1, { 31,2 }, 2, punchHitbox2, punchCollType2, punchCallBack2);
@@ -364,7 +364,7 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE jumpCollType[jumpCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpCallBack[jumpCollider] = { {this},{this} };
 
-	//jump animation 
+	//jump animation
 	jump.PushBack({ 484,9,60,112 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	jump.PushBack({ 545,30,74,91 }, 5, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
 	jump.PushBack({ 620,38,76,83 }, 10, { 31,2 }, jumpCollider, jumpHitbox, jumpCollType, jumpCallBack);
@@ -383,7 +383,7 @@ ModulePlayer::ModulePlayer()
 	//hurtLow.speed = 0.05f;
 
 
-	//jump kick animation 
+	//jump kick animation
 	const int jumpKickCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpKickHitbox[jumpKickCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 60, 10, 35, 20 } };
 	COLLIDER_TYPE jumpKickCollType[jumpKickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
@@ -399,7 +399,7 @@ ModulePlayer::ModulePlayer()
 	jumpKick.PushBack({ 620,38,76,83 }, 10000, { 31,2 }, jumpKickCollider2, jumpKickHitbox2, jumpKickCollType2, jumpKickCallBack2);
 
 
-	//jump backwards animation 
+	//jump backwards animation
 	const int jumpBackCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpBackHitbox[jumpBackCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
 	COLLIDER_TYPE jumpBackCollType[jumpBackCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
@@ -416,7 +416,7 @@ ModulePlayer::ModulePlayer()
 	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpBackCollider, jumpBackHitbox, jumpBackCollType, jumpBackCallBack);
 
 
-	//jump backward animation 
+	//jump backward animation
 	const int jumpBackwardCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpBackwardHitbox[jumpBackwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
 	COLLIDER_TYPE jumpBackwardCollType[jumpBackwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
@@ -433,7 +433,7 @@ ModulePlayer::ModulePlayer()
 	jumpBackward.PushBack({ 1087,563,93,91 }, 4, { 31,2 }, jumpBackwardCollider, jumpBackwardHitbox, jumpBackwardCollType, jumpBackwardCallBack);
 
 
-	//jump punch animation 
+	//jump punch animation
 	const int jumpPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpPunchHitbox[jumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 40, 10 } };
 	COLLIDER_TYPE jumpPunchCollType[jumpPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
@@ -451,7 +451,7 @@ ModulePlayer::ModulePlayer()
 	jumpPunch.PushBack({ 1028,566,60,87 }, 5, { 31, 2 }, jumpPunchCollider2, jumpPunchHitbox2, jumpPunchCollType2, jumpPunchCallBack2);
 
 
-	//jump foward animation 
+	//jump foward animation
 	const int jumpForwardCollider = 2;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardHitbox[jumpForwardCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } };
 	COLLIDER_TYPE jumpForwardCollType[jumpForwardCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
@@ -468,7 +468,7 @@ ModulePlayer::ModulePlayer()
 	jumpFw.PushBack({ 359,562,74,91 }, 22, { 31, 2 }, jumpForwardCollider, jumpForwardHitbox, jumpForwardCollType, jumpForwardCallBack);
 
 
-	//jump foward punch animation 
+	//jump foward punch animation
 	const int jumpForwardPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect jumpForwardPunchHitbox[jumpForwardPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 40, 75, 20, 20 } };
 	COLLIDER_TYPE jumpForwardPunchCollType[jumpForwardPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
@@ -501,7 +501,7 @@ ModulePlayer::ModulePlayer()
 	crouch.firstLoopFrame = 1;
 	crouch.loop = true;
 
-	//crouch punch animation 
+	//crouch punch animation
 	const int crouchPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
 	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
@@ -596,7 +596,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("Assets/Sprites/jubei.png"); // arcade version
 	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
-	
+
 	/* Haoh Sounds
 	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/haohmaru_senpuuretsuzan.wav");
 	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/HaohmaruTornado.wav");
@@ -610,16 +610,16 @@ bool ModulePlayer::Start()
 	*/
 
 
-App->audio->effects[0] = Mix_LoadWAV("Assets/Music/jubei_shigetsutoh.wav");
-App->audio->effects[1] = Mix_LoadWAV("Assets/Music/jubei_wavesound.wav");
-App->audio->effects[2] = Mix_LoadWAV("Assets/Music/jubei_getshitted1.wav");
-App->audio->effects[20] = Mix_LoadWAV("Assets/Music/jubei_getshitted4.wav");
-App->audio->effects[14] = Mix_LoadWAV("Assets/Music/CharacterLandingGround.wav");
-App->audio->effects[15] = Mix_LoadWAV("Assets/Music/LightJumpAir.wav");
-App->audio->effects[16] = Mix_LoadWAV("Assets/Music/Slash1.wav");
-App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
-App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
-App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
+	App->audio->effects[0] = Mix_LoadWAV("Assets/Music/jubei_shigetsutoh.wav");
+	App->audio->effects[1] = Mix_LoadWAV("Assets/Music/jubei_wavesound.wav");
+	App->audio->effects[2] = Mix_LoadWAV("Assets/Music/jubei_getshitted1.wav");
+	App->audio->effects[20] = Mix_LoadWAV("Assets/Music/jubei_getshitted4.wav");
+	App->audio->effects[14] = Mix_LoadWAV("Assets/Music/CharacterLandingGround.wav");
+	App->audio->effects[15] = Mix_LoadWAV("Assets/Music/LightJumpAir.wav");
+	App->audio->effects[16] = Mix_LoadWAV("Assets/Music/Slash1.wav");
+	App->audio->effects[17] = Mix_LoadWAV("Assets/Music/KickConnect.wav");
+	App->audio->effects[18] = Mix_LoadWAV("Assets/Music/WeaponAttackNoConnect.wav");
+	App->audio->effects[19] = Mix_LoadWAV("Assets/Music/LightKickMiss1.wav");
 
 
 
@@ -675,6 +675,8 @@ update_status ModulePlayer::PreUpdate()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	float player1scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
+	//the PLAYER ESCALE is to adjust the real scale of the player
 
 	current_animation = &idle;
 
@@ -691,94 +693,94 @@ update_status ModulePlayer::Update()
 	current_state = state;
 
 	if (!doingAction) {
-			switch (state)
-			{
-			case ST_IDLE:
-				LOG("IDLE\n");
-				current_animation = &idle;
-				break;
-			case ST_WALK_FORWARD:
-				LOG("FORWARD >>>\n");
-				if(!playerFlip){
+		switch (state)
+		{
+		case ST_IDLE:
+			LOG("IDLE\n");
+			current_animation = &idle;
+			break;
+		case ST_WALK_FORWARD:
+			LOG("FORWARD >>>\n");
+			if (!playerFlip) {
 				current_animation = &forward;
-				position.x += speed + 1;}
-				else {
+				position.x += speed + 1;
+			}
+			else {
 				current_animation = &backward;
 				position.x += speed;
-				}
-				break;
-			case ST_WALK_BACKWARD:
-				LOG("BACKWARD <<<\n");
-				if (!playerFlip) {
-					current_animation = &backward;
-					position.x -= speed;
-				}
-				else {
-					current_animation = &forward;
-					position.x -= speed - 1;
-				}
-				blocking = true;
-				position.x -= speed;
-				break;
-			case ST_JUMP_NEUTRAL:
-				LOG("JUMPING NEUTRAL ^^^^\n");
-				jumping = true; doingAction = true;
-				Mix_PlayChannel(-1, App->audio->effects[15], 0);
-				break;
-			case ST_JUMP_FORWARD:
-				LOG("JUMPING FORWARD ^^>>\n");
-				jumpdiagonal = true;
-				Mix_PlayChannel(-1, App->audio->effects[15], 0);
-				doingAction = true;
-				break;
-			case ST_JUMP_BACKWARD:
-				LOG("JUMPING BACKWARD ^^<<\n");
-				jumpleft = true;
-				jumpdiagonal = true;
-				Mix_PlayChannel(-1, App->audio->effects[15], 0);
-				doingAction = true;
-				break;
-			case ST_CROUCH:
-				LOG("CROUCHING ****\n");
-				crouching = true;
-				doingAction = true;
-				break;
-			case ST_PUNCH_CROUCH:
-				LOG("PUNCH CROUCHING **++\n");
-				crouchpunching = true; doingAction = true;
-				break;
-			case ST_KICK_CROUCH:
-				LOG("KICK CROUCHING **++\n");
-				crouchkicking = true; doingAction = true;
-				break;
-			case ST_PUNCH_STANDING:
-				LOG("PUNCH STANDING ++++\n");
-				punching = true; doingAction = true;
-				break;
-			case ST_KICK_STANDING:
-				LOG("KICK STANDING ----\n");
-				kicking = true; doingAction = true;
-				break;
-			case ST_SPECIAL:
-				LOG("SPECIAL OwwwwO\n");
-				tornading = true; doingAction = true;
-				Mix_PlayChannel(-1, App->audio->effects[0], 0);
-				Mix_PlayChannel(-1, App->audio->effects[1], 0);
-				if (playerFlip) {
-					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x - 140, position.y - 44, playerFlip, COLLIDER_PLAYER_SHOT);
-
-				}
-				else{
-				App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao, position.x + 18, position.y-44,playerFlip,COLLIDER_PLAYER_SHOT);
-				}
-				break;
-			case ST_FALLING://new
-				falling = true; doingAction = true;
-				break;
 			}
+			break;
+		case ST_WALK_BACKWARD:
+			LOG("BACKWARD <<<\n");
+			if (!playerFlip) {
+				current_animation = &backward;
+				position.x -= speed;
+			}
+			else {
+				current_animation = &forward;
+				position.x -= speed - 1;
+			}
+			blocking = true;
+			break;
+		case ST_JUMP_NEUTRAL:
+			LOG("JUMPING NEUTRAL ^^^^\n");
+			jumping = true; doingAction = true;
+			Mix_PlayChannel(-1, App->audio->effects[15], 0);
+			break;
+		case ST_JUMP_FORWARD:
+			LOG("JUMPING FORWARD ^^>>\n");
+			jumpdiagonal = true;
+			Mix_PlayChannel(-1, App->audio->effects[15], 0);
+			doingAction = true;
+			break;
+		case ST_JUMP_BACKWARD:
+			LOG("JUMPING BACKWARD ^^<<\n");
+			jumpleft = true;
+			jumpdiagonal = true;
+			Mix_PlayChannel(-1, App->audio->effects[15], 0);
+			doingAction = true;
+			break;
+		case ST_CROUCH:
+			LOG("CROUCHING ****\n");
+			crouching = true;
+			doingAction = true;
+			break;
+		case ST_PUNCH_CROUCH:
+			LOG("PUNCH CROUCHING **++\n");
+			crouchpunching = true; doingAction = true;
+			break;
+		case ST_KICK_CROUCH:
+			LOG("KICK CROUCHING **++\n");
+			crouchkicking = true; doingAction = true;
+			break;
+		case ST_PUNCH_STANDING:
+			LOG("PUNCH STANDING ++++\n");
+			punching = true; doingAction = true;
+			break;
+		case ST_KICK_STANDING:
+			LOG("KICK STANDING ----\n");
+			kicking = true; doingAction = true;
+			break;
+		case ST_SPECIAL:
+			LOG("SPECIAL OwwwwO\n");
+			tornading = true; doingAction = true;
+			Mix_PlayChannel(-1, App->audio->effects[0], 0);
+			Mix_PlayChannel(-1, App->audio->effects[1], 0);
+			if (playerFlip) {
+				App->particles->tornadoHao.speed.x = -3;
+				App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x - (140 * player1scale)), (int)(position.y - (44 * player1scale)), playerFlip, COLLIDER_PLAYER_SHOT);
+
+			}
+			else {
+				App->particles->tornadoHao.speed.x = +3;
+				App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x + (18 * player1scale)), (int)(position.y - (44 * player1scale)), playerFlip, COLLIDER_PLAYER_SHOT);
+			}
+			break;
+		case ST_FALLING://new
+			falling = true; doingAction = true;
+			break;
 		}
+	}
 	//_________________
 	if (App->input->keys[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 	{
@@ -789,278 +791,275 @@ update_status ModulePlayer::Update()
 
 	}
 
-		if (kicking) {
-			//set kick anim
-			current_animation = &kick;
-			//stop kick anim
+	if (kicking) {
+		//set kick anim
+		current_animation = &kick;
+		//stop kick anim
 
-			if (current_animation->current_frame > 2 && !App->player2->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
-			if (kick.GetAnimEnd() == true) {
-				kicking = false; doingAction = false; kick.SetAnimEnd(false);
-				audioPlayed = false;
-			}
+		if (current_animation->current_frame > 2 && !App->player2->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[19], 0);
+			audioPlayed = true;
 		}
-
-		if (tornading) {
-			//set punch anim
-			current_animation = &tornado;
-
-			//stop punch anim
-			if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+		if (kick.GetAnimEnd() == true) {
+			kicking = false; doingAction = false; kick.SetAnimEnd(false);
+			audioPlayed = false;
 		}
+	}
 
-		if (punching) {
-			//set kick anim
-			current_animation = &punch;
-			//stop kick anim
+	if (tornading) {
+		current_animation = &tornado;
+		if (tornado.GetAnimEnd() == true) { tornading = false; doingAction = false; tornado.SetAnimEnd(false); }
+	}
 
-			if (current_animation->current_frame > 6 && current_animation->current_frame < 8 && !App->player->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (punch.GetAnimEnd() == true) {
-				punching = false; doingAction = false; punch.SetAnimEnd(false);
-				audioPlayed = false;
+	if (punching) {
+		//set kick anim
+		current_animation = &punch;
+		//stop kick anim
 
-
-			}
+		if (current_animation->current_frame > 6 && current_animation->current_frame < 8 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			audioPlayed = true;
 		}
+		if (punch.GetAnimEnd() == true) {
+			punching = false; doingAction = false; punch.SetAnimEnd(false);
+			audioPlayed = false;
 
-		if (crouching) {
-			//set punch anim
-			current_animation = &crouch;
-			//stop punch anim
-			if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
+
 		}
+	}
 
-		if (crouchpunching)
-		{
-			//set crouch punch anim.
-			current_animation = &crouchPunch;
-			//stop crouch punch anim
-			if (crouchPunch.GetAnimEnd() == true) {
-				crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); inputs.Push(IN_PUNCH_FINISH);
-			}
+	if (crouching) {
+		//set punch anim
+		current_animation = &crouch;
+		//stop punch anim
+		if (crouch.GetAnimEnd() == true) { crouching = false; doingAction = false; crouch.SetAnimEnd(false); }
+	}
+
+	if (crouchpunching)
+	{
+		//set crouch punch anim.
+		current_animation = &crouchPunch;
+		//stop crouch punch anim
+		if (crouchPunch.GetAnimEnd() == true) {
+			crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); inputs.Push(IN_PUNCH_FINISH);
 		}
+	}
 
-		if (crouchkicking)
-		{
-			//set crouch punch anim.
-			current_animation = &crouchKick;
-			//stop crouch punch anim
-			if (crouchKick.GetAnimEnd() == true) { crouchkicking = false; doingAction = false; crouchKick.SetAnimEnd(false); inputs.Push(IN_PUNCH_FINISH); }
-		}
+	if (crouchkicking)
+	{
+		//set crouch punch anim.
+		current_animation = &crouchKick;
+		//stop crouch punch anim
+		if (crouchKick.GetAnimEnd() == true) { crouchkicking = false; doingAction = false; crouchKick.SetAnimEnd(false); inputs.Push(IN_PUNCH_FINISH); }
+	}
 
-		if (getsHit) {
-			//set punch anim
-			current_animation = &hurtLow;
-			//body->to_delete = true;
+	if (getsHit) {
+		//set punch anim
+		current_animation = &hurtLow;
+		//body->to_delete = true;
 
-			if (playerFlip) {
-				if (aux > 0 && aux < 11) {
-					position.x += aux;
-					aux--;
-				}
-			}
-			else if (!playerFlip) {
-				if (aux > 0 && aux < 11)
-					position.x -= aux;
+		if (playerFlip) {
+			if (aux > 0 && aux < 11) {
+				position.x += (int)(aux*player1scale);
 				aux--;
-
 			}
+		}
+		else if (!playerFlip) {
+			if (aux > 0 && aux < 11)
+				position.x -= (int)(aux*player1scale);
+			aux--;
 
-			if (hurtLow.GetAnimEnd() == true) {
-				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
-				aux = 10;
-				invencibleframes = true;
-				invencibleaux = SDL_GetTicks();
-
-			}
-			//stop punch anim
-
-			/*if (hurtLow.GetAnimEnd() == true) {
-				getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
-				body->to_delete = true;
-				body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
-			}*/
 		}
 
-		if (jumping)
-		{
-			//set jump anim
-			if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
-				JumpPunching = true;
-			}
-			if (App->player->current_state == ST_KICK_NEUTRAL_JUMP2) {
-				JumpKicking = true;
-			}
+		if (hurtLow.GetAnimEnd() == true) {
+			getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+			aux = 10;
+			invencibleframes = true;
+			invencibleaux = SDL_GetTicks();
 
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jump;
-
-			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			hasjumped = true;
-			if (JumpPunching &&current_animation->current_frame >= 3 && !App->player->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[18], 0);
-				audioPlayed = true;
-			}
-			if (JumpKicking && current_animation->current_frame >= 2 && !App->player->getsHit && !audioPlayed) {
-				Mix_PlayChannel(-1, App->audio->effects[19], 0);
-				audioPlayed = true;
-			}
-			//stop punch anim
-			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumping = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				audioPlayed = false;
-				position.y = groundlevelaux;
-				Mix_PlayChannel(-1, App->audio->effects[14], 0);
-				doingAction = false;
-				inputs.Push(IN_JUMP_FINISH);
-				jumpKick.Reset();
-				jumpPunch.Reset();
-				jump.Reset();
-			}
-			jumpingframe++;
 		}
-		if (jumpdiagonal)
+		//stop punch anim
+
+		/*if (hurtLow.GetAnimEnd() == true) {
+			getsHit = false; doingAction = false; hurtLow.SetAnimEnd(false);
+			body->to_delete = true;
+			body = App->collision->AddCollider({ position.x, position.y, 73, 113 }, COLLIDER_ENEMY, this);
+		}*/
+	}
+
+	if (jumping)
+	{
+		//set jump anim
+		if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP2) {
+			JumpPunching = true;
+		}
+		if (App->player->current_state == ST_KICK_NEUTRAL_JUMP2) {
+			JumpKicking = true;
+		}
+
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jump;
+
+		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		hasjumped = true;
+		if (JumpPunching &&current_animation->current_frame >= 3 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			audioPlayed = true;
+		}
+		if (JumpKicking && current_animation->current_frame >= 2 && !App->player->getsHit && !audioPlayed) {
+			Mix_PlayChannel(-1, App->audio->effects[19], 0);
+			audioPlayed = true;
+		}
+		//stop punch anim
+		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 		{
-			if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP) {
-				JumpPunching = true;
-			}
-			if (App->player->current_state == ST_KICK_NEUTRAL_JUMP) {
-				JumpKicking = true;
-			}
+			jumpingframe = 0;
+			hasjumped = false;
+			jumping = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			audioPlayed = false;
+			position.y = groundlevelaux;
+			Mix_PlayChannel(-1, App->audio->effects[14], 0);
+			doingAction = false;
+			inputs.Push(IN_JUMP_FINISH);
+			jumpKick.Reset();
+			jumpPunch.Reset();
+			jump.Reset();
+		}
+		jumpingframe++;
+	}
+	if (jumpdiagonal)
+	{
+		if (App->player->current_state == ST_PUNCH_NEUTRAL_JUMP) {
+			JumpPunching = true;
+		}
+		if (App->player->current_state == ST_KICK_NEUTRAL_JUMP) {
+			JumpKicking = true;
+		}
 
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jumpFw; //Jumpforward animation
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jumpFw; //Jumpforward animation
 
-			if (JumpPunching)
-				current_animation = &jumpPunch;
-			else if (JumpKicking)
-				current_animation = &jumpKick;
-			else
-				current_animation = &jumpFw; //Jumpforward animation
+		if (JumpPunching)
+			current_animation = &jumpPunch;
+		else if (JumpKicking)
+			current_animation = &jumpKick;
+		else
+			current_animation = &jumpFw; //Jumpforward animation
 
 
-			position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
-			if(jumpleft)
+		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		if (jumpleft)
 			position.x -= 4;
-			else
+		else
 			position.x += 4;
-			hasjumped = true;
-			//stop jump anim
-			if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpdiagonal = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				audioPlayed = false;
-				Mix_PlayChannel(-1, App->audio->effects[14], 0);
-				position.y = groundlevelaux;
-				doingAction = false;
-				inputs.Push(IN_JUMP_FINISH);
-				jumpFw.Reset();
-				jumpBackward.Reset();
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-
-			}
-			if (airhit)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				jumping = false;
-				doingAction = false;
-				audioPlayed = false;
-				inputs.Push(IN_JUMP_FINISH);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-				jump.Reset();
-				airhit = false;
-
-			}
-			jumpingframe++;
-		}
-		
-		if (falling)//new
+		hasjumped = true;
+		//stop jump anim
+		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 		{
-			current_animation = &fall;
-			if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
-			else
-			{
-
-				position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-				if (playerFlip)position.x += 2 - (fall_bounces);
-				else position.x -= 2 - (fall_bounces);
-
-				hasjumped = true;
-				jumpingframe++;
-				if (position.y > groundlevelaux)
-				{
-					App->render->StartCameraShake(60, 1);
-					jumpingframe = 0;
-					position.y = groundlevelaux;
-					fall_bounces++;
-				}
-			}
-			if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
-			{
-				hasjumped = false;
-				jumpingframe = 0;
-				inputs.Push(IN_FALL_FINISH);
-				fall_bounces = 0;
-				doingAction = false;
-				falling = false;
-				position.y = groundlevelaux;
-				fall.Reset();
-				delay = 0;
-				Mix_PlayChannel(-1, App->audio->effects[20], 0);
-			}
-			if (airhit)	//end of the jump
-			{
-				jumpingframe = 0;
-				hasjumped = false;
-				jumpleft = false;
-				JumpPunching = false;
-				JumpKicking = false;
-				jumping = false;
-				doingAction = false;
-				audioPlayed = false;
-				inputs.Push(IN_JUMP_FINISH);
-				jumpFw.Reset();
-				jumpKick.Reset();
-				jumpBackward.Reset();
-				jump.Reset();
-				airhit = false;
-
-			}
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpdiagonal = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			audioPlayed = false;
+			Mix_PlayChannel(-1, App->audio->effects[14], 0);
+			position.y = groundlevelaux;
+			doingAction = false;
+			inputs.Push(IN_JUMP_FINISH);
+			jumpFw.Reset();
+			jumpBackward.Reset();
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
 
 		}
-	
+		if (airhit)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			jumping = false;
+			doingAction = false;
+			audioPlayed = false;
+			inputs.Push(IN_JUMP_FINISH);
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
+			jump.Reset();
+			airhit = false;
+
+		}
+		jumpingframe++;
+	}
+
+	if (falling)//new
+	{
+		current_animation = &fall;
+		if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
+		else
+		{
+
+			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+			if (playerFlip)position.x += 2 - (fall_bounces);
+			else position.x -= 2 - (fall_bounces);
+
+			hasjumped = true;
+			jumpingframe++;
+			if (position.y > groundlevelaux)
+			{
+				App->render->StartCameraShake(60, 1);
+				jumpingframe = 0;
+				position.y = groundlevelaux;
+				fall_bounces++;
+			}
+		}
+		if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
+		{
+			hasjumped = false;
+			jumpingframe = 0;
+			inputs.Push(IN_FALL_FINISH);
+			fall_bounces = 0;
+			doingAction = false;
+			falling = false;
+			position.y = groundlevelaux;
+			fall.Reset();
+			delay = 0;
+			Mix_PlayChannel(-1, App->audio->effects[20], 0);
+		}
+		if (airhit)	//end of the jump
+		{
+			jumpingframe = 0;
+			hasjumped = false;
+			jumpleft = false;
+			JumpPunching = false;
+			JumpKicking = false;
+			jumping = false;
+			doingAction = false;
+			audioPlayed = false;
+			inputs.Push(IN_JUMP_FINISH);
+			jumpFw.Reset();
+			jumpKick.Reset();
+			jumpBackward.Reset();
+			jump.Reset();
+			airhit = false;
+
+		}
+
+	}
+
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
 	{
 		if (colisionadores[i] != nullptr)
@@ -1079,34 +1078,34 @@ update_status ModulePlayer::Update()
 		r = current_animation->hitbox[i];
 		if ((!godMode || current_animation->tipo[i] != COLLIDER_ENEMY) && invencibleframes && current_animation->tipo[i] == COLLIDER_PLAYER)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (playerPivotX - r.w - r.x)*player1scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player1scale),(int)(r.w*player1scale),(int)(r.h*player1scale) }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (r.x - playerPivotX)*player1scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player1scale),(int)(r.w*player1scale),(int)(r.h*player1scale) }, COLLIDER_NONE, current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 
 		else if (!godMode || current_animation->tipo[i] != COLLIDER_ENEMY)
 			if (playerFlip)
-				colisionadores[i] = App->collision->AddCollider({ position.x - (r.w - playerPivotX) - r.x , position.y - r.h + playerPivotY - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (playerPivotX - r.w - r.x)*player1scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player1scale),(int)(r.w*player1scale),(int)(r.h*player1scale) }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 			else
-				colisionadores[i] = App->collision->AddCollider({ position.x - playerPivotX + r.x , position.y + playerPivotY - r.h - r.y,r.w,r.h }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
+				colisionadores[i] = App->collision->AddCollider({ (int)(position.x + (r.x - playerPivotX)*player1scale) , (int)(position.y + (playerPivotY - r.h - r.y)*player1scale),(int)(r.w*player1scale),(int)(r.h*player1scale) }, current_animation->tipo[i], current_animation->damage, current_animation->playerDelay, current_animation->enemyDelay, current_animation->attackType, current_animation->callback[i]);
 	}
 	r = current_animation->GetCurrentFrame();//returns the rectangle displaying the current animation
 
 	SDL_Rect shadowrect = { 0,0,70,14 };
 	//Blits player + collisions_____________
-	if (playerFlip) 
+	if (playerFlip)
 	{		//blit if player is flipped(compensates for pivot)
-		if (showingshadow) { App->render->Blit(shadow, position.x - 39, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+		if (showingshadow) { App->render->Blit(shadow, position.x - (39 * player1scale), 190, playerFlip, &shadowrect, 1.0, true, true, true); showingshadow = false; }//shadow semitransparent
 		else showingshadow = true;
-		App->render->Blit(graphics, position.x - (r.w - playerPivotX), position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+		App->render->Blit(graphics, position.x - (r.w - playerPivotX)*player1scale, position.y + (playerPivotY - r.h)*player1scale, playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
-	else 
+	else
 	{   //blit if player is NOT flipped
-		if (showingshadow) { App->render->Blit(shadow, position.x - 31, 190, playerFlip, &shadowrect); showingshadow = false; }//shadow semitransparent
+		if (showingshadow) { App->render->Blit(shadow, position.x - (31 * player1scale), 190, playerFlip, &shadowrect, 1.0, true, true, true); showingshadow = false; }//shadow semitransparent
 		else showingshadow = true;
-		App->render->Blit(graphics, position.x - playerPivotX, position.y + playerPivotY - r.h, playerFlip, &r); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
+		App->render->Blit(graphics, position.x - (playerPivotX*player1scale), position.y + ((playerPivotY - r.h)*player1scale), playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
-	
+
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
@@ -1124,7 +1123,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	
+
 
 
 	return UPDATE_CONTINUE;
@@ -1444,6 +1443,6 @@ player_states ModulePlayer::process_fsm(p2Qeue<player_inputs>& inputs)
 		break;
 		}
 	}
-	
+
 	return state;
 }

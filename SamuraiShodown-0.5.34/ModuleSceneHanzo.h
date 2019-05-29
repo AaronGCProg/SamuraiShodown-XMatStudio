@@ -38,7 +38,7 @@ public:
 	void roundFinish();
 	void BattleEnd();
 
-
+	float *escalaaux = nullptr;
 	//text vars
 	bool start = false;
 };
