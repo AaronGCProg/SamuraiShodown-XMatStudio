@@ -46,9 +46,11 @@ enum player2_states
 	ST_KICK_BACKWARD_JUMP2,
 	ST_SPECIAL2,
 	ST_FALLING2,
-	ST_KICK_CROUCH2
-	//new
-	//new
+	ST_KICK_CROUCH2,
+	ST_GRAB2,
+	ST_GRABBING2,
+	ST_GET_GRABBED2
+
 };
 
 enum player2_inputs
@@ -71,7 +73,13 @@ enum player2_inputs
 	IN_PUNCH_FINISH2,
 	IN_FALL_FINISH2,//new
 	IN_FALL2,
-	IN_DEATH2
+	IN_DEATH2,
+	IN_GRAB2,
+	IN_NOT_GRAB2,
+	IN_GRABBED2,
+	IN_GRAB_FINISH2,
+	IN_GRABBED_FINISH2,
+	IN_GET_GRABBED2
 };
 
 
@@ -154,6 +162,9 @@ public:
 	bool crouchkicking = false;
 	bool airhit = false;
 	bool jumpdiagonal = false;
+	bool grabbing = false;
+	bool getGrabbed = false;
+	bool gettingGrabbed = false;
 
 	
 	bool jumpleft = false;

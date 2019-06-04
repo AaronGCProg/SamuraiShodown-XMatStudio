@@ -99,11 +99,11 @@ ModulePlayer2::ModulePlayer2()
 	Module* punchCallBack2[punchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
-	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
-	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
-	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
-	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 20, 3);
+	punch.PushBack({ 1,721,86,97 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 10, 3);
+	punch.PushBack({ 88,729,130,89 }, 7, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 10, 3);
+	punch.PushBack({ 219,729,150,90 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 10, 3);
+	punch.PushBack({ 370,729,137,89 }, 6, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 10, 3);
+	punch.PushBack({ 508,729,96,89 }, 5, { 31,2 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 20, 9, 10, 3);
 	//punch.speed = 0.2f;
 
 
@@ -301,7 +301,7 @@ bool ModulePlayer2::Start()
 	health = 0;
 
 	graphics = App->textures->Load("Assets/Sprites/Jubei2.png"); // arcade version
-	ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
+	//ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
 	shadow = App->textures->Load("Assets/Sprites/sombra.png"); // health bar 
 	groundlevelaux = position.y;
 
@@ -318,7 +318,7 @@ bool ModulePlayer2::CleanUp()
 	// TODO 5: Remove all memory leaks
 	LOG("Unloading Character");
 	App->textures->Unload(graphics);
-	App->textures->Unload(ui);
+	//App->textures->Unload(ui);
 
 
 	for (int i = 0; i < MAXNUMOFCOLLIDERS; i++)//deletes all the hitboxes at the start of the frame
@@ -455,6 +455,14 @@ update_status ModulePlayer2::Update()
 				LOG("KICK STANDING ----\n");
 				kicking = true; doingAction = true;
 				break;
+
+			case ST_GET_GRABBED2:
+				doingAction = true;
+				break;
+			case ST_GRAB:
+				LOG("KICK STANDING ----\n");
+				grabbing = true; doingAction = true;
+				break;
 			case ST_SPECIAL2:
 				LOG("SPECIAL OwwwwO\n");
 				tornading = true; doingAction = true;
@@ -462,12 +470,12 @@ update_status ModulePlayer2::Update()
 				Mix_PlayChannel(-1, App->audio->effects[1], 0);
 				if (playerFlip) {
 					App->particles->tornadoHao.speed.x = -3;
-					App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x - (140*player2scale)), (int)(position.y - (44*player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x - (140 * player2scale)), (int)(position.y - (44 * player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
 
 				}
 				else {
 					App->particles->tornadoHao.speed.x = +3;
-					App->particles->AddParticle(App->particles->tornadoHao,(int)( position.x + (18*player2scale)), (int)(position.y - (44*player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
+					App->particles->AddParticle(App->particles->tornadoHao, (int)(position.x + (18 * player2scale)), (int)(position.y - (44 * player2scale)), playerFlip, COLLIDER_ENEMY_SHOT);
 				}
 				break;
 			case ST_FALLING2://new
@@ -515,6 +523,34 @@ update_status ModulePlayer2::Update()
 		if (kick.GetAnimEnd() == true) {
 			kicking = false; doingAction = false; kick.SetAnimEnd(false);
 			audioPlayed = false;
+		}
+	}
+
+	if (grabbing) {
+		if (App->player->close || current_state == ST_GRABBING) {
+			App->player->inputs.Push(IN_GET_GRABBED);
+			if (App->player->current_state == ST_GET_GRABBED) {
+				App->player->doingAction = true;
+				p2inputs.Push(IN_GRABBED2);
+				//AQUI PASA LA ANIMACION Y LOGICA
+				App->player->health += 20;
+
+				//if(grab.GetAnimEnd() == true){
+				p2inputs.Push(IN_GRAB_FINISH2);
+				grabbing = false; doingAction = false;
+				App->player->getGrabbed = false; App->player->doingAction = false;
+				App->player->inputs.Push(IN_GRABBED_FINISH);
+				//}
+			}
+			else {
+				p2inputs.Push(IN_NOT_GRAB2);
+				grabbing = false; doingAction = false;
+
+			}
+		}
+		else {
+			p2inputs.Push(IN_NOT_GRAB2);
+			grabbing = false; doingAction = false;
 		}
 	}
 
@@ -826,14 +862,14 @@ update_status ModulePlayer2::Update()
 
 	if ((App->fight->showHealthBar) == true) {
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
-		App->render->Blit(ui, 167, 15, false, &healthBar, NULL, true);
+		App->render->Blit(App->interface->ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
 			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
-			App->render->Blit(ui, 168, 17, false, &healthValue, NULL, true);
+			App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
 		}
 		else {
 			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
-			App->render->Blit(ui, 168, 17, false, &healthValue, NULL, true);
+			App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
 		}
 	}
 
@@ -1000,7 +1036,10 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 			}
 			if (App->input->Controller_player1_Connected) {
 				if (App->input->Controller_player1_LAxisX > DEATHZONE) {
-
+					if (App->player->playerFlip)
+						App->player->blocking = true;
+					else
+						App->player->blocking = false;
 					right = true;
 					if (left) {
 						left = false;
@@ -1009,6 +1048,10 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				}
 				else if (App->input->Controller_player1_LAxisX < -DEATHZONE) {
 
+					if(!App->player->playerFlip)
+						App->player->blocking = true;
+					else
+						App->player->blocking = false;
 					left = true;
 					if (right) {
 						right = false;
@@ -1025,6 +1068,8 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				if (App->input->Controller_player1_LAxisY > DEATHZONE) {
 
 					down = true;
+					if (App->input->Controller_player1_LAxisY > -DEATHZONE && App->input->Controller_player1_LAxisX < DEATHZONE)
+						App->player->blocking = true;
 					if (down) {
 						up = false;
 					}
@@ -1045,33 +1090,79 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 				}
 
 				if (App->input->controller_player1_B_pressed == true) {
-
-					if (App->input->CheckTornado(90, 0, App->player->playerFlip) == true)
-						inputs.Push(IN_SPECIAL);
+					bool attacked = false;
 
 
+					 if (App->input->CheckKick(40, 0, App->player->playerFlip) == true) {
+						inputs.Push(IN_STRONG_KICK);
+						attacked = true;
+					}
 
-					else if (App->input->CheckPunch(1, 0, App->player->playerFlip) == true)
-						inputs.Push(IN_X);;
+					 if (App->input->CheckThrow1(40, 0, App->player->playerFlip) == true && App->player->close == true) {
+						 inputs.Push(IN_GRAB);
+						 attacked = true;
+					 }
+					if(!attacked)
+						inputs.Push(IN_MID_KICK);
+
 
 				}
 
 
 				if (App->input->controller_player1_A_pressed == true) {
-
-					if (App->input->CheckTornado(90, 0, App->player->playerFlip) == true)
-						inputs.Push(IN_SPECIAL);
+					bool attacked = false;
 
 
+					 if (App->input->CheckKick(40, 0, App->player->playerFlip) == true){
+						inputs.Push(IN_STRONG_KICK);
+						attacked = true;
+					 }
 
-					else if (App->input->CheckPunch(1, 0, App->player->playerFlip) == true)
+					if (!attacked)
 						inputs.Push(IN_KICK);
+
+
+				}
+				if (App->input->controller_player1_X_pressed == true) {
+					bool attacked = false;
+
+					if (App->input->CheckTornado(50, 0, App->player->playerFlip) == true) {
+						inputs.Push(IN_SPECIAL);
+						attacked = true;
+					}
+
+
+					 if (App->input->CheckPunch(40, 0, App->player->playerFlip) == true) {
+						inputs.Push(IN_X_STRONG);
+						attacked = true;
+					}
+
+					if (!attacked)
+						inputs.Push(IN_X);
+
+
+				}
+				if (App->input->controller_player1_Y_pressed == true) {
+					bool attacked = false;
+
+					if (App->input->CheckTornado(50, 0, App->player->playerFlip) == true) {
+						inputs.Push(IN_SPECIAL);
+						attacked = true;
+					}
+
+					 if (App->input->CheckPunch(40, 0, App->player->playerFlip) == true) {
+						inputs.Push(IN_X_STRONG);
+						attacked = true;
+					}
+					if (!attacked)
+						inputs.Push(IN_X_MID);
+
 
 				}
 
 				if (App->input->controller_player1_RightShoulder_pressed > DEATHZONE) {
 
-					inputs.Push(IN_SPECIAL);
+					inputs.Push(IN_GRAB);
 
 				}
 
@@ -1126,7 +1217,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player2_B_pressed == true) {
 
-					if (App->input->CheckTornado(200, 1, playerFlip) == true)
+					if (App->input->CheckTornado(90, 1, playerFlip) == true)
 						p2inputs.Push(IN_SPECIAL2);
 
 
@@ -1139,7 +1230,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 
 				if (App->input->controller_player2_A_pressed == true) {
 
-					if (App->input->CheckTornado(200, 1, playerFlip) == true)
+					if (App->input->CheckTornado(90, 1, playerFlip) == true)
 						p2inputs.Push(IN_SPECIAL2);
 
 
@@ -1313,6 +1404,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_SPECIAL2: state = ST_SPECIAL2; p2punch_timer = SDL_GetTicks();  break;
 			case IN_DEATH2: state = ST_FALLING2; break;
 			case IN_FALL2:state = ST_FALLING2; break;
+			case IN_GET_GRABBED2:state = ST_GET_GRABBED2; break;
+
 			}
 		}
 		break;
@@ -1328,6 +1421,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_KICK2: state = ST_KICK_STANDING2; p2punch_timer = SDL_GetTicks(); blocking = false; break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH2; blocking = false; break;
 			case IN_FALL2:state = ST_FALLING2; blocking = false; break;
+			case IN_GRAB2:state = ST_GRAB2; break;
+			case IN_GET_GRABBED2:state = ST_GET_GRABBED2; break;
 			}
 		}
 		break;
@@ -1343,6 +1438,8 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_KICK2: state = ST_KICK_STANDING2; blocking = false;  p2punch_timer = SDL_GetTicks();  break;
 			case IN_CROUCH_DOWN2: state = ST_CROUCH2; blocking = false; break;
 			case IN_FALL2:state = ST_FALLING2; blocking = false; break;
+			case IN_GRAB2:state = ST_GRAB2; break;
+			case IN_GET_GRABBED2:state = ST_GET_GRABBED2; break;
 			}
 		}
 		break;
@@ -1486,6 +1583,37 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			}
 		}
 		break;
+		case ST_GRAB2:
+		{
+			switch (last_input)
+			{
+			case IN_NOT_GRAB2: state = ST_IDLE2; break;
+			case IN_GRABBED2:state = ST_GRABBING2; break;
+
+			}
+		}
+		break;
+
+		case ST_GRABBING2:
+		{
+			switch (last_input)
+			{
+			case IN_GRAB_FINISH2: state = ST_IDLE2; break;
+
+			}
+		}
+		break;
+
+		case ST_GET_GRABBED2:
+		{
+			switch (last_input)
+			{
+			case IN_GRABBED_FINISH2: state = ST_FALLING2; break;
+
+			}
+		}
+		break;
+
 
 		case ST_FALLING2:
 		{//new

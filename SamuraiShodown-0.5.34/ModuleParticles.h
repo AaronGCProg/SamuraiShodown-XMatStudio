@@ -56,6 +56,16 @@ private:
 public:
 
 	Particle tornadoHao;
+	Particle bloodLow;
+	Particle bloodMid;
+	Particle bloodHard;
+	Particle kick;
+	Particle slash;
+	Particle groundHit;
+	Particle blocking;
+	Particle swordFight;
+	Particle swordFightEnd;
+	Particle spark;
 	Particle tornadoHaoImpact;
 
 };

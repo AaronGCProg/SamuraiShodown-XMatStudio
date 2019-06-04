@@ -48,6 +48,26 @@ enum player_states
 	ST_SPECIAL,
 	ST_KICK_CROUCH,
 	ST_FALLING,
+	ST_GRAB,
+	ST_GRABBING,
+	ST_GET_GRABBED,
+	ST_BLOCKING,
+	ST_CROUCH_BLOCK,
+
+	ST_MID_PUNCH_STANDING,
+	ST_STRONG_PUNCH_STANDING,
+	ST_STRONG_KICK,
+	ST_MID_KICK,
+	ST_PUNCH_MID_CROUCH,
+	ST_PUNCH_STRONG_CROUCH,
+	ST_KICK_MID_CROUCH,
+	ST_KICK_STRONG_CROUCH,
+	ST_MID_PUNCH_NEUTRAL_JUMP,
+	ST_STRONG_PUNCH_NEUTRAL_JUMP,
+	ST_KICK_MID_NEUTRAL_JUMP,
+	ST_KICK_STRONG_NEUTRAL_JUMP,
+	ST_PUNCH_CLOSE_STANDING
+
 };
 
 enum player_inputs
@@ -70,7 +90,20 @@ enum player_inputs
 	IN_PUNCH_FINISH,
 	IN_FALL_FINISH,
 	IN_FALL,
-	IN_DEATH
+	IN_DEATH,
+	IN_GRAB,
+	IN_NOT_GRAB,
+	IN_GRABBED,
+	IN_GRAB_FINISH,
+	IN_GRABBED_FINISH,
+	IN_GET_GRABBED,
+	IN_BLOCKING,
+	IN_BLOCK_FINISH,
+	IN_BLOCKING_CROUCH,
+	IN_X_MID,
+	IN_X_STRONG,
+	IN_STRONG_KICK,
+	IN_MID_KICK
 };
 
 
@@ -108,6 +141,8 @@ public:
 	Animation punch;
 	Animation tornado;
 	Animation hurtLow;
+	Animation blockingIdle;
+	Animation crouchBlock;
 	Animation* current_animation;
 	Animation jumpKick;
 	Animation jumpPunch;
@@ -118,7 +153,25 @@ public:
 	Animation crouchKick;
 	Animation crouchPunch;
 	Animation getUp;
+	Animation crouchstrongKick;
 	Animation fall;
+
+	Animation midpunch;
+	Animation strongpunch;
+	Animation midkick;
+	Animation strongkick;
+	Animation jumpmidPunch;
+	Animation jumpstrongPunch;
+	Animation jumpmidKick;
+	Animation jumpstrongKick;
+	Animation crouchmidPunch;
+	Animation crouchstrongPunch;
+	Animation crouchmidKick;
+	Animation grab;
+	Animation shortPunch;
+
+
+
 	iPoint position;
 
 	Uint32 jump_timer = 0;
@@ -154,6 +207,17 @@ public:
 	bool JumpKicking = false;
 	bool JumpPunching = false;
 	bool airhit = false;
+	bool close = false;
+	bool grabbing = false;
+	bool getGrabbed = false;
+	bool blockingAction = false;
+	bool midPunching = false;
+	bool strongPunching = false;
+	bool midKicking = false;
+	bool strongKicking = false;
+	bool blockingActionCrouch = false;
+	int invencibleTotalTime = 750;
+	bool closeLowpunching = false;
 
 
 	int invencibleaux = 0;

@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleParticles.h"
+#include "ModulePlayer.h"
 #include "ModuleCollision.h"
 
 #include "SDL/include/SDL_timer.h"
@@ -21,7 +22,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("Assets/Sprites/jubei.png");
+	//graphics = App->textures->Load("Assets/Sprites/jubei.png");
 
 	// Tornado
 	/*
@@ -50,8 +51,8 @@ bool ModuleParticles::Start()
 	tornadoHao.anim.firstLoopFrame = 2.0f;
 	*/
 
-	tornadoHao.anim.PushBack({ 1012, 1740, 82, 47 }, 4, { 31,2 }, 0, {}, {}, {},0,0,0,0);
-	tornadoHao.anim.PushBack({ 1094, 1740, 82, 47 }, 2, { 31,2 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	tornadoHao.anim.PushBack({ 1012, 1740, 75, 39 }, 4, { 31,2 }, 0, {}, {}, {},0,0,0,0);
+	tornadoHao.anim.PushBack({ 1094, 1740, 75, 39 }, 2, { 31,2 }, 0, {}, {}, {}, 0, 0, 0, 0);
 
 	tornadoHao.anim.loop = true;
 	tornadoHao.anim.speed = 0.2f;
@@ -68,7 +69,108 @@ bool ModuleParticles::Start()
 	tornadoHaoImpact.life = 2000;
 	tornadoHaoImpact.anim.firstLoopFrame = 1.0f;
 
+	//low blood
+	bloodLow.anim.PushBack({ 1336, 1412, 95, 46 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodLow.anim.PushBack({ 1432, 1411, 95, 46 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodLow.anim.PushBack({ 1526, 1411, 73, 51 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodLow.anim.PushBack({ 1600, 1410, 70, 45 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodLow.anim.PushBack({ 1668, 1411, 43, 32 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodLow.anim.loop = false;
+	bloodLow.anim.speed = 0.8f;
+	bloodLow.life = 325;
 
+	bloodMid.anim.PushBack({ 1194, 1496, 36, 24 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.PushBack({ 1231, 1496, 48, 46 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.PushBack({ 1280, 1496, 51, 43 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.PushBack({ 1336, 1496, 42, 38 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.PushBack({ 1370, 1495, 23, 20 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.PushBack({ 1397, 1496, 20, 22 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodMid.anim.loop = false;
+	bloodMid.anim.speed = 0.8f;
+	bloodMid.life = 325;
+
+	bloodHard.anim.PushBack({ 1799, 1394, 58, 32 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 1858, 1394, 92, 54 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 1951, 1394, 136, 62 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 2089, 1388, 137, 76 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 2257, 1371, 146, 64 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 2405, 1371, 120, 42 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.PushBack({ 2531, 1379, 114, 24 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	bloodHard.anim.loop = false;
+	bloodHard.anim.speed = 0.8f;
+	bloodHard.life = 325;
+
+
+	slash.anim.PushBack({ 1673, 1512, 45, 53 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	slash.anim.PushBack({ 1594, 1513, 54, 54 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	slash.anim.PushBack({ 1520, 1512, 53, 58 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	slash.anim.PushBack({ 1454, 1523, 42, 53 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	slash.anim.loop = false;
+	slash.anim.speed = 0.8f;
+	slash.life = 275;
+
+	kick.anim.PushBack({ 1758, 2208, 26, 26 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	kick.anim.PushBack({ 1826, 2207, 28, 28 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	kick.anim.PushBack({ 1906, 2205, 30, 30 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	kick.anim.PushBack({ 1966, 2205, 30, 30 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	kick.anim.loop = false;
+	kick.anim.speed = 0.8f;
+	kick.life = 275;
+
+	groundHit.anim.PushBack({ 1439, 1631, 23, 24 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	groundHit.anim.PushBack({ 1463, 1629, 26, 26 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	groundHit.anim.PushBack({ 1490, 1626, 28, 29 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	groundHit.anim.PushBack({ 1518, 1622, 34, 33 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	groundHit.anim.PushBack({ 1552, 1622, 36, 35 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	groundHit.anim.PushBack({ 1589, 1622, 38, 38 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	groundHit.anim.loop = false;
+	groundHit.anim.speed = 0.8f;
+	groundHit.life = 325;
+
+	blocking.anim.PushBack({ 1634, 1918, 11, 11 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	blocking.anim.PushBack({ 1649, 1917, 16, 16 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	blocking.anim.PushBack({ 1670, 1914, 20, 20 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	blocking.anim.PushBack({ 1698, 1913, 22, 22 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	
+	blocking.anim.loop = false;
+	blocking.anim.speed = 0.8f;
+	blocking.life = 275;
+
+	swordFight.anim.PushBack({ 2164, 2048, 16, 16 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2187, 2045, 26, 21 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2221, 2031, 46, 32 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2284, 2050, 17, 16 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2308, 2045, 26, 21 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2350, 2048, 16, 16 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFight.anim.PushBack({ 2378, 2041, 32, 26 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	swordFight.anim.loop = true;
+	swordFight.anim.speed = 0.8f;
+	swordFight.life = 650;
+
+	swordFightEnd.anim.PushBack({ 2163, 2096, 48, 56 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFightEnd.anim.PushBack({ 2238, 2249, 23, 23 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFightEnd.anim.PushBack({ 2163, 2096, 48, 56 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	swordFightEnd.anim.PushBack({ 2360, 2097, 47, 59 }, 3, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	swordFightEnd.anim.loop = true;
+	swordFightEnd.anim.speed = 0.8f;
+	swordFightEnd.life = 300;
+
+	spark.anim.PushBack({ 1947, 1908, 30, 32 }, 1, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	spark.anim.PushBack({ 2065, 1904, 48, 49 }, 1, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	spark.anim.PushBack({ 2456, 1911, 100, 99 },1, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	spark.anim.PushBack({ 2570, 1910, 75, 91 }, 1, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+	spark.anim.PushBack({ 2663, 1910, 59, 91 }, 1, { 0,0 }, 0, {}, {}, {}, 0, 0, 0, 0);
+
+	spark.anim.loop = true;
+	spark.speed.x -= 1;
+	spark.speed.y -= 1;
+	spark.anim.speed = 2.8f;
+	spark.life = 350;
 
 	return true;
 }
@@ -110,7 +212,7 @@ update_status ModuleParticles::Update()
 		else if (SDL_GetTicks() >= p->born)
 		{	
 
-			App->render->Blit(graphics, p->position.x, p->position.y, p->fliped, &(p->anim.GetCurrentFrame()),1.0,true,true,true);
+			App->render->Blit(App->player->graphics, p->position.x, p->position.y, p->fliped, &(p->anim.GetCurrentFrame()),1.0,true,true,true);
 			if (p->fx_played == false)
 			{
 				// Play particle fx here

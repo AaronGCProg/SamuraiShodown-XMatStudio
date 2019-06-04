@@ -17,7 +17,7 @@
 #define MAX_GAME_CONTROLLERS 2
 
 #define MAX_HISTORY 180
-#define MAX_COMMAND_FRAMES 180
+#define MAX_COMMAND_FRAMES 100
 
 enum KEY_STATE
 {
@@ -39,7 +39,8 @@ struct GamePad
 	bool ddleft = false;
 	bool a = false;
 	bool b = false;
-
+	bool x = false;
+	bool y = false;
 };
 
 struct History
@@ -58,40 +59,6 @@ enum  InputCommandTypes
 	punch,
 	max
 };
-
-struct InputCommand
-{
-	InputCommandTypes type = InputCommandTypes::max;
-
-	InputCommand(InputCommandTypes type) : type(type) {}
-	virtual bool Check(uint past_frames) const = 0;
-};
-
-struct CommandPunch : public InputCommand
-{
-	CommandPunch() :InputCommand(InputCommandTypes::punch) {}
-	bool Check(uint past_frames) const override;
-};
-
-struct CommandSuigetsu : public InputCommand
-{
-	CommandSuigetsu() :InputCommand(InputCommandTypes::suigetsu) {}
-	bool Check(uint frames_past) const override;
-};
-
-struct CommandNikkaku : public InputCommand
-{
-	CommandNikkaku() :InputCommand(InputCommandTypes::nikkaku) {}
-	bool Check(uint frames_past) const override;
-};
-
-struct CommandHasso : public InputCommand
-{
-	CommandHasso() :InputCommand(InputCommandTypes::hasso) {}
-	bool Check(uint frames_past) const override;
-};
-
-
 
 
 class ModuleInput : public Module
@@ -117,6 +84,8 @@ public:
 
 	bool CheckPunch(int frames_past, int player, bool playerflip);
 	bool CheckTornado(int frames_past, int player, bool playerflip);
+	bool CheckKick(int frames_past, int player, bool playerflip);
+	bool CheckThrow1(int frames_past, int player, bool playerflip);
 
 
 	GamePad pad;
@@ -134,6 +103,9 @@ public:
 	bool controller_player1_A_pressed = false;//bool checking if the button A is pressed
 	bool controller_player1_Start_pressed = false;//bool checking if the button Start is pressed
 	bool controller_player1_B_pressed = false;
+	bool controller_player1_X_pressed = false;
+	bool controller_player1_Y_pressed = false;
+
 
 	//values for the Joysticks Axes
 
@@ -154,6 +126,8 @@ public:
 	bool controller_player2_A_pressed = false;//bool checking if the button A is pressed
 	bool controller_player2_Start_pressed = false;//bool checking if the button Start is pressed
 	bool controller_player2_B_pressed = false;
+	bool controller_player2_X_pressed = false;
+	bool controller_player2_Y_pressed = false;
 	//values for the Joysticks Axes
 
 	int Controller_player2_LAxisX = 0;
