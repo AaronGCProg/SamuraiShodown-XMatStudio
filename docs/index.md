@@ -20,7 +20,7 @@ src="https://www.youtube.com/embed/dmGAfgv9uPo" frameborder="0" allowfullscreen>
 
 <br><br>
 
-
+<center>
   
 <h3 id="the-team">Team</h3>
 
@@ -52,10 +52,11 @@ src="https://www.youtube.com/embed/dmGAfgv9uPo" frameborder="0" allowfullscreen>
   </tr>
 </table>
 
+<p align="center"><img src="https://raw.githubusercontent.com/AaronGCProg/SamuraiShodown-XMatStudio/master/docs/team_picture_logo.png" alt="Official X-Mat Logo" class="center"></p>
+</center>
 
 
 <br><br>
 
 
-<p align="center"><img src="https://raw.githubusercontent.com/AaronGCProg/SamuraiShodown-XMatStudio/master/docs/team_picture_logo.png" alt="Official X-Mat Logo" class="center"></p>
 
