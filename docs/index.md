@@ -1,3 +1,4 @@
+<h1  align="center" id="our-samurai-shodown">Our Samurai Shodown</h1>
 
 <p>Welcome to the webpage of <a href="https://github.com/AaronGCProg/SamuraiShodown-XMatStudio/wiki">Samurai Shodown</a> from <a href="https://github.com/AaronGCProg/SamuraiShodown-XMatStudio">X-Mat Studios</a></p>
 
@@ -13,6 +14,8 @@ It features 12 playable characters and has two different fight modes: Player vs 
 
 <br><br>
 
+<h2  align="center" id="samurai-shodown-x-mat-studio">Samurai Shodown from X-Mat Studio Trailer</h2>
+
 <iframe width="510" height="412"
 src="https://www.youtube.com/embed/dmGAfgv9uPo" frameborder="0" allowfullscreen>
 </iframe>
@@ -22,7 +25,7 @@ src="https://www.youtube.com/embed/dmGAfgv9uPo" frameborder="0" allowfullscreen>
 
 <center>
   
-<h3 id="the-team">Team</h3>
+<h2  align="center" id="team-members">Team Members</h2>
 
 <table style="width:100%">
   <tr>
