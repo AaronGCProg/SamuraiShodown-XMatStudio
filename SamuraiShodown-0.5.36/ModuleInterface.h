@@ -3,7 +3,17 @@
 
 #include "Module.h"
 #include "Globals.h"
-
+#include "puntuation.h"
+#define PUNTUATION_TIME 120 //time it takes (in frames) for one parameter of the puntuation to reach zero
+enum scorestates
+{
+	DEFAULT,
+	IN_LIFE,
+	IN_TIME,
+	IN_HITTINGPERCENTATGE,
+	IN_TOTAL,
+	IN_FINISHED
+};
 
 class ModuleInterface : public Module
 {
@@ -23,6 +33,10 @@ public:
 	SDL_Rect pow = { 33, 53, 16, 11 };
 	SDL_Rect powbar = { 225, 65, 65, 9 };
 	SDL_Rect victory = { 225, 75, 27, 18 };
+	SDL_Rect life_time = { 83,219,64,53 };
+	SDL_Rect hittingperc_total = { 150,218,68,54 };
+	Puntuation P1punt;
+	Puntuation P2punt;
 
 
 
@@ -32,13 +46,25 @@ public:
 	int font_name = -1;
 	int font_menu = -1;
 	int font_debug = -1;
+	int font_finalscore = -1;
 	char time_text[10];
 	char debug_buttons_text[50];
 	char debug_joystick_text[50];
+	char life_text_char[10];
+	char time_text_char[10];
+	char hittingpercent_text_char[10];
+	char total_score_text_char[10];
 	int startingtime = 0;
 	int actualtime = 99;
 	bool timerStop = false;
+	bool showscore = false;
 
+	int lifescore = 1;
+	int timescore = 22;
+	int hittingpercentatgescore = 33;
+	int totalScore = 451;
+
+	scorestates scoretable=DEFAULT;
 	// control vars
 
 
