@@ -13,7 +13,7 @@ It features 12 playable characters and has two different fight modes: Player vs 
 
 <br><br>
 
-<iframe width="645" height="520"
+<iframe width="510" height="412"
 src="https://www.youtube.com/embed/dmGAfgv9uPo" frameborder="0" allowfullscreen>
 </iframe>
 <p>You can also enjoy the trailer by  <a href="https://www.youtube.com/watch?v=dmGAfgv9uPo">clicking here.</a></p>
