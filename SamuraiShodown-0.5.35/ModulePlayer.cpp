@@ -1435,8 +1435,6 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x - (playerPivotX*player1scale), position.y + ((playerPivotY - r.h)*player1scale), playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
-
-
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
 	if ((App->fight->showHealthBar) == true) {

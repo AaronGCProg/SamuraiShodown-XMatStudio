@@ -63,6 +63,7 @@ public:
 	SDL_Rect& GetCurrentFrame() 
 	{//returns the rectangle displaying the current animation
 		//current_frame += speed;
+		float auxframe2 = current_frame;
 		float auxframe = (1.0f/(framesXframe[(int)current_frame]));
 		current_frame += auxframe;// frames per frame (24 frames x sec) 
 		//!!have to do it for the actual game speed
@@ -72,7 +73,7 @@ public:
 			loops++;
 		}
 			
-		return frames[(int)current_frame];
+		return frames[(int)auxframe2];
 	}
 
 	bool Finished() const
