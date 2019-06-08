@@ -30,8 +30,11 @@ public:
 	SDL_Texture* ui = nullptr;
 	SDL_Rect ko = { 33, 66, 28, 22 };
 	SDL_Rect end = { 33, 89, 28, 22 };
-	SDL_Rect pow = { 33, 53, 16, 11 };
 	SDL_Rect powbar = { 225, 65, 65, 9 };
+	SDL_Rect pow1interiorbar = { 0,24,2,8 };
+	SDL_Rect pow2interiorbar = { 0,24,2,8 };
+	SDL_Rect powword[7];
+	iPoint powpivot[7];
 	SDL_Rect victory = { 225, 75, 27, 18 };
 	SDL_Rect life_time = { 83,219,64,53 };
 	SDL_Rect hittingperc_total = { 150,218,68,54 };
@@ -64,7 +67,12 @@ public:
 	int hittingpercentatgescore = 33;
 	int totalScore = 451;
 
-	scorestates scoretable=DEFAULT;
+	int pow1damage = 0;
+	int pow2damage = 0;
+	int actualpowwordframe = 0;
+	int powdelay = 0;
+	int criticalpowbucle = 0;
+	scorestates scoretable = DEFAULT;
 	// control vars
 
 
