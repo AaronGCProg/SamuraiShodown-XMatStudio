@@ -64,17 +64,17 @@ bool ModuleInterface::Start()
 	powword[1] = { 50, 49, 22, 15 };
 	powword[2] = { 73, 44, 24,20 };
 	powword[3] = { 98 ,40 ,28 ,24 };
-	powword[4] = { 127 ,29 ,48 ,35 };
-	powword[5] = { 175,26 ,51 ,39 };
-	powword[6] = { 228, 25,51 ,39 };
+	powword[4] = { 127 ,28 ,48 ,35 };
+	powword[5] = { 175,25 ,51 ,39 };
+	powword[6] = { 228, 24,51 ,40 };
 
-	powpivot[0] = { 0,0 };
-	powpivot[1] = { 0,0 };
-	powpivot[2] = { 0,0 };
-	powpivot[3] = { 0,0 };
-	powpivot[4] = { 0,0 };
-	powpivot[5] = { 0,0 };
-	powpivot[6] = { 0,0 };
+	powpivot[0] = { 0,63 };
+	powpivot[1] = { 0,63 };
+	powpivot[2] = { 0,63 };
+	powpivot[3] = { 0,63 };
+	powpivot[4] = { 8,63 };
+	powpivot[5] = { 9,63 };
+	powpivot[6] = { 8,63 };
 
 	return true;
 }
@@ -168,13 +168,13 @@ update_status ModuleInterface::Update()
 
 		if (pow1damage != 0)App->render->Blit(ui, 37, 202, false, &pow1interiorbar, NULL, true);//pow p1
 
-		if (pow2damage != 0)App->render->Blit(ui, 273 - (2 * pow2damage), 202, true, &pow2interiorbar, NULL, true);//powp2
+		if (pow2damage != 0)App->render->Blit(ui, 263 - (2 * pow2damage), 202, true, &pow2interiorbar, NULL, true);//powp2
 
 		//powword logic
-		if (pow2damage < 6)actualpowwordframe = 0;
-		else if (pow2damage < 12)actualpowwordframe = 1;
-		else if (pow2damage < 18)actualpowwordframe = 2;
-		else if (pow2damage < 24)actualpowwordframe = 3;
+		if (pow2damage < 8)actualpowwordframe = 0;
+		else if (pow2damage < 16)actualpowwordframe = 1;
+		else if (pow2damage < 24)actualpowwordframe = 2;
+		else if (pow2damage < 30)actualpowwordframe = 3;
 		else
 		{
 			if (powdelay < 4)
@@ -197,12 +197,12 @@ update_status ModuleInterface::Update()
 		App->fonts->BlitText(10, 212, 1, "CREDITS 03");
 		App->render->Blit(ui, 34, 202, false, &powbar, NULL, true);
 
-		App->render->Blit(ui, 21, 200, false, &powword[actualpowwordframe], NULL, true);//word pow
+		App->render->Blit(ui, 21-powpivot[actualpowwordframe].x, 211-powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow
 
-		App->fonts->BlitText(210, 212, 1, "CREDITS 03");
-		App->render->Blit(ui, 211, 202, true, &powbar, NULL, true);
+		App->fonts->BlitText(200, 212, 1, "CREDITS 03");
+		App->render->Blit(ui, 201, 202, true, &powbar, NULL, true);
 
-		App->render->Blit(ui, 274, 200, false, &powword[actualpowwordframe], NULL, true);//word pow
+		App->render->Blit(ui, 264-powpivot[actualpowwordframe].x, 211-powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow
 
 
 		if (App->player2->debugmode)//debug information
