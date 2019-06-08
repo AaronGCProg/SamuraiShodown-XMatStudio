@@ -585,6 +585,7 @@ bool ModulePlayer2::Start()
 	current_animation = &idle;
 
 	health = 0;
+	healthAnim = 0;
 
 	graphics = App->textures->Load("Assets/Sprites/Jubei2.png"); // arcade version
 	//ui = App->textures->Load("Assets/Sprites/UIspritesheet2.png"); // health bar 
@@ -1296,17 +1297,18 @@ update_status ModulePlayer2::Update()
 	else
 		SDL_SetTextureColorMod(graphics, 255, 30, 30);
 
-
+	if (health > healthAnim)
+		healthAnim++;
 
 	if ((App->fight->showHealthBar) == true) {
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
 		App->render->Blit(App->interface->ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
-			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
+			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - healthAnim, 9 };
 			App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
 		}
 		else {
-			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
+			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
 			App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
 		}
 	}

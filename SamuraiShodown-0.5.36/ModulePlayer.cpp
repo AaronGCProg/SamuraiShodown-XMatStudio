@@ -578,6 +578,7 @@ bool ModulePlayer::Start()
 	groundlevelaux = position.y;
 	srand(time(NULL));
 	health = 0;
+	healthAnim = 0;
 
 	LOG("Listening for Arrow keys + SPACE:\n");
 	LOG("Loading player textures");
@@ -1506,16 +1507,20 @@ update_status ModulePlayer::Update()
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
+	if (health > healthAnim)
+		healthAnim++;
+	
+
 	if ((App->fight->showHealthBar) == true) {
 		App->render->Blit(App->interface->ui, 5, 15, false, &healthBar, NULL, true);
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
 		App->render->Blit(App->interface->ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
-			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - health, 9 };
+			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - healthAnim, 9 };
 			App->render->Blit(App->interface->ui, 7, 17, false, &healthValue, NULL, true);
 		}
 		else {
-			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - health, 9 };
+			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
 			App->render->Blit(App->interface->ui, 7, 17, false, &healthValue, NULL, true);
 		}
 	}

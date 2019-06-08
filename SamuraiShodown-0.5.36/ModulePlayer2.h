@@ -230,7 +230,8 @@ public:
 	bool crouching = false;
 	bool neutralJumpPunching = false;
 	bool audioPlayed = false;
-	int health = 100;
+	int health = 0;
+	int healthAnim = 0;
 	int falling = false;//new
 	int aux = 10;
 	int invencibleaux = 0;

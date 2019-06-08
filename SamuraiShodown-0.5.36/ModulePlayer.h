@@ -228,6 +228,7 @@ public:
 
 	int invencibleaux = 0;
 	int health = 0;
+	int healthAnim = 0;
 	int aux = 10;
 	//int attack_life = 0;
 	//int attack_born = 0;
