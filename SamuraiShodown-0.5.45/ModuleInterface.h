@@ -62,6 +62,7 @@ public:
 	bool timerStop = false;
 	bool showscore = false;
 
+	int koBlinking;
 	int lifescore = 1;
 	int timescore = 22;
 	int hittingpercentatgescore = 33;

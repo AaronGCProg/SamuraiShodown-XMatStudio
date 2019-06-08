@@ -320,6 +320,8 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 		if (SDL_GetTicks() - startingtime > 2500 && player > 0) { //Substituir  por getanimationend
 			App->scene_hanzo->BattleEnd();
+			App->player->powValue = 0;
+			App->player2->powValue = 0;
 		}
 		else if  (SDL_GetTicks() - startingtime > 3500) { 
 			played = 1;

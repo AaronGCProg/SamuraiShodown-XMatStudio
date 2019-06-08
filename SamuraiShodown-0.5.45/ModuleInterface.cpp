@@ -98,11 +98,52 @@ bool ModuleInterface::CleanUp()
 // Update: draw background
 update_status ModuleInterface::Update()
 {
+
 	if (App->fight->showHealthBar) {
 		if (App->fight->rounds == 1)
-			App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI
+
+
+			if (App->player->critical || App->player2->critical) {
+
+				if (koBlinking < 4) {
+					SDL_Rect ko = { 33, 66, 28, 22 };
+					App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI
+					koBlinking++;
+				}
+				else {
+					SDL_Rect ko = { 60, 65, 30, 23 };
+					App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI
+					koBlinking++;
+
+					if (koBlinking > 8)
+						koBlinking = 0;
+				}
+			}
+			else
+				App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI
+
+			
 		else {
-			App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &end, NULL, true); // KO UI
+
+			if (App->player->critical || App->player2->critical) {
+
+				if (koBlinking < 4) {
+					SDL_Rect end = { 33, 89, 28, 22 };
+					App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &end, NULL, true); // KO UI
+					koBlinking++;
+				}
+				else {
+					SDL_Rect end = { 60, 89, 29, 23 };
+					App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &end, NULL, true); // KO UI
+					koBlinking++;
+
+					if (koBlinking > 8)
+						koBlinking = 0;
+				}
+			}
+			else
+				App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &end, NULL, true); // KO UI
+
 		}
 
 		if (App->fight->winplayer1)
