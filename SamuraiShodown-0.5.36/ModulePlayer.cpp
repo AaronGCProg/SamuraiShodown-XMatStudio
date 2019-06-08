@@ -579,6 +579,7 @@ bool ModulePlayer::Start()
 	srand(time(NULL));
 	health = 0;
 	healthAnim = 0;
+	critical = false;
 
 	LOG("Listening for Arrow keys + SPACE:\n");
 	LOG("Loading player textures");
@@ -1520,8 +1521,22 @@ update_status ModulePlayer::Update()
 			App->render->Blit(App->interface->ui, 7, 17, false, &healthValue, NULL, true);
 		}
 		else {
-			SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
-			App->render->Blit(App->interface->ui, 7, 17, false, &healthValue, NULL, true);
+
+			if (healthBlinking < 4) {
+				critical = true;
+				SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
+				App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
+				healthBlinking++;
+			}
+			else {
+				SDL_Rect healthValue = { 90, 117, HEALTH_VALUE - healthAnim, 9 };
+				App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
+				healthBlinking++;
+
+				if (healthBlinking > 8)
+					healthBlinking = 0;
+
+			}
 		}
 	}
 	return UPDATE_CONTINUE;

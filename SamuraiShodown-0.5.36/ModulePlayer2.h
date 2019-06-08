@@ -225,12 +225,14 @@ public:
 	bool closeLowpunching = false;
 	int grabStates = 0;
 	
+	bool critical = false;
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
 	bool neutralJumpPunching = false;
 	bool audioPlayed = false;
 	int health = 0;
+	int healthBlinking = 0;
 	int healthAnim = 0;
 	int falling = false;//new
 	int aux = 10;

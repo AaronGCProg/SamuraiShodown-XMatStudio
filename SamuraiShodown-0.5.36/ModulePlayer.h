@@ -222,9 +222,10 @@ public:
 	bool strongKicking = false;
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
+	bool critical = false;
 	int grabStates = 0;
 	bool flipAux = false;
-
+	int healthBlinking = 0;
 
 	int invencibleaux = 0;
 	int health = 0;
