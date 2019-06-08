@@ -49,7 +49,24 @@ enum player2_states
 	ST_KICK_CROUCH2,
 	ST_GRAB2,
 	ST_GRABBING2,
-	ST_GET_GRABBED2
+	ST_GET_GRABBED2,
+
+	ST_BLOCKING2,
+	ST_CROUCH_BLOCK2,
+
+	ST_MID_PUNCH_STANDING2,
+	ST_STRONG_PUNCH_STANDING2,
+	ST_STRONG_KICK2,
+	ST_MID_KICK2,
+	ST_PUNCH_MID_CROUCH2,
+	ST_PUNCH_STRONG_CROUCH2,
+	ST_KICK_MID_CROUCH2,
+	ST_KICK_STRONG_CROUCH2,
+	ST_MID_PUNCH_NEUTRAL_JUMP2,
+	ST_STRONG_PUNCH_NEUTRAL_JUMP2,
+	ST_KICK_MID_NEUTRAL_JUMP2,
+	ST_KICK_STRONG_NEUTRAL_JUMP2,
+	ST_PUNCH_CLOSE_STANDING2
 
 };
 
@@ -79,7 +96,14 @@ enum player2_inputs
 	IN_GRABBED2,
 	IN_GRAB_FINISH2,
 	IN_GRABBED_FINISH2,
-	IN_GET_GRABBED2
+	IN_GET_GRABBED2,
+	IN_BLOCKING2,
+	IN_BLOCK_FINISH2,
+	IN_BLOCKING_CROUCH2,
+	IN_X_MID2,
+	IN_X_STRONG2,
+	IN_STRONG_KICK2,
+	IN_MID_KICK2
 };
 
 
@@ -127,6 +151,24 @@ public:
 	Animation crouchPunch;
 	Animation getUp;
 	Animation fall;
+	Animation getGrab;
+
+	Animation midpunch;
+	Animation strongpunch;
+	Animation midkick;
+	Animation strongkick;
+	Animation jumpmidPunch;
+	Animation jumpstrongPunch;
+	Animation jumpmidKick;
+	Animation jumpstrongKick;
+	Animation crouchmidPunch;
+	Animation crouchstrongPunch;
+	Animation crouchmidKick;
+	Animation grab;
+	Animation shortPunch;
+	Animation crouchstrongKick;
+
+
 	iPoint position;
 
 	Uint32 p2jump_timer = 0;
@@ -165,7 +207,15 @@ public:
 	bool grabbing = false;
 	bool getGrabbed = false;
 	bool gettingGrabbed = false;
-
+	bool blockingAction = false;
+	bool midPunching = false;
+	bool strongPunching = false;
+	bool midKicking = false;
+	bool strongKicking = false;
+	bool blockingActionCrouch = false;
+	int invencibleTotalTime = 750;
+	bool closeLowpunching = false;
+	int grabStates = 0;
 	
 	bool jumpleft = false;
 	bool jumpright = false;

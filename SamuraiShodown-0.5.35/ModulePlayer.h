@@ -155,6 +155,7 @@ public:
 	Animation getUp;
 	Animation crouchstrongKick;
 	Animation fall;
+	Animation getGrab;
 
 	Animation midpunch;
 	Animation strongpunch;
@@ -169,7 +170,6 @@ public:
 	Animation crouchmidKick;
 	Animation grab;
 	Animation shortPunch;
-
 
 
 	iPoint position;
@@ -218,6 +218,8 @@ public:
 	bool blockingActionCrouch = false;
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
+	int grabStates = 0;
+	bool flipAux = false;
 
 
 	int invencibleaux = 0;

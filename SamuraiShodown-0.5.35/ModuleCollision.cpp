@@ -16,6 +16,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_WALL][COLLIDER_NONE] = false;
+	matrix[COLLIDER_WALL][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_NONE][COLLIDER_PLAYER] = true;
@@ -28,6 +30,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_NONE][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_NONE][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_NONE][COLLIDER_NONE] = false;
+	matrix[COLLIDER_NONE][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = false;
@@ -38,6 +42,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_ATTACK] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_NONE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = false;
@@ -48,6 +54,9 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_ATTACK] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_NONE] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_GRAB] = false;
+
+
 
 
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
@@ -58,6 +67,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_NONE] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
@@ -68,6 +79,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_NONE] = false;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL] = false;
@@ -78,6 +91,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY_ATTACK] = false; //sword fight -> change to true
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_NONE] = false;
+	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_GRAB] = false;
+
 
 
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_WALL] = false;
@@ -88,6 +103,18 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_ENEMY_ATTACK] = false;
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_PLAYER_ATTACK] = false; //sword fight -> change to true
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_NONE] = false;
+	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_GRAB] = false;
+
+
+	matrix[COLLIDER_GRAB][COLLIDER_WALL] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_ENEMY_SHOT] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_ENEMY_ATTACK] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_PLAYER_ATTACK] = false; 
+	matrix[COLLIDER_GRAB][COLLIDER_NONE] = false;
+	matrix[COLLIDER_GRAB][COLLIDER_GRAB] = false;
 
 }
 
@@ -197,6 +224,9 @@ void ModuleCollision::DebugDraw()
 			break;
 		case COLLIDER_ENEMY_ATTACK: // magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+			break;
+		case COLLIDER_GRAB: // BLUE
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 
 		}
