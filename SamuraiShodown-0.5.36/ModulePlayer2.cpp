@@ -638,7 +638,13 @@ update_status ModulePlayer2::Update()
 	float player2scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1 when he's in zoomin and to 0.75 when zoomout
 	//the PLAYER ESCALE is to adjust the real scale of the player
 	current_animation = &idle;
-	int speed = 2;
+	int speed;
+	if (App->render->escala < 1.25)speed = 1;
+	else speed = 2;
+
+	float jumpingescala;
+	if (App->render->escala < 1.25)jumpingescala = 0.75f;
+	else jumpingescala = 1;
 
 	if (invencibleframes) {
 		if (SDL_GetTicks() - (invencibleaux) >= 350) {
@@ -695,11 +701,11 @@ update_status ModulePlayer2::Update()
 				LOG("FORWARD >>>\n");
 				if (!playerFlip) {
 					current_animation = &forward;
-					position.x += (int)((speed + 1)*player2scale);
+					position.x += speed + 1*speed;
 				}
 				else {
 					current_animation = &backward;
-					position.x += (int)((speed)*player2scale);
+					position.x += speed;
 					
 				}
 				break;
@@ -707,12 +713,12 @@ update_status ModulePlayer2::Update()
 				LOG("BACKWARD <<<\n");
 				if (!playerFlip) {
 					current_animation = &backward;
-					position.x -= (int)((speed)*player2scale);
+					position.x -= speed;
 					
 				}
 				else {
 					current_animation = &forward;
-					position.x -= (int)((speed + 1)*player2scale);
+					position.x -= speed + 1*speed;
 				}
 				break;
 			case ST_JUMP_NEUTRAL2:
@@ -1062,7 +1068,7 @@ update_status ModulePlayer2::Update()
 		else
 			current_animation = &jump;
 
-		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		position.y = groundlevelaux+( - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
 		hasjumped = true;
 		if (JumpPunching &&current_animation->current_frame >= 3 && !App->player->getsHit && !audioPlayed) {
 			Mix_PlayChannel(-1, App->audio->effects[18], 0);
@@ -1115,11 +1121,11 @@ update_status ModulePlayer2::Update()
 			current_animation = &jumpFw; //Jumpforward animation
 
 
-		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		position.y = groundlevelaux+( - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
 		if (jumpleft)
-			position.x -= 4;
+			position.x -= 4*jumpingescala;
 		else
-			position.x += 4;
+			position.x += 4*jumpingescala;
 		hasjumped = true;
 		//stop jump anim
 		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
@@ -1170,9 +1176,9 @@ update_status ModulePlayer2::Update()
 		else
 		{
 
-			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
+			position.y = groundlevelaux+( - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
 			if (playerFlip)position.x += 2 - (fall_bounces);
-			else position.x -= 2 - (fall_bounces);
+			else position.x -= (2 - (fall_bounces))*jumpingframe;
 
 			hasjumped = true;
 			jumpingframe++;

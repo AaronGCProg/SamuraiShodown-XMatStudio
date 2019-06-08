@@ -668,7 +668,13 @@ update_status ModulePlayer::Update()
 
 	current_animation = &idle;
 
-	int speed = 2 * player1scale;
+	int speed;
+	if (App->render->escala < 1.25)speed = 1;//speed when zoomout
+	else speed = 2;//speed when zoomin
+
+	float jumpingescala;
+	if (App->render->escala < 1.25)jumpingescala = 0.75f;
+	else jumpingescala = 1;
 
 	if (invencibleframes) {
 		if (SDL_GetTicks() - (invencibleaux) >= invencibleTotalTime) {
@@ -706,22 +712,22 @@ update_status ModulePlayer::Update()
 			LOG("FORWARD >>>\n");
 			if (!playerFlip) {
 				current_animation = &forward;
-				position.x += (int)((speed + 1)*player1scale);
+				position.x += speed +1*speed;
 			}
 			else {
 				current_animation = &backward;
-				position.x += (int)((speed)*player1scale);
+				position.x += speed;
 			}
 			break;
 		case ST_WALK_BACKWARD:
 			LOG("BACKWARD <<<\n");
 			if (!playerFlip) {
 				current_animation = &backward;
-				position.x -= (int)((speed)*player1scale);
+				position.x -= speed;
 			}
 			else {
 				current_animation = &forward;
-				position.x -= (int)((speed + 1)*player1scale);
+				position.x -= speed + speed;
 			}
 			break;
 		case ST_JUMP_NEUTRAL:
@@ -1244,7 +1250,7 @@ update_status ModulePlayer::Update()
 			current_animation = &jump;
 
 
-		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		position.y = groundlevelaux+( - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
 		hasjumped = true;
 		if (JumpPunching &&current_animation->current_frame >= 3 && !App->player->getsHit && !audioPlayed) {
 			Mix_PlayChannel(-1, App->audio->effects[18], 0);
@@ -1313,11 +1319,11 @@ update_status ModulePlayer::Update()
 
 
 
-		position.y = groundlevelaux - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2));//MRUA formula
+		position.y = groundlevelaux+( - (JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
 		if (jumpleft)
-			position.x -= 4;
+			position.x -= 4*jumpingescala;
 		else
-			position.x += 4;
+			position.x += 4*jumpingescala;
 		hasjumped = true;
 		//stop jump anim
 		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
@@ -1378,9 +1384,9 @@ update_status ModulePlayer::Update()
 		else
 		{
 
-			position.y = groundlevelaux - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2));//MRUA formula
-			if (playerFlip)position.x += 2 - (fall_bounces);
-			else position.x -= 2 - (fall_bounces);
+			position.y = groundlevelaux+( - (10 * jumpingframe) + (0.5*(0.5*JUMP_INIT_AY + (0.2f*(fall_bounces + 1)))*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
+			if (playerFlip)position.x += (2 - (fall_bounces))*jumpingescala;
+			else position.x -= (2 - (fall_bounces))*jumpingescala;
 
 			hasjumped = true;
 			jumpingframe++;
