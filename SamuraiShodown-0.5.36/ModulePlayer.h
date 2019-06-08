@@ -211,11 +211,11 @@ public:
 	bool grabbing = false;
 	bool getGrabbed = false;
 	bool blockingAction = false;
+	bool blockingActionCrouch = false;
 	bool midPunching = false;
 	bool strongPunching = false;
 	bool midKicking = false;
 	bool strongKicking = false;
-	bool blockingActionCrouch = false;
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
 	int grabStates = 0;

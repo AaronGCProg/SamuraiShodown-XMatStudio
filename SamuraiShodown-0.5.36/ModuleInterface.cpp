@@ -133,11 +133,11 @@ update_status ModuleInterface::Update()
 		sprintf_s(time_text, 10, "%7d", actualtime);
 		App->fonts->BlitText((SCREEN_WIDTH / 2) - 15, 40, 0, time_text);
 
-		App->fonts->BlitText(10, 30, 1, "HAOHMARU");
-		App->fonts->BlitText(10, 5, 1, "P1= 30");
+		App->fonts->BlitText(10, 30, 1, "JUBEI");
+		App->fonts->BlitText(10, 5, 1, "P1= 3230");
 
-		App->fonts->BlitText(230, 30, 1, "HAOHMARU");
-		App->fonts->BlitText(200, 5, 1, "P2= 99");
+		App->fonts->BlitText(230, 30, 1, "JUBEI");
+		App->fonts->BlitText(200, 5, 1, "P2= 9249");
 
 		App->fonts->BlitText(10, 212, 1, "CREDITS 03");
 		App->render->Blit(ui, 34, 202, false, &powbar, NULL, true);

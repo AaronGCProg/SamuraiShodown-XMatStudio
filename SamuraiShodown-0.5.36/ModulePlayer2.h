@@ -140,6 +140,8 @@ public:
 	Animation punch;
 	Animation tornado;
 	Animation hurtLow;
+	Animation blockingIdle;
+	Animation crouchBlock;
 	Animation* current_animation;
 	Animation jumpKick;
 	Animation jumpPunch;
@@ -207,6 +209,7 @@ public:
 	bool grabbing = false;
 	bool getGrabbed = false;
 	bool gettingGrabbed = false;
+	bool close = false;
 	bool blockingAction = false;
 	bool midPunching = false;
 	bool strongPunching = false;
