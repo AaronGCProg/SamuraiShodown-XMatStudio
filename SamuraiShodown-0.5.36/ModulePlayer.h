@@ -179,6 +179,10 @@ public:
 	Uint32 kick_timer = 0;
 	Uint32 fall_bounces = 0;
 
+	int powValue = 0;
+	bool powActivated = false;
+	bool powOff = false;
+
 	bool showingshadow = false;//shadow semitransparent
 	bool jumping = false;
 	bool jumpingBackward = false;

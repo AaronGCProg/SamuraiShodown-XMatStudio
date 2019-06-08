@@ -191,6 +191,11 @@ public:
 	int jumpingframe = 0;
 	int groundlevelaux = 0;
 	int posyaux = 0;//new
+
+	int powValue = 0;
+	bool powActivated = false;
+	bool powOff = false;
+
 	bool tornading = false;
 	bool getsHit = false;
 	bool hasjumped = false;

@@ -687,6 +687,24 @@ update_status ModulePlayer::Update()
 	player_states state = process_fsm(inputs);
 	current_state = state;
 
+	if (powValue >= 32) {
+		powActivated = true;
+		powValue = 32;
+	}
+	else
+		powActivated = false;
+
+
+	if (powOff) {
+		if (powValue > 0) {
+			powValue--;
+		}
+		else {
+			powValue = 0;
+			powOff = false;
+		}
+	}
+
 	if(!playerFlip){
 		if (App->player2->position.x - position.x < 110)
 			close = true;
@@ -1481,6 +1499,11 @@ update_status ModulePlayer::Update()
 		App->render->Blit(graphics, position.x - (playerPivotX*player1scale), position.y + ((playerPivotY - r.h)*player1scale), playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
+	if (!powActivated)
+		SDL_SetTextureColorMod(graphics, 255, 255 - (powValue * 6), 255 - (powValue * 6));
+	else
+		SDL_SetTextureColorMod(graphics, 255, 30, 30);
+
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 
 	if ((App->fight->showHealthBar) == true) {
@@ -1528,7 +1551,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				inputs.Push(IN_BLOCKING);
 			}
 			else {
-			health += 25;
+				if (App->player2->powActivated) {
+					health += 25 * 3 / 2;
+					App->player2->powActivated = false;
+					App->player2->powOff = true;
+				}
+				else {
+					health += 25;
+				}
 			inputs.Push(IN_FALL);
 			if (App->player2->position.y < groundlevelaux) {
 				inputs.Push(IN_FALL);
@@ -1545,12 +1575,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				if(random % 3 == 0){
 					Mix_PlayChannel(-1, App->audio->effects[20], 0);
 				}
-
 				else if(random % 3 == 1){
 					Mix_PlayChannel(-1, App->audio->effects[21], 0);
-
 				}
-
 				else {
 					Mix_PlayChannel(-1, App->audio->effects[22], 0);
 				}
@@ -1638,7 +1665,18 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				inputs.Push(IN_FALL);
 				airhit = true;
 			}
-			health += c2->damage;
+
+			if (powActivated || App->player2->powActivated) {
+				health += c2->damage * 3 / 2;
+				App->player2->powActivated = false;
+				App->player2->powOff = true;
+			}
+			else {
+				health += c2->damage;
+			}
+				
+				
+			powValue += 4;
 			getsHit = true; doingAction = true;
 
 			}

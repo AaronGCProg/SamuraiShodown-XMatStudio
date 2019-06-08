@@ -646,6 +646,26 @@ update_status ModulePlayer2::Update()
 	if (App->render->escala < 1.25)jumpingescala = 0.75f;
 	else jumpingescala = 1;
 
+	if (powValue >= 32) {
+		powActivated = true;
+		powValue = 32;
+	}
+	else
+		powActivated = false;
+
+
+	if (powOff) {
+		if (powValue > 0) {
+			powValue--;
+		}
+		else {
+			powValue = 0;
+			powOff = false;
+		}
+	}
+
+
+
 	if (invencibleframes) {
 		if (SDL_GetTicks() - (invencibleaux) >= 350) {
 			invencibleframes = false;
@@ -895,7 +915,7 @@ update_status ModulePlayer2::Update()
 		if (punch.GetAnimEnd() == true) {
 			punching = false; doingAction = false; punch.SetAnimEnd(false);
 			audioPlayed = false;
-
+			p2inputs.Push(IN_PUNCH_FINISH2);
 
 		}
 	}
@@ -1271,6 +1291,10 @@ update_status ModulePlayer2::Update()
 		App->render->Blit(graphics, position.x - (playerPivotX*player2scale), position.y + ((playerPivotY - r.h)*player2scale), playerFlip, &r, 1.0, true, true, true); // playerFlip es la booleana que girará las texturas (true = girado) (false = original)
 	}
 
+	if(!powActivated)
+		SDL_SetTextureColorMod(graphics, 255, 255 - (powValue * 6), 255 - (powValue * 6));
+	else
+		SDL_SetTextureColorMod(graphics, 255, 30, 30);
 
 
 
@@ -1317,6 +1341,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 			}
 			else {
 				health += 25;
+				powValue += 2;
 				p2inputs.Push(IN_FALL2);
 				if (App->player2->position.y < groundlevelaux) {
 					p2inputs.Push(IN_FALL2);
@@ -1427,7 +1452,17 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 					p2inputs.Push(IN_FALL2);
 					airhit = true;
 				}
-				health += c2->damage;
+				
+				if (powActivated || App->player->powActivated) {
+					health += c2->damage * 3 / 2;
+					App->player2->powActivated = false;
+					App->player2->powOff = true;
+				}
+				else {
+					health += c2->damage;
+				}
+
+				powValue += 4;
 				getsHit = true; doingAction = true;
 
 			}
