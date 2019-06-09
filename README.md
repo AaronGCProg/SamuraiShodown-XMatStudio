@@ -6,6 +6,8 @@ All the documentation of this project is currently on the Github Wiki of our pro
 
 ### Link to our Github Project - https://github.com/AaronGCProg/SamuraiShodown-XMatStudio
 
+### Link to our Github Page - https://aarongcprog.github.io/SamuraiShodown-XMatStudio/
+
 
 # How to Play
 
@@ -49,22 +51,24 @@ F1 - Show/Hide Hitboxes <br>
 F3 - Reset Player 1 & Player 2 Health <br>
 F5 - Player 1 God mode <br>
 F6 - Player 2 God mode <br>
+F8 - Controller debug <br> 
 F9 - Player 2 dies <br>
 F10 - Player 1 dies <br>
-F11 - Infinite time <br> <br>
+F11 - Infinite time <br> 
+F12 - View Score <br> <br>
 
 # Team Members
 ### Aaron Guerrero
-* General Analysis and Design sections
+* GAME: Code and Management & GIT: General Analysis and Design sections
 
 ### Àlex Melenchón
-* Sound and Art sections
+* GAME: Code and Sound & GIT: Sound and Art sections
 
 ### David Carrasquet
-* Sound and Art sections
+* GAME: QA and Art & GIT: Sound and Art sections
 
 ### Óscar Perez
-* UI and Art sections
+* GAME: Code and UI & GIT: UI and Art sections
 
 <br><br>
 
