@@ -2437,19 +2437,19 @@ update_status ModulePlayer::Update()
 		App->render->Blit(App->interface->ui, 167, 15, false, &healthBar, NULL, true);
 		if (HEALTH_VALUE > health + 50) {
 			SDL_Rect healthValue = { 90, 97, HEALTH_VALUE - healthAnim, 9 };
-			App->render->Blit(App->interface->ui, 7, 17, false, &healthValue, NULL, true);
+			App->render->Blit(App->interface->ui, 136 - healthValue.w, 17, true, &healthValue, NULL, true);
 		}
 		else {
 
 			if (healthBlinking < 4) {
 				critical = true;
 				SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
-				App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
+				App->render->Blit(App->interface->ui, 136 - healthValue.w, 17, true, &healthValue, NULL, true);
 				healthBlinking++;
 			}
 			else {
 				SDL_Rect healthValue = { 90, 117, HEALTH_VALUE - healthAnim, 9 };
-				App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
+				App->render->Blit(App->interface->ui, 136 - healthValue.w, 17, true, &healthValue, NULL, true);
 				healthBlinking++;
 
 				if (healthBlinking > 8)

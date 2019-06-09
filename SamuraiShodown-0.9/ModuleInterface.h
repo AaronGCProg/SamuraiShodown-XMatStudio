@@ -86,6 +86,11 @@ public:
 	scorestates scoretable = DEFAULT;
 	bool stopcountingtime = false;
 	int varaux=0;
+
+	int critpowdelay1 = 0;
+	int critpowdelay2 = 0;
+	int critpowbarbucle1 = 0;
+	int critpowbarbucle2 = 0;
 	// control vars
 
 
