@@ -1004,7 +1004,7 @@ bool ModulePlayer2::Start()
 	swordDropped = false;
 	swordTrack = NULL;
 	swordTrackGround = NULL;
-
+	doingAction = false;
 	winning1 = false;
 	winning2 = false;
 	winnw = false;

@@ -1036,6 +1036,7 @@ bool ModulePlayer::Start()
 	critical = false;
 	health = 0;
 
+	doingAction = false;
 	 winning1 = false;
 	 winning2 = false;
 	 winnw = false;
