@@ -23,25 +23,59 @@ ESC - Close the game <br>
 
 ##### Player 1
 
+GamePad:
+Left Stick - Movement <br>
+A - Kick<br>
+B - Mid Kick<br>
+A + B - Strong Kick<br>
+-> + B + Near to the Enemy - Grab<br>
+X - Sword Attack or WeaponLess Punch<br>
+Y - Mid Sword Attack or WeaponLess MidPunch<br>
+X + Y - Mid Sword Attack or WeaponLess MidPunch<br>
+Down, DownRight + Right - Special Projectile (with weapon)<br>
+X x10 - Special Sword Rush (with weapon)<br>
+Double Tap Right - Sprint<br>
+Double Tal Left - Side Step<br><br>
+
+If the players collide attacks, they will enter in a sword fight and one player will lose their weapon<br>
+A - Tap in swordFight<br><br>
+
+KeyBoard:<br>
 A and D  - Movement <br>
 W - Jump <br>
 S - Crouch <br> <br>
 
 X - Punch <br>
 C - Kick <br>
-V - Special Attack <br> <br>
+V - Mid Kick <br> <br>
 
 (You can punch and kick crouched and jumping, but the special attack can only be done while standing) <br>
 
 ##### Player 2
+Left Stick - Movement <br>
+A - Kick<br>
+B - Mid Kick<br>
+A + B - Strong Kick<br>
+-> + B + Near to the Enemy - Grab<br>
+X - Sword Attack or WeaponLess Punch<br>
+Y - Mid Sword Attack or WeaponLess MidPunch<br>
+X + Y - Mid Sword Attack or WeaponLess MidPunch<br>
+Down, DownRight + Right - Special Projectile (with weapon)<br>
+X x10 - Special Sword Rush (with weapon)<br>
+Double Tap Right - Sprint<br>
+Double Tal Left - Side Step<br><br>
 
+If the players collide attacks, they will enter in a sword fight and one player will lose their weapon<br>
+A - Tap in swordFight<br><br>
+
+KeyBoard:<br>
 Left and Right Arrows - Movement <br>
 Up Arrow - Jump <br>
 Down Arrow - Crouch <br> <br>
 
-KP 1 - Punch <br>
-KP 2 - Kick <br>
-KP 3 - Special Attack <br> <br>
+U - Punch <br>
+I- Kick <br>
+O - Mid Kick <br> <br>
 
 (You can punch and kick crouched and jumping, but the special attack can only be done while standing) <br>
 
