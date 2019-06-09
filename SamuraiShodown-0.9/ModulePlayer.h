@@ -74,7 +74,9 @@ enum player_states
 	ST_SPRINT_END,
 
 	ST_SECOND_GRAB,
-	ST_SECOND_GRABBING
+	ST_SECOND_GRABBING,
+	ST_PUNCH_CLOSE_STANDING_MID,
+	ST_PUNCH_CLOSE_STANDING_STRONG
 };
 
 enum player_inputs
@@ -223,6 +225,8 @@ public:
 	Animation getGrab2;
 	Animation midgrab;
 	Animation NWfall;
+	Animation midshortPunch;
+	Animation shortstrongPunch;
 
 
 
@@ -299,6 +303,8 @@ public:
 	int healthBlinking = 0;
 	int score = 0;
 	int swordfightaux = 10;
+	bool closemidpunching = false;
+	bool closestrongpunching = false;
 
 	int invencibleaux = 0;
 	int health = 0;

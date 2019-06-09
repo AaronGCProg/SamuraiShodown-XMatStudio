@@ -295,6 +295,8 @@ public:
 	int health = 0;
 	int healthAnim = 0;
 	int healthBlinking = 0;
+	bool closeclosemidpunching = false;
+	bool closestrongpunching = false;
 
 	bool critical = false;
 	int score = 0;

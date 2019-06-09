@@ -609,7 +609,7 @@ ModulePlayer2::ModulePlayer2()
 
 	const int backsprintCollider = 2;//Collider num for the forward animation
 	SDL_Rect backsprintHitbox[backsprintCollider] = { { 32, 0, 40, 75 },{ 33, 70, 20, 20 } };
-	COLLIDER_TYPE backsprintCollType[backsprintCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	COLLIDER_TYPE backsprintCollType[backsprintCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
 	Module* backsprintCallBack[backsprintCollider] = { {this},{this} };
 
 	// walk forward animation 
@@ -2055,6 +2055,7 @@ update_status ModulePlayer2::Update()
 			Mix_PlayChannel(-1, App->audio->effects[19], 0);
 			audioPlayed = true;
 		}
+		hasjumped = true;
 		//stop punch anim
 		if (position.y > groundlevelaux && hasjumped == true)	//end of the jump
 		{
@@ -2227,8 +2228,8 @@ update_status ModulePlayer2::Update()
 		{
 
 			position.y = groundlevelaux + (-(JUMP_INIT_VY*jumpingframe) + (0.5*(JUMP_INIT_AY)*pow(jumpingframe, 2)))*jumpingescala;//MRUA formula
-			if (playerFlip)position.x += 2 - (fall_bounces);
-			else position.x -= (2 - (fall_bounces))*jumpingframe;
+			if (playerFlip)position.x += (2 - (fall_bounces))*jumpingescala;
+			else position.x -= (2 - (fall_bounces))*jumpingescala;
 
 			hasjumped = true;
 			jumpingframe++;
@@ -2238,6 +2239,8 @@ update_status ModulePlayer2::Update()
 				jumpingframe = 0;
 				position.y = groundlevelaux;
 				fall_bounces++;
+				jumpingescala = 0;
+
 			}
 		}
 		if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
@@ -2402,7 +2405,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 		if (c2->type == COLLIDER_PLAYER_ATTACK && c1->type == COLLIDER_ENEMY) {
 			int random = rand();
-			aux = (int)(c2->delayEnemy*1.75);
+			aux = 12 + (c2->delayEnemy*SDL_GetTicks() % 3);
 			if (blocking && (current_state == ST_WALK_BACKWARD2 || current_state == ST_CROUCH2 || current_state == ST_WALK_FORWARD2 || crouching)) {
 				if (c2->attackType == 3 || c2->attackType == 4) {
 					if (random % 3 == 0) {

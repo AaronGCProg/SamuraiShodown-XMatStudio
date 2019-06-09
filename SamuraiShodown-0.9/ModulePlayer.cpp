@@ -603,7 +603,7 @@ ModulePlayer::ModulePlayer()
 
 	const int backsprintCollider = 2;//Collider num for the forward animation
 	SDL_Rect backsprintHitbox[backsprintCollider] = { { 32, 0, 40, 75 },{ 33, 70, 20, 20 } };
-	COLLIDER_TYPE backsprintCollType[backsprintCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	COLLIDER_TYPE backsprintCollType[backsprintCollider] = { {COLLIDER_NONE},{COLLIDER_PLAYER} };
 	Module* backsprintCallBack[backsprintCollider] = { {this},{this} };
 
 	// walk forward animation 
@@ -942,6 +942,49 @@ ModulePlayer::ModulePlayer()
 	NWfall.PushBack({ 2655,3194,111,69 }, 19, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
 	NWfall.PushBack({ 2767,3194,111,69 }, 17, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
 
+
+	const int midshortPunchCollider = 3;//Collider num for the punch animation
+	const int midshortPunchCollider2 = 2;//Collider num for the punch animation
+	SDL_Rect midshortPunchHitbox[midshortPunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	COLLIDER_TYPE midshortPunchCollType[midshortPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* midshortPunchCallBack[midshortPunchCollider] = { {this},{this},{this} };
+
+	SDL_Rect midshortPunchHitbox2[midshortPunchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
+	COLLIDER_TYPE midshortPunchCollType2[midshortPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
+	Module* midshortPunchCallBack2[midshortPunchCollider2] = { {this},{this} };
+
+	// Punch animation 
+	midshortPunch.PushBack({ 184,1669,92,117 }, 14, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,35,87,92 }, 14, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1663,35,114,92 }, 14, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1778,35,114,92 }, 14, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1893,35,114,92 }, 25, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,35,87,92 }, 14, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+
+	const int shortstrongPunchCollider = 3;//Collider num for the punch animation
+	const int shortstrongPunchCollider2 = 2;//Collider num for the punch animation
+	SDL_Rect shortstrongPunchHitbox[shortstrongPunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	COLLIDER_TYPE shortstrongPunchCollType[shortstrongPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* shortstrongPunchCallBack[shortstrongPunchCollider] = { {this},{this},{this} };
+
+	SDL_Rect shortstrongPunchHitbox2[shortstrongPunchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
+	COLLIDER_TYPE shortstrongPunchCollType2[shortstrongPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
+	Module* shortstrongPunchCallBack2[shortstrongPunchCollider2] = { {this},{this} };
+
+	shortstrongPunch.PushBack({ 1417,4,82,123 }, 14, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 3);
+	shortstrongPunch.PushBack({ 5,1674,75,112 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 161,1452,77,121 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 184,1669,92,117 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1,1231,113,116 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 225,1236,113,110 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 339,1240,125,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 590,1240,85,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1547,1240,78,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -1214,6 +1257,14 @@ update_status ModulePlayer::Update()
 		case ST_PUNCH_CLOSE_STANDING:
 			LOG("PUNCH STANDING ++++\n");
 			closeLowpunching = true; doingAction = true;
+			break;
+		case ST_PUNCH_CLOSE_STANDING_MID:
+			LOG("PUNCH STANDING ++++\n");
+			closemidpunching = true; doingAction = true;
+			break;
+		case ST_PUNCH_CLOSE_STANDING_STRONG:
+			LOG("PUNCH STANDING ++++\n");
+			closestrongpunching = true; doingAction = true;
 			break;
 		case ST_MID_PUNCH_STANDING:
 			LOG("PUNCH STANDING ++++\n");
@@ -1805,6 +1856,36 @@ update_status ModulePlayer::Update()
 			inputs.Push(IN_PUNCH_FINISH);
 		}
 	}
+	if (closemidpunching) {
+		if (swordDrop || swordOnTheGround)
+			current_animation = &NWpunch;
+		else
+			current_animation = &midshortPunch;
+
+
+		if (NWpunch.GetAnimEnd() == true || midshortPunch.GetAnimEnd() == true) {
+			if (!App->player2->invencibleframes)	Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			closemidpunching = false; doingAction = false; NWpunch.SetAnimEnd(false); midshortPunch.SetAnimEnd(false);
+			audioPlayed = false;
+			inputs.Push(IN_PUNCH_FINISH);
+		}
+	}
+
+	if (closestrongpunching) {
+		if (swordDrop || swordOnTheGround)
+			current_animation = &NWstrongpunch;
+		else
+			current_animation = &shortstrongPunch;
+
+
+		if (shortstrongPunch.GetAnimEnd() == true || NWstrongpunch.GetAnimEnd() == true) {
+			if (!App->player2->invencibleframes)	Mix_PlayChannel(-1, App->audio->effects[18], 0);
+			closestrongpunching = false; doingAction = false; shortstrongPunch.SetAnimEnd(false); NWstrongpunch.SetAnimEnd(false);
+			audioPlayed = false;
+			inputs.Push(IN_PUNCH_FINISH);
+		}
+	}
+
 
 	if (punching) {
 		if (swordDrop || swordOnTheGround)
@@ -2553,7 +2634,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 			if (c2->type == COLLIDER_ENEMY_ATTACK && c1->type == COLLIDER_PLAYER) {
 				int random = rand();
-				aux = (int)c2->delayEnemy*1.75;
+				aux = 12 + (c2->delayEnemy*SDL_GetTicks() % 3);
 				if (blocking && (current_state == ST_WALK_BACKWARD || current_state == ST_CROUCH || current_state == ST_WALK_FORWARD || crouching)) {
 					if (c2->attackType == 3 || c2->attackType == 4) {
 						if (random % 3 == 0) {
@@ -2766,7 +2847,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 						state = ST_PUNCH_CLOSE_STANDING;
 					else
 						state = ST_PUNCH_STANDING;
-					punch_timer = SDL_GetTicks();
 					blocking = false; break;
 				case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
 				case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
@@ -2774,8 +2854,19 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				case IN_DEATH: state = ST_FALLING; break;
 				case IN_GET_GRABBED:state = ST_GET_GRABBED; break;
 
-				case IN_X_MID: state = ST_MID_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_X_STRONG: state = ST_STRONG_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+				case IN_X_MID:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_MID;
+					else
+						state = ST_MID_PUNCH_STANDING;
+					blocking = false; break;
+
+				case IN_X_STRONG:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_STRONG;
+					else
+						state = ST_STRONG_PUNCH_STANDING;
+					blocking = false; break;
 				case IN_MID_KICK: state = ST_MID_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
 				case IN_STRONG_KICK: state = ST_STRONG_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
 				case IN_SWORD_GRAB: state = ST_SWORD_GRABBING; punch_timer = SDL_GetTicks(); blocking = false; break;
@@ -2803,12 +2894,19 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					blocking = false; break;
 				case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
 
-				case IN_X_MID: state = ST_MID_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_X_STRONG: state = ST_STRONG_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_MID_KICK: state = ST_MID_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_STRONG_KICK: state = ST_STRONG_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
+				case IN_X_MID:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_MID;
+					else
+						state = ST_MID_PUNCH_STANDING;
+					blocking = false; break;
 
-
+				case IN_X_STRONG:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_STRONG;
+					else
+						state = ST_STRONG_PUNCH_STANDING;
+					blocking = false; break;
 				case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
 				case IN_CROUCH_DOWN: state = ST_CROUCH; blocking = false; break;
 				case IN_FALL:state = ST_FALLING;  blocking = false;  break;
@@ -2848,8 +2946,19 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					punch_timer = SDL_GetTicks();
 					blocking = false; break;
 				case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_X_MID: state = ST_MID_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
-				case IN_X_STRONG: state = ST_STRONG_PUNCH_STANDING; punch_timer = SDL_GetTicks(); blocking = false; break;
+				case IN_X_MID:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_MID;
+					else
+						state = ST_MID_PUNCH_STANDING;
+					blocking = false; break;
+
+				case IN_X_STRONG:
+					if (App->player->close)
+						state = ST_PUNCH_CLOSE_STANDING_STRONG;
+					else
+						state = ST_STRONG_PUNCH_STANDING;
+					blocking = false; break;
 				case IN_MID_KICK: state = ST_MID_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
 				case IN_STRONG_KICK: state = ST_STRONG_KICK; punch_timer = SDL_GetTicks(); blocking = false; break;
 				case IN_SWORD_GRAB: state = ST_SWORD_GRABBING; punch_timer = SDL_GetTicks(); blocking = false; break;
@@ -3012,6 +3121,28 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			}
 			break;
 			case ST_PUNCH_CLOSE_STANDING:
+			{
+				switch (last_input)
+				{
+				case IN_PUNCH_FINISH: state = ST_IDLE; break;
+				case IN_FALL:state = ST_FALLING; break;
+				case IN_SWORD_FIGHT: state = ST_SWORD_FIGHT; break;
+
+				}
+			}
+			break;
+			case ST_PUNCH_CLOSE_STANDING_MID:
+			{
+				switch (last_input)
+				{
+				case IN_PUNCH_FINISH: state = ST_IDLE; break;
+				case IN_FALL:state = ST_FALLING; break;
+				case IN_SWORD_FIGHT: state = ST_SWORD_FIGHT; break;
+
+				}
+			}
+			break;
+			case ST_PUNCH_CLOSE_STANDING_STRONG:
 			{
 				switch (last_input)
 				{
