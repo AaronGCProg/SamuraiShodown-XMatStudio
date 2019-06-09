@@ -326,6 +326,7 @@ public:
 	bool firstSpecial = false;
 	int special1Timer = 0;
 	bool secondSpecial = false;
+	bool randomStart = false;
 
 
 	int invencibleaux = 0;
