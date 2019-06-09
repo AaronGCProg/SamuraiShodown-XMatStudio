@@ -30,7 +30,6 @@ public:
 	SDL_Rect jubeiAux;
 	SDL_Rect loserAux;
 
-	int startingtime = 0;
 	int moving = 0;;
 };
 
