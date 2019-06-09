@@ -201,7 +201,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 		{
 			rect.w = (rect.w)*playerescale;
 			rect.h = (rect.h)*playerescale;
-			rect.x = (x*SCREEN_SIZE) + (camera.x*speed);
+			rect.x = (x*SCREEN_SIZE) + ((camera_offset.x+camera.x)*speed);
 			rect.y = (y*SCREEN_SIZE);
 		}
 		else
@@ -209,8 +209,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, bool fliped, SDL_Rec
 			rect.w = (rect.w)*escala;
 			rect.h = (rect.h)*escala;
 
-			rect.x = ((camera.x *speed) + x * SCREEN_SIZE)*escala;//escales in the x direction
-			rect.y = ((camera.y * speed) + y * SCREEN_SIZE)*escala - ((escala - 1) * 200);//escales in the y direction and moves it down to match the floor
+			rect.x = (((camera_offset.x + camera.x) *speed) + x * SCREEN_SIZE)*escala;//escales in the x direction
+			rect.y = (((camera_offset.y + camera.y) * speed) + y * SCREEN_SIZE)*escala - ((escala - 1) * 200);//escales in the y direction and moves it down to match the floor
 
 		}
 
@@ -281,8 +281,8 @@ void ModuleRender::StartCameraShake(int duration, float magnitude)
 void ModuleRender::UpdateCameraShake()
 {
 
-	camera_offset.x = (rand() % ((int)shake_magnitude * 2) - shake_magnitude);
-	camera_offset.y = (rand() % ((int)shake_magnitude * 2) - shake_magnitude);
+	camera_offset.x = (rand() % ((int)shake_magnitude * 2) - shake_magnitude)*(escala-0.5);
+	camera_offset.y = (rand() % ((int)shake_magnitude * 2) - shake_magnitude)*(escala - 0.5);
 
 	shake_timer++;
 

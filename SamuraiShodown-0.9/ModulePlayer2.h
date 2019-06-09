@@ -73,7 +73,10 @@ enum player2_states
 	ST_SPRINT2,
 	ST_SPRINT_END2,
 	ST_SECOND_GRAB2,
-	ST_SECOND_GRABBING2
+	ST_SECOND_GRABBING2,
+	ST_PUNCH_CLOSE_STANDING_MID2,
+	ST_PUNCH_CLOSE_STANDING_STRONG2,
+	ST_FIRST_SPECIAL2
 
 };
 
@@ -120,7 +123,9 @@ enum player2_inputs
 	IN_SIDE_STEP2,
 	IN_SPRINT2,
 	IN_SPRINT_END2,
-	IN_SECOND_GRAB2
+	IN_SECOND_GRAB2,
+	IN_FIRST_SPECIAL2,
+
 };
 
 
@@ -230,6 +235,7 @@ public:
 	Animation win2;
 	Animation midshortPunch;
 	Animation shortstrongPunch;
+	Animation special;
 
 	iPoint position;
 
@@ -302,7 +308,7 @@ public:
 	int health = 0;
 	int healthAnim = 0;
 	int healthBlinking = 0;
-	bool closeclosemidpunching = false;
+	bool closemidpunching = false;
 	bool closestrongpunching = false;
 	bool winning1 = false;
 	bool winning2 = false;
@@ -310,7 +316,8 @@ public:
 	bool losenw = false;
 	bool lost1 = false;
 	bool lost2 = false;
-
+	bool firstSpecial = false;
+	int special1Timer = 0;
 
 	bool critical = false;
 	int score = 0;

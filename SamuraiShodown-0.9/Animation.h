@@ -68,7 +68,7 @@ public:
 		current_frame += auxframe;// frames per frame (24 frames x sec) 
 		//!!have to do it for the actual game speed
 		if (current_frame >= last_frame) {
-			current_frame = (loop) ? firstLoopFrame : last_frame - 1;
+			current_frame = (loop) ? firstLoopFrame :  - 1;
 			animEnded = true;
 			loops++;
 		}

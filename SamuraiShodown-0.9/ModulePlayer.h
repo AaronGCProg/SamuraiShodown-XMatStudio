@@ -76,7 +76,9 @@ enum player_states
 	ST_SECOND_GRAB,
 	ST_SECOND_GRABBING,
 	ST_PUNCH_CLOSE_STANDING_MID,
-	ST_PUNCH_CLOSE_STANDING_STRONG
+	ST_PUNCH_CLOSE_STANDING_STRONG,
+	ST_FIRST_SPECIAL,
+	ST_SECOND_SPECIAL
 };
 
 enum player_inputs
@@ -123,7 +125,9 @@ enum player_inputs
 	IN_SPRINT,
 	IN_SPRINT_END,
 	IN_NOT_SWORD_FIGHT,
-	IN_SECOND_GRAB
+	IN_SECOND_GRAB,
+	IN_FIRST_SPECIAL,
+	IN_SECOND_SPECIAL
 };
 
 
@@ -233,6 +237,8 @@ public:
 	Animation win1;
 	Animation NWwin1;
 	Animation win2;
+	Animation special;
+	Animation special2;
 
 
 
@@ -317,6 +323,9 @@ public:
 	bool losenw = false;
 	bool lost1 = false;
 	bool lost2 = false;
+	bool firstSpecial = false;
+	int special1Timer = 0;
+	bool secondSpecial = false;
 
 
 	int invencibleaux = 0;

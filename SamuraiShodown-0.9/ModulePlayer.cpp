@@ -11,6 +11,7 @@
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModulePlayer2.h"
+#include "ModuleSlowdown.h"
 #include <cstdlib>
 #include <time.h>
 
@@ -209,7 +210,7 @@ ModulePlayer::ModulePlayer()
 
 	//crouch punch animation 
 	const int crouchPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
+	SDL_Rect crouchPunchHitbox[crouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 28, 20 } };
 	COLLIDER_TYPE crouchPunchCollType[crouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* crouchPunchCallBack[crouchPunchCollider] = { {this},{this},{this} };
 
@@ -293,27 +294,27 @@ ModulePlayer::ModulePlayer()
 
 	// Kick animation 
 	midkick.PushBack({ 902,487,77,107 }, 10, { 31,2 }, midkickCollider2, midkickHitbox2, midkickCollType2, midkickCallBack2, 13, 7, 7, 1);
-	midkick.PushBack({ 980,483,62,111 }, 8, { 31,2 }, midkickCollider, midkickHitbox, midkickCollType, midkickCallBack, 13, 7, 7, 1);
-	midkick.PushBack({ 1155,478,82,116 }, 8, { 31,2 }, midkickCollider2, midkickHitbox2, midkickCollType2, midkickCallBack2, 13, 7, 7, 1);
+	midkick.PushBack({ 980,483,62,111 }, 8, { 31,2 }, midkickCollider2, midkickHitbox2, midkickCollType2, midkickCallBack2, 13, 7, 7, 1);
+	midkick.PushBack({ 1155,478,82,116 }, 8, { 31,2 }, midkickCollider, midkickHitbox, midkickCollType, midkickCallBack, 13, 7, 7, 1);
 	midkick.PushBack({ 980,483,62,111 }, 10, { 31,2 }, midkickCollider2, midkickHitbox, midkickCollType, midkickCallBack, 13, 7, 7, 1);
 	//kick.speed = 0.12f;
 
 	const int strongkickCollider = 3;//Collider num for the kick animation
 	const int strongkickCollider2 = 2;//Collider num for the kick animation
-	SDL_Rect strongkickHitbox[strongkickCollider] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 },{ 60, 10, 35, 20 } };
+	SDL_Rect strongkickHitbox[strongkickCollider] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 },{ 80, 30, 35, 20 } };
 	SDL_Rect strongkickHitbox2[strongkickCollider2] = { { 12, 0, 40, 75 },{ 23, 70, 20, 20 } };
 	COLLIDER_TYPE strongkickCollType[strongkickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	COLLIDER_TYPE strongkickCollType2[strongkickCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* strongkickCallBack[strongkickCollider] = { {this},{this},{this} };
 	Module* strongkickCallBack2[strongkickCollider2] = { {this},{this} };
-
+	
 
 	// Kick animation 
-	strongkick.PushBack({ 801,2157,67,93 }, 6, { 31,2 }, strongkickCollider2, strongkickHitbox2, strongkickCollType2, strongkickCallBack2, 18, 10, 10, 2);
-	strongkick.PushBack({ 902,2141,90,109 }, 6, { 31,2 }, strongkickCollider, strongkickHitbox, strongkickCollType, strongkickCallBack, 18, 10, 10, 2);
-	strongkick.PushBack({ 1022,2132,81,118 }, 6, { 31,2 }, strongkickCollider2, strongkickHitbox2, strongkickCollType2, strongkickCallBack2, 18, 10, 10, 2);
-	strongkick.PushBack({ 1279,1250,116,93 }, 6, { 31,2 }, strongkickCollider, strongkickHitbox, strongkickCollType, strongkickCallBack, 18, 10, 10, 2);
-	strongkick.PushBack({ 1571,2159,76,91 }, 6, { 31,2 }, strongkickCollider, strongkickHitbox, strongkickCollType, strongkickCallBack, 18, 10, 10, 2);
+	strongkick.PushBack({ 801,2157,67,93 }, 9, { 31,2 }, strongkickCollider2, strongkickHitbox2, strongkickCollType2, strongkickCallBack2, 20, 10, 10, 2);
+	strongkick.PushBack({ 902,2141,90,109 }, 9, { 31,2 }, strongkickCollider2, strongkickHitbox2, strongkickCollType2, strongkickCallBack2, 20, 10, 10, 2);
+	strongkick.PushBack({ 1022,2132,81,118 }, 9, { 31,2 }, strongkickCollider, strongkickHitbox, strongkickCollType, strongkickCallBack, 20, 10, 10, 2);
+	strongkick.PushBack({ 1198,839,117,93 }, 9, { 31,2 }, strongkickCollider, strongkickHitbox, strongkickCollType, strongkickCallBack, 20, 10, 10, 2);
+
 	// falta poner si alugna se repite y eso
 
 
@@ -321,7 +322,7 @@ ModulePlayer::ModulePlayer()
 
 	const int midpunchCollider = 3;//Collider num for the punch animation
 	const int midpunchCollider2 = 2;//Collider num for the punch animation
-	SDL_Rect midpunchHitbox[midpunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	SDL_Rect midpunchHitbox[midpunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 80, 30, 70, 30 } };
 	COLLIDER_TYPE midpunchCollType[midpunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* midpunchCallBack[midpunchCollider] = { {this},{this},{this} };
 
@@ -349,24 +350,24 @@ ModulePlayer::ModulePlayer()
 	Module* strongpunchCallBack2[strongpunchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	strongpunch.PushBack({ 5,1674,75,112 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 25, 10, 10, 4);
-	strongpunch.PushBack({ 161,1452,77,121 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 184,1669,92,117 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 1,1231,113,116 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 225,1236,113,110 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 339,1240,125,106 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 590,1240,85,106 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 1547,1240,78,106 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 854,1256,132,90 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 987,1245,152,101 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 1140,1245,153,101 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 1294,1245,147,101 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
-	strongpunch.PushBack({ 1626,1234,74,112 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 5,1674,75,112 }, 3, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 25, 10, 10, 4);
+	strongpunch.PushBack({ 161,1452,77,121 }, 5, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 184,1669,92,117 }, 3, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 676,1256,113,90 }, 5, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 790,1248,63,98 }, 5, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 1,1231,113,116 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 225,1236,113,110 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 339,1240,125,106 }, 4, { 31,2 }, strongpunchCollider2, strongpunchHitbox2, strongpunchCollType2, strongpunchCallBack2, 20, 10, 10, 4);
+	strongpunch.PushBack({ 590,1240,85,106 }, 4, { 31,2 }, strongpunchCollider2, strongpunchHitbox2, strongpunchCollType2, strongpunchCallBack2, 20, 10, 10, 4);
+	strongpunch.PushBack({ 1547,1240,78,106 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 676,1256,113,90 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 790,1248,63,98 }, 3, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 854,1256,132,90 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 987,1245,152,101 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 1140,1245,153,101 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 1294,1245,147,101 }, 3, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 790,1248,63,98 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
+	strongpunch.PushBack({ 1626,1234,74,112 }, 4, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 10, 10, 4);
 
 
 
@@ -380,15 +381,15 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE jumpmidPunchCollType2[jumpmidPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpmidPunchCallBack2[jumpmidPunchCollider2] = { {this},{this} };
 
-	jumpmidPunch.PushBack({ 1,819,83,87 }, 12, { 31, 2 }, jumpmidPunchCollider2, jumpmidPunchHitbox2, jumpmidPunchCollType2, jumpmidPunchCallBack2, 7, 7, 20, 3);
-	jumpmidPunch.PushBack({ 85,824,79,82 }, 12, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
-	jumpmidPunch.PushBack({ 165,835,73,71 }, 10, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
-	jumpmidPunch.PushBack({ 1,1160,155,70 }, 12, { 31, 2 }, jumpmidPunchCollider2, jumpmidPunchHitbox2, jumpmidPunchCollType2, jumpmidPunchCallBack2, 13, 7, 7, 3);
-	jumpmidPunch.PushBack({ 396,837,157,69 }, 12, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
-	jumpmidPunch.PushBack({ 554,842,147,64 }, 12, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
+	jumpmidPunch.PushBack({ 1,819,83,87 }, 8, { 31, 2 }, jumpmidPunchCollider2, jumpmidPunchHitbox2, jumpmidPunchCollType2, jumpmidPunchCallBack2, 7, 7, 20, 3);
+	jumpmidPunch.PushBack({ 85,824,79,82 }, 8, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
+	jumpmidPunch.PushBack({ 165,835,73,71 }, 7, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
+	jumpmidPunch.PushBack({ 1,1160,155,70 }, 8, { 31, 2 }, jumpmidPunchCollider2, jumpmidPunchHitbox2, jumpmidPunchCollType2, jumpmidPunchCallBack2, 13, 7, 7, 3);
+	jumpmidPunch.PushBack({ 396,837,157,69 }, 8, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
+	jumpmidPunch.PushBack({ 554,842,147,64 }, 8, { 31, 2 }, jumpmidPunchCollider, jumpmidPunchHitbox, jumpmidPunchCollType, jumpmidPunchCallBack, 13, 7, 7, 3);
 
 	const int jumpstrongPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect jumpstrongPunchHitbox[jumpstrongPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 90, 10 } };
+	SDL_Rect jumpstrongPunchHitbox[jumpstrongPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 70, 10 } };
 	COLLIDER_TYPE jumpstrongPunchCollType[jumpstrongPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* jumpstrongPunchCallBack[jumpstrongPunchCollider] = { {this},{this},{this} };
 
@@ -397,12 +398,12 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE jumpstrongPunchCollType2[jumpstrongPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpstrongPunchCallBack2[jumpstrongPunchCollider2] = { {this},{this} };
 
-	jumpstrongPunch.PushBack({ 1,1577, 69,92 }, 12, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
-	jumpstrongPunch.PushBack({ 70,1590,108,80 }, 12, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
-	jumpstrongPunch.PushBack({ 179,1589,117,80 }, 12, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
-	jumpstrongPunch.PushBack({ 298,1588,116,81 }, 12, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
-	jumpstrongPunch.PushBack({ 415,1588,76,81 }, 12, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
-	jumpstrongPunch.PushBack({ 492,1589,108,80 }, 40, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 1,1577, 69,92 }, 7, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 70,1590,108,80 }, 6, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 179,1589,117,80 }, 6, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 298,1588,116,81 }, 6, { 31, 2 }, jumpstrongPunchCollider, jumpstrongPunchHitbox, jumpstrongPunchCollType, jumpstrongPunchCallBack, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 415,1588,76,81 }, 6, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
+	jumpstrongPunch.PushBack({ 492,1589,108,80 }, 15, { 31, 2 }, jumpstrongPunchCollider2, jumpstrongPunchHitbox2, jumpstrongPunchCollType2, jumpstrongPunchCallBack2, 19, 10, 10, 4);
 	// falta poner si alugna se repite y eso
 
 	const int jumpmidKickCollider = 3;//Collider num for the jump kick animation
@@ -430,8 +431,8 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE jumpstrongKickCollType2[jumpstrongKickCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* jumpstrongKickCallBack2[jumpstrongKickCollider2] = { {this},{this} };
 
-	jumpstrongKick.PushBack({ 1283,163, }, 12, { 31,2 }, jumpstrongKickCollider2, jumpstrongKickHitbox2, jumpstrongKickCollType2, jumpstrongKickCallBack2, 14, 10, 10, 2);
-	jumpstrongKick.PushBack({ 1696,2288,88,100 }, 49, { 31,2 }, jumpstrongKickCollider, jumpstrongKickHitbox, jumpstrongKickCollType, jumpstrongKickCallBack, 14, 10, 10, 2);
+	jumpstrongKick.PushBack({ 1283,163,72,74 }, 12, { 31,2 }, jumpstrongKickCollider2, jumpstrongKickHitbox2, jumpstrongKickCollType2, jumpstrongKickCallBack2, 14, 10, 10, 2);
+	jumpstrongKick.PushBack({ 1696,2288,88,100 }, 12, { 31,2 }, jumpstrongKickCollider, jumpstrongKickHitbox, jumpstrongKickCollType, jumpstrongKickCallBack, 14, 10, 10, 2);
 	jumpstrongKick.PushBack({ 1838,2265,81,118 }, 16, { 31,2 }, jumpstrongKickCollider2, jumpstrongKickHitbox2, jumpstrongKickCollType2, jumpstrongKickCallBack2, 14, 10, 10, 2);
 	jumpstrongKick.PushBack({ 1939,2305,116,80 }, 16, { 31,2 }, jumpstrongKickCollider2, jumpstrongKickHitbox2, jumpstrongKickCollType2, jumpstrongKickCallBack2, 14, 10, 10, 2);
 	jumpstrongKick.PushBack({ 2081,2277,84,108 }, 16, { 31,2 }, jumpstrongKickCollider2, jumpstrongKickHitbox2, jumpstrongKickCollType2, jumpstrongKickCallBack2, 14, 10, 10, 2);
@@ -446,7 +447,7 @@ ModulePlayer::ModulePlayer()
 
 
 	const int crouchmidPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect crouchmidPunchHitbox[crouchmidPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
+	SDL_Rect crouchmidPunchHitbox[crouchmidPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 105, 35, 50, 20 } };
 	COLLIDER_TYPE crouchmidPunchCollType[crouchmidPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* crouchmidPunchCallBack[crouchmidPunchCollider] = { {this},{this},{this} };
 
@@ -455,17 +456,17 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE crouchmidPunchCollType2[crouchmidPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* crouchmidPunchCallBack2[crouchmidPunchCollider2] = { {this},{this} };
 
-	crouchmidPunch.PushBack({ 120,1059,95,100 }, 4, { 31, 2 }, crouchmidPunchCollider2, crouchmidPunchHitbox2, crouchmidPunchCollType2, crouchmidPunchCallBack2, 14, 7, 7, 3);
+	crouchmidPunch.PushBack({ 120,1059,95,100 }, 6, { 31, 2 }, crouchmidPunchCollider2, crouchmidPunchHitbox2, crouchmidPunchCollType2, crouchmidPunchCallBack2, 14, 7, 7, 3);
 	crouchmidPunch.PushBack({ 250,1084,131,76 }, 4, { 31, 2 }, crouchmidPunchCollider2, crouchmidPunchHitbox2, crouchmidPunchCollType2, crouchmidPunchCallBack2, 14, 7, 7, 3);
-	crouchmidPunch.PushBack({ 386,1087,162,73 }, 4, { 31, 2 }, crouchmidPunchCollider2, crouchmidPunchHitbox2, crouchmidPunchCollType2, crouchmidPunchCallBack2, 14, 7, 7, 3);
-	crouchmidPunch.PushBack({ 777,1087,163,73 }, 3, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 20, 14, 7, 3);
-	crouchmidPunch.PushBack({ 953,1087,164,73 }, 4, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 20, 14, 7, 3);
-	crouchmidPunch.PushBack({ 250,1084,131,76 }, 3, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 14, 7, 7, 3);
+	crouchmidPunch.PushBack({ 386,1087,162,73 }, 6, { 31, 2 }, crouchmidPunchCollider2, crouchmidPunchHitbox2, crouchmidPunchCollType2, crouchmidPunchCallBack2, 14, 7, 7, 3);
+	crouchmidPunch.PushBack({ 777,1087,163,73 }, 4, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 20, 14, 7, 3);
+	crouchmidPunch.PushBack({ 953,1087,164,73 }, 5, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 20, 14, 7, 3);
+	crouchmidPunch.PushBack({ 250,1084,131,76 }, 6, { 31, 2 }, crouchmidPunchCollider, crouchmidPunchHitbox, crouchmidPunchCollType, crouchmidPunchCallBack, 14, 7, 7, 3);
 	// falta poner si alugna se repite y eso
 
 
 	const int crouchstrongPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect crouchstrongPunchHitbox[crouchstrongPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
+	SDL_Rect crouchstrongPunchHitbox[crouchstrongPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 55, 40, 80, 20 } };
 	COLLIDER_TYPE crouchstrongPunchCollType[crouchstrongPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* crouchstrongPunchCallBack[crouchstrongPunchCollider] = { {this},{this},{this} };
 
@@ -507,11 +508,11 @@ ModulePlayer::ModulePlayer()
 	SDL_Rect crouchstrongKickHitbox[crouchstrongPunchCollider] = { { 5, 10, 40, 35 },{ 20, 35, 20, 20 },{ 78,0,20,20 } };
 	COLLIDER_TYPE crouchstrongKickCollType[crouchstrongKickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* crouchstrongKickCallBack[crouchstrongKickCollider] = { {this},{this},{this} };
-	crouchstrongKick.PushBack({ 1102,21,71,80 }, 4, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
-	crouchstrongKick.PushBack({ 1262,31,122,86 }, 8, { 31,2 }, crouchstrongKickCollider, crouchstrongKickHitbox, crouchstrongPunchCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
-	crouchstrongKick.PushBack({ 1056,267,76,102 }, 4, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
-	crouchstrongKick.PushBack({ 1277,272,97,97 }, 8, { 31,2 }, crouchstrongKickCollider, crouchstrongKickHitbox, crouchstrongPunchCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
-	crouchstrongKick.PushBack({ 1056,267,76,102 }, 4, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
+	crouchstrongKick.PushBack({ 1102,21,71,80 }, 7, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
+	crouchstrongKick.PushBack({ 1262,31,122,86 }, 9, { 31,2 }, crouchstrongKickCollider, crouchstrongKickHitbox, crouchstrongPunchCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
+	crouchstrongKick.PushBack({ 1056,267,76,102 }, 6, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
+	crouchstrongKick.PushBack({ 1277,272,97,97 }, 9, { 31,2 }, crouchstrongKickCollider, crouchstrongKickHitbox, crouchstrongPunchCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
+	crouchstrongKick.PushBack({ 1056,267,76,102 }, 6, { 31,2 }, crouchstrongPunchCollider, crouchstrongKickHitbox, crouchstrongKickCollType, crouchstrongKickCallBack, 25, 10, 10, 2);
 	// falta poner si alugna se repite y eso
 
 	const int shortPunchCollider = 3;//Collider num for the punch animation
@@ -647,7 +648,7 @@ ModulePlayer::ModulePlayer()
 
 	const int NWpunchCollider = 3;//Collider num for the punch animation
 	const int NWpunchCollider2 = 2;//Collider num for the punch animation
-	SDL_Rect NWpunchHitbox[NWpunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	SDL_Rect NWpunchHitbox[NWpunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 60, 30, 40, 30 } };
 	COLLIDER_TYPE NWpunchCollType[NWpunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* NWpunchCallBack[NWpunchCollider] = { {this},{this},{this} };
 
@@ -656,10 +657,10 @@ ModulePlayer::ModulePlayer()
 	Module* NWpunchCallBack2[NWpunchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	NWpunch.PushBack({ 117,2862,73,97 }, 7, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 3);
-	NWpunch.PushBack({ 226,2870,82,89 }, 7, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 3);
-	NWpunch.PushBack({ 350,2870,91,89 }, 5, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 3);
-	NWpunch.PushBack({ 477,2870,91,89 }, 6, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 3);
+	NWpunch.PushBack({ 117,2862,73,97 }, 7, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 2);
+	NWpunch.PushBack({ 226,2870,82,89 }, 7, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 2);
+	NWpunch.PushBack({ 350,2870,91,89 }, 5, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 2);
+	NWpunch.PushBack({ 477,2870,91,89 }, 6, { 31,2 }, NWpunchCollider, NWpunchHitbox, NWpunchCollType, NWpunchCallBack, 8, 4, 4, 2);
 
 	const int NWstrongpunchCollider = 3;//Collider num for the punch animation
 	const int NWstrongpunchCollider2 = 2;//Collider num for the punch animation
@@ -672,12 +673,12 @@ ModulePlayer::ModulePlayer()
 	Module* NWstrongpunchCallBack2[NWstrongpunchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	NWstrongpunch.PushBack({ 2114,2854,72,100 }, 7, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
-	NWstrongpunch.PushBack({ 645,2867,92,92 }, 7, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
-	NWstrongpunch.PushBack({ 782,2862,66,96 }, 5, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
-	NWstrongpunch.PushBack({ 884,2870 ,89,89 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
-	NWstrongpunch.PushBack({ 645,2867,92,92 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
-	NWstrongpunch.PushBack({ 2114,2854,72,100 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 3);
+	NWstrongpunch.PushBack({ 2114,2854,72,100 }, 7, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
+	NWstrongpunch.PushBack({ 645,2867,92,92 }, 7, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
+	NWstrongpunch.PushBack({ 782,2862,66,96 }, 5, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
+	NWstrongpunch.PushBack({ 884,2870 ,89,89 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
+	NWstrongpunch.PushBack({ 645,2867,92,92 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
+	NWstrongpunch.PushBack({ 2114,2854,72,100 }, 6, { 31,2 }, NWstrongpunchCollider, NWstrongpunchHitbox, NWstrongtrongpunchCollType, NWstrongtrongpunchCallBack, 14, 8, 8, 2);
 
 
 	const int NWkickCollider = 3;//Collider num for the kick animation
@@ -707,15 +708,15 @@ ModulePlayer::ModulePlayer()
 
 
 	// Kick animation 
-	NWstrongkick.PushBack({ 662,3145,67,93 }, 6, { 31,2 }, NWstrongkickCollider2, NWstrongkickHitbox2, NWstrongkickCollType2, NWstrongkickCallBack2, 20, 8, 8, 1);
-	NWstrongkick.PushBack({ 741,3138,94,100 }, 6, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
-	NWstrongkick.PushBack({ 885,3149,79,92 }, 6, { 31,2 }, NWstrongkickCollider2, NWstrongkickHitbox2, NWstrongkickCollType2, NWstrongkickCallBack2, 20, 8, 8, 1);
-	NWstrongkick.PushBack({ 1003,3161,102,77 }, 6, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
-	NWstrongkick.PushBack({ 1133,3153,75,85 }, 6, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
-	NWstrongkick.PushBack({ 1263,3158,68,83 }, 6, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 662,3145,67,93 }, 7, { 31,2 }, NWstrongkickCollider2, NWstrongkickHitbox2, NWstrongkickCollType2, NWstrongkickCallBack2, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 741,3138,94,100 }, 7, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 885,3149,79,92 }, 7, { 31,2 }, NWstrongkickCollider2, NWstrongkickHitbox2, NWstrongkickCollType2, NWstrongkickCallBack2, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 1003,3161,102,77 }, 7, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 1133,3153,75,85 }, 7, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
+	NWstrongkick.PushBack({ 1263,3158,68,83 }, 7, { 31,2 }, NWstrongkickCollider, NWstrongkickHitbox, NWstrongkickCollType, NWstrongkickCallBack, 20, 8, 8, 1);
 
 	const int NWcrouchPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect NWcrouchPunchHitbox[NWcrouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
+	SDL_Rect NWcrouchPunchHitbox[NWcrouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 30, 20 } };
 	COLLIDER_TYPE NWcrouchPunchCollType[NWcrouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* NWcrouchPunchCallBack[NWcrouchPunchCollider] = { {this},{this},{this} };
 
@@ -724,15 +725,15 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE NWcrouchPunchCollType2[NWcrouchPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* NWcrouchPunchCallBack2[NWcrouchPunchCollider2] = { {this},{this} };
 
-	NWcrouchPunch.PushBack({ 106,3028,63,70 }, 2, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
-	NWcrouchPunch.PushBack({ 188,3028,68,70 }, 2, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
-	NWcrouchPunch.PushBack({ 283,3026,64,69 }, 2, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
-	NWcrouchPunch.PushBack({ 374,3031,101,67 }, 1, { 31, 2 }, NWcrouchPunchCollider, NWcrouchPunchHitbox, NWcrouchPunchCollType, NWcrouchPunchCallBack, 8, 6, 6, 3);
-	NWcrouchPunch.PushBack({ 283,3026,64,69 }, 2, { 31, 2 }, NWcrouchPunchCollider, NWcrouchPunchHitbox, NWcrouchPunchCollType, NWcrouchPunchCallBack, 8, 6, 6, 3);
+	NWcrouchPunch.PushBack({ 106,3028,63,70 }, 6, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
+	NWcrouchPunch.PushBack({ 188,3028,68,70 }, 6, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
+	NWcrouchPunch.PushBack({ 283,3026,64,69 }, 6, { 31, 2 }, NWcrouchPunchCollider2, NWcrouchPunchHitbox2, NWcrouchPunchCollType2, NWcrouchPunchCallBack2, 8, 6, 6, 3);
+	NWcrouchPunch.PushBack({ 374,3031,101,67 }, 6, { 31, 2 }, NWcrouchPunchCollider, NWcrouchPunchHitbox, NWcrouchPunchCollType, NWcrouchPunchCallBack, 8, 6, 6, 3);
+	NWcrouchPunch.PushBack({ 283,3026,64,69 }, 6, { 31, 2 }, NWcrouchPunchCollider, NWcrouchPunchHitbox, NWcrouchPunchCollType, NWcrouchPunchCallBack, 8, 6, 6, 3);
 
 
 	const int NWstrongcrouchPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect NWstrongcrouchPunchHitbox[NWstrongcrouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 50, 20 } };
+	SDL_Rect NWstrongcrouchPunchHitbox[NWstrongcrouchPunchCollider] = { { 30, 10, 40, 35 },{ 50, 35, 20, 20 },{ 75, 5, 40, 20 } };
 	COLLIDER_TYPE NWstrongcrouchPunchCollType[NWstrongcrouchPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* NWstrongcrouchPunchCallBack[NWstrongcrouchPunchCollider] = { {this},{this},{this} };
 
@@ -741,11 +742,11 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE NWstrongcrouchPunchCollType2[NWstrongcrouchPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* NWstrongcrouchPunchCallBack2[NWstrongcrouchPunchCollider2] = { {this},{this} };
 
-	NWstrongcrouchPunch.PushBack({ 568,3024,73,73 }, 2, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
-	NWstrongcrouchPunch.PushBack({ 666,3029,94,68 }, 2, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
-	NWstrongcrouchPunch.PushBack({ 796,3021,72,73 }, 2, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
-	NWstrongcrouchPunch.PushBack({ 916,3029,106,64 }, 1, { 31, 2 }, NWstrongcrouchPunchCollider, NWstrongcrouchPunchHitbox, NWstrongcrouchPunchCollType, NWstrongcrouchPunchCallBack, 18, 8, 8, 3);
-	NWstrongcrouchPunch.PushBack({ 666,3029,94,68 }, 2, { 31, 2 }, NWstrongcrouchPunchCollider, NWstrongcrouchPunchHitbox, NWstrongcrouchPunchCollType, NWstrongcrouchPunchCallBack, 18, 8, 8, 3);
+	NWstrongcrouchPunch.PushBack({ 568,3024,73,73 }, 9, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
+	NWstrongcrouchPunch.PushBack({ 666,3029,94,68 }, 9, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
+	NWstrongcrouchPunch.PushBack({ 796,3021,72,73 }, 9, { 31, 2 }, NWstrongcrouchPunchCollider2, NWstrongcrouchPunchHitbox2, NWstrongcrouchPunchCollType2, NWstrongcrouchPunchCallBack2, 18, 8, 8, 3);
+	NWstrongcrouchPunch.PushBack({ 916,3029,106,64 }, 8, { 31, 2 }, NWstrongcrouchPunchCollider, NWstrongcrouchPunchHitbox, NWstrongcrouchPunchCollType, NWstrongcrouchPunchCallBack, 18, 8, 8, 3);
+	NWstrongcrouchPunch.PushBack({ 666,3029,94,68 }, 9, { 31, 2 }, NWstrongcrouchPunchCollider, NWstrongcrouchPunchHitbox, NWstrongcrouchPunchCollType, NWstrongcrouchPunchCallBack, 18, 8, 8, 3);
 
 	const int NWcrouchKickCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect NWcrouchKickHitbox[NWcrouchKickCollider] = { { 5, 10, 40, 35 },{ 20, 35, 20, 20 },{ 78,0,20,20 } };
@@ -769,17 +770,17 @@ ModulePlayer::ModulePlayer()
 	SDL_Rect NWcrouchstrongKickHitbox[NWcrouchstrongKickCollider] = { { 5, 10, 40, 35 },{ 20, 35, 20, 20 },{ 78,0,20,20 } };
 	COLLIDER_TYPE NWcrouchstrongKickCollType[NWcrouchstrongKickCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* NWcrouchstrongKickCallBack[NWcrouchstrongKickCollider] = { {this},{this},{this} };
-	NWcrouchstrongKick.PushBack({ 96,3303,85,70 }, 4, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 218,3303,108,70 }, 8, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 531,3296,74,74 }, 4, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 641,3301,71,74 }, 8, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 767,3299,97,74 }, 4, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 910,3298,85,72 }, 8, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 1050,3300,89,72 }, 4, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
-	NWcrouchstrongKick.PushBack({ 1180,3298,56,76 }, 8, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 96,3303,85,70 }, 6, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 218,3303,108,70 }, 10, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 531,3296,74,74 }, 6, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 641,3301,71,74 }, 10, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 767,3299,97,74 }, 5, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 910,3298,85,72 }, 9, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 1050,3300,89,72 }, 5, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
+	NWcrouchstrongKick.PushBack({ 1180,3298,56,76 }, 9, { 31,2 }, NWcrouchstrongKickCollider, NWcrouchstrongKickHitbox, NWcrouchstrongKickCollType, NWcrouchstrongKickCallBack, 16, 8, 8, 1);
 
 	const int NWjumpPunchCollider = 3;//Collider num for the jump kick animation
-	SDL_Rect NWjumpPunchHitbox[NWjumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 90, 10 } };
+	SDL_Rect NWjumpPunchHitbox[NWjumpPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 30, 25 } };
 	COLLIDER_TYPE NWjumpPunchCollType[NWjumpPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
 	Module* NWjumpPunchCallBack[NWjumpPunchCollider] = { {this},{this},{this} };
 
@@ -788,11 +789,11 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE NWjumpPunchCollType2[NWjumpPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* NWjumpPunchCallBack2[NWjumpPunchCollider2] = { {this},{this} };
 
-	NWjumpPunch.PushBack({ 1472,3163,63,78 }, 4, { 31, 2 }, NWjumpPunchCollider2, NWjumpPunchHitbox2, NWjumpPunchCollType2, NWjumpPunchCallBack2, 15, 8, 8, 1);
-	NWjumpPunch.PushBack({ 1536,3163,73,78 }, 4, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
-	NWjumpPunch.PushBack({ 1610,3165,67,76 }, 3, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
-	NWjumpPunch.PushBack({ 1678,3168,109,73 }, 3, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
-	NWjumpPunch.PushBack({ 1610,3165,67,76 }, 3, { 31, 2 }, NWjumpPunchCollider2, NWjumpPunchHitbox2, NWjumpPunchCollType2, NWjumpPunchCallBack2, 15, 8, 8, 1);
+	NWjumpPunch.PushBack({ 1472,3163,63,78 }, 8, { 31, 2 }, NWjumpPunchCollider2, NWjumpPunchHitbox2, NWjumpPunchCollType2, NWjumpPunchCallBack2, 15, 8, 8, 1);
+	NWjumpPunch.PushBack({ 1536,3163,73,78 }, 11, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
+	NWjumpPunch.PushBack({ 1610,3165,67,76 }, 15, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
+	NWjumpPunch.PushBack({ 1678,3168,109,73 }, 18, { 31, 2 }, NWjumpPunchCollider, NWjumpPunchHitbox, NWjumpPunchCollType, NWjumpPunchCallBack, 15, 8, 8, 1);
+	NWjumpPunch.PushBack({ 1610,3165,67,76 }, 10, { 31, 2 }, NWjumpPunchCollider2, NWjumpPunchHitbox2, NWjumpPunchCollType2, NWjumpPunchCallBack2, 15, 8, 8, 1);
 
 	const int NWjumpstrongPunchCollider = 3;//Collider num for the jump kick animation
 	SDL_Rect NWjumpstrongPunchHitbox[NWjumpstrongPunchCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 },{ 55, 27, 90, 10 } };
@@ -804,12 +805,12 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE NWjumpstrongPunchCollType2[NWjumpstrongPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
 	Module* NWjumpstrongPunchCallBack2[NWjumpstrongPunchCollider2] = { {this},{this} };
 
-	NWjumpstrongPunch.PushBack({ 1425,2877,73,71 }, 4, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
-	NWjumpstrongPunch.PushBack({ 1534,2848,94,66 }, 4, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
-	NWjumpstrongPunch.PushBack({ 1676,2815,72,70 }, 3, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
-	NWjumpstrongPunch.PushBack({ 1799,2850,110,73 }, 3, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
-	NWjumpstrongPunch.PushBack({ 1936,2889,70,69 }, 3, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
-	NWjumpstrongPunch.PushBack({ 1515,3013,70,78 }, 3, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1425,2877,73,71 }, 8, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1534,2848,94,66 }, 8, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1676,2815,72,70 }, 6, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1799,2850,110,73 }, 6, { 31, 2 }, NWjumpstrongPunchCollider, NWjumpstrongPunchHitbox, NWjumpstrongPunchCollType, NWjumpstrongPunchCallBack, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1936,2889,70,69 }, 6, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
+	NWjumpstrongPunch.PushBack({ 1515,3013,70,78 }, 6, { 31, 2 }, NWjumpstrongPunchCollider2, NWjumpstrongPunchHitbox2, NWjumpstrongPunchCollType2, NWjumpstrongPunchCallBack2, 18, 9, 9, 1);
 
 
 	const int NWjumpKickCollider = 3;//Collider num for the jump kick animation
@@ -954,12 +955,12 @@ ModulePlayer::ModulePlayer()
 	Module* midshortPunchCallBack2[midshortPunchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	midshortPunch.PushBack({ 184,1669,92,117 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1575,450,87,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1663,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1778,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1893,450,114,92 }, 16, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1575,450,87,92 }, 10, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 184,1669,92,117 }, 6, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 6, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1663,450,114,92 }, 6, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1778,450,114,92 }, 7, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1893,450,114,92 }, 15, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
 
 	const int shortstrongPunchCollider = 3;//Collider num for the punch animation
 	const int shortstrongPunchCollider2 = 2;//Collider num for the punch animation
@@ -971,19 +972,19 @@ ModulePlayer::ModulePlayer()
 	COLLIDER_TYPE shortstrongPunchCollType2[shortstrongPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
 	Module* shortstrongPunchCallBack2[shortstrongPunchCollider2] = { {this},{this} };
 
-	shortstrongPunch.PushBack({ 1417,4,82,123 }, 14, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 3);
-	shortstrongPunch.PushBack({ 5,1674,75,112 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 161,1452,77,121 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 184,1669,92,117 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 1,1231,113,116 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 225,1236,113,110 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 339,1240,125,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 590,1240,85,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 1547,1240,78,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
-	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1417,4,82,123 }, 7, { 31,2 }, shortstrongPunchCollider2, shortstrongPunchHitbox2, shortstrongPunchCollType2, shortstrongPunchCallBack2, 25, 9, 25, 3);
+	shortstrongPunch.PushBack({ 5,1674,75,112 }, 4, { 31,2 }, shortstrongPunchCollider2, shortstrongPunchHitbox2, shortstrongPunchCollType2, shortstrongPunchCallBack2, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 161,1452,77,121 }, 4, { 31,2 }, shortstrongPunchCollider2, shortstrongPunchHitbox2, shortstrongPunchCollType2, shortstrongPunchCallBack2, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 184,1669,92,117 }, 4, { 31,2 }, shortstrongPunchCollider2, shortstrongPunchHitbox2, shortstrongPunchCollType2, shortstrongPunchCallBack2, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 4, { 31,2 }, shortstrongPunchCollider2, shortstrongPunchHitbox2, shortstrongPunchCollType2, shortstrongPunchCallBack2, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 3, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1,1231,113,116 }, 4, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 225,1236,113,110 }, 3, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 339,1240,125,106 }, 4, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 590,1240,85,106 }, 3, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1547,1240,78,106 }, 4, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 3, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 3, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 25, 9, 25, 4);
 
 
 	const int lose1Collider = 2;//Collider num for the jump kick animation
@@ -1014,6 +1015,53 @@ ModulePlayer::ModulePlayer()
 	win2.PushBack({ 2921,0,73,84 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
 	win2.PushBack({ 2996,0,65,102 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
 	win2.PushBack({ 3061,0,66,101 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+
+	const int specialCollider = 2;//Collider num for the tornado animation
+	SDL_Rect specialHitbox[specialCollider] = { { 40, 10, 40, 65 },{ 55, 75, 20, 20 } };
+	COLLIDER_TYPE specialCollType[specialCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* specialCallBack[specialCollider] = { {this},{this} };
+
+
+	special.PushBack({ 697,601,144,104 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 852,616,110,89 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 963,616,157,89 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1121,616,112,89 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1234,616,144,89 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1379,614,110,91 }, 8, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1490,596,156,109 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);  //a partir daqui fa loop uns 10 cops
+	special.PushBack({ 1647,616,157,89 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1805,599,162,106 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 1968,614,144,89 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 2113,591,156,111 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 2270,608,157,95 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 2428,598,162,105 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 2591,600,143,103 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+	special.PushBack({ 2428,598,162,105 }, 5, { 31,2 }, specialCollider, specialHitbox, specialCollType, specialCallBack, 0, 0, 0, 0);
+
+	special.firstLoopFrame = 5;
+
+
+	const int special2Collider = 2;//Collider num for the tornado animation
+	SDL_Rect special2Hitbox[specialCollider] = { { 40, 10, 40, 65 },{ 55, 75, 20, 20 } };
+	COLLIDER_TYPE special2CollType[special2Collider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER} };
+	Module* special2CallBack[special2Collider] = { {this},{this} };
+	special2.PushBack({ 5,1880,102,115 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 1,931, 92,118 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 108,1890,96,105 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 208,1890, 90,106 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 297,1890,96,105 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 394,1902,69,93 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 464,1923, 108,71 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 573,1787,111,209 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 684,1798,96,197 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 781,1836,97,158 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 878,1836,97,159 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 994,1944,89,55 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 1084,1910,55,89 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 1140,1944,87,55 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+	special2.PushBack({ 1230,1881,73,118 }, 8, { 31,2 }, special2Collider, special2Hitbox, special2CollType, special2CallBack, 0, 0, 0, 0);
+
 
 }
 
@@ -1082,6 +1130,9 @@ bool ModulePlayer::Start()
 	App->audio->effects[32] = Mix_LoadWAV("Assets/Music/swordstruggle.wav");
 	App->audio->effects[33] = Mix_LoadWAV("Assets/Music/sprintstop.wav");
 	App->audio->effects[34] = Mix_LoadWAV("Assets/Music/runground.wav");
+	App->audio->effects[35] = Mix_LoadWAV("Assets/Music/jubeiattack1.wav");
+	App->audio->effects[36] = Mix_LoadWAV("Assets/Music/jubeiattackstrong.wav");
+	App->audio->effects[37] = Mix_LoadWAV("Assets/Music/jubei_nikkasuinitial.wav");
 
 	
 	return ret;
@@ -1138,7 +1189,6 @@ update_status ModulePlayer::Update()
 {
 	float player1scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1.25 when he's in zoomin and to 0.75 when zoomout
 	//the PLAYER ESCALE is to adjust the real scale of the player
-
 	if (swordDrop || swordOnTheGround)
 		current_animation = &NWidle;
 	else
@@ -1210,6 +1260,7 @@ update_status ModulePlayer::Update()
 		case ST_WALK_FORWARD:
 			LOG("FORWARD >>>\n");
 			if (!playerFlip) {
+
 				if (swordDrop || swordOnTheGround)
 					current_animation = &NWforward;
 				else
@@ -1343,6 +1394,14 @@ update_status ModulePlayer::Update()
 		case ST_SPECIAL:
 			LOG("SPECIAL OwwwwO\n");
 			tornading = true; doingAction = true;
+			break;
+		case ST_FIRST_SPECIAL:
+			LOG("SPECIAL OwwwwO\n");
+			firstSpecial = true; doingAction = true;
+			break;
+		case ST_SECOND_SPECIAL:
+			LOG("SPECIAL OwwwwO\n");
+			firstSpecial = true; doingAction = true;
 			break;
 		case ST_FALLING://new
 			falling = true; doingAction = true;
@@ -1491,7 +1550,6 @@ update_status ModulePlayer::Update()
 
 	}
 
-
 	if (kicking) {
 		//set kick anim
 		if (swordDrop || swordOnTheGround)
@@ -1500,7 +1558,11 @@ update_status ModulePlayer::Update()
 			current_animation = &kick;
 		//stop kick anim
 
-		if (current_animation->current_frame > 2 && !App->player2->invencibleframes && !audioPlayed) {
+		if (current_animation->current_frame > 2 && !App->player2->invencibleframes && !audioPlayed && current_animation == &kick) {
+			Mix_PlayChannel(-1, App->audio->effects[19], 0);
+			audioPlayed = true;
+		}
+		if (current_animation->current_frame > 3 && !App->player2->invencibleframes && current_animation == &NWkick) {
 			Mix_PlayChannel(-1, App->audio->effects[19], 0);
 			audioPlayed = true;
 		}
@@ -1602,6 +1664,8 @@ update_status ModulePlayer::Update()
 					grabStates = 0;
 					grab.SetAnimEnd(false);
 					App->player2->health += 20;
+					App->slowdown->StartSlowdown(25, 1);
+					App->render->StartCameraShake(20, 2);
 					inputs.Push(IN_GRAB_FINISH);
 					grabbing = false; doingAction = false;
 					App->player2->getGrab.SetAnimEnd(false);
@@ -1655,6 +1719,8 @@ update_status ModulePlayer::Update()
 					grabStates = 0;
 					grab.SetAnimEnd(false);
 					App->player2->health += 20;
+					App->slowdown->StartSlowdown(25, 1);
+					App->render->StartCameraShake(20, 2);
 					inputs.Push(IN_GRAB_FINISH);
 					App->player2->p2inputs.Push(IN_GRABBED_FINISH2);
 					grabbing2 = false; doingAction = false;
@@ -1665,6 +1731,8 @@ update_status ModulePlayer::Update()
 					grabStates = 0;
 					grab.SetAnimEnd(false);
 					App->player2->health += 20;
+					App->slowdown->StartSlowdown(25, 1);
+					App->render->StartCameraShake(20, 2);
 					inputs.Push(IN_GRAB_FINISH);
 					grabbing2 = false; doingAction = false;
 					App->player2->getGrab.SetAnimEnd(false);
@@ -1819,6 +1887,7 @@ update_status ModulePlayer::Update()
 					inputs.Push(IN_SWORD_FIGHT_WIN);
 					App->player2->p2inputs.Push(IN_SWORD_FIGHT_LOSE2);
 					App->player2->swordDrop = true;
+					swordDrop = true;
 				}
 				else if (swordFightCount - App->player2->swordFightCount < 5 && swordFightCount - App->player2->swordFightCount > -5) {
 					inputs.Push(IN_SWORD_FIGHT_DRAW);
@@ -1828,7 +1897,6 @@ update_status ModulePlayer::Update()
 				else {
 					App->player2->p2inputs.Push(IN_SWORD_FIGHT_WIN2);
 					inputs.Push(IN_SWORD_FIGHT_LOSE);
-					swordDrop = true;
 				}
 				aux = 5;
 				swordFightCount = 1;
@@ -1897,6 +1965,33 @@ update_status ModulePlayer::Update()
 		if (tornado.GetAnimEnd() == true) {
 			tornading = false; doingAction = false; tornado.SetAnimEnd(false);
 			inputs.Push(IN_PUNCH_FINISH);
+
+		}
+	}
+	if (firstSpecial) {
+		current_animation = &special;
+		if(special1Timer == 0) Mix_PlayChannel(-1, App->audio->effects[36], 0);
+		if (SDL_GetTicks() % 18 == 0)	Mix_PlayChannel(-1, App->audio->effects[18], 0);
+
+		special1Timer++;
+		if (special1Timer > 150) {
+			firstSpecial = false; doingAction = false; special.SetAnimEnd(false);
+			inputs.Push(IN_PUNCH_FINISH);
+			special1Timer = 0;
+
+		}
+	}
+
+	if (secondSpecial) {
+		current_animation = &special2;
+		if (special1Timer == 0) Mix_PlayChannel(-1, App->audio->effects[36], 0);
+
+
+		special1Timer++;
+		if (special2.GetAnimEnd() == false) {
+			secondSpecial = false; doingAction = false; special2.SetAnimEnd(false);
+			inputs.Push(IN_PUNCH_FINISH);
+			special1Timer = 0;
 
 		}
 	}
@@ -2059,7 +2154,13 @@ update_status ModulePlayer::Update()
 		//stop crouch punch anim
 		if (crouchPunch.GetAnimEnd() == true || crouchmidPunch.GetAnimEnd() == true || crouchstrongPunch.GetAnimEnd() == true || NWcrouchPunch.GetAnimEnd() == true || NWstrongcrouchPunch.GetAnimEnd() == true) {
 			crouchpunching = false; doingAction = false; crouchPunch.SetAnimEnd(false); crouchmidPunch.SetAnimEnd(false); crouchstrongPunch.SetAnimEnd(false);
-			NWcrouchPunch.SetAnimEnd(false); crouchstrongPunch.SetAnimEnd(false);
+			NWcrouchPunch.SetAnimEnd(false); 
+			NWstrongcrouchPunch.SetAnimEnd(false);
+			crouchstrongPunch.SetAnimEnd(false);
+
+			crouchpunching = false; doingAction = false;
+
+
 			inputs.Push(IN_PUNCH_FINISH);
 			if (!App->player2->invencibleframes)	Mix_PlayChannel(-1, App->audio->effects[18], 0);
 		}
@@ -2083,7 +2184,7 @@ update_status ModulePlayer::Update()
 		}
 		else {
 			if (swordDrop || swordOnTheGround)
-				current_animation = &crouchstrongKick;
+				current_animation = &NWcrouchstrongKick;
 			else
 				current_animation = &crouchstrongKick;
 		}
@@ -2505,6 +2606,8 @@ update_status ModulePlayer::Update()
 				Mix_PlayChannel(-1, App->audio->effects[30], 0);
 				jumpingframe = 0;
 				position.y = groundlevelaux;
+				App->slowdown->StartSlowdown(25, 1);
+				App->render->StartCameraShake(20, 2);
 				fall_bounces++;
 				jumpingescala = 0;
 			}
@@ -2525,6 +2628,7 @@ update_status ModulePlayer::Update()
 		if (airhit)	//end of the jump
 		{
 			jumpingframe = 0;
+			invencibleframes = true;
 			hasjumped = false;
 			jumpleft = false;
 			JumpPunching = false;
@@ -2671,12 +2775,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				}
 				else {
 					health += 25;
+					App->slowdown->StartSlowdown(25, 1);
+					App->render->StartCameraShake(20, 2);
 
 				}
 				inputs.Push(IN_FALL);
 				if (App->player2->position.y < groundlevelaux) {
 					inputs.Push(IN_FALL);
 					airhit = true;
+					invencibleframes = true;
 
 				}
 			}
@@ -2691,13 +2798,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				}
 			}
 
-			if (c2->type == COLLIDER_ENEMY_ATTACK && c1->type == COLLIDER_PLAYER) {
+			if (c2->type == COLLIDER_ENEMY_ATTACK && c1->type == COLLIDER_PLAYER && !getsHit) {
 				int random = rand();
 				aux = 12 + (c2->delayEnemy*SDL_GetTicks() % 3);
+				invencibleframes = true;
 				if (blocking && (current_state == ST_WALK_BACKWARD || current_state == ST_CROUCH || current_state == ST_WALK_FORWARD || crouching)) {
 					if (c2->attackType == 3 || c2->attackType == 4) {
 						if (random % 3 == 0) {
 							Mix_PlayChannel(-1, App->audio->effects[20], 0);
+
 						}
 
 						else if (random % 3 == 1) {
@@ -2743,6 +2852,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 							Mix_PlayChannel(-1, App->audio->effects[16], 0);
 							App->particles->AddParticle(App->particles->bloodLow, (c1->rect.x + c1->rect.w) - (c1->rect.x + c1->rect.w - c1->rect.x), c2->rect.y, playerFlip, COLLIDER_NONE); //Particle test
 							Mix_PlayChannel(-1, App->audio->effects[2], 0);
+							Mix_PlayChannel(-1, App->audio->effects[35], 0);
 
 						}
 
@@ -2750,6 +2860,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 							Mix_PlayChannel(-1, App->audio->effects[25], 0);
 							App->particles->AddParticle(App->particles->bloodMid, (c1->rect.x + c1->rect.w) - (c1->rect.x + c1->rect.w - c1->rect.x), c2->rect.y, playerFlip, COLLIDER_NONE); //Particle test
 							Mix_PlayChannel(-1, App->audio->effects[27], 0);
+							Mix_PlayChannel(-1, App->audio->effects[36], 0);
 
 						}
 
@@ -2772,11 +2883,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 						if (random % 2 == 0) {
 							Mix_PlayChannel(-1, App->audio->effects[17], 0);
 							Mix_PlayChannel(-1, App->audio->effects[28], 0);
+							Mix_PlayChannel(-1, App->audio->effects[35], 0);
 						}
 
 						else {
 							Mix_PlayChannel(-1, App->audio->effects[27], 0);
 							Mix_PlayChannel(-1, App->audio->effects[2], 0);
+							Mix_PlayChannel(-1, App->audio->effects[36], 0);
 
 						}
 
@@ -2791,10 +2904,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					if (App->player2->position.y < groundlevelaux) {
 						inputs.Push(IN_FALL);
 						airhit = true;
+						invencibleframes = true;
 					}
 
 					if (powActivated || App->player2->powActivated) {
 						health += c2->damage * 3 / 2;
+						App->slowdown->StartSlowdown(25, 1);
+						App->render->StartCameraShake(20, 2);
 						if (App->player2->powActivated) {
 							App->player2->powActivated = false;
 							App->player2->powOff = true;
@@ -2812,10 +2928,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					}
 					else {
 						health += c2->damage;
+						App->slowdown->StartSlowdown(25, 1);
+						App->render->StartCameraShake(20, 2);
 					}
 
 			if (powActivated || App->player2->powActivated) {
 				health += c2->damage * 3 / 2;
+				App->slowdown->StartSlowdown(25, 1);
+				App->render->StartCameraShake(20, 2);
 				if (App->player2->powActivated) {
 					App->player2->powActivated = false;
 					App->player2->powOff = true;
@@ -2833,6 +2953,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 			}
 			else {
 				health += c2->damage;
+				App->slowdown->StartSlowdown(25, 1);
+				App->render->StartCameraShake(20, 2);
 				
 			}	
 			score += c2->damage*2;
@@ -2909,10 +3031,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					blocking = false; break;
 				case IN_KICK: state = ST_KICK_STANDING; punch_timer = SDL_GetTicks();  break;
 				case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+				case IN_FIRST_SPECIAL: state = ST_FIRST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+				case IN_SECOND_SPECIAL: state = ST_SECOND_SPECIAL; punch_timer = SDL_GetTicks();  break;
 				case IN_FALL:state = ST_FALLING; break;//new
 				case IN_DEATH: state = ST_FALLING; break;
 				case IN_GET_GRABBED:state = ST_GET_GRABBED; break;
-
 				case IN_X_MID:
 					if (App->player->close)
 						state = ST_PUNCH_CLOSE_STANDING_MID;
@@ -2952,6 +3075,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 					punch_timer = SDL_GetTicks();
 					blocking = false; break;
 				case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+				case IN_FIRST_SPECIAL: state = ST_FIRST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+				case IN_SECOND_SPECIAL: state = ST_SECOND_SPECIAL; punch_timer = SDL_GetTicks();  break;
 
 				case IN_X_MID:
 					if (App->player->close)
@@ -2996,7 +3121,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				case IN_GET_GRABBED:state = ST_GET_GRABBED; break;
 				case IN_BLOCKING:state = ST_BLOCKING; break;
 				case IN_SPECIAL: state = ST_SPECIAL; punch_timer = SDL_GetTicks();  break;
-
+				case IN_FIRST_SPECIAL: state = ST_FIRST_SPECIAL; punch_timer = SDL_GetTicks();  break;
+				case IN_SECOND_SPECIAL: state = ST_SECOND_SPECIAL; punch_timer = SDL_GetTicks();  break;
 				case IN_X:
 					if (close)
 						state = ST_PUNCH_CLOSE_STANDING;
@@ -3346,6 +3472,28 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				break;
 			}
 			case ST_SPECIAL:
+			{
+				switch (last_input)
+				{
+				case IN_PUNCH_FINISH: state = ST_IDLE; break;
+				case IN_FALL:state = ST_FALLING; break;
+
+				}
+			}
+			break;
+
+			case ST_FIRST_SPECIAL:
+			{
+				switch (last_input)
+				{
+				case IN_PUNCH_FINISH: state = ST_IDLE; break;
+				case IN_FALL:state = ST_FALLING; break;
+
+				}
+			}
+			break;
+
+			case ST_SECOND_SPECIAL:
 			{
 				switch (last_input)
 				{

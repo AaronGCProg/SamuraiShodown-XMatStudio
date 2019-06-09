@@ -25,6 +25,7 @@ public:
 	Animation backgroundanim;
 
 	int startingtime = 0;
+	bool freeMusic = false;
 
 };
 

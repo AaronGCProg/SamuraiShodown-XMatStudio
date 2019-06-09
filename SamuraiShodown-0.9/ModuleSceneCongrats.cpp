@@ -50,7 +50,6 @@ bool ModuleSceneCongrats::Start()
 bool ModuleSceneCongrats::CleanUp()
 {
 	LOG("Unloading Congrats scene");
-
 	App->audio->CleanUp();
 	App->fight->Disable();
 

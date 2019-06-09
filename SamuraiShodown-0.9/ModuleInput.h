@@ -90,6 +90,10 @@ public:
 	bool CheckSwordGrab(int frames_past, int player, bool playerflip);
 	bool CheckLittleJump(int frames_past, int player, bool playerflip);
 	bool CheckSprint(int frames_past, int player, bool playerflip);
+	bool CheckSpecial1(int frames_past, int player, bool playerflip);
+	bool CheckSpecial2(int frames_past, int player, bool playerflip);
+
+
 
 
 	GamePad pad;
