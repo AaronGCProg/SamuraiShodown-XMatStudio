@@ -2500,7 +2500,11 @@ update_status ModulePlayer2::Update()
 		else {
 
 			if (healthBlinking < 4) {
-				critical = true;
+				if (!critical)
+				{
+					critical = true;
+					Mix_PlayChannel(-1, App->audio->effects[40], 0);
+				}
 				SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
 				App->render->Blit(App->interface->ui, 168, 17, false, &healthValue, NULL, true);
 				healthBlinking++;
@@ -2692,6 +2696,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 				}
 				score += c2->damage * 2;
+				App->interface->P1punt.score += c2->damage * 2;
 				powValue += 4;	getsHit = true; doingAction = true;
 
 

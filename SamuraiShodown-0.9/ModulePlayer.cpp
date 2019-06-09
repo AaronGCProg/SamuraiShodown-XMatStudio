@@ -1133,7 +1133,7 @@ bool ModulePlayer::Start()
 	App->audio->effects[35] = Mix_LoadWAV("Assets/Music/jubeiattack1.wav");
 	App->audio->effects[36] = Mix_LoadWAV("Assets/Music/jubeiattackstrong.wav");
 	App->audio->effects[37] = Mix_LoadWAV("Assets/Music/jubei_nikkasuinitial.wav");
-
+	App->audio->effects[40] = Mix_LoadWAV("Assets/Music/LifeDrop.wav");
 	
 	return ret;
 }
@@ -2726,7 +2726,11 @@ update_status ModulePlayer::Update()
 		else {
 
 			if (healthBlinking < 4) {
-				critical = true;
+				if (!critical)
+				{
+					critical = true;
+					Mix_PlayChannel(-1, App->audio->effects[40], 0);
+				}
 				SDL_Rect healthValue = { 90, 107, HEALTH_VALUE - healthAnim, 9 };
 				App->render->Blit(App->interface->ui, 136 - healthValue.w, 17, true, &healthValue, NULL, true);
 				healthBlinking++;
@@ -2966,6 +2970,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				
 			}	
 			score += c2->damage*2;
+			App->interface->P2punt.score+= c2->damage * 2;
 			powValue += 4;
 			getsHit = true; doingAction = true;
 

@@ -76,7 +76,7 @@ bool ModulePlayerSelection::Start()
 	App->audio->soundtracks[2] = Mix_LoadMUS("Assets/Music/Player_Select.ogg");
 	Mix_PlayMusic(App->audio->soundtracks[2], 2);
 
-	App->audio->effects[37] = Mix_LoadWAV("Assets/Music/SelectCharacter.wav");
+	App->audio->effects[39] = Mix_LoadWAV("Assets/Music/SelectCharacter.wav");
 
 
 	App->player->Enable();
@@ -122,7 +122,7 @@ update_status ModulePlayerSelection::Update()
 	{
 		if (!selected1 && (App->input->controller_player1_Start_pressed == true || App->input->keyboard[SDL_SCANCODE_SPACE] == 1))
 		{
-			Mix_PlayChannel(-1, App->audio->effects[37], 0);
+			Mix_PlayChannel(-1, App->audio->effects[39], 0);
 
 			selected1 = true;
 			textwhite1 = true;
@@ -130,7 +130,7 @@ update_status ModulePlayerSelection::Update()
 		}
 		if (!selected2 && (App->input->controller_player2_Start_pressed == true || App->input->keyboard[SDL_SCANCODE_P] == 1))
 		{
-			Mix_PlayChannel(-1, App->audio->effects[37], 0);
+			Mix_PlayChannel(-1, App->audio->effects[39], 0);
 
 
 			selected2 = true;

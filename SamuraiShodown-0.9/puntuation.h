@@ -31,7 +31,8 @@ public:
 		actuallife -= substraction;
 		score += substraction;
 		actualtotal += substraction;
-		if (actuallife <= 0)return true;
+		if (actuallife <= 0)actuallife = 0;
+		if (actuallife == 0)return true;
 		else return false;
 	};
 
@@ -47,7 +48,8 @@ public:
 		actualtime -= substraction;
 		score += substraction;
 		actualtotal += substraction;
-		if (actualtime <= 0)return true;
+		if (actualtime <= 0)actualtime = 0;
+		if (actualtime == 0)return true;
 		else return false;
 	};
 
@@ -63,7 +65,8 @@ public:
 		actualhitting_perc -= substraction;
 		score += substraction;
 		actualtotal += substraction;
-		if (actualhitting_perc <= 0)return true;
+		if (actualhitting_perc <= 0)actualhitting_perc = 0;
+		if (actualhitting_perc == 0)return true;
 		else return false;
 	};
 
