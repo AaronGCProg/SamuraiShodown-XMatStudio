@@ -10,6 +10,7 @@ enum scorestates
 	DEFAULT,
 	IN_LIFE,
 	IN_TIME,
+	IN_WAITINGFORPERCENTATGE,
 	IN_HITTINGPERCENTATGE,
 	IN_TOTAL,
 	IN_FINISHED
@@ -91,6 +92,11 @@ public:
 	int critpowdelay2 = 0;
 	int critpowbarbucle1 = 0;
 	int critpowbarbucle2 = 0;
+	bool countingscore = false;
+	float timecounterfloat = 0;
+	float hitisinpercentatge = true;
+	int decimal = 0;
+	int sencer = 0;
 	// control vars
 
 

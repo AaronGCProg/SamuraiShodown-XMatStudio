@@ -29,8 +29,9 @@ public:
 			substraction += substractionmodule;
 		}
 		actuallife -= substraction;
+		score += substraction;
 		actualtotal += substraction;
-		if (actuallife == 0)return true;
+		if (actuallife <= 0)return true;
 		else return false;
 	};
 
@@ -44,8 +45,9 @@ public:
 			substraction += substractionmodule;
 		}
 		actualtime -= substraction;
+		score += substraction;
 		actualtotal += substraction;
-		if (actualtime == 0)return true;
+		if (actualtime <= 0)return true;
 		else return false;
 	};
 
@@ -59,8 +61,9 @@ public:
 			substraction += substractionmodule;
 		}
 		actualhitting_perc -= substraction;
+		score += substraction;
 		actualtotal += substraction;
-		if (actualhitting_perc == 0)return true;
+		if (actualhitting_perc <= 0)return true;
 		else return false;
 	};
 
@@ -93,6 +96,7 @@ public:
 	bool hittingmodulesubstracted = false;
 	bool countingdelay = false;
 	int delayleft = 0;
+	int score = 0;
 
 };
 

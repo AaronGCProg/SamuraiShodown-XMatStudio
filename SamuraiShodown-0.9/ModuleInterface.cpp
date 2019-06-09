@@ -11,6 +11,8 @@
 #include "ModuleInterface.h"
 #include "ModuleFight.h"
 #include "ModuleFadeToBlack.h"
+#include <cstdlib>
+#include <time.h>
 
 #include <stdio.h>//for the sprintf_s function
 
@@ -27,6 +29,7 @@ ModuleInterface::~ModuleInterface()
 bool ModuleInterface::Start()
 {
 	LOG("Loading interface ");
+	srand(time(NULL));
 
 	startingtime = SDL_GetTicks();
 	int actualtime = 99;
@@ -56,9 +59,7 @@ bool ModuleInterface::Start()
 
 
 	//debug puntuations
-	P1punt.life = 8114;
-	P1punt.time = 0;
-	P1punt.hitting_perc = 85;
+
 
 	P1punt.Resetactual();
 	//pow-----------------------------------
@@ -108,6 +109,19 @@ bool ModuleInterface::CleanUp()
 // Update: draw background
 update_status ModuleInterface::Update()
 {
+	if (!countingscore)
+	{
+		timecounterfloat += 0.1;
+		P1punt.life = (50+ rand()%100);
+		P1punt.time = (abs(500-timecounterfloat+ rand()%100))*5;
+		P1punt.hitting_perc = (100 +rand()%100)*3;
+		P2punt.life = (50 + rand() % 100);
+		P2punt.time = (abs(500 - timecounterfloat + rand() % 100)) * 5;
+		P2punt.hitting_perc = (100 + rand() % 100) * 3;
+		P1punt.Resetactual();
+		P2punt.Resetactual();
+	}
+	else timecounterfloat = 0;
 
 	if (App->fight->showHealthBar) {
 		if (App->fight->rounds == 1)
@@ -201,11 +215,11 @@ update_status ModuleInterface::Update()
 		sprintf_s(time_text, 10, "%7d", actualtime);
 		App->fonts->BlitText((SCREEN_WIDTH / 2) - 15, 40, 0, time_text);
 
-		sprintf_s(p1scorechar, 10, "P1: %d", App->player2->score);
+		sprintf_s(p1scorechar, 10, "P1: %d", P1punt.score);
 		App->fonts->BlitText(10, 30, 1, "JUBEI");
 		App->fonts->BlitText(10, 5, 1, p1scorechar);
 
-		sprintf_s(p2scorechar, 10, "P2: %d", App->player->score);
+		sprintf_s(p2scorechar, 10, "P2: %d", P2punt.score);
 		App->fonts->BlitText(230, 30, 1, "JUBEI");
 		App->fonts->BlitText(200, 5, 1, p2scorechar);
 
@@ -338,52 +352,91 @@ update_status ModuleInterface::Update()
 
 	}
 
-	
-	
+
+
 	//need to do it for both players
 	if (showscore)
-	{
+	{	
+		countingscore = true;
 		scoreended = false;
-		switch (scoretable)
+		if (playerwins == 1||App->fight->finalwin2 == 1)
 		{
-		case DEFAULT:
-			if (P1punt.CountDelayInFrames(180)) { scoretable = IN_LIFE; }
-			break;
-		case IN_LIFE:
-			if (P1punt.LifeSubstraction(PUNTUATION_TIME)) { scoretable = IN_TIME; }
-			break;
-		case IN_TIME:
-			if (P1punt.TimeSubstraction(PUNTUATION_TIME)) { scoretable = IN_HITTINGPERCENTATGE; }
-			break;
-		case IN_HITTINGPERCENTATGE:
-			if (P1punt.HittingPercSubtraction(PUNTUATION_TIME)) { scoretable = IN_TOTAL; }
-			break;
-		case IN_TOTAL:
-			if (P1punt.CountDelayInFrames(PUNTUATION_TIME))
+
+			switch (scoretable)
 			{
-				scoreended = true;
-				showscore = false;
+			case DEFAULT:
+				if (P1punt.CountDelayInFrames(180)) { scoretable = IN_LIFE; }
+				break;
+			case IN_LIFE:
+				if (P1punt.LifeSubstraction(PUNTUATION_TIME)) { scoretable = IN_TIME; }
+				break;
+			case IN_TIME:
+				if (P1punt.TimeSubstraction(PUNTUATION_TIME)) { scoretable = IN_WAITINGFORPERCENTATGE; }
+				break;
+			case IN_WAITINGFORPERCENTATGE:
+				if (P1punt.TimeSubstraction(60*2)) { hitisinpercentatge = false; scoretable = IN_HITTINGPERCENTATGE; }
+				break;
+			case IN_HITTINGPERCENTATGE:
+			
+				if (P1punt.HittingPercSubtraction(PUNTUATION_TIME)) { scoretable = IN_TOTAL; }
+				break;
+			case IN_TOTAL:
+				if (P1punt.CountDelayInFrames(PUNTUATION_TIME))
+				{
+					scoreended = true;
+					showscore = false;
+					countingscore = false;
+					hitisinpercentatge = true;
+				}
+				break;
+
 			}
-			break;
-
-		}
-
-		
-		if (playerwins==1)
-		{
 			lifescore = P1punt.actuallife;
 			timescore = P1punt.actualtime;
 			hittingpercentatgescore = P1punt.actualhitting_perc;
 			totalScore = P1punt.actualtotal;
 		}
-		if (playerwins==2)
+		if (playerwins == 2||App->fight->finalwin2==2)
 		{
+			switch (scoretable)
+			{
+			case DEFAULT:
+				if (P2punt.CountDelayInFrames(180)) { scoretable = IN_LIFE; }
+				break;
+			case IN_LIFE:
+				if (P2punt.LifeSubstraction(PUNTUATION_TIME)) { scoretable = IN_TIME; }
+				break;
+			case IN_TIME:
+				if (P2punt.TimeSubstraction(PUNTUATION_TIME)) { scoretable = IN_WAITINGFORPERCENTATGE; }
+				break;
+			case IN_WAITINGFORPERCENTATGE:
+				if (P2punt.TimeSubstraction(60*2)) { hitisinpercentatge = false; scoretable = IN_HITTINGPERCENTATGE; }
+				break;
+			case IN_HITTINGPERCENTATGE:
+
+				if (P2punt.HittingPercSubtraction(PUNTUATION_TIME)) { scoretable = IN_TOTAL; }
+				break;
+			case IN_TOTAL:
+				if (P2punt.CountDelayInFrames(PUNTUATION_TIME))
+				{
+					scoreended = true;
+					showscore = false;
+					countingscore = false;
+					hitisinpercentatge = true;
+				}
+				break;
+
+			}
 			lifescore = P2punt.actuallife;
 			timescore = P2punt.actualtime;
 			hittingpercentatgescore = P2punt.actualhitting_perc;
 			totalScore = P2punt.actualtotal;
+
 		}
+
+
 		
+
 
 		//blit of the score words______________________________________________________________________________________
 
@@ -398,8 +451,20 @@ update_status ModuleInterface::Update()
 		sprintf_s(time_text_char, 20, "%d", timescore);
 		App->fonts->BlitText(160, 107, 3, time_text_char);//time score
 
-		sprintf_s(hittingpercent_text_char, 20, "%d,%d %s", hittingpercentatgescore, hittingpercentatgescore, "%");
-		App->fonts->BlitText(160, 139, 3, hittingpercent_text_char);//hitting percentatge score
+		if (hitisinpercentatge)
+		{
+			decimal = (hittingpercentatgescore % 10);
+			sencer = ((hittingpercentatgescore - decimal) / 10) % 100;
+			sprintf_s(hittingpercent_text_char, 20, "%d,%d %s", sencer, decimal, "%");
+			App->fonts->BlitText(160, 139, 3, hittingpercent_text_char);
+		}
+		else
+		{
+			sprintf_s(hittingpercent_text_char, 20, "%d", hittingpercentatgescore);
+			App->fonts->BlitText(160, 139, 3, hittingpercent_text_char);//hitting percentatge score
+		}
+		
+		
 
 		//!!!!!!!!!!!!!!!!!!!!!!!!! Atencion esta linea de codigo falla
 		sprintf_s(total_score_text_char, 10, "%d", totalScore);
