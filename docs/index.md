@@ -28,9 +28,7 @@ src="https://www.youtube.com/embed/P8MXNEiODTw" frameborder="0" allowfullscreen>
 
 <center>
 
-<form action="https://aarongcprog.github.io/SamuraiShodown-XMatStudio/">
-    <input type="download" value="Download our game Build" />
-</form>
+<a href="https://aarongcprog.github.io/SamuraiShodown-XMatStudio/">Download our game Build</a>
 
 </center>
 
