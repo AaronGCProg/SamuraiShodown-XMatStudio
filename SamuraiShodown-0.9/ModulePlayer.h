@@ -227,6 +227,12 @@ public:
 	Animation NWfall;
 	Animation midshortPunch;
 	Animation shortstrongPunch;
+	Animation lose1;
+	Animation NWlose1;
+	Animation lose2;
+	Animation win1;
+	Animation NWwin1;
+	Animation win2;
 
 
 
@@ -305,6 +311,13 @@ public:
 	int swordfightaux = 10;
 	bool closemidpunching = false;
 	bool closestrongpunching = false;
+	bool winning1 = false;
+	bool winning2 = false;
+	bool winnw = false;
+	bool losenw = false;
+	bool lost1 = false;
+	bool lost2 = false;
+
 
 	int invencibleaux = 0;
 	int health = 0;

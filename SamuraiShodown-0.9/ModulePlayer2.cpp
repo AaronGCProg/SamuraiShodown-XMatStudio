@@ -949,6 +949,38 @@ ModulePlayer2::ModulePlayer2()
 	NWfall.PushBack({ 2655,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
 	NWfall.PushBack({ 2767,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
 
+
+
+
+	const int lose1Collider = 2;//Collider num for the jump kick animation
+	SDL_Rect lose1Hitbox[lose1Collider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE lose1CollType[lose1Collider] = { {COLLIDER_GRAB},{COLLIDER_GRAB} };
+	Module* lose1CallBack[lose1Collider] = { {this},{this} };
+
+	lose1.PushBack({ 2337,2,67,64 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	lose1.PushBack({ 2425,1,67,65 }, 19, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+	NWlose1.PushBack({ 3544,1,59,64 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+
+	lose2.PushBack({ 2337,2,67,64 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	lose2.PushBack({ 2425,1,67,65 }, 19, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+
+	win1.PushBack({ 2495,2,112,81 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	win1.PushBack({ 2607,1,111,80 }, 19, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+	NWwin1.PushBack({ 3377,1,80,80 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	NWwin1.PushBack({ 3458,1,80,80 }, 19, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
+
+
+	win2.PushBack({ 2716,0,112,92 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	win2.PushBack({ 2827,0,93,91 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	win2.PushBack({ 2921,0,73,84 }, 4, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	win2.PushBack({ 2996,0,65,102 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+	win2.PushBack({ 3061,0,66,101 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
+
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -972,6 +1004,13 @@ bool ModulePlayer2::Start()
 	swordDropped = false;
 	swordTrack = NULL;
 	swordTrackGround = NULL;
+
+	winning1 = false;
+	winning2 = false;
+	winnw = false;
+	losenw = false;
+	lost1 = false;
+	lost2 = false;
 
 	if (swordDrop || swordOnTheGround)
 		current_animation = &NWidle;
@@ -1283,6 +1322,22 @@ update_status ModulePlayer2::Update()
 		else
 			debugmode = true;
 
+	}
+
+	if (winning2) {
+		current_animation = &win2;
+	}
+	if (lost1) {
+		current_animation = &lose1;
+	}
+	if (lost2) {
+		current_animation = &lose2;
+	}
+	if (losenw) {
+		current_animation = &NWlose1;
+	}
+	if (winnw) {
+		current_animation = &NWwin1;
 	}
 
 	if (grabbingSword) {
@@ -3183,7 +3238,7 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 			case IN_FALL2:state = ST_FALLING2;  blocking = false;  break;
 			case IN_GRAB2:state = ST_GRAB2; break;
 			case IN_GET_GRABBED2:state = ST_GET_GRABBED2; break;
-			case IN_BLOCKING2:state = ST_BLOCKING2;
+			case IN_BLOCKING2:state = ST_BLOCKING2; break;
 			case IN_SECOND_GRAB2:state = ST_SECOND_GRAB2; break;
 			case IN_SWORD_GRAB2: state = ST_SWORD_GRABBING2; blocking = false; break;
 			case IN_SIDE_STEP2: state = ST_SIDE_STEPPING2; break;

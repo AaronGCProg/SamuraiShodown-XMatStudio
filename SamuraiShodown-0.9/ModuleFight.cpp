@@ -175,7 +175,20 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 		if (player == 1 && SDL_GetTicks() - startingtime > 500) {
 			//Player1 1st victory animation
+			App->player->doingAction = true;
+			if(!App->player->noSword)
+			App->player->winning1 = true;
+			else
+			App->player->winnw = true;
+
+
 			//Player2 1st death animation
+			App->player2->doingAction = true;
+			if (!App->player2->noSword)
+				App->player2->lost1 = true;
+			else
+				App->player2->losenw = true;
+
 
 			if (SDL_GetTicks() - startingtime < 1200) {
 
@@ -184,7 +197,6 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 					Mix_PlayChannel(-1, App->audio->effects[9], 0);
 					played++;
 					timerRound = true;
-					App->player2->p2inputs.Push(IN_DEATH2);
 
 				}
 			}
@@ -200,6 +212,20 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 		}
 		if (player == 2 && SDL_GetTicks() - startingtime > 500) {
 			//Player1 1st death animation
+						//Player1 1st victory animation
+			App->player2->doingAction = true;
+			if (!App->player2->noSword)
+				App->player2->winning1 = true;
+			else
+				App->player2->winnw = true;
+
+
+			//Player2 1st death animation
+			App->player->doingAction = true;
+			if (!App->player->noSword)
+				App->player->lost1 = true;
+			else
+				App->player->losenw = true;
 			//Player2 1st victory animation
 			if (SDL_GetTicks() - startingtime < 1200) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "IPPON");
@@ -256,6 +282,19 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 	else {
 		if (player == 1 && SDL_GetTicks() - startingtime > 500) {
+			App->player->doingAction = true;
+			if (!App->player->noSword)
+				App->player->winning2 = true;
+			else
+				App->player->winnw = true;
+
+
+			//Player2 1st death animation
+			App->player2->doingAction = true;
+			if (!App->player2->noSword)
+				App->player2->lost2 = true;
+			else
+				App->player2->losenw = true;
 			if (SDL_GetTicks() - startingtime < 1430) {
 
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "VICTORY");
@@ -288,6 +327,19 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 		}
 		if (player == 2 && SDL_GetTicks() - startingtime > 500) {
+			App->player2->doingAction = true;
+			if (!App->player2->noSword)
+				App->player2->winning2 = true;
+			else
+				App->player2->winnw = true;
+
+
+			//Player2 1st death animation
+			App->player->doingAction = true;
+			if (!App->player->noSword)
+				App->player->lost2 = true;
+			else
+				App->player->losenw = true;
 			if (SDL_GetTicks() - startingtime < 1200) {
 				App->fonts->BlitText((SCREEN_WIDTH / 2) - 30, 70, 2, "VICTORY");
 				if (played == 3) {

@@ -222,6 +222,12 @@ public:
 	Animation getGrab2;
 	Animation midgrab;
 	Animation NWfall;
+	Animation lose1;
+	Animation NWlose1;
+	Animation lose2;
+	Animation win1;
+	Animation NWwin1;
+	Animation win2;
 
 
 	iPoint position;
@@ -297,6 +303,13 @@ public:
 	int healthBlinking = 0;
 	bool closeclosemidpunching = false;
 	bool closestrongpunching = false;
+	bool winning1 = false;
+	bool winning2 = false;
+	bool winnw = false;
+	bool losenw = false;
+	bool lost1 = false;
+	bool lost2 = false;
+
 
 	bool critical = false;
 	int score = 0;
