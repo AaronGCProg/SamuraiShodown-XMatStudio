@@ -416,7 +416,6 @@ bool ModuleInput::CheckThrow2(int frames_past, int player, bool playerflip) {
 		}
 	}
 }
-
 bool ModuleInput::CheckSwordGrab(int frames_past, int player, bool playerflip) {
 
 	int count = 0;

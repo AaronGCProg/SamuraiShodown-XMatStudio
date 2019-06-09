@@ -221,7 +221,7 @@ public:
 	Animation NWgrab;
 	Animation getGrab2;
 	Animation midgrab;
-
+	Animation NWfall;
 
 
 	iPoint position;

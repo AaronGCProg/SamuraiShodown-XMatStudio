@@ -940,6 +940,15 @@ ModulePlayer2::ModulePlayer2()
 	midgrab.PushBack({ 2342,3206,78,52 }, 15, { 31,2 }, midgrabCollider, midgrabHitbox, midgrabCollType, midgrabCallBack, 20, 9, 25, 3);
 	midgrab.PushBack({ 2426,3185,122,78 }, 15, { 31,2 }, midgrabCollider, midgrabHitbox, midgrabCollType, midgrabCallBack, 20, 9, 25, 3);
 
+	const int NWfallCollider = 2;//Collider num for the jump kick animation
+	SDL_Rect NWfallHitbox[NWfallCollider] = { { 0, 10, 40, 65 },{ 20, 75, 20, 20 } }; //RESOLVE
+	COLLIDER_TYPE NWfallCollType[NWfallCollider] = { {COLLIDER_NONE},{COLLIDER_NONE} };
+	Module* NWfallCallBack[NWfallCollider] = { {this},{this} };
+
+	NWfall.PushBack({ 2559,3184,94,79 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
+	NWfall.PushBack({ 2655,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
+	NWfall.PushBack({ 2767,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
+
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -1099,7 +1108,7 @@ update_status ModulePlayer2::Update()
 						current_animation = &NWforward;
 					else
 						current_animation = &forward;
-					position.x -= speed + 1 * speed;
+					position.x += speed + 1 * speed;
 				}
 				else {
 					if (swordDrop || swordOnTheGround)
@@ -1117,7 +1126,7 @@ update_status ModulePlayer2::Update()
 						current_animation = &NWbackward;
 					else
 						current_animation = &backward;
-					position.x += speed;
+					position.x -= speed;
 					blocking = true;
 				}
 				else {
@@ -1341,14 +1350,20 @@ update_status ModulePlayer2::Update()
 			position.x -= 6;
 		if (App->input->Controller_player2_LAxisX < DEATHZONE  && playerFlip == false && current_state == ST_SPRINT2) { p2inputs.Push(IN_SPRINT_END2); }
 		if (App->input->Controller_player2_LAxisX > -DEATHZONE && playerFlip && current_state == ST_SPRINT2) { p2inputs.Push(IN_SPRINT_END2); }
+		if (current_animation->current_frame == 1)	Mix_PlayChannel(-1, App->audio->effects[34], 0);
+		if (current_state != ST_SPRINT_END2 && current_state != ST_SPRINT2) {
+			sprinting = false; doingAction = false;
+			Mix_HaltChannel(-1);
 
+		}
 		if (current_state == ST_SPRINT_END2) {
+			Mix_HaltChannel(-1);
 			sideStepAux++;
 			if (swordDrop || swordOnTheGround)
 				current_animation = &NWsprintEnd;
 			else
 				current_animation = &sprintEnd;
-			if (sideStepAux > 10) {
+			if (sideStepAux > 5) {
 				if (App->player->position.x > position.x)
 					App->particles->AddParticle(App->particles->groundHit, position.x - 40, position.y - 20, playerFlip, COLLIDER_NONE); //Particle test
 				else
@@ -1506,15 +1521,15 @@ update_status ModulePlayer2::Update()
 				if (App->player->playerFlip && grabStates == 0) { flipAux = true; grabStates++; }
 				else if (!App->player->playerFlip && grabStates == 0) { flipAux = false; grabStates++; }
 				if (swordDrop || swordOnTheGround)
-					current_animation = &NWgrab; // FALTA ANIM
+					current_animation = &NWgrab;
 				else
 					current_animation = &grab;
 				if (grabStates < 3) {
 
 					if (swordDrop || swordOnTheGround)
-						current_animation = &getGrab; // FALTA ANIM + FALTA ANIM FALLING
+						App->player->current_animation = &App->player->NWfall; // FALTA ANIM + FALTA ANIM FALLING
 					else
-						App->player2->current_animation = &App->player2->getGrab;
+						App->player->current_animation = &App->player->getGrab;
 				}
 				if (current_animation->current_frame > 0 && grabStates == 1) {
 					Mix_PlayChannel(-1, App->audio->effects[23], 0);
@@ -1622,7 +1637,7 @@ update_status ModulePlayer2::Update()
 	}
 
 	if (gettingGrabbed) {
-		current_animation = &getGrab; //Falta ANIM
+		current_animation = &NWfall; 
 
 		if (getGrab.GetAnimEnd() == true || falling) {
 			getGrab.SetAnimEnd(false);
@@ -2193,7 +2208,7 @@ update_status ModulePlayer2::Update()
 	if (falling)//new
 	{
 		if (swordDrop || swordOnTheGround)
-			current_animation = &fall; //FALTA ANIM
+			current_animation = &NWfall; //FALTA ANIM
 		else
 			current_animation = &fall;
 		if (fall_bounces > FALLBOUNCES) { position.y = groundlevelaux; delay++; }
@@ -2376,7 +2391,7 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 
 		if (c2->type == COLLIDER_PLAYER_ATTACK && c1->type != COLLIDER_ENEMY_ATTACK) {
 			int random = rand();
-			aux = (int)c2->delayEnemy*1.5;
+			aux = (int)c2->delayEnemy*1.75;
 			if (blocking && (current_state == ST_WALK_BACKWARD2 || current_state == ST_CROUCH2 || current_state == ST_WALK_FORWARD2 || crouching)) {
 				if (c2->attackType == 3 || c2->attackType == 4) {
 					if (random % 3 == 0) {
@@ -2751,7 +2766,7 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 							inputs.Push(IN_SWORD_GRAB);
 						}
 						if (App->input->CheckThrow2(40, 0, App->player->playerFlip) == true && App->player->close == true) {
-							inputs.Push(IN_SECOND_GRAB);
+							inputs.Push(IN_GRAB);
 							attacked = true;
 						}
 
@@ -2775,6 +2790,11 @@ bool ModulePlayer2::external_input(p2Qeue<player2_inputs>& p2inputs, p2Qeue<play
 						if (App->input->CheckSwordGrab(30, 1, App->player2->playerFlip) == true && App->player2->closeSword == true) {
 							p2inputs.Push(IN_SWORD_GRAB2);
 						}
+						if (App->input->CheckThrow2(40, 0, App->player2->playerFlip) == true && App->player->close == true) {
+							p2inputs.Push(IN_GRAB2);
+							attacked = true;
+						}
+
 
 						if (App->input->CheckPunch(15, 1, App->player2->playerFlip) == true || App->input->controller_player2_X_pressed == true) {
 							p2inputs.Push(IN_X_STRONG2);
@@ -3616,6 +3636,25 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 
 			case IN_SPRINT_END2: state = ST_SPRINT_END2; break;
 			case IN_SWORD_FIGHT2: state = ST_SWORD_FIGHT2; break;
+			case IN_JUMP2: state = ST_JUMP_NEUTRAL2;  break;
+			case IN_CROUCH_DOWN2: state = ST_CROUCH2; break;
+			case IN_X2:
+				if (App->player->close)
+					state = ST_PUNCH_CLOSE_STANDING2;
+				else
+					state = ST_PUNCH_STANDING2;
+				blocking = false; break;
+			case IN_KICK2: state = ST_KICK_STANDING2; break;
+			case IN_SPECIAL2: state = ST_SPECIAL2; break;
+			case IN_FALL2:state = ST_FALLING2; break;//new
+			case IN_DEATH2: state = ST_FALLING2; break;
+			case IN_GET_GRABBED2:state = ST_GET_GRABBED2; break;
+			case IN_X_MID2: state = ST_MID_PUNCH_STANDING2; blocking = false; break;
+			case IN_X_STRONG2: state = ST_STRONG_PUNCH_STANDING2;  blocking = false; break;
+			case IN_MID_KICK2: state = ST_MID_KICK2;  blocking = false; break;
+			case IN_STRONG_KICK2: state = ST_STRONG_KICK2;  blocking = false; break;
+			case IN_SWORD_GRAB2: state = ST_SWORD_GRABBING2;  blocking = false; break;
+
 
 			}
 		}
