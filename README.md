@@ -427,14 +427,13 @@ ________________________________________________________________________________
 
 ### Update 1.0 - Alpha Release
 #### Version: v1.00
-#### Game size: ~ ? MB
-#### Client patch size: ~ ? MB
+#### Game size: ~ 24 MB
+#### Client patch size: ~ 4.0 MB
 
 #### General Updates
-- Added Intro cinematic scene
 - Added Character Select scene
 - Added Celebration scene
-- ?
+- Polished all mechanics
 
 #### Bug Fixes
 - Fixed a lot of little bugs
