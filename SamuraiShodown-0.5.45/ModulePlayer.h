@@ -299,7 +299,6 @@ public:
 	int healthBlinking = 0;
 	int score = 0;
 
-
 	int invencibleaux = 0;
 	int health = 0;
 	int aux = 5;

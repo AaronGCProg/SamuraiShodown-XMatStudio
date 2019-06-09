@@ -2478,9 +2478,11 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 				}
 				else {
 					health += c2->damage;
+					
 				}
 				score += c2->damage * 2;
 				powValue += 4;	getsHit = true; doingAction = true;
+
 
 			}
 		}

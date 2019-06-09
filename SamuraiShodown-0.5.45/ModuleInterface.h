@@ -34,7 +34,8 @@ public:
 	SDL_Rect pow1interiorbar = { 0,24,2,8 };
 	SDL_Rect pow2interiorbar = { 0,24,2,8 };
 	SDL_Rect powword[7];
-	iPoint powpivot[7];
+	iPoint powpivot1[7];
+	iPoint powpivot2[7];
 	SDL_Rect victory = { 225, 75, 27, 18 };
 	SDL_Rect life_time = { 83,219,64,53 };
 	SDL_Rect hittingperc_total = { 150,218,68,54 };
@@ -63,19 +64,28 @@ public:
 	bool showscore = false;
 	bool printSwordFight = false;
 	int countAux = 0;
+	bool scoreended = false;
 
 	int koBlinking;
 	int lifescore = 1;
-	int timescore = 22;
+	int timescore = 0;
 	int hittingpercentatgescore = 33;
 	int totalScore = 451;
+	char p1scorechar[10];
+	char p2scorechar[10];
 
 	int pow1damage = 0;
 	int pow2damage = 0;
 	int actualpowwordframe = 0;
+	int actualpowwordframe2 = 0;
 	int powdelay = 0;
+	int powdelay2 = 0;
 	int criticalpowbucle = 0;
+	int criticalpowbucle2 = 0;
+	int playerwins = 0; //1 if p1, 2 if p2
 	scorestates scoretable = DEFAULT;
+	bool stopcountingtime = false;
+	int varaux=0;
 	// control vars
 
 
