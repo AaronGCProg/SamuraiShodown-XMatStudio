@@ -288,7 +288,6 @@ public:
 	bool sideStepping = false;
 	bool sprinting = false;
 	int sideStepAux = 0;
-	int internalAux = 0;
 	bool alredycollided2 = false;
 	bool grabbing2 = false;
 	int powValue = 0;
@@ -298,6 +297,7 @@ public:
 	bool critical = false;
 	int healthBlinking = 0;
 	int score = 0;
+	int swordfightaux = 10;
 
 	int invencibleaux = 0;
 	int health = 0;
