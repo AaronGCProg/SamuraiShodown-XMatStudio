@@ -981,6 +981,48 @@ ModulePlayer2::ModulePlayer2()
 	win2.PushBack({ 2996,0,65,102 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
 	win2.PushBack({ 3061,0,66,101 }, 9000, { 31,2 }, lose1Collider, lose1Hitbox, lose1CollType, lose1CallBack, 0, 0, 0, 0);
 
+	const int midshortPunchCollider = 3;//Collider num for the punch animation
+	const int midshortPunchCollider2 = 2;//Collider num for the punch animation
+	SDL_Rect midshortPunchHitbox[midshortPunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	COLLIDER_TYPE midshortPunchCollType[midshortPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* midshortPunchCallBack[midshortPunchCollider] = { {this},{this},{this} };
+
+	SDL_Rect midshortPunchHitbox2[midshortPunchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
+	COLLIDER_TYPE midshortPunchCollType2[midshortPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
+	Module* midshortPunchCallBack2[midshortPunchCollider2] = { {this},{this} };
+
+	// Punch animation 
+	midshortPunch.PushBack({ 184,1669,92,117 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1663,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1778,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1893,450,114,92 }, 16, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 10, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+
+	const int shortstrongPunchCollider = 3;//Collider num for the punch animation
+	const int shortstrongPunchCollider2 = 2;//Collider num for the punch animation
+	SDL_Rect shortstrongPunchHitbox[shortstrongPunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
+	COLLIDER_TYPE shortstrongPunchCollType[shortstrongPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	Module* shortstrongPunchCallBack[shortstrongPunchCollider] = { {this},{this},{this} };
+
+	SDL_Rect shortstrongPunchHitbox2[shortstrongPunchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
+	COLLIDER_TYPE shortstrongPunchCollType2[shortstrongPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
+	Module* shortstrongPunchCallBack2[shortstrongPunchCollider2] = { {this},{this} };
+
+	shortstrongPunch.PushBack({ 1417,4,82,123 }, 14, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 3);
+	shortstrongPunch.PushBack({ 5,1674,75,112 }, 7, { 31,2 }, strongpunchCollider, strongpunchHitbox, strongpunchCollType, strongpunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 161,1452,77,121 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 184,1669,92,117 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1,1231,113,116 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 225,1236,113,110 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 339,1240,125,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 590,1240,85,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 1547,1240,78,106 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 676,1256,113,90 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+	shortstrongPunch.PushBack({ 790,1248,63,98 }, 7, { 31,2 }, shortstrongPunchCollider, shortstrongPunchHitbox, shortstrongPunchCollType, shortstrongPunchCallBack, 20, 9, 25, 4);
+
 }
 
 ModulePlayer2::~ModulePlayer2()
