@@ -228,7 +228,8 @@ public:
 	Animation win1;
 	Animation NWwin1;
 	Animation win2;
-
+	Animation midshortPunch;
+	Animation shortstrongPunch;
 
 	iPoint position;
 
