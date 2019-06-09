@@ -170,16 +170,16 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 	{
 		if (!firstWin) {
 			firstWin = true;
-			
+
 
 		}
 		if (player == 1 && SDL_GetTicks() - startingtime > 500) {
 			//Player1 1st victory animation
 			App->player->doingAction = true;
-			if(!App->player->noSword)
-			App->player->winning1 = true;
+			if (!App->player->noSword)
+				App->player->winning1 = true;
 			else
-			App->player->winnw = true;
+				App->player->winnw = true;
 
 
 			//Player2 1st death animation
@@ -265,13 +265,15 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 
 		if (SDL_GetTicks() - startingtime > 2500) { //Substituir  por getanimationend
 			App->interface->showscore = true;
-		
-			if(player==1)App->interface->playerwins = 1;
-			if(player==2)App->interface->playerwins = 2;
+
+			if (player == 1)App->interface->playerwins = 1;
+			if (player == 2)App->interface->playerwins = 2;
 			if (player == 0)App->interface->playerwins = 0;
 
 			if (App->interface->scoreended)
 			{
+				App->interface->showscore = false;
+
 				played = 1;
 				App->scene_hanzo->roundFinish();
 
@@ -382,16 +384,27 @@ void  ModuleFight::WinRound1(int player, bool final, bool perfect) {
 			}
 		}
 		if (SDL_GetTicks() - startingtime > 2500 && player > 0) { //Substituir  por getanimationend
-			App->scene_hanzo->BattleEnd();
-			App->player->powValue = 0;
-			App->player2->powValue = 0;
+			App->interface->showscore = true;
+			if (player == 1)App->interface->playerwins = 1;
+			if (player == 2)App->interface->playerwins = 2;
+			if (player == 0)App->interface->playerwins = 0;
+
+			if (App->interface->scoreended)
+			{
+				App->interface->showscore = false;
+				App->scene_hanzo->BattleEnd();
+				App->player->powValue = 0;
+				App->player2->powValue = 0;
+			}
 		}
-		else if (SDL_GetTicks() - startingtime > 3500) {
+		else if (SDL_GetTicks() - startingtime > 3500)
+		{
+
 			played = 1;
 
 			App->scene_hanzo->roundFinish();
-
 		}
 	}
 }
+
 
