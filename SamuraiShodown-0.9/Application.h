@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 18
+#define NUM_MODULES 19
 
 class ModuleWindow;
 class ModuleInput;
@@ -24,6 +24,7 @@ class ModuleFight;
 class ModuleReferee;
 class ModuleSlowdown;
 class Module;
+class ModulePlayerSelection;
 
 
 class Application
@@ -49,6 +50,7 @@ public:
 	ModuleReferee *referee;
 	ModuleFadeToBlack* fade;
 	ModuleSlowdown* slowdown;
+	ModulePlayerSelection* scene_selection;
 
 
 

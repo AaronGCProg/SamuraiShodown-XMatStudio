@@ -17,6 +17,7 @@
 #include "ModuleReferee.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSlowdown.h"
+#include "ModulePlayerSelection.h"
 
 
 
@@ -44,6 +45,7 @@ Application::Application()
 	modules[i++] = fight = new ModuleFight();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = slowdown = new ModuleSlowdown();
+	modules[i++] = scene_selection = new ModulePlayerSelection();
 
 
 }	
@@ -67,6 +69,7 @@ bool Application::Init()
 	scene_congrats->Disable();
 	interface->Disable();
 	fight->Disable();
+	scene_selection->Disable();
 
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

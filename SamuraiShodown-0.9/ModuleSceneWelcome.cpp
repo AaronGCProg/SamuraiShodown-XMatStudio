@@ -7,7 +7,10 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
+#include"ModulePlayerSelection.h"
+#include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
+
 
 
 
@@ -68,7 +71,7 @@ update_status ModuleSceneWelcome::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
 
 		Mix_FadeOutMusic(2000);
-		App->fade->FadeToBlack(App->scene_welcome, App->scene_hanzo, 2.0f);
+		App->fade->FadeToBlack(App->scene_welcome, App->scene_selection, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;

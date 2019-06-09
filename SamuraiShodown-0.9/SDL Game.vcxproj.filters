@@ -92,6 +92,9 @@
     <ClInclude Include="puntuation.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePlayerSelection.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -155,6 +158,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSlowdown.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayerSelection.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

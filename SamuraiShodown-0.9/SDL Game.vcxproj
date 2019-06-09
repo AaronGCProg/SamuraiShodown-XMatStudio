@@ -85,6 +85,7 @@
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModulePlayer2.h" />
+    <ClInclude Include="ModulePlayerSelection.h" />
     <ClInclude Include="ModuleReferee.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleSceneCongrats.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />
+    <ClCompile Include="ModulePlayerSelection.cpp" />
     <ClCompile Include="ModuleReferee.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleSceneCongrats.cpp" />
