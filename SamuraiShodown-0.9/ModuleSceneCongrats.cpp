@@ -15,8 +15,6 @@
 
 ModuleSceneCongrats::ModuleSceneCongrats()
 {
-	background.w = 640;
-	background.h = 480;
 
 }
 
@@ -31,9 +29,16 @@ bool ModuleSceneCongrats::Start()
 
 	int startingtime = SDL_GetTicks();
 
-	graphics = App->textures->Load("Assets/Sprites/congrats.png");
+	graphics = App->textures->Load("Assets/Sprites/congratsJubei.png");
 
 	App->audio->soundtracks[3] = Mix_LoadMUS("Assets/Music/BattleEnd.ogg");
+
+
+	jubei = { 306, 1, 141, 164 };
+	jubeiAux = { -300 , 40 , 141 * SCREEN_SIZE, 164 * SCREEN_SIZE };
+
+	loser = { 340, 168, 85, 72 };
+	loserAux = { -380, 90 , 85 * SCREEN_SIZE, 72 * SCREEN_SIZE };
 
 	if (!App->audio->soundtracks[3]) {
 		LOG("Mix_LoadMUS(\"BattleEnd.ogg\"): %s\n", Mix_GetError());
@@ -43,6 +48,8 @@ bool ModuleSceneCongrats::Start()
 		Mix_PlayMusic(App->audio->soundtracks[3], 2);
 	}
 
+	
+
 	return true;
 }
 
@@ -50,6 +57,9 @@ bool ModuleSceneCongrats::Start()
 bool ModuleSceneCongrats::CleanUp()
 {
 	LOG("Unloading Congrats scene");
+
+
+	moving = 0;
 	App->audio->CleanUp();
 	App->fight->Disable();
 
@@ -64,8 +74,24 @@ update_status ModuleSceneCongrats::Update()
 {
 
 	// Draw everything --------------------------------------	
-	App->render->Blit(graphics, 0, 0, false ,&background, NULL, true); //Welcome Image
 
+
+	App->render->Blit(graphics, 0, 0, false, &background, NULL); //Welcome Image
+
+	
+	SDL_RenderCopy(App->render->renderer, graphics, &jubei, &jubeiAux);
+	SDL_RenderCopy(App->render->renderer, graphics, &loser, &loserAux);
+
+	
+
+
+	if (jubeiAux.x < 130)
+		jubeiAux.x += 2;
+
+	if (loserAux.x < 40)
+		loserAux.x += 2;
+
+	
 
 	// TODO 2: make so pressing SPACE the HONDA stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || App->input->controller_player1_Start_pressed == true) {
@@ -73,11 +99,6 @@ update_status ModuleSceneCongrats::Update()
 		Mix_FadeOutMusic(2000);
 		App->fade->FadeToBlack(App->scene_congrats, App->scene_welcome, 2.0f);
 
-	}
-
-	if ((SDL_GetTicks() - startingtime) > 12000) {
-		Mix_FadeOutMusic(2000);
-		App->fade->FadeToBlack(App->scene_congrats, App->scene_welcome, 2.0f); //BUG
 	}
 
 	return UPDATE_CONTINUE;

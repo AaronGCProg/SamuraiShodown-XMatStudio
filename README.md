@@ -6,6 +6,8 @@ All the documentation of this project is currently on the Github Wiki of our pro
 
 ### Link to our Github Project - https://github.com/AaronGCProg/SamuraiShodown-XMatStudio
 
+### Link to our Github Page - https://aarongcprog.github.io/SamuraiShodown-XMatStudio/
+
 
 # How to Play
 
@@ -49,22 +51,24 @@ F1 - Show/Hide Hitboxes <br>
 F3 - Reset Player 1 & Player 2 Health <br>
 F5 - Player 1 God mode <br>
 F6 - Player 2 God mode <br>
+F8 - Controller debug <br> 
 F9 - Player 2 dies <br>
 F10 - Player 1 dies <br>
-F11 - Infinite time <br> <br>
+F11 - Infinite time <br> 
+F12 - View Score <br> <br>
 
 # Team Members
 ### Aaron Guerrero
-* General Analysis and Design sections
+* GAME: Code and Management & GIT: General Analysis and Design sections
 
 ### Àlex Melenchón
-* Sound and Art sections
+* GAME: Code and Sound & GIT: Sound and Art sections
 
 ### David Carrasquet
-* Sound and Art sections
+* GAME: QA and Art & GIT: Sound and Art sections
 
 ### Óscar Perez
-* UI and Art sections
+* GAME: Code and UI & GIT: UI and Art sections
 
 <br><br>
 
@@ -198,6 +202,212 @@ ________________________________________________________________________________
 - Removed obsolete content
 
 . . .
+
+### Update 0.5 - Patch # 9
+#### Version: v0.58
+#### Game size: ~16.5 MB
+#### Client patch size: ~1.2 MB
+
+#### General Updates
+- Added Hanzo background
+- Added Jubei character
+- Fullscreen Desktop implemented
+
+#### Bug Fixes
+- Major BUG Crash Fixed
+- Solved the bug where Haohmaru would continue with his commands & animations after death in the next round
+
+. . .
+
+### Update 0.6 - Patch # 10
+#### Version: v0.61
+#### Game size: ~16.7 MB
+#### Client patch size: ~0.2 MB
+
+#### General Updates
+- Hanzo stage optimized
+- Jubei pivot implemented
+- Added jubei animations
+
+#### Bug Fixes
+- 
+-
+
+. . .
+
+### Update 0.6 - Patch # 11
+#### Version: v0.67
+#### Game size: ~16.8 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Implemented controller inputs
+- Camera improvement
+- Added Jubei animations
+
+#### Bug Fixes
+- Crouch Player 1 Fixed
+
+. . .
+
+### Update 0.7 - Patch # 12
+#### Version: v0.71
+#### Game size: ~16.9 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Improved module input
+- Zoom in and Zoom Out Prototype
+- Collisions improved
+- Added Debug mode for Player 1 on F8
+
+#### Bug Fixes
+- Fixed jumping bug and adjusted it
+
+. . .
+
+### Update 0.7 - Patch # 13
+#### Version: v0.77
+#### Game size: ~17.0 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Improved shadows
+- Modified camera zoom code, still unfinished
+- Added the code for the camera zoom to the background, but its not applied because is not all functional yet.
+
+#### Bug Fixes
+- Fixed sidebars, they don't change color to red anymore
+
+. . .
+
+### Update 0.8 - Patch # 14
+#### Version: v0.81
+#### Game size: ~19.3 MB
+#### Client patch size: ~2.3 MB
+
+#### General Updates
+- Added Shaking effect
+- Added Slowmotion effect
+- Improved input buffer
+- Added a lot of Jubei animations
+- Defense System prototype
+- Improved the animation logic system
+- Added fully implemented camera zoom
+
+#### Bug Fixes
+- Fixed sidebars, they don't change color to red anymore
+- Referee animations fixed
+- Player 2 Movement bug fixed
+- Some little bugs fixed
+
+. . .
+
+### Update 0.8 - Patch # 15
+#### Version: v0.87
+#### Game size: ~19.6 MB
+#### Client patch size: ~0.3 MB
+
+#### General Updates
+- Added attack mechanics
+- Improved player movement
+- Improved input buffer
+- Added Jubei animations
+- Finished Defend system
+- Added new inputs to the controller
+
+#### Bug Fixes
+
+. . .
+
+### Update 0.9 - Patch # 16
+#### Version: v0.90
+#### Game size: ~19.7 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Added items to the existing UI spritesheet
+- Added new font spritesheet
+- Added final UI score prototype (use F12 to debug it)
+- Added grab system
+
+#### Bug Fixes
+- Fixed bug that caused players to start vibrating
+- Fixed jump/movement velocity according to the zoom
+
+. . .
+
+### Update 0.9 - Patch # 17
+#### Version: v0.93
+#### Game size: ~19.8 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Added POW System
+- Added health smooth damage
+- Added UI blinking
+- Added pow animation, needs fixing
+
+#### Bug Fixes
+- Fixed some problems in the pow animation (still need to pull apart the pow from the P1 and the pow from the P2)
+
+. . .
+
+### Update 0.9 - Patch # 18
+#### Version: v0.96
+#### Game size: ~19.9 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Added scoreboard prototype
+- Added special attacks
+- Added sword fight mechanic
+- Added improved grabbling
+- Added improved blocking
+- Improved all system combat
+- Implemented a lot of animations
+- Added disarm mechanic
+
+#### Bug Fixes
+- Fixed oneshot bug
+- Fixed noncollision Player 2 bug
+- Fixed a lot of little bugs
+
+. . .
+
+### Update 0.9 - Patch # 19
+#### Version: v0.98
+#### Game size: ~20 MB
+#### Client patch size: ~0.1 MB
+
+#### General Updates
+- Improved Pow and healthbar
+- Added Player 2 skin improved
+- Added Win/Lose animations
+- Added new movements to Player 2
+
+#### Bug Fixes
+- Fixed a lot of little bugs
+
+. . .
+
+### Update 1.0 - Alpha Release
+#### Version: v1.00
+#### Game size: ~ ? MB
+#### Client patch size: ~ ? MB
+
+#### General Updates
+- Added Intro cinematic scene
+- Added Character Select scene
+- Added Celebration scene
+- ?
+
+#### Bug Fixes
+- Fixed a lot of little bugs
+
+. . .
+
+
 
 
 
