@@ -219,9 +219,42 @@ update_status ModuleInterface::Update()
 		pow2interiorbar.y = 24 - 8 + (8 * pow2damage);
 		pow2interiorbar.w = (2 * pow2damage);
 
-		if (pow1damage != 0)App->render->Blit(ui, 99 - (2 * pow1damage), 202, false, &pow1interiorbar, NULL, true);//pow p1
+		if (pow1damage >= 31)
+		{
+			if (critpowdelay1 < 4)
+			{
+				critpowdelay1++;
+			}
+			else { critpowdelay1 = 0; critpowbarbucle1++; };
 
-		if (pow2damage != 0)App->render->Blit(ui, 202, 202, false, &pow2interiorbar, NULL, true);
+			if (critpowbarbucle1 == 0)pow1interiorbar = { 223,96,62,8 };
+			if (critpowbarbucle1 == 1)pow1interiorbar = { 223,104,62,8 };
+			if (critpowbarbucle1 == 2)pow1interiorbar = { 223,112,62,8 };
+			if (critpowbarbucle1 >= 3)critpowbarbucle1 = 0;
+
+		}
+		else pow1interiorbar.x = 0;
+
+		if (pow2damage >= 31)
+		{
+			if (critpowdelay2 < 4)
+			{
+				critpowdelay2++;
+			}
+			else { critpowdelay2 = 0; critpowbarbucle2++; };
+
+			if (critpowbarbucle2 == 0)pow2interiorbar = { 223,96,62,8 };
+			if (critpowbarbucle2 == 1)pow2interiorbar = { 223,104,62,8 };
+			if (critpowbarbucle2 == 2)pow2interiorbar = { 223,112,62,8 };
+			if (critpowbarbucle2 >= 3)critpowbarbucle2 = 0;
+
+		}
+		else pow2interiorbar.x = 0;
+
+
+		if (pow1damage != 0)App->render->Blit(ui, 104 - (2 * pow1damage), 207, false, &pow1interiorbar, NULL, true);//pow p1
+
+		if (pow2damage != 0)App->render->Blit(ui, 201, 207, false, &pow2interiorbar, NULL, true);//powp2
 
 		//powword logic
 		if (pow2damage < 8)actualpowwordframe2 = 0;
@@ -239,8 +272,8 @@ update_status ModuleInterface::Update()
 
 				if (criticalpowbucle2 == 0)actualpowwordframe2 = 4;
 				if (criticalpowbucle2 == 1)actualpowwordframe2 = 5;
-				if (criticalpowbucle2 == 3)actualpowwordframe2 = 6;
-				if (criticalpowbucle2 > 3)criticalpowbucle2 = 0;
+				if (criticalpowbucle2 == 2)actualpowwordframe2 = 6;
+				if (criticalpowbucle2 >= 3)criticalpowbucle2 = 0;
 				criticalpowbucle2++;
 			}
 		}
@@ -260,23 +293,23 @@ update_status ModuleInterface::Update()
 
 				if (criticalpowbucle == 0)actualpowwordframe = 4;
 				if (criticalpowbucle == 1)actualpowwordframe = 5;
-				if (criticalpowbucle == 3)actualpowwordframe = 6;
-				if (criticalpowbucle > 3)criticalpowbucle = 0;
+				if (criticalpowbucle == 2)actualpowwordframe = 6;
+				if (criticalpowbucle >= 3)criticalpowbucle = 0;
 				criticalpowbucle++;
 			}
 		}
 
 
+		SDL_Rect credits = { 230,264,64,8 };
+		App->render->Blit(ui, 16, 216, false, &credits, NULL, true);//credits 03 blit left
+		App->render->Blit(ui, 39, 207, false, &powbar, NULL, true);
 
-		App->fonts->BlitText(10, 212, 1, "CREDITS 03");
-		App->render->Blit(ui, 34, 202, false, &powbar, NULL, true);
+		App->render->Blit(ui, 40 - powpivot1[actualpowwordframe].x - powword[actualpowwordframe].w, 216 - powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow left
 
-		App->render->Blit(ui, 35 - powpivot1[actualpowwordframe].x - powword[actualpowwordframe].w, 211 - powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow left
+		App->render->Blit(ui, 224, 216, false, &credits, NULL, true);//credits 03 blit right
+		App->render->Blit(ui, 200, 207, true, &powbar, NULL, true);
 
-		App->fonts->BlitText(200, 212, 1, "CREDITS 03");
-		App->render->Blit(ui, 201, 202, true, &powbar, NULL, true);
-
-		App->render->Blit(ui, 264 - powpivot2[actualpowwordframe2].x, 211 - powword[actualpowwordframe2].h, false, &powword[actualpowwordframe2], NULL, true);//word pow right
+		App->render->Blit(ui, SCREEN_WIDTH - 40 - powpivot2[actualpowwordframe2].x, 216 - powword[actualpowwordframe2].h, false, &powword[actualpowwordframe2], NULL, true);//word pow right
 
 
 		if (App->player2->debugmode)//debug information
