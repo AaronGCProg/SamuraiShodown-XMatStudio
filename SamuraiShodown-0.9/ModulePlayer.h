@@ -279,7 +279,7 @@ public:
 	int swordFightCount = 0;
 	int swordFightCount2 = 0;
 	bool swordDrop = false;
-	int swordTrack = 0;
+	int swordTrack = NULL;
 	bool swordDropped = false;
 	bool swordOnTheGround = false;
 	bool closeSword = false;

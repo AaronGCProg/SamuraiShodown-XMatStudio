@@ -78,10 +78,10 @@ ModulePlayer::ModulePlayer()
 
 
 	// Kick animation 
-	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 12, 5, 5, 1);
-	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 12, 5, 5, 1);
-	kick.PushBack({ 1155,478,82,116 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 12, 5, 5, 1);
-	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 12, 5, 5, 1);
+	kick.PushBack({ 902,487,77,107 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 12, 7, 7, 1);
+	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 12, 7, 7, 1);
+	kick.PushBack({ 1155,478,82,116 }, 6, { 31,2 }, kickCollider2, kickHitbox2, kickCollType2, kickCallBack2, 12, 7, 7, 1);
+	kick.PushBack({ 980,483,62,111 }, 6, { 31,2 }, kickCollider, kickHitbox, kickCollType, kickCallBack, 12, 7, 7, 1);
 	//kick.speed = 0.12f;
 
 
@@ -97,11 +97,11 @@ ModulePlayer::ModulePlayer()
 
 
 	// Punch animation 
-	punch.PushBack({ 1,721,86,97 }, 3, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 5, 5, 3);
-	punch.PushBack({ 88,729,130,89 }, 4, { 28,3 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 212, 5, 5, 3);
-	punch.PushBack({ 219,729,150,90 }, 8, { 28,3 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 12, 5, 5, 3);
-	punch.PushBack({ 370,729,137,89 }, 6, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 5, 25, 3);
-	punch.PushBack({ 508,729,96,89 }, 5, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 5, 5, 3);
+	punch.PushBack({ 1,721,86,97 }, 3, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 7, 7, 3);
+	punch.PushBack({ 88,729,130,89 }, 4, { 28,3 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 212, 7, 7, 3);
+	punch.PushBack({ 219,729,150,90 }, 8, { 28,3 }, punchCollider, punchHitbox, punchCollType, punchCallBack, 12, 7, 7, 3);
+	punch.PushBack({ 370,729,137,89 }, 6, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 7, 7, 3);
+	punch.PushBack({ 508,729,96,89 }, 5, { 28,3 }, punchCollider2, punchHitbox2, punchCollType2, punchCallBack2, 12, 7, 7, 3);
 	//punch.speed = 0.2f;
 
 
@@ -561,9 +561,9 @@ ModulePlayer::ModulePlayer()
 
 
 	// grab animation
-	swordFight.PushBack({ 117,2707,82,108 }, 91, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
-	swordFight.PushBack({ 242,2713,96,104 }, 91, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
-	swordFight.PushBack({ 366,2705,68,110 }, 91, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
+	swordFight.PushBack({ 117,2707,82,108 }, 61, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
+	swordFight.PushBack({ 242,2713,96,104 }, 61, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
+	swordFight.PushBack({ 366,2705,68,110 }, 61, { 31,2 }, getgrabCollider, getgrabHitbox, getgrabCollType, getgrabCallBack, 0, 0, 0, 0);
 
 
 	const int NWidleCollider = 2;//Collider num for the idle animation
@@ -939,8 +939,8 @@ ModulePlayer::ModulePlayer()
 	Module* NWfallCallBack[NWfallCollider] = { {this},{this} };
 
 	NWfall.PushBack({ 2559,3184,94,79 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
-	NWfall.PushBack({ 2655,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
-	NWfall.PushBack({ 2767,3194,111,69 }, 23, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
+	NWfall.PushBack({ 2655,3194,111,69 }, 19, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
+	NWfall.PushBack({ 2767,3194,111,69 }, 17, { 31,2 }, NWfallCollider, NWfallHitbox, NWfallCollType, NWfallCallBack, 0, 0, 0, 0);
 
 }
 
@@ -962,6 +962,12 @@ bool ModulePlayer::Start()
 	healthAnim = 0;
 	critical = false;
 	health = 0;
+
+
+	jumpingSwordFrame = 0;
+	swordDropped = false;
+	swordTrack = NULL;
+	swordTrackGround = NULL;
 
 	LOG("Listening for Arrow keys + SPACE:\n");
 	LOG("Loading player textures");
@@ -1279,10 +1285,12 @@ update_status ModulePlayer::Update()
 		current_animation = &pickUpSword;
 
 		noSword = false;
-		delete App->particles->active[swordTrackGround];
-		App->particles->active[swordTrackGround] = nullptr;
-		swordTrackGround = 0;
-		swordTrack = 0;
+		if (swordTrackGround != NULL) {
+			delete App->particles->active[swordTrackGround];
+			App->particles->active[swordTrackGround] = nullptr;
+			swordTrackGround = 0;
+			swordTrack = NULL;
+		}
 		swordDropped = false;
 		swordOnTheGround = false;
 		closeSword = false;
@@ -1572,7 +1580,7 @@ update_status ModulePlayer::Update()
 			alredycollided2 = false;
 
 			if (App->player2->playerFlip && grabStates == 0) {
-				flipAux = true; grabStates++; App->player2->position.x = position.x + 50;
+				flipAux = true; grabStates++; App->player2->position.x = position.x + 70;
 				Mix_PlayChannel(-1, App->audio->effects[21], 0);
 				swordFightCount = 0;
 				App->particles->AddParticle(App->particles->swordFightEnd, position.x, position.y - 65, COLLIDER_GRAB);
@@ -1580,7 +1588,7 @@ update_status ModulePlayer::Update()
 
 			}
 			else if (!App->player2->playerFlip && grabStates == 0) {
-				flipAux = false; grabStates++;  position.x = App->player2->position.x + 50;
+				flipAux = false; grabStates++;  position.x = App->player2->position.x + 70;
 				Mix_PlayChannel(-1, App->audio->effects[21], 0);
 				App->particles->AddParticle(App->particles->swordFightEnd, (App->player2->position.x + 20), position.y - 65, COLLIDER_GRAB);
 				App->particles->AddParticle(App->particles->spark, (App->player2->position.x + 20), position.y - 65, COLLIDER_GRAB);
@@ -1727,13 +1735,13 @@ update_status ModulePlayer::Update()
 		if (!swordDropped)
 			App->particles->AddParticle(App->particles->swordDrop, (int)(position.x - (140 * player1scale)), (int)(position.y - (44 * player1scale)), playerFlip, COLLIDER_GRAB);
 		swordDropped = true;
-
+		if (swordTrack != NULL)
 		App->particles->active[swordTrack]->position.y = groundlevelaux - (JUMP_INIT_VY*jumpingSwordFrame) + (0.5*(JUMP_INIT_AY)*pow(jumpingSwordFrame, 2));//MRUA formula
-
+		if (swordTrack != NULL)
 		App->particles->active[swordTrack]->position.x += 2;
 		jumpingSwordFrame++;
 
-		if (App->particles->active[swordTrack]->position.y > groundlevelaux && jumpingSwordFrame > 1) {
+		if (App->particles->active[swordTrack]->position.y > groundlevelaux && jumpingSwordFrame > 1 &&  swordTrack != NULL) {
 
 			swordDrop = false;
 			swordOnTheGround = true;
@@ -1749,9 +1757,11 @@ update_status ModulePlayer::Update()
 		if (!swordDropped) {
 			noSword = true;
 			App->particles->AddParticle(App->particles->swordGround, (int)App->particles->active[swordTrack]->position.x, (int)App->particles->active[swordTrack]->position.y - (60 * player1scale), playerFlip, COLLIDER_GRAB);
+			if(swordTrack != NULL){
 			delete App->particles->active[swordTrack];
 			App->particles->active[swordTrack] = nullptr;
-			swordTrack = 0;
+			swordTrack = NULL;
+			}
 			swordDropped = true;
 		}
 
@@ -1957,7 +1967,7 @@ update_status ModulePlayer::Update()
 		App->render->DrawQuad({ 0,588,391,148 }, 0, 255, 0, 80);
 
 
-		if (position.x < 50 || position.x > 310) {
+		if (position.x < 50 || position.x > 370) {
 			if (App->player2->playerFlip) {
 				if (aux > 0 && aux < internalAux) {
 					App->player2->position.x += (int)(aux*player1scale);
@@ -2356,6 +2366,7 @@ update_status ModulePlayer::Update()
 				jumpingframe = 0;
 				position.y = groundlevelaux;
 				fall_bounces++;
+				jumpingescala = 0;
 			}
 		}
 		if (fall_bounces > FALLBOUNCES &&hasjumped == true && delay > 45 || App->fight->played == 1)
@@ -2530,7 +2541,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				}
 			}
 		}
-			if (c1->type == COLLIDER_PLAYER_ATTACK && c2->type == COLLIDER_ENEMY_ATTACK && (c1->attackType != 1 || c1->attackType != 2 || c2->attackType != 1 || c2->attackType != 2)) {
+			if (c1->type == COLLIDER_PLAYER_ATTACK && c2->type == COLLIDER_ENEMY_ATTACK && (c1->attackType != 1 && c1->attackType != 2  && c2->attackType != 1 && c2->attackType != 2)) {
 				if (!alredycollided2) {
 					Mix_PlayChannel(-1, App->audio->effects[20], 0);
 					App->particles->AddParticle(App->particles->spark, (c1->rect.x + c1->rect.w) - (c1->rect.x + c1->rect.w - c1->rect.x), c2->rect.y, playerFlip, COLLIDER_NONE); //Particle test
@@ -2540,7 +2551,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				}
 			}
 
-			if (c2->type == COLLIDER_ENEMY_ATTACK && c1->type != COLLIDER_PLAYER_ATTACK) {
+			if (c2->type == COLLIDER_ENEMY_ATTACK && c1->type == COLLIDER_PLAYER) {
 				int random = rand();
 				aux = (int)c2->delayEnemy*1.75;
 				if (blocking && (current_state == ST_WALK_BACKWARD || current_state == ST_CROUCH || current_state == ST_WALK_FORWARD || crouching)) {

@@ -81,6 +81,8 @@ bool ModuleSceneHanzo::Start()
 	App->collision->Enable();
 	App->interface->Enable();
 	App->fight->Enable();
+	App->particles->Enable();
+
 
 	App->audio->soundtracks[0] = Mix_LoadMUS("Assets/Music/hanzomusic.ogg");
 
@@ -114,6 +116,7 @@ bool ModuleSceneHanzo::CleanUp()
 	App->player2->Disable();
 	App->player->Disable();
 	App->referee->Disable();
+	App->particles->Disable();
 
 	App->textures->Unload(graphics);
 	
