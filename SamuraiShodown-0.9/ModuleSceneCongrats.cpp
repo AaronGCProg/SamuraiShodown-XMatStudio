@@ -35,7 +35,7 @@ bool ModuleSceneCongrats::Start()
 
 
 	jubei = { 306, 1, 141, 164 };
-	jubeiAux = { -300 , 39 , 141 * SCREEN_SIZE, 164 * SCREEN_SIZE };
+	jubeiAux = { -300 , 40 , 141 * SCREEN_SIZE, 164 * SCREEN_SIZE };
 
 	loser = { 340, 168, 85, 72 };
 	loserAux = { -380, 90 , 85 * SCREEN_SIZE, 72 * SCREEN_SIZE };
