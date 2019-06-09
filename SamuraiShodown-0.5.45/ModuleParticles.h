@@ -45,16 +45,16 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 
-	void AddParticle(const Particle& particle, int x, int y,  bool fliped, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, bool fliped, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
 
 private:
 
 	SDL_Texture* graphics = nullptr;
-	Particle* active[MAX_ACTIVE_PARTICLES];
 	uint last_particle = 0;
 
 public:
 
+	Particle* active[MAX_ACTIVE_PARTICLES];
 	Particle tornadoHao;
 	Particle bloodLow;
 	Particle bloodMid;
@@ -67,6 +67,10 @@ public:
 	Particle swordFightEnd;
 	Particle spark;
 	Particle tornadoHaoImpact;
+	Particle swordDrop;
+	Particle swordGround;
+	Particle swordDrop2;
+	Particle swordGround2;
 
 };
 

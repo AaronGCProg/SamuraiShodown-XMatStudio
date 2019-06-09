@@ -61,6 +61,8 @@ public:
 	int actualtime = 99;
 	bool timerStop = false;
 	bool showscore = false;
+	bool printSwordFight = false;
+	int countAux = 0;
 
 	int koBlinking;
 	int lifescore = 1;

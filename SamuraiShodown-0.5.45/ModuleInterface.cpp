@@ -207,9 +207,9 @@ update_status ModuleInterface::Update()
 		pow2interiorbar.y = 24 - 8 + (8 * pow2damage);
 		pow2interiorbar.w = (2 * pow2damage);
 
-		if (pow1damage != 0)App->render->Blit(ui, 37, 202, false, &pow1interiorbar, NULL, true);//pow p1
+		if (pow1damage != 0)App->render->Blit(ui, 99 - (2 * pow1damage), 202, false, &pow1interiorbar, NULL, true);//pow p1
 
-		if (pow2damage != 0)App->render->Blit(ui, 263 - (2 * pow2damage), 202, true, &pow2interiorbar, NULL, true);//powp2
+		if (pow2damage != 0)App->render->Blit(ui, 202, 202, false, &pow2interiorbar, NULL, true);
 
 		//powword logic
 		if (pow2damage < 8)actualpowwordframe = 0;
@@ -259,6 +259,21 @@ update_status ModuleInterface::Update()
 
 	}
 
+	if (printSwordFight) {
+		SDL_Rect pushButton = { 2117, 41, 41, 56 };
+		SDL_Rect pushButton2 = { 2159, 40, 49, 57 };
+		if (countAux < 4)
+			App->render->Blit(App->player->graphics, (SCREEN_WIDTH / 2) - 20, 40, false, &pushButton, NULL, true);
+		else
+			App->render->Blit(App->player->graphics, (SCREEN_WIDTH / 2) - 20, 40, false, &pushButton2, NULL, true);
+
+		countAux++;
+		if (countAux > 8) countAux = 0;
+
+	}
+
+	
+	
 	//need to do it for both players
 	if (showscore)
 	{

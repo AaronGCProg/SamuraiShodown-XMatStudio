@@ -8,7 +8,7 @@
 #define JUMP_TIME 3000
 #define PUNCH_TIME 28
 #define KICK_TIME 17
-#define FALLBOUNCES 2
+#define FALLBOUNCES2 1
 
 #define HEALTH_VALUE 129
 #define MAXNUMOFCOLLIDERS 6
@@ -66,8 +66,15 @@ enum player_states
 	ST_STRONG_PUNCH_NEUTRAL_JUMP,
 	ST_KICK_MID_NEUTRAL_JUMP,
 	ST_KICK_STRONG_NEUTRAL_JUMP,
-	ST_PUNCH_CLOSE_STANDING
+	ST_PUNCH_CLOSE_STANDING,
+	ST_SWORD_FIGHT,
+	ST_SWORD_GRABBING,
+	ST_SIDE_STEPPING,
+	ST_SPRINT,
+	ST_SPRINT_END,
 
+	ST_SECOND_GRAB,
+	ST_SECOND_GRABBING
 };
 
 enum player_inputs
@@ -103,7 +110,18 @@ enum player_inputs
 	IN_X_MID,
 	IN_X_STRONG,
 	IN_STRONG_KICK,
-	IN_MID_KICK
+	IN_MID_KICK,
+	IN_SWORD_FIGHT,
+	IN_SWORD_FIGHT_LOSE,
+	IN_SWORD_FIGHT_WIN,
+	IN_SWORD_FIGHT_DRAW,
+	IN_SWORD_GRAB,
+	IN_SWORD_GRABBED,
+	IN_SIDE_STEP,
+	IN_SPRINT,
+	IN_SPRINT_END,
+	IN_NOT_SWORD_FIGHT,
+	IN_SECOND_GRAB
 };
 
 
@@ -114,7 +132,7 @@ public:
 	ModulePlayer();
 	~ModulePlayer();
 
-	bool Start();	
+	bool Start();
 	update_status PreUpdate();
 	update_status Update();
 	bool CleanUp();
@@ -169,7 +187,42 @@ public:
 	Animation crouchstrongPunch;
 	Animation crouchmidKick;
 	Animation grab;
+
 	Animation shortPunch;
+	Animation swordFight;
+	Animation NWidle;
+	Animation pickUpSword;
+	Animation sideStep;
+
+	Animation NWpunch;
+	Animation NWbacksprint;
+	Animation sprint;
+	Animation sprintEnd;
+	Animation backsprint;
+	Animation NWcrouch;
+	Animation NWjump;
+	Animation NWstrongpunch;
+	Animation NWkick;
+	Animation NWstrongkick;
+	Animation NWcrouchPunch;
+	Animation NWstrongcrouchPunch;
+	Animation NWcrouchKick;
+	Animation NWcrouchmidKick;
+	Animation NWcrouchstrongKick;
+	Animation NWjumpPunch;
+	Animation NWjumpKick;
+	Animation NWjumpstrongPunch;
+	Animation NWjumpstrongKick;
+	Animation NWsprint;
+	Animation NWsprintEnd;
+	Animation NwcrouchBlock;
+	Animation NWblockingIdle;
+	Animation NWbackward;
+	Animation NWforward;
+	Animation NWgrab;
+	Animation getGrab2;
+	Animation midgrab;
+
 
 
 	iPoint position;
@@ -178,10 +231,6 @@ public:
 	Uint32 punch_timer = 0;
 	Uint32 kick_timer = 0;
 	Uint32 fall_bounces = 0;
-
-	int powValue = 0;
-	bool powActivated = false;
-	bool powOff = false;
 
 	bool showingshadow = false;//shadow semitransparent
 	bool jumping = false;
@@ -194,6 +243,7 @@ public:
 	bool crouchkicking = false;
 	bool crouchpunching = false;
 	int jumpingframe = 0;
+	int jumpingSwordFrame = 0;
 	int groundlevelaux = 0;
 	bool getsHit = false;
 	bool hasjumped = false;
@@ -215,22 +265,44 @@ public:
 	bool grabbing = false;
 	bool getGrabbed = false;
 	bool blockingAction = false;
-	bool blockingActionCrouch = false;
 	bool midPunching = false;
 	bool strongPunching = false;
 	bool midKicking = false;
 	bool strongKicking = false;
+	bool blockingActionCrouch = false;
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
-	bool critical = false;
 	int grabStates = 0;
 	bool flipAux = false;
+	bool swordFighting = false;
+	int swordFightCount = 0;
+	int swordFightCount2 = 0;
+	bool swordDrop = false;
+	int swordTrack = 0;
+	bool swordDropped = false;
+	bool swordOnTheGround = false;
+	bool closeSword = false;
+	int swordTrackGround = NULL;
+	bool noSword = false;
+	bool grabbingSword = false;
+	bool sideStepping = false;
+	bool sprinting = false;
+	int sideStepAux = 0;
+	int internalAux = 0;
+	bool alredycollided2 = false;
+	bool grabbing2 = false;
+	int powValue = 0;
+	bool powActivated = false;
+	bool powOff = false;
+	int healthAnim = 0;
+	bool critical = false;
 	int healthBlinking = 0;
+	int score = 0;
+
 
 	int invencibleaux = 0;
 	int health = 0;
-	int healthAnim = 0;
-	int aux = 10;
+	int aux = 5;
 	//int attack_life = 0;
 	//int attack_born = 0;
 	int playerPivotX = 0; //declare & inizialize pivot

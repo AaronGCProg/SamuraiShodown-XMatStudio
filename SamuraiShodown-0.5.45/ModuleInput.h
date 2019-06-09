@@ -13,7 +13,7 @@
 #define PUNCH_TIME 1000
 
 #define MAX_BUTTONS 150
-#define DEATHZONE  10000
+#define DEATHZONE  11000
 #define MAX_GAME_CONTROLLERS 2
 
 #define MAX_HISTORY 180
@@ -37,7 +37,7 @@ struct GamePad
 	bool duleft = false;
 	bool ddright = false;
 	bool ddleft = false;
-	bool a = false;
+	int a = false;
 	bool b = false;
 	bool x = false;
 	bool y = false;
@@ -86,17 +86,14 @@ public:
 	bool CheckTornado(int frames_past, int player, bool playerflip);
 	bool CheckKick(int frames_past, int player, bool playerflip);
 	bool CheckThrow1(int frames_past, int player, bool playerflip);
+	bool CheckThrow2(int frames_past, int player, bool playerflip);
+	bool CheckSwordGrab(int frames_past, int player, bool playerflip);
+	bool CheckLittleJump(int frames_past, int player, bool playerflip);
+	bool CheckSprint(int frames_past, int player, bool playerflip);
 
 
 	GamePad pad;
-
-
-
 	SDL_Event event_;
-
-
-
-
 	SDL_GameController*Controller_player1 = nullptr;
 
 	bool Controller_player1_Connected = false; //bool checking if the controller is connected or not

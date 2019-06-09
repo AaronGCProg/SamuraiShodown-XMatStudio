@@ -143,7 +143,7 @@ update_status ModuleInput::PreUpdate()
 	{
 		pads[1].up = true;
 	}
-	else if ((SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > DEATHZONE)
+	if ((SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) < 10922 && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTX) > -10922) && SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_LEFTY) > DEATHZONE)
 	{
 		pads[1].down = true;
 	}
@@ -182,17 +182,25 @@ update_status ModuleInput::PreUpdate()
 		pads[1].up = false;
 
 	}
-	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A))
+	if (SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_A))
 		pads[1].a = true;
+	else
+		pads[1].a = false;
 
-	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B))
+	if (SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_B))
 		pads[1].b = true;
+	else
+		pads[1].b = false;
 
-	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_X))
+	if (SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_X))
 		pads[1].x = true;
+	else
+		pads[1].x = false;
 
-	if (SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_Y))
+	if (SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_Y))
 		pads[1].y = true;
+	else
+		pads[1].y = false;
 
 	if (history_cursor >= MAX_HISTORY) history_cursor = 0;
 
@@ -216,12 +224,12 @@ update_status ModuleInput::PreUpdate()
 
 
 					controller_player1_A_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A);
+
 					controller_player1_Start_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_START);
 					controller_player1_B_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B);
 					controller_player1_X_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_X);
 					controller_player1_Y_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_Y);
 					controller_player1_RightShoulder_pressed = SDL_GameControllerGetAxis(Controller_player1, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-
 					Controller_player1_Connected = true;
 				}
 
@@ -255,8 +263,8 @@ update_status ModuleInput::PreUpdate()
 
 					controller_player2_Start_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_START);
 					controller_player2_B_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_B);
-					controller_player2_X_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_X);
-					controller_player2_Y_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_Y);
+					controller_player2_X_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_X);
+					controller_player2_Y_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_Y);
 					controller_player2_RightShoulder_pressed = SDL_GameControllerGetAxis(Controller_player2, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 					Controller_player2_Connected = true;
 
@@ -276,155 +284,6 @@ update_status ModuleInput::PreUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
-//bool CommandSuigetsu::Check(uint frames_past) const
-//{
-//	//press A
-//
-//	int count = 0;
-//	uint frame = 0;
-//
-//	for (uint i = 0; i < frames_past; i++)
-//	{
-//		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
-//
-//
-//		/*const History* history = GetPrevious(i);
-//		if (!history)
-//			break;*/
-//
-//
-//		switch (count)
-//		{
-//		case 0:
-//			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
-//			break;
-//
-//
-//		case 1:
-//			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
-//			break;
-//
-//		case 2:
-//			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
-//			break;
-//
-//		case 3:
-//			if (App->input->controller_player1_A_pressed || App->input->controller_player1_B_pressed) { return true; } break;
-//
-//		}
-//	}
-//}
-//
-//bool CommandNikkaku::Check(uint frames_past) const
-//{
-//
-//	int count = 0;
-//	uint frame = 0;
-//
-//	for (uint i = 0; i < frames_past; i++)
-//	{
-//		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
-//
-//
-//		/*const History* history = GetPrevious(i);
-//		if (!history)
-//			break;*/
-//
-//
-//		switch (count)
-//		{
-//		case 0:
-//			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && ((App->input->Controller_player1_LAxisY < DEATHZONE && App->input->Controller_player1_LAxisY < -DEATHZONE))) { count++; frame = i; }
-//			break;
-//
-//
-//		case 1:
-//			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
-//			break;
-//
-//		case 2:
-//			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
-//			break;
-//
-//		case 3:
-//			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; } break;
-//
-//		case 4:
-//			if (App->input->controller_player1_A_pressed || App->input->controller_player1_B_pressed) { return true; } break;
-//
-//
-//		}
-//	}
-//}
-//
-//bool CommandHasso::Check(uint frames_past) const
-//{
-//	int count = 0;
-//	uint frame = 0;
-//
-//	for (uint i = 0; i < frames_past; i++)
-//	{
-//		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
-//
-//
-//		/*const History* history = GetPrevious(i);
-//		if (!history)
-//			break;*/
-//
-//
-//		switch (count)
-//		{
-//		case 0:
-//			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && ((App->input->Controller_player1_LAxisY < DEATHZONE && App->input->Controller_player1_LAxisY < -DEATHZONE))) { count++; frame = i; }
-//			break;
-//
-//
-//		case 1:
-//			if (App->input->Controller_player1_LAxisX > 21845) { count++; frame = i; }
-//			break;
-//
-//		case 2:
-//			if ((App->input->Controller_player1_LAxisX > -10922 && App->input->Controller_player1_LAxisX < 10922) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { count++; frame = i; }
-//			break;
-//
-//		case 3:
-//			if ((App->input->Controller_player1_LAxisX > 10922 && App->input->Controller_player1_LAxisX < 21845) && (App->input->Controller_player1_LAxisY < -DEATHZONE)) { return true; } break;
-//
-//		}
-//	}
-//}
-//
-//bool CommandPunch::Check(uint frames_past) const
-//{
-//	int count = 0;
-//	uint frame = 0;
-//
-//	for (uint i = 0; i < frames_past; i++)
-//	{
-//		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
-//
-//
-//		const History* story = App->input->GetPrevious(i);
-//		if (!story)
-//			break;
-//
-//		const GamePad * pad = &story->pads[0];
-//
-//
-//		switch (count)
-//		{
-//		case 0:
-//			if (pad->a) { count++; frame = i; }
-//			break;
-//
-//		case 1:
-//			if (pad->a) { return true; }
-//			break;
-//
-//		}
-//	}
-//}
-
 bool ModuleInput::CheckPunch(int frames_past, int player, bool playerflip) {
 
 	int count = 0;
@@ -438,19 +297,19 @@ bool ModuleInput::CheckPunch(int frames_past, int player, bool playerflip) {
 		const History* story = App->input->GetPrevious(i);
 		if (!story)
 			break;
-		
+
 		const GamePad * pad = &story->pads[player];
 
 
-			switch (count)
-			{
-			case 0:
-				if (pad->x) { count++; frame = i; }
-				break;
-			case 1:
-				if (pad->y) { 
-					return true; 
-				} break;
+		switch (count)
+		{
+		case 0:
+			if (pad->x) { count++; frame = i; }
+			break;
+		case 1:
+			if (pad->y) {
+				return true;
+			} break;
 
 		}
 	}
@@ -485,7 +344,6 @@ bool ModuleInput::CheckKick(int frames_past, int player, bool playerflip) {
 		}
 	}
 }
-
 bool ModuleInput::CheckThrow1(int frames_past, int player, bool playerflip) {
 
 	int count = 0;
@@ -522,6 +380,69 @@ bool ModuleInput::CheckThrow1(int frames_past, int player, bool playerflip) {
 		}
 	}
 }
+bool ModuleInput::CheckThrow2(int frames_past, int player, bool playerflip) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[player];
+
+
+		switch (count)
+		{
+
+		case 0:
+			if (!playerflip) {
+				if (pad->right) { count++; frame = i; }
+			}
+			else {
+				if (pad->left) { count++; frame = i; }
+			}
+			break;
+
+
+		case 1:
+			if (pad->y) { return true; } break;
+
+		}
+	}
+}
+
+bool ModuleInput::CheckSwordGrab(int frames_past, int player, bool playerflip) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[player];
+
+
+		switch (count)
+		{
+
+		case 0:
+			if (pad->b || pad->a || pad->x || pad->y) { return true; } break;
+
+		}
+	}
+}
 bool ModuleInput::CheckTornado(int frames_past, int player, bool playerflip) {
 
 	int count = 0;
@@ -548,8 +469,8 @@ bool ModuleInput::CheckTornado(int frames_past, int player, bool playerflip) {
 
 
 		case 1:
-			if(!playerflip){
-			if (pad->ddright) { count++; frame = i; }
+			if (!playerflip) {
+				if (pad->ddright) { count++; frame = i; }
 			}
 			else {
 				if (pad->ddleft) { count++; frame = i; }
@@ -567,6 +488,100 @@ bool ModuleInput::CheckTornado(int frames_past, int player, bool playerflip) {
 
 		case 3:
 			if (pad->x || pad->y) { return true; } break;
+
+		}
+	}
+}
+bool ModuleInput::CheckLittleJump(int frames_past, int player, bool playerflip) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[player];
+
+
+
+		switch (count)
+		{
+		case 0:
+			if (!playerflip) {
+				if (pad->left) { count++; frame = i; }
+			}
+			else {
+				if (pad->right) { count++; frame = i; }
+			}
+			break;
+		case 1:
+			if (!playerflip) {
+				if (!pad->left) { count++; frame = i; }
+			}
+			else {
+				if (!pad->right) { count++; frame = i; }
+			}
+			break;
+		case 2:
+			if (!playerflip) {
+				if (pad->left) { return true; } break;
+			}
+			else {
+				if (pad->right) { return true; } break;
+			}
+
+		}
+	}
+}
+bool ModuleInput::CheckSprint(int frames_past, int player, bool playerflip) {
+
+	int count = 0;
+	uint frame = 0;
+
+	for (uint i = 0; i < frames_past; i++)
+	{
+		if (count > 0 && (i - frame) > MAX_COMMAND_FRAMES) return false;
+
+
+		const History* story = App->input->GetPrevious(i);
+		if (!story)
+			break;
+
+		const GamePad * pad = &story->pads[player];
+
+
+
+		switch (count)
+		{
+		case 0:
+			if (!playerflip) {
+				if (pad->right) { count++; frame = i; }
+			}
+			else {
+				if (pad->left) { count++; frame = i; }
+			}
+			break;
+		case 1:
+			if (!playerflip) {
+				if (!pad->right) { count++; frame = i; }
+			}
+			else {
+				if (!pad->left) { count++; frame = i; }
+			}
+			break;
+		case 2:
+			if (!playerflip) {
+				if (pad->right) { return true; } break;
+			}
+			else {
+				if (pad->left) { return true; } break;
+			}
 
 		}
 	}

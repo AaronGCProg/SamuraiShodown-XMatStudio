@@ -88,7 +88,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY_SHOT] = false; //there must be another collider type for the attacks that pierce shots
-	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY_ATTACK] = false; //sword fight -> change to true
+	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY_ATTACK] = true; //sword fight -> change to true
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_NONE] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_GRAB] = false;
@@ -101,7 +101,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_PLAYER_SHOT] = false; //there must be another collider type for the attacks that pierce shots
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_ENEMY_ATTACK] = false;
-	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_PLAYER_ATTACK] = false; //sword fight -> change to true
+	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_PLAYER_ATTACK] = true; //sword fight -> change to true
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_NONE] = false;
 	matrix[COLLIDER_ENEMY_ATTACK][COLLIDER_GRAB] = false;
 
@@ -112,7 +112,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_GRAB][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_GRAB][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_GRAB][COLLIDER_ENEMY_ATTACK] = false;
-	matrix[COLLIDER_GRAB][COLLIDER_PLAYER_ATTACK] = false; 
+	matrix[COLLIDER_GRAB][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_GRAB][COLLIDER_NONE] = false;
 	matrix[COLLIDER_GRAB][COLLIDER_GRAB] = false;
 
@@ -134,7 +134,7 @@ update_status ModuleCollision::PreUpdate()
 		}
 	}
 
-	
+
 
 	return UPDATE_CONTINUE;
 }
@@ -204,9 +204,9 @@ void ModuleCollision::DebugDraw()
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-		//case COLLIDER_WALL: // blue
-			//App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			//break;
+			//case COLLIDER_WALL: // blue
+				//App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+				//break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
@@ -271,5 +271,5 @@ Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, int da
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
 	// TODO 0: Return true if there is an overlap
-	return !((this->rect.x + this->rect.w < r.x || r.x + r.w < this->rect.x) ||  (this->rect.y + this->rect.h < r.y || r.y + r.h < this->rect.y));
+	return !((this->rect.x + this->rect.w < r.x || r.x + r.w < this->rect.x) || (this->rect.y + this->rect.h < r.y || r.y + r.h < this->rect.y));
 }

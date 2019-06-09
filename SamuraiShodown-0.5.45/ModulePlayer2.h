@@ -18,7 +18,7 @@
 
 #define HEALTH_VALUE 129
 #define MAXNUMOFCOLLIDERS 6
-#define FALLBOUNCES 1
+#define FALLBOUNCES 0
 
 
 struct SDL_Texture;
@@ -66,7 +66,14 @@ enum player2_states
 	ST_STRONG_PUNCH_NEUTRAL_JUMP2,
 	ST_KICK_MID_NEUTRAL_JUMP2,
 	ST_KICK_STRONG_NEUTRAL_JUMP2,
-	ST_PUNCH_CLOSE_STANDING2
+	ST_PUNCH_CLOSE_STANDING2,
+	ST_SWORD_FIGHT2,
+	ST_SWORD_GRABBING2,
+	ST_SIDE_STEPPING2,
+	ST_SPRINT2,
+	ST_SPRINT_END2,
+	ST_SECOND_GRAB2,
+	ST_SECOND_GRABBING2
 
 };
 
@@ -103,8 +110,19 @@ enum player2_inputs
 	IN_X_MID2,
 	IN_X_STRONG2,
 	IN_STRONG_KICK2,
-	IN_MID_KICK2
+	IN_MID_KICK2,
+	IN_SWORD_FIGHT2,
+	IN_SWORD_FIGHT_LOSE2,
+	IN_SWORD_FIGHT_WIN2,
+	IN_SWORD_FIGHT_DRAW2,
+	IN_SWORD_GRAB2,
+	IN_SWORD_GRABBED2,
+	IN_SIDE_STEP2,
+	IN_SPRINT2,
+	IN_SPRINT_END2,
+	IN_SECOND_GRAB2
 };
+
 
 
 class ModulePlayer2 : public Module
@@ -140,8 +158,6 @@ public:
 	Animation punch;
 	Animation tornado;
 	Animation hurtLow;
-	Animation blockingIdle;
-	Animation crouchBlock;
 	Animation* current_animation;
 	Animation jumpKick;
 	Animation jumpPunch;
@@ -168,7 +184,44 @@ public:
 	Animation crouchmidKick;
 	Animation grab;
 	Animation shortPunch;
+	Animation blockingIdle;
+	Animation crouchBlock;
+
+	Animation swordFight;
+	Animation NWidle;
+	Animation pickUpSword;
+	Animation sideStep;
+
+	Animation NWpunch;
+	Animation NWbacksprint;
+	Animation sprint;
+	Animation sprintEnd;
+	Animation backsprint;
+	Animation NWcrouch;
+	Animation NWjump;
+	Animation NWstrongpunch;
+	Animation NWkick;
+	Animation NWstrongkick;
+	Animation NWcrouchPunch;
+	Animation NWstrongcrouchPunch;
+	Animation NWcrouchKick;
+	Animation NWcrouchmidKick;
+	Animation NWcrouchstrongKick;
+	Animation NWjumpPunch;
+	Animation NWjumpKick;
+	Animation NWjumpstrongPunch;
+	Animation NWjumpstrongKick;
+	Animation NWsprint;
 	Animation crouchstrongKick;
+	Animation NWsprintEnd;
+	Animation NWblockingIdle;
+	Animation NwcrouchBlock;
+	Animation NWbackward;
+	Animation NWforward;
+	Animation NWgrab;
+	Animation getGrab2;
+	Animation midgrab;
+
 
 
 	iPoint position;
@@ -191,11 +244,6 @@ public:
 	int jumpingframe = 0;
 	int groundlevelaux = 0;
 	int posyaux = 0;//new
-
-	int powValue = 0;
-	bool powActivated = false;
-	bool powOff = false;
-
 	bool tornading = false;
 	bool getsHit = false;
 	bool hasjumped = false;
@@ -214,7 +262,6 @@ public:
 	bool grabbing = false;
 	bool getGrabbed = false;
 	bool gettingGrabbed = false;
-	bool close = false;
 	bool blockingAction = false;
 	bool midPunching = false;
 	bool strongPunching = false;
@@ -224,16 +271,40 @@ public:
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
 	int grabStates = 0;
-	
+	bool flipAux = false;
+	bool swordFighting = false;
+	int swordFightCount = 0;
+	int swordFightCount2 = 0;
+	bool swordDrop = false;
+	int swordTrack = 0;
+	bool swordDropped = false;
+	bool swordOnTheGround = false;
+	bool closeSword = false;
+	int swordTrackGround = NULL;
+	bool noSword = false;
+	bool grabbingSword = false;
+	bool sideStepping = false;
+	bool sprinting = false;
+	int sideStepAux = 0;
+	int internalAux = 0;
+	int jumpingSwordFrame = 0;
+	bool grabbing2 = false;
+	int powValue = 0;
+	bool powActivated = false;
+	bool powOff = false;
+	int health = 0;
+	int healthAnim = 0;
+	int healthBlinking = 0;
 	bool critical = false;
+	int score = 0;
+
+
+
 	bool jumpleft = false;
 	bool jumpright = false;
 	bool crouching = false;
 	bool neutralJumpPunching = false;
 	bool audioPlayed = false;
-	int health = 0;
-	int healthBlinking = 0;
-	int healthAnim = 0;
 	int falling = false;//new
 	int aux = 10;
 	int invencibleaux = 0;

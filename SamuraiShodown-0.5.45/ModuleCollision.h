@@ -67,7 +67,7 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, int damage = 0, int delayPlayer = 0, int delayEnemy = 0, int attackType = 0, Module* callback = nullptr );
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, int damage = 0, int delayPlayer = 0, int delayEnemy = 0, int attackType = 0, Module* callback = nullptr);
 	void DebugDraw();
 
 private:
