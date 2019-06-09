@@ -28,7 +28,7 @@ src="https://www.youtube.com/embed/P8MXNEiODTw" frameborder="0" allowfullscreen>
 
 <center>
 
-<font size="20"><a href="https://aarongcprog.github.io/SamuraiShodown-XMatStudio/">Download our game Build</a></font>
+<font size="14"><a href="https://aarongcprog.github.io/SamuraiShodown-XMatStudio/">Download our game Build</a></font>
 
 </center>
 
