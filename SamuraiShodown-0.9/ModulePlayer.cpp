@@ -1887,7 +1887,6 @@ update_status ModulePlayer::Update()
 					inputs.Push(IN_SWORD_FIGHT_WIN);
 					App->player2->p2inputs.Push(IN_SWORD_FIGHT_LOSE2);
 					App->player2->swordDrop = true;
-					swordDrop = true;
 				}
 				else if (swordFightCount - App->player2->swordFightCount < 5 && swordFightCount - App->player2->swordFightCount > -5) {
 					inputs.Push(IN_SWORD_FIGHT_DRAW);
@@ -1897,6 +1896,8 @@ update_status ModulePlayer::Update()
 				else {
 					App->player2->p2inputs.Push(IN_SWORD_FIGHT_WIN2);
 					inputs.Push(IN_SWORD_FIGHT_LOSE);
+					swordDrop = true;
+
 				}
 				aux = 5;
 				swordFightCount = 1;
