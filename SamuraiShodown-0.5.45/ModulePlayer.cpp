@@ -1578,6 +1578,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 				}
 				else {
 					health += 25;
+
 				}
 			inputs.Push(IN_FALL);
 			if (App->player2->position.y < groundlevelaux) {
@@ -1688,14 +1689,26 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
 
 			if (powActivated || App->player2->powActivated) {
 				health += c2->damage * 3 / 2;
-				App->player2->powActivated = false;
-				App->player2->powOff = true;
+				if (App->player2->powActivated) {
+					App->player2->powActivated = false;
+					App->player2->powOff = true;
+				}
+				else if (powActivated) {
+					powActivated = false;
+					powOff = true;
+				}
+				else {
+					powActivated = false;
+					powOff = true;
+					App->player2->powActivated = false;
+					App->player2->powOff = true;
+				}
 			}
 			else {
 				health += c2->damage;
-			}
 				
-				
+			}	
+			score += c2->damage*2;
 			powValue += 4;
 			getsHit = true; doingAction = true;
 

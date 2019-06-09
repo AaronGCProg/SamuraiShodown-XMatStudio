@@ -52,10 +52,12 @@ bool ModuleInterface::Start()
 	App->audio->effects[13] = Mix_LoadWAV("Assets/Music/draw_audio.wav");
 
 	App->fight->interfaceStart = true;
+	showscore = false;
+
 
 	//debug puntuations
 	P1punt.life = 8114;
-	P1punt.time = 505;
+	P1punt.time = 0;
 	P1punt.hitting_perc = 85;
 
 	P1punt.Resetactual();
@@ -68,13 +70,21 @@ bool ModuleInterface::Start()
 	powword[5] = { 175,25 ,51 ,39 };
 	powword[6] = { 228, 24,51 ,40 };
 
-	powpivot[0] = { 0,63 };
-	powpivot[1] = { 0,63 };
-	powpivot[2] = { 0,63 };
-	powpivot[3] = { 0,63 };
-	powpivot[4] = { 8,63 };
-	powpivot[5] = { 9,63 };
-	powpivot[6] = { 8,63 };
+	powpivot1[0] = { 0,63 };
+	powpivot1[1] = { 0,63 };
+	powpivot1[2] = { 0,63 };
+	powpivot1[3] = { 0,63 };
+	powpivot1[4] = { -13,63 };
+	powpivot1[5] = { -12,63 };
+	powpivot1[6] = { -13,63 };
+
+	powpivot2[0] = { 0,63 };
+	powpivot2[1] = { 0,63 };
+	powpivot2[2] = { 0,63 };
+	powpivot2[3] = { 0,63 };
+	powpivot2[4] = { 13,63 };
+	powpivot2[5] = { 14,63 };
+	powpivot2[6] = { 13,63 };
 
 	return true;
 }
@@ -122,7 +132,7 @@ update_status ModuleInterface::Update()
 			else
 				App->render->Blit(ui, (SCREEN_WIDTH / 2) - 14, 10, false, &ko, NULL, true); // KO UI
 
-			
+
 		else {
 
 			if (App->player->critical || App->player2->critical) {
@@ -191,11 +201,13 @@ update_status ModuleInterface::Update()
 		sprintf_s(time_text, 10, "%7d", actualtime);
 		App->fonts->BlitText((SCREEN_WIDTH / 2) - 15, 40, 0, time_text);
 
+		sprintf_s(p1scorechar, 10, "P1: %d", App->player2->score);
 		App->fonts->BlitText(10, 30, 1, "JUBEI");
-		App->fonts->BlitText(10, 5, 1, "P1= 3230");
+		App->fonts->BlitText(10, 5, 1, p1scorechar);
 
+		sprintf_s(p2scorechar, 10, "P2: %d", App->player->score);
 		App->fonts->BlitText(230, 30, 1, "JUBEI");
-		App->fonts->BlitText(200, 5, 1, "P2= 9249");
+		App->fonts->BlitText(200, 5, 1, p2scorechar);
 
 		//pows
 
@@ -212,10 +224,31 @@ update_status ModuleInterface::Update()
 		if (pow2damage != 0)App->render->Blit(ui, 263 - (2 * pow2damage), 202, true, &pow2interiorbar, NULL, true);//powp2
 
 		//powword logic
-		if (pow2damage < 8)actualpowwordframe = 0;
-		else if (pow2damage < 16)actualpowwordframe = 1;
-		else if (pow2damage < 24)actualpowwordframe = 2;
-		else if (pow2damage < 30)actualpowwordframe = 3;
+		if (pow2damage < 8)actualpowwordframe2 = 0;
+		else if (pow2damage < 16)actualpowwordframe2 = 1;
+		else if (pow2damage < 24)actualpowwordframe2 = 2;
+		else if (pow2damage < 30)actualpowwordframe2 = 3;
+		else
+		{
+			if (powdelay2 < 4)
+			{
+				powdelay2++;
+			}
+			else {
+				powdelay2 = 0;
+
+				if (criticalpowbucle2 == 0)actualpowwordframe2 = 4;
+				if (criticalpowbucle2 == 1)actualpowwordframe2 = 5;
+				if (criticalpowbucle2 == 3)actualpowwordframe2 = 6;
+				if (criticalpowbucle2 > 3)criticalpowbucle2 = 0;
+				criticalpowbucle2++;
+			}
+		}
+
+		if (pow1damage < 8)actualpowwordframe = 0;
+		else if (pow1damage < 16)actualpowwordframe = 1;
+		else if (pow1damage < 24)actualpowwordframe = 2;
+		else if (pow1damage < 30)actualpowwordframe = 3;
 		else
 		{
 			if (powdelay < 4)
@@ -238,12 +271,12 @@ update_status ModuleInterface::Update()
 		App->fonts->BlitText(10, 212, 1, "CREDITS 03");
 		App->render->Blit(ui, 34, 202, false, &powbar, NULL, true);
 
-		App->render->Blit(ui, 21-powpivot[actualpowwordframe].x, 211-powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow
+		App->render->Blit(ui, 35 - powpivot1[actualpowwordframe].x - powword[actualpowwordframe].w, 211 - powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow left
 
 		App->fonts->BlitText(200, 212, 1, "CREDITS 03");
 		App->render->Blit(ui, 201, 202, true, &powbar, NULL, true);
 
-		App->render->Blit(ui, 264-powpivot[actualpowwordframe].x, 211-powword[actualpowwordframe].h, false, &powword[actualpowwordframe], NULL, true);//word pow
+		App->render->Blit(ui, 264 - powpivot2[actualpowwordframe2].x, 211 - powword[actualpowwordframe2].h, false, &powword[actualpowwordframe2], NULL, true);//word pow right
 
 
 		if (App->player2->debugmode)//debug information
@@ -262,10 +295,11 @@ update_status ModuleInterface::Update()
 	//need to do it for both players
 	if (showscore)
 	{
+		scoreended = false;
 		switch (scoretable)
 		{
 		case DEFAULT:
-			if (P1punt.CountDelayInFrames(500)) { scoretable = IN_LIFE; }
+			if (P1punt.CountDelayInFrames(180)) { scoretable = IN_LIFE; }
 			break;
 		case IN_LIFE:
 			if (P1punt.LifeSubstraction(PUNTUATION_TIME)) { scoretable = IN_TIME; }
@@ -279,16 +313,29 @@ update_status ModuleInterface::Update()
 		case IN_TOTAL:
 			if (P1punt.CountDelayInFrames(PUNTUATION_TIME))
 			{
-				//when it ends the puntuation table
+				scoreended = true;
+				showscore = false;
 			}
 			break;
 
 		}
 
-		lifescore = P1punt.actuallife;
-		timescore = P1punt.actualtime;
-		hittingpercentatgescore = P1punt.actualhitting_perc;
-		totalScore = P1punt.actualtotal;
+		
+		if (playerwins==1)
+		{
+			lifescore = P1punt.actuallife;
+			timescore = P1punt.actualtime;
+			hittingpercentatgescore = P1punt.actualhitting_perc;
+			totalScore = P1punt.actualtotal;
+		}
+		if (playerwins==2)
+		{
+			lifescore = P2punt.actuallife;
+			timescore = P2punt.actualtime;
+			hittingpercentatgescore = P2punt.actualhitting_perc;
+			totalScore = P2punt.actualtotal;
+		}
+		
 
 		//blit of the score words______________________________________________________________________________________
 

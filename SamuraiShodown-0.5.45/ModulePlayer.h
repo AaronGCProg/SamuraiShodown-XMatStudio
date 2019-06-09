@@ -226,6 +226,7 @@ public:
 	int grabStates = 0;
 	bool flipAux = false;
 	int healthBlinking = 0;
+	int score = 0;
 
 	int invencibleaux = 0;
 	int health = 0;

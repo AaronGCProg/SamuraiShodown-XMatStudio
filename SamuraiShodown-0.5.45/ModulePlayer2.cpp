@@ -1473,13 +1473,27 @@ void ModulePlayer2::OnCollision(Collider* c1, Collider* c2) {
 				
 				if (powActivated || App->player->powActivated) {
 					health += c2->damage * 3 / 2;
-					App->player2->powActivated = false;
-					App->player2->powOff = true;
+					
+					if (App->player->powActivated) {
+						App->player->powActivated = false;
+						App->player->powOff = true;
+					}
+					else if (powActivated) {
+						powActivated = false;
+						powOff = true;
+					}
+					else {
+						powActivated = false;
+						powOff = true;
+						App->player->powActivated = false;
+						App->player->powOff = true;
+					}
 				}
 				else {
 					health += c2->damage;
+					
 				}
-
+				score += c2->damage*2;
 				powValue += 4;
 				getsHit = true; doingAction = true;
 

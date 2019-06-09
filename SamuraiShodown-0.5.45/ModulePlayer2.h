@@ -224,7 +224,8 @@ public:
 	int invencibleTotalTime = 750;
 	bool closeLowpunching = false;
 	int grabStates = 0;
-	
+	int score = 0;
+
 	bool critical = false;
 	bool jumpleft = false;
 	bool jumpright = false;
