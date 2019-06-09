@@ -1115,7 +1115,7 @@ update_status ModulePlayer::Update()
 					current_animation = &NWbackward; //FALTA ANIM
 				else
 					current_animation = &backward;
-				position.x += speed;
+				position.x -= speed;
 			}
 			break;
 		case ST_WALK_BACKWARD:
@@ -1125,7 +1125,7 @@ update_status ModulePlayer::Update()
 					current_animation = &NWbackward; //FALTA ANIM
 				else
 					current_animation = &backward;
-				position.x += speed;
+				position.x -= speed;
 			}
 			else {
 				if (swordDrop || swordOnTheGround)
@@ -1482,7 +1482,7 @@ update_status ModulePlayer::Update()
 	if (grabbing2) {
 		if ((close && !App->player2->invencibleframes && App->player2->position.y == position.y) || current_state == ST_SECOND_GRAB) {
 			App->player2->p2inputs.Push(IN_GET_GRABBED2);
-			if (App->player2->current_state == ST_GET_GRABBED2 || grabStates >= 0) {
+			if (grabStates >= 0) {
 				inputs.Push(IN_GRABBED);
 				if (App->player2->playerFlip && grabStates == 0) { flipAux = true; grabStates++; }
 				else if (!App->player2->playerFlip && grabStates == 0) { flipAux = false; grabStates++; }
@@ -1509,8 +1509,7 @@ update_status ModulePlayer::Update()
 						App->player2->position.x -= 40;
 
 					App->player2->position.y -= 40;
-					App->player2->doingAction = false;
-					App->player2->p2inputs.Push(IN_GRABBED_FINISH2);
+
 					grabStates++;
 				}
 
@@ -1527,12 +1526,12 @@ update_status ModulePlayer::Update()
 			else {
 				inputs.Push(IN_NOT_GRAB);
 				grabbing2 = false; doingAction = false;
-
 			}
 		}
 		else {
 			inputs.Push(IN_NOT_GRAB);
 			grabbing2 = false; doingAction = false;
+
 		}
 	}
 
@@ -2420,8 +2419,6 @@ update_status ModulePlayer::Update()
 	if (health > healthAnim)
 		healthAnim++;
 
-	if (health > healthAnim)
-		healthAnim++;
 
 	SDL_Rect healthBar = { 90, 81, 134, 15 };
 

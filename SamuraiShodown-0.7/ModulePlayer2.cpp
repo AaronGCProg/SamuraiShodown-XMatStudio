@@ -1090,7 +1090,7 @@ update_status ModulePlayer2::Update()
 						current_animation = &NWbackward;
 					else
 						current_animation = &backward;
-					position.x += speed;
+					position.x -= speed;
 					blocking = true;
 				}
 				break;
@@ -1109,7 +1109,7 @@ update_status ModulePlayer2::Update()
 						current_animation = &NWforward;
 					else
 						current_animation = &forward;
-					position.x += speed + 1 * speed;
+					position.x -= speed + 1 * speed;
 				}
 				break;
 			case ST_JUMP_NEUTRAL2:
@@ -2288,6 +2288,9 @@ update_status ModulePlayer2::Update()
 		SDL_SetTextureColorMod(graphics, 255, 255 - (powValue * 6), 255 - (powValue * 6));
 	else
 		SDL_SetTextureColorMod(graphics, 255, 30, 30);
+
+	if (health > healthAnim)
+		healthAnim++;
 
 	if ((App->fight->showHealthBar) == true) {
 		SDL_Rect healthBar = { 90, 81, 134, 15 };
