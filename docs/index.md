@@ -26,7 +26,15 @@ src="https://www.youtube.com/embed/P8MXNEiODTw" frameborder="0" allowfullscreen>
 
 <br><br>
 
-Click here to download a build of our Samurai Shodown version.
+<center>
+
+<form action="https://aarongcprog.github.io/SamuraiShodown-XMatStudio/">
+    <input type="download" value="Download our game Build" />
+</form>
+
+</center>
+
+<br><br>
 
 <center>
   
