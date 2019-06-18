@@ -1188,12 +1188,12 @@ update_status ModulePlayer::PreUpdate()
 update_status ModulePlayer::Update()
 {
 
-	//if (!randomStart && App->fight->playerControl) {
-	//	if(SDL_GetTicks() % 3)
-	//	inputs.Push(IN_SWORD_FIGHT);
+	if (!randomStart && App->fight->playerControl) {
+		if(SDL_GetTicks() % 4)
+		inputs.Push(IN_SWORD_FIGHT);
 
-	//		randomStart = true;
-	//}
+			randomStart = true;
+	}
 	float player1scale = App->render->escala - (PLAYER_ESCALE*(App->render->escala - 0.5)); //sets the player scale to 1.25 when he's in zoomin and to 0.75 when zoomout
 	//the PLAYER ESCALE is to adjust the real scale of the player
 	if (swordDrop || swordOnTheGround)
