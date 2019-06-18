@@ -1002,20 +1002,20 @@ ModulePlayer2::ModulePlayer2()
 	const int midshortPunchCollider = 3;//Collider num for the punch animation
 	const int midshortPunchCollider2 = 2;//Collider num for the punch animation
 	SDL_Rect midshortPunchHitbox[midshortPunchCollider] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 },{ 40, 30, 80, 30 } };
-	COLLIDER_TYPE midshortPunchCollType[midshortPunchCollider] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER},{COLLIDER_PLAYER_ATTACK} };
+	COLLIDER_TYPE midshortPunchCollType[midshortPunchCollider] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY_ATTACK} };
 	Module* midshortPunchCallBack[midshortPunchCollider] = { {this},{this},{this} };
 
 	SDL_Rect midshortPunchHitbox2[midshortPunchCollider2] = { { 35, 10, 40, 60 },{ 50, 60, 20, 20 } };
-	COLLIDER_TYPE midshortPunchCollType2[midshortPunchCollider2] = { {COLLIDER_PLAYER},{COLLIDER_PLAYER}, };
+	COLLIDER_TYPE midshortPunchCollType2[midshortPunchCollider2] = { {COLLIDER_ENEMY},{COLLIDER_ENEMY}, };
 	Module* midshortPunchCallBack2[midshortPunchCollider2] = { {this},{this} };
 
 	// Punch animation 
-	midshortPunch.PushBack({ 184,1669,92,117 }, 9, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1575,450,87,92 }, 9, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1663,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1778,450,114,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1893,450,114,92 }, 16, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
-	midshortPunch.PushBack({ 1575,450,87,92 }, 10, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 20, 9, 25, 3);
+	midshortPunch.PushBack({ 184,1669,92,117 }, 6, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 6, { 31,2 }, midshortPunchCollider2, midshortPunchHitbox2, midshortPunchCollType2, midshortPunchCallBack2, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1663,450,114,92 }, 6, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1778,450,114,92 }, 7, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1893,450,114,92 }, 15, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
+	midshortPunch.PushBack({ 1575,450,87,92 }, 9, { 31,2 }, midshortPunchCollider, midshortPunchHitbox, midshortPunchCollType, midshortPunchCallBack, 16, 9, 25, 3);
 
 }
 
@@ -1589,6 +1589,7 @@ update_status ModulePlayer2::Update()
 			kick.SetAnimEnd(false);
 			NWkick.SetAnimEnd(false);
 			audioPlayed = false;
+			p2inputs.Push(IN_PUNCH_FINISH2);
 		}
 	}
 
@@ -1830,6 +1831,7 @@ update_status ModulePlayer2::Update()
 			closemidpunching = false; doingAction = false; NWpunch.SetAnimEnd(false); midshortPunch.SetAnimEnd(false);
 			audioPlayed = false;
 			p2inputs.Push(IN_PUNCH_FINISH2);
+
 		}
 	}
 
@@ -3464,6 +3466,29 @@ player2_states ModulePlayer2::process_fsm(p2Qeue<player2_inputs>& inputs)
 
 			}
 
+		}
+		break;
+
+		case ST_PUNCH_CLOSE_STANDING_MID2:
+		{
+			switch (last_input)
+			{
+			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
+			case IN_SWORD_FIGHT2: state = ST_SWORD_FIGHT2; break;
+
+			}
+		}
+		break;
+		case ST_PUNCH_CLOSE_STANDING_STRONG2:
+		{
+			switch (last_input)
+			{
+			case IN_PUNCH_FINISH2: state = ST_IDLE2; break;
+			case IN_FALL2:state = ST_FALLING2; break;
+			case IN_SWORD_FIGHT2: state = ST_SWORD_FIGHT2; break;
+
+			}
 		}
 		break;
 
