@@ -145,6 +145,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
+	bool external_input(p2Qeue<player_inputs>& inputs);
 	void internal_input(p2Qeue<player_inputs>& inputs);
 	player_states process_fsm(p2Qeue<player_inputs>& inputs);
 
